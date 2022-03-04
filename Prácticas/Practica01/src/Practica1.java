@@ -9,8 +9,8 @@ public class Practica1 {
      * @return lista ordenada con el elemento agregado.
      */
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
-        /*Nodo explorador = lista.cabeza;
-        int contador = 0;
+        //Nodo explorador = lista.cabeza;
+        /*int contador = 0;
         while (explorador != null) { 
             if (explorador.elemento > nuevo)
                 lista.insert(contador, nuevo);
