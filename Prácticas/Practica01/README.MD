@@ -1,4 +1,5 @@
-Nombres -> ->
+Nombres -> 
+        ->
 compilar -> javac -d . src/*.java Ejecutar -> java Clases.Practica1
 
 Para crear un iterador en una direccion usa Iterator iter = lista.iterator(); Ejemplo -> System.out.println(iter.next());
