@@ -1,5 +1,7 @@
 package Clases;
 
+import java.util.Iterator;
+
 public class Practica1 {
 
     /**
@@ -9,15 +11,15 @@ public class Practica1 {
      * @return lista ordenada con el elemento agregado.
      */
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
-        //Nodo explorador = lista.cabeza;
-        /*int contador = 0;
+        int contador = 0;
+        Iterator iterador = lista.iterator();
+        
         while (explorador != null) { 
             if (explorador.elemento > nuevo)
                 lista.insert(contador, nuevo);
             explorador = explorador.siguiente;
             contador++;
         }
-        */
         return lista;
         // Aquí va su código.
     }

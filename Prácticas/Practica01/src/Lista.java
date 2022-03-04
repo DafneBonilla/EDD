@@ -1,6 +1,7 @@
 package Clases;
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 /**
  * <p>Clase de listas genéricas doblemente ligadas.</p>
@@ -212,12 +213,15 @@ public class Lista<T> implements Collection<T> {
      * Elimina un elemento de la lista. Si el elemento no esta en la lista,
      * regresa false.
      * @param elemento el elemento a eliminar.
+     * @return <code>true</code> si el elemento se pudo eliminae,
+     *         <code>false</code> en otro caso.
      */ 
     public boolean delete(T elemento) {
         Nodo marcado = buscaNodo(elemento);
         if (elemento == null || marcado == null)
             return false;
         desapareceNodo(marcado);
+        return true;
     }    
 
     /**
@@ -418,5 +422,21 @@ public class Lista<T> implements Collection<T> {
             this.insert(indice, explorador.elemento);
             explorador = explorador.siguiente;
         }
+    }
+
+    /**
+     * Regresa un iterador para recorrer la lista en una dirección.
+     * @return un iterador para recorrer la lista en una dirección.
+     */
+    public Iterator<T> iterator() {
+        return new Iterador();
+    }
+
+    /**
+     * Regresa un iterador para recorrer la lista en ambas direcciones.
+     * @return un iterador para recorrer la lista en ambas direcciones.
+     */
+    public IteradorLista<T> iteradorLista() {
+        return new Iterador();
     }
 }
