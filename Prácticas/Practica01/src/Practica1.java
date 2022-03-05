@@ -6,6 +6,10 @@ public class Practica1 {
 
     /**
      * Agrega un elemento de manera ordenada a un ejemplar ordenado de la clase Lista.
+     * El tiempo es O(n), ya que solo recorremos la lista hasta encontrar el lugar de nuevo
+     * y en el peor de los casos recorremos toda la lista, ademas insert corre en O(n) porque
+     * solo recorre la lista una vez por lo tanto es O(n).
+     * El espacion es O(1), ya que solo creamos un nodo al hacer insert.
      * @param lista la lista ordenada.
      * @param nuevo el elemento a agregar.
      * @return lista ordenada con el elemento agregado.
@@ -25,6 +29,11 @@ public class Practica1 {
 
     /**
      * Dadas dos listas obtener la union de las dos sin repetidos y no importa orden.
+     * El tiempo es O(n por m), ya que la operacion que toma más tiempo es cuando recorremos
+     * la lista en el metodo, por cada nodo en lista1 recorremos la lista2 por lo tanto
+     * n por m y asi tenemos O(n por m).
+     * El espacio es O(m) creo, ya que conservamos la lista1 y solo agregamos a lo más m
+     * nuevos nodo a lista1.
      * Para mejorar el tiempo puede ser que las listas que recibimos esten ordenadas
      * y asi poder ver si iterator.next() > actual, si pasa ya no recorremos más.
      * Otra manera sería conociendo los elementos de las listas, y así poder buscar en
@@ -53,6 +62,12 @@ public class Practica1 {
 
     /**
      * Dadas dos listas obtener la interseccion de las dos sin repetidos y no importa orden.
+     * El tiempo es O(n por m), ya que la operacion que toma más tiempo es cuando recorremos
+     * la lista en el metodo, por cada nodo en lista1 recorremos la lista2 por lo tanto
+     * n por m y asi tenemos O(n por m).
+     * El espacio es O(n) creo, ya que creamos una copia de lista lo que es n en espacio, y
+     * luego a lista (ya vaciada) le agregamos a lo más n nuevos nodos. Entonces tendriamos
+     * 2n en espacion y por lo tanto O(n) en espacio.
      * Para mejorar el tiempo puede ser que las listas que recibimos esten ordenadas
      * y asi poder ver si iterator.next() > actual, si pasa ya no recorremos más.
      * Otra manera sería conociendo los elementos de las listas, y así poder buscar en
