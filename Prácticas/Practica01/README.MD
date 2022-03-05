@@ -1,5 +1,5 @@
 Nombres -> Dafne Bonilla Reyes            -      319089660    
-&emsp; -> José Camilo García Ponce       -      319210536  
+&nbsp;-> José Camilo García Ponce       -      319210536  
 
 compilar -> javac -d . src/*.java Ejecutar -> java Clases.Practica1
 
