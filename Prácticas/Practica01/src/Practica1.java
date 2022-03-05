@@ -12,12 +12,11 @@ public class Practica1 {
      */
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
         int contador = 0;
-        Iterator iterador = lista.iterator();
-        
-        while (explorador != null) { 
-            if (explorador.elemento > nuevo)
+        Iterator<Integer> iterator = lista.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next() > nuevo) {
                 lista.insert(contador, nuevo);
-            explorador = explorador.siguiente;
+            }
             contador++;
         }
         return lista;
@@ -26,20 +25,56 @@ public class Practica1 {
 
     /**
      * Dadas dos listas obtener la union de las dos sin repetidos y no importa orden.
-     * @param lista1 la primera lista y la que sera mdificada.
+     * Para mejorar el tiempo puede ser que las listas que recibimos esten ordenadas
+     * y asi poder ver si iterator.next() > actual, si pasa ya no recorremos más.
+     * Otra manera sería conociendo los elementos de las listas, y así poder buscar en
+     * menos de O(n).
+     * @param lista1 la primera lista y la que será modificada.
      * @param lista2 la segunda lista.
      */
     public static void Union(Lista<Integer> lista1,Lista<Integer> lista2) {
-        Lista<Integer> copia = lista1.clone();
+        if (lista2.isEmpty()) {
+            return;
+        } else {
+            Iterator<Integer> iterator2 = lista2.iterator();
+            while (iterator2.hasNext()) {
+                Integer actual = iterator2.next();
+                boolean repetido = false;
+                Iterator<Integer> iterator1 = lista1.iterator();
+                while (iterator1.hasNext()) {
+                    if (iterator1.next() == actual)
+                        repetido = true;
+                }
+                if (!repetido)
+                    lista1.agregaFinal(actual);
+            }
+        }
     }
 
     /**
      * Dadas dos listas obtener la interseccion de las dos sin repetidos y no importa orden.
+     * Para mejorar el tiempo puede ser que las listas que recibimos esten ordenadas
+     * y asi poder ver si iterator.next() > actual, si pasa ya no recorremos más.
+     * Otra manera sería conociendo los elementos de las listas, y así poder buscar en
+     * menos de O(n).
      * @param lista la primera lista y la que sera mdificada.
      * @param lista2 la segunda lista.
      */
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
         Lista<Integer> copia = lista.clone();
+        lista.empty();
+        Iterator<Integer> iterator = copia.iterator();
+            while (iterator.hasNext()) {
+                Integer actual = iterator.next();
+                boolean repetido = false;
+                Iterator<Integer> iterator2 = lista2.iterator();
+                while (iterator2.hasNext()) {
+                    if (iterator2.next() == actual)
+                        repetido = true;
+                }
+                if (repetido)
+                    lista.agregaFinal(actual);
+            }
     }
 
 
@@ -52,7 +87,7 @@ public class Practica1 {
         for (int i = 0; i <= 5; i++) {
             primera.add(i);
         }
-        String test = "1 -> 2 -> 3 -> 4 -> 5";
+        String test = "0 -> 1 -> 2 -> 3 -> 4 -> 5";
         if (!primera.toString().equals(test)) {
             System.out.println("1 El toString no funciona!");
         }
@@ -60,7 +95,7 @@ public class Practica1 {
         if (!primera.toString().equals("")) {
             System.out.println("2 El toString no funciona!");
         }
-         
+        
         /* Tests Reverse. */
         primera = new Lista<Integer>();
         segunda = new Lista<Integer>();

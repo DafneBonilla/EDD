@@ -46,7 +46,6 @@ public class Lista<T> implements Collection<T> {
             if(!hasNext())
                 throw new NoSuchElementException();
             T regresar = siguiente.elemento;
-            
             this.anterior = this.siguiente ;
             this.siguiente=siguiente.siguiente;
             return regresar;
@@ -63,7 +62,6 @@ public class Lista<T> implements Collection<T> {
             if (!hasPrevious())
                 throw new NoSuchElementException();
             T regresar = anterior.elemento;
-
             this.siguiente = this.anterior;
             this.anterior = anterior.anterior;
             return regresar;
@@ -167,7 +165,7 @@ public class Lista<T> implements Collection<T> {
      * Obtener nodo dando int i.
      */
     private Nodo buscaNodoConI(int i) {
-        if (i < 0 || i >= longitud) {
+        if (i < 0 || i >= longi) {
             return null;
         }
         Nodo explorador = cabeza;
@@ -191,18 +189,18 @@ public class Lista<T> implements Collection<T> {
         if (condenado == null) {
             return;
         }
-        if (cabeza == rabo && cabeza == null) {
+        if (cabeza == ultimo && cabeza == null) {
             return;
         }
-        longitud--;
-        if (cabeza == rabo) {
-            cabeza = rabo = null;
+        longi--;
+        if (cabeza == ultimo) {
+            cabeza = ultimo = null;
         } else if (condenado == cabeza){
             cabeza.siguiente.anterior = null;
             cabeza = cabeza.siguiente;
-        } else if (condenado == rabo) {
-            rabo.anterior.siguiente = null;
-            rabo = rabo.anterior;
+        } else if (condenado == ultimo) {
+            ultimo.anterior.siguiente = null;
+            ultimo = ultimo.anterior;
         } else {
             condenado.anterior.siguiente = condenado.siguiente;
             condenado.siguiente.anterior = condenado.anterior;
@@ -322,21 +320,18 @@ public class Lista<T> implements Collection<T> {
      * a -> b -> c -> d
      */
     public String toString(){
-        if (isEmpty()) {
+        if (isEmpty()) 
             return "";
-        }
         String cadenitaRegreso = "";
         Nodo explorador = cabeza;
         while (explorador != null) {
             if (explorador.elemento != null) {
-                cadenitaRegreso += explorador.elemento;
-            }
-            if (explorador.siguiente != null) {
+                cadenitaRegreso += explorador.elemento.toString();
                 cadenitaRegreso += " -> ";
             }
             explorador = explorador.siguiente;
         }
-        return cadenitaRegreso;
+        return cadenitaRegreso.substring(0, cadenitaRegreso.length() - 4);
         // Aquí va su código.
     }
 
@@ -397,7 +392,7 @@ public class Lista<T> implements Collection<T> {
         }
         if (i <= 0) {
             agregaInicio(elemento);
-        } else if (i >= longitud) {
+        } else if (i >= longi) {
             agregaFinal(elemento);
         } else {
             Nodo intercambio = buscaNodoConI(i);
@@ -406,7 +401,7 @@ public class Lista<T> implements Collection<T> {
             nuevo.anterior = intercambio.anterior;
             intercambio.anterior = nuevo;
             nuevo.siguiente = intercambio;
-            longitud++;
+            longi++;
         }
         // Aquí va su código.
     }
@@ -418,9 +413,10 @@ public class Lista<T> implements Collection<T> {
     public void mezclaAlternada(Lista<T> lista) {
         Nodo explorador = lista.cabeza;
         int indice = 1;
-        while (explodor != null) {
+        while (explorador != null) {
             this.insert(indice, explorador.elemento);
             explorador = explorador.siguiente;
+            indice = indice + 2;
         }
     }
 
