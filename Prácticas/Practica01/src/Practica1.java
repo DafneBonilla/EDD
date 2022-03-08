@@ -253,5 +253,21 @@ public class Practica1 {
         if (!(primera.contains(2) && primera.size() == 1)) {
             System.out.println("1 La intersección no funciona!");
         }
+
+        Lista<Integer> lista1 = new Lista<>();
+        Lista<Integer> lista2= new Lista<>();
+        lista1.add(1);
+        lista1.add(3);
+        lista1.add(5);
+        lista1.add(7);
+        lista1.add(9);
+        lista2.add(2);
+        lista2.add(4);
+        lista2.add(6);
+        lista2.add(8);
+        lista2.add(10);
+        lista1.mezclaAlternada(lista2);
+        System.out.println(lista1);
+        System.out.println("hello world");
     }   
 }

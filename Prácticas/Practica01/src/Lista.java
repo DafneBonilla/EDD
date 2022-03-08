@@ -423,15 +423,13 @@ public class Lista<T> implements Collection<T> {
      * @param lista la lista a mezclar.
      */
     public void mezclaAlternada(Lista<T> lista) {
-        Nodo explorador = lista.cabeza;
-        int indice = 1;
-        while (explorador != null) {
-            this.insert(indice, explorador.elemento);
-            explorador = explorador.siguiente;
-            indice = indice + 2;
+        Nodo explorador2 = lista.cabeza;
+        Nodo explorador1 = this.cabeza;
+        while (explorador2 != null) {
+            explorador1 = explorador1.siguiente;
         }
     }
-
+   
     /**
      * Regresa un iterador para recorrer la lista en una dirección.
      * @return un iterador para recorrer la lista en una dirección.
