@@ -63,8 +63,8 @@ public class Practica1 {
     /**
      * Dadas dos listas obtener la interseccion de las dos sin repetidos y no importa orden.
      * El tiempo es O(n por m), ya que la operacion que toma más tiempo es cuando recorremos
-     * la lista en el metodo, por cada nodo en lista1 recorremos la lista2 por lo tanto
-     * n por m y asi tenemos O(n por m).
+     * la lista en el metodo, por cada nodo en lista1 recorremos la lista2, o al inverso, 
+     * dependiendo del tamaño de las listas, por lo tanto es n por m y asi tenemos O(n por m).
      * El espacio es O(n) creo, ya que creamos una copia de lista lo que es n en espacio, y
      * luego a lista le vamos eliminado nodos. Entonces tendriamos n en espacion y por lo
      * tanto O(n) en espacio.
