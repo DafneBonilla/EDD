@@ -423,10 +423,11 @@ public class Lista<T> implements Collection<T> {
      * @param lista la lista a mezclar.
      */
     public void mezclaAlternada(Lista<T> lista) {
+        Boolean arreglado = true;
         Nodo explorador1 = this.cabeza.siguiente;
         while (!lista.isEmpty()) {
-            if (explorador1.siguiente != null && lista.longi != 1) {
-                Nodo aux = lista.cabeza;
+            Nodo aux = lista.cabeza;
+            if (explorador1.siguiente != null) {
                 explorador1.anterior.siguiente = aux;
                 aux.anterior = explorador1.anterior;
                 explorador1.anterior = aux;
@@ -434,10 +435,23 @@ public class Lista<T> implements Collection<T> {
                 explorador1.anterior.siguiente = explorador1;
                 explorador1 = explorador1.siguiente;
                 longi++;
+            } else if (arreglado) {
+                explorador1.anterior.siguiente = aux;
+                aux.anterior = explorador1.anterior;
+                explorador1.anterior = aux;
+                lista.desapareceNodo(aux);
+                aux.siguiente = explorador1;
+                explorador1 = ultimo;
+                longi++;
+                arreglado = false;
             } else {
-                System.out.println("se quedo en "+explorador1.elemento+" de la lista1");
-                System.out.println("se quedo en "+lista.cabeza.elemento+" de la lista2");
-                break;
+                ultimo.siguiente = aux;
+                aux.anterior = ultimo;
+                lista.desapareceNodo(aux);
+                aux.siguiente = null;
+                ultimo = ultimo.siguiente;
+                explorador1 = ultimo;
+                longi++;
             }
         }
     }
