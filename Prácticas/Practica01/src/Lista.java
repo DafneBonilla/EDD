@@ -301,6 +301,9 @@ public class Lista<T> implements Collection<T> {
     
     /**
      * Método que invierte el orden de la lista.
+     * El tiempo es O(n) ya que solo recorremos una vez
+     * la lista.
+     * El espacio es O(1) ya que no se crean nodos.
      */
     public void reverse() {
         if (longi <= 1) {
@@ -420,6 +423,10 @@ public class Lista<T> implements Collection<T> {
 
     /**
      * Une dos ejemplares de listas de manera alternada.
+     * El tiempo es O(m) creo ya que a lo más hacemos la 
+     * longitud de lista numero de operaciones.
+     * El espacio es O(1) debido a que no creamos nuevos
+     * nodos, solo vaciamos a lista.
      * @param lista la lista a mezclar.
      */
     public void mezclaAlternada(Lista<T> lista) {
