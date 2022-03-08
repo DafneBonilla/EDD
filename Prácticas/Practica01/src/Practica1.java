@@ -66,8 +66,8 @@ public class Practica1 {
      * la lista en el metodo, por cada nodo en lista1 recorremos la lista2 por lo tanto
      * n por m y asi tenemos O(n por m).
      * El espacio es O(n) creo, ya que creamos una copia de lista lo que es n en espacio, y
-     * luego a lista (ya vaciada) le agregamos a lo más n nuevos nodos. Entonces tendriamos
-     * 2n en espacion y por lo tanto O(n) en espacio.
+     * luego a lista le vamos eliminado nodos. Entonces tendriamos n en espacion y por lo
+     * tanto O(n) en espacio.
      * Para mejorar el tiempo puede ser que las listas que recibimos esten ordenadas
      * y asi poder ver si iterator.next() > actual, si pasa ya no recorremos más.
      * Otra manera sería conociendo los elementos de las listas, y así poder buscar en
@@ -76,9 +76,11 @@ public class Practica1 {
      * @param lista2 la segunda lista.
      */
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
-        Lista<Integer> copia = lista.clone();
-        lista.empty();
-        Iterator<Integer> iterator = copia.iterator();
+        int n1 = lista.size();
+        int n2 = lista2.size();
+        if (n1 >= n2) {
+            Lista<Integer> copia = lista.clone();
+            Iterator<Integer> iterator = copia.iterator();
             while (iterator.hasNext()) {
                 Integer actual = iterator.next();
                 boolean repetido = false;
@@ -87,9 +89,24 @@ public class Practica1 {
                     if (iterator2.next() == actual)
                         repetido = true;
                 }
-                if (repetido)
-                    lista.agregaFinal(actual);
+                if (!repetido)
+                    lista.delete(actual);
             }
+        } else {
+            Lista<Integer> copia = lista2.clone();
+            Iterator<Integer> iterator = copia.iterator();
+            while (iterator.hasNext()) {
+                Integer actual = iterator.next();
+                boolean repetido = false;
+                Iterator<Integer> iterator2 = lista.iterator();
+                while (iterator2.hasNext()) {
+                    if (iterator2.next() == actual)
+                        repetido = true;
+                }
+                if (!repetido)
+                    lista2.delete(actual);
+            }
+        }
     }
 
 

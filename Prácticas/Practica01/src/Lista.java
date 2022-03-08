@@ -303,14 +303,26 @@ public class Lista<T> implements Collection<T> {
      * Método que invierte el orden de la lista.
      */
     public void reverse() {
-        Nodo explorador = ultimo;
-        for (int i = 0; i < longi; i++) {
-            agregaFinal(explorador.elemento);
+        if (longi == 1) {
+            return;
+        }
+        Nodo explorador = ultimo.anterior;
+        for (int i = 0; i < longi-2; i++) {
+            ultimo.siguiente = explorador;
+            explorador.anterior.siguiente = explorador.siguiente;
+            explorador.siguiente.anterior = explorador.anterior;
             Nodo aux = explorador.anterior;
-            boolean basura = delete(explorador.elemento);
+            explorador.anterior = ultimo;
+            explorador.siguiente = null;
+            ultimo = explorador;
             explorador = aux;
         }
-        return;
+        ultimo.siguiente = explorador;
+        cabeza = explorador.siguiente;
+        explorador.siguiente.anterior = null;
+        explorador.anterior = ultimo;
+        explorador.siguiente = null;
+        ultimo = explorador;
         // Aquí va su código.
     }
 
