@@ -260,14 +260,15 @@ public class Practica1 {
         lista1.add(3);
         lista1.add(5);
         lista1.add(7);
-        lista1.add(9);
         lista2.add(2);
         lista2.add(4);
         lista2.add(6);
         lista2.add(8);
-        lista2.add(10);
+        lista2.add(9);
+        System.out.println("lista1 "+lista1);
+        System.out.println("lista2 "+lista2);
         lista1.mezclaAlternada(lista2);
-        System.out.println(lista1);
-        System.out.println("hello world");
+        System.out.println("lista1 mod "+lista1);
+        System.out.println("lista2 mod "+lista2);
     }   
 }
