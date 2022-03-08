@@ -303,7 +303,7 @@ public class Lista<T> implements Collection<T> {
      * Método que invierte el orden de la lista.
      */
     public void reverse() {
-        if (longi == 1) {
+        if (longi <= 1) {
             return;
         }
         Nodo explorador = ultimo.anterior;
