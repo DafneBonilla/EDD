@@ -430,6 +430,34 @@ public class Lista<T> implements Collection<T> {
      * @param lista la lista a mezclar.
      */
     public void mezclaAlternada(Lista<T> lista) {
+        if (longi == 0) {
+            Nodo inicial = lista.cabeza;
+            cabeza = ultimo = inicial;
+            lista.desapareceNodo(inicial);
+            inicial.siguiente = null;
+            while (!lista.isEmpty()) {
+                Nodo aux = lista.cabeza;
+                ultimo.siguiente = aux;
+                aux.anterior = ultimo;
+                lista.desapareceNodo(aux);
+                aux.siguiente = null;
+                ultimo = ultimo.siguiente;
+                longi++;
+            }
+            return;
+        }
+        if (longi == 1) {
+            while (!lista.isEmpty()) {
+                Nodo aux = lista.cabeza;
+                ultimo.siguiente = aux;
+                aux.anterior = ultimo;
+                lista.desapareceNodo(aux);
+                aux.siguiente = null;
+                ultimo = ultimo.siguiente;
+                longi++;
+            }
+            return;
+        }
         Boolean arreglado = true;
         Nodo explorador1 = this.cabeza.siguiente;
         while (!lista.isEmpty()) {
