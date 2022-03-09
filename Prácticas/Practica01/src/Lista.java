@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class Lista<T> implements Collection<T> {
 
     /* Clase privada interna para nodos. */
-    private class Nodo {
+    private class Nodo {   
         /* Elemento del nodo. */
         public T elemento;
         /* Nodo anterior. */
@@ -19,7 +19,7 @@ public class Lista<T> implements Collection<T> {
         public Nodo siguiente;
 
         /* Constructor de nodos para la lista */
-        public Nodo(T elemento){
+        public Nodo(T elemento) {
             this.elemento = elemento;
         }
     }
@@ -43,7 +43,7 @@ public class Lista<T> implements Collection<T> {
 
         /* Da el elemento siguiente. */
         @Override public T next() {
-            if(!hasNext())
+            if (!hasNext())
                 throw new NoSuchElementException();
             T regresar = siguiente.elemento;
             this.anterior = this.siguiente ;
@@ -93,7 +93,7 @@ public class Lista<T> implements Collection<T> {
      * Agrega un elemento a la lista.
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
-     *                                  <code>null</code>.
+     *         <code>null</code>.
      */
     @Override public void add(T elemento) {
         if (elemento == null)
@@ -106,7 +106,7 @@ public class Lista<T> implements Collection<T> {
      * el elemento a agregar será el primero y último.
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
-     * <code>null</code>.
+     *         <code>null</code>.
      */
     public void agregaInicio(T elemento) {
         if (elemento == null) 
@@ -130,9 +130,8 @@ public class Lista<T> implements Collection<T> {
      * <code>null</code>.
      */
     public void agregaFinal(T elemento) {
-        if (elemento == null) {
+        if (elemento == null) 
             throw new IllegalArgumentException("El elemento es null");
-        }
         Nodo nuevo = new Nodo(elemento);
         if (cabeza == null) {
             this.cabeza = this.ultimo = nuevo;
@@ -147,15 +146,16 @@ public class Lista<T> implements Collection<T> {
     /**  
      * Método auxiliar para buscar el nodo donde está un objeto (elemento).
      * Obtener nodo dando objeto.
+     * @param elemento el elemento del cuál se obtendrá el nodo.
      */
     private Nodo buscaNodo(T elemento) {
         if (elemento == null)
             return null;
         Nodo n = cabeza;
-        while(n !=null) {
+        while (n != null) {
             if (elemento.equals(n.elemento))
                 return n;
-            n=n.siguiente;
+            n = n.siguiente;
         }
         return null;
     }
@@ -163,11 +163,11 @@ public class Lista<T> implements Collection<T> {
     /**
      * Método auxiliar para buscar el nodo donde está un objeto (elemento)
      * Obtener nodo dando int i.
+     * @param i el índice del nodo a buscar.
      */
     private Nodo buscaNodoConI(int i) {
-        if (i < 0 || i >= longi) {
+        if (i < 0 || i >= longi) 
             return null;
-        }
         Nodo explorador = cabeza;
         int contando = 0;
         while (explorador != null) {
@@ -186,16 +186,14 @@ public class Lista<T> implements Collection<T> {
      * @param condenado nodo a eliminar.
     */
     private void desapareceNodo(Nodo condenado) {
-        if (condenado == null) {
+        if (condenado == null) 
             return;
-        }
-        if (cabeza == ultimo && cabeza == null) {
+        if (cabeza == ultimo && cabeza == null) 
             return;
-        }
         longi--;
         if (cabeza == ultimo) {
             cabeza = ultimo = null;
-        } else if (condenado == cabeza){
+        } else if (condenado == cabeza) {
             cabeza.siguiente.anterior = null;
             cabeza = cabeza.siguiente;
         } else if (condenado == ultimo) {
@@ -266,7 +264,7 @@ public class Lista<T> implements Collection<T> {
      * @return <code>true</code> si la lista es vacía, <code>false</code> en
      *         otro caso.
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return cabeza == null;
     }
 
@@ -296,7 +294,6 @@ public class Lista<T> implements Collection<T> {
             return true;
         }
         return false;
-        // Aquí va su código.
     }
     
     /**
@@ -306,9 +303,8 @@ public class Lista<T> implements Collection<T> {
      * El espacio es O(1) ya que no se crean nodos.
      */
     public void reverse() {
-        if (longi <= 1) {
+        if (longi <= 1) 
             return;
-        }
         Nodo explorador = ultimo.anterior;
         for (int i = 0; i < longi-2; i++) {
             ultimo.siguiente = explorador;
@@ -326,7 +322,6 @@ public class Lista<T> implements Collection<T> {
         explorador.anterior = ultimo;
         explorador.siguiente = null;
         ultimo = explorador;
-        // Aquí va su código.
     }
 
     /**
@@ -334,7 +329,7 @@ public class Lista<T> implements Collection<T> {
      * @return una representación en cadena de la lista.
      * a -> b -> c -> d
      */
-    public String toString(){
+    public String toString() {
         if (isEmpty()) 
             return "";
         String cadenitaRegreso = "";
@@ -347,11 +342,10 @@ public class Lista<T> implements Collection<T> {
             explorador = explorador.siguiente;
         }
         return cadenitaRegreso.substring(0, cadenitaRegreso.length() - 4);
-        // Aquí va su código.
     }
 
     /**
-     * Junta dos listas "siempre y cuando sean del mismo tipo".
+     * Junta dos listas siempre y cuando sean del mismo tipo.
      * @param lista la lista a juntar.
      */
     public void append(Lista<T> lista) {
@@ -360,7 +354,6 @@ public class Lista<T> implements Collection<T> {
             this.agregaFinal(explorador.elemento);
             explorador = explorador.siguiente;
         }
-        // Aquí va su código.
     }
 
     /**
@@ -370,7 +363,7 @@ public class Lista<T> implements Collection<T> {
      * @param elemento elemento del cual queremos conocer la posición.
      * @return entero con la posicion del elemento
      * @throws IllegalArgumentException si <code>elemento</code> es
-     * <code>null</code>.
+     *         <code>null</code>.
      */
     public int indexOf(T elemento) {
         if (elemento == null)
@@ -384,7 +377,6 @@ public class Lista<T> implements Collection<T> {
             b = b.siguiente;
         }
         return -1;
-        // Aquí va su código.
     }
     
     /**
@@ -402,9 +394,8 @@ public class Lista<T> implements Collection<T> {
      *         <code>null</code>.
      */
     public void insert(int i, T elemento) {
-        if (elemento == null) {
+        if (elemento == null) 
             throw new IllegalArgumentException("El elemento es null");
-        }
         if (i <= 0) {
             agregaInicio(elemento);
         } else if (i >= longi) {
@@ -418,7 +409,6 @@ public class Lista<T> implements Collection<T> {
             nuevo.siguiente = intercambio;
             longi++;
         }
-        // Aquí va su código.
     }
 
     /**

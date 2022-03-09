@@ -24,7 +24,6 @@ public class Practica1 {
             contador++;
         }
         return lista;
-        // Aquí va su código.
     }
 
     /**
