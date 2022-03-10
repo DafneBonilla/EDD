@@ -50,7 +50,7 @@ public class Practica1 {
                 boolean repetido = false;
                 Iterator<Integer> iterator1 = lista1.iterator();
                 while (iterator1.hasNext()) {
-                    if (iterator1.next() == actual)
+                    if (iterator1.next().intValue() == actual.intValue())
                         repetido = true;
                 }
                 if (!repetido)
@@ -85,7 +85,7 @@ public class Practica1 {
                 boolean repetido = false;
                 Iterator<Integer> iterator2 = lista2.iterator();
                 while (iterator2.hasNext()) {
-                    if (iterator2.next() == actual)
+                    if (iterator2.next().intValue() == actual.intValue())
                         repetido = true;
                 }
                 if (!repetido)
@@ -98,7 +98,7 @@ public class Practica1 {
                 boolean repetido = false;
                 Iterator<Integer> iterator2 = lista.iterator();
                 while (iterator2.hasNext()) {
-                    if (iterator2.next() == actual)
+                    if (iterator2.next().intValue() == actual.intValue())
                         repetido = true;
                 }
                 if (!repetido)
