@@ -103,7 +103,7 @@ public class Practica1 {
                         repetido = true;
                 }
                 if (!repetido)
-                    lista2.delete(actual);
+                    lista.delete(actual);
             }
         }
     }
