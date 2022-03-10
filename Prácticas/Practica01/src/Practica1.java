@@ -92,8 +92,7 @@ public class Practica1 {
                     lista.delete(actual);
             }
         } else {
-            Lista<Integer> copia = lista2.clone();
-            Iterator<Integer> iterator = copia.iterator();
+            Iterator<Integer> iterator = lista2.iterator();
             while (iterator.hasNext()) {
                 Integer actual = iterator.next();
                 boolean repetido = false;
