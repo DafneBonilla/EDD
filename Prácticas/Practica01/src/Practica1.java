@@ -18,11 +18,13 @@ public class Practica1 {
         int contador = 0;
         Iterator<Integer> iterator = lista.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next() > nuevo) {
+            if (iterator.next().intValue() > nuevo) {
                 lista.insert(contador, nuevo);
+                return lista;
             }
             contador++;
         }
+        lista.agregaFinal(nuevo);
         return lista;
     }
 
