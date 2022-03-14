@@ -1,3 +1,8 @@
+/*
+Integrantes:
+Dafne Bonilla Reyes
+José Camilo García Ponce  
+*/
 package Clases;
 
 import java.util.Iterator;
