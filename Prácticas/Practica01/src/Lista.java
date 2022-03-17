@@ -293,7 +293,7 @@ public class Lista<T> implements Collection<T> {
      * @return <tt>true</tt> si la coleccion es igual a la coleccion recibido
      *         <tt>false</tt> en otro caso.
     */
-    public boolean equals(Object o) {
+    @Override public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass())
             //System.out.println("El ejemplar no es una lista");
             return false;
@@ -350,7 +350,7 @@ public class Lista<T> implements Collection<T> {
      * @return una representación en cadena de la lista.
      * a -> b -> c -> d
      */
-    public String toString() {
+    @Override public String toString() {
         if (isEmpty()) 
             return "";
         String cadenitaRegreso = "";

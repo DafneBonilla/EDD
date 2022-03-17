@@ -258,5 +258,8 @@ public class Practica1 {
         if (!(primera.contains(2) && primera.size() == 1)) {
             System.out.println("1 La intersección no funciona!");
         }
+
+        System.out.println(primera.getClass());
+        System.out.println(segunda.getClass());
     }   
 }
