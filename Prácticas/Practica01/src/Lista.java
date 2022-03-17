@@ -288,17 +288,33 @@ public class Lista<T> implements Collection<T> {
     }
 
     /**
-     * Nos dice si la coleccion es igual a otra coleccion recibida.
-     * @param coleccion la coleccion con el que hay que comparar.
+     * Nos dice si la coleccion es igual al objeto recibido.
+     * @param o el objeto con el que hay que comparar.
      * @return <tt>true</tt> si la coleccion es igual a la coleccion recibido
      *         <tt>false</tt> en otro caso.
     */
-    public boolean equals(Collection<T> coleccion) {
-        // lo vemos en clase
-        if (coleccion instanceof Lista) {
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass())
+            //System.out.println("El ejemplar no es una lista");
+            return false;
+        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)o;
+        if (lista.longi != this.longi) {
+            //System.out.println("Las longitudes no son iguales");
+            return false;
+        } else if (lista.isEmpty() && this.isEmpty()) {
+            return true;
+        } else {
+            Nodo explorador = cabeza;
+            Nodo gemelo = lista.cabeza;
+            while (explorador != null) {
+                if (explorador.elemento.equals(gemelo.elemento) == false) {
+                    return false;
+                }
+                explorador = explorador.siguiente;
+                gemelo = gemelo.siguiente;
+            }
             return true;
         }
-        return false;
     }
     
     /**
