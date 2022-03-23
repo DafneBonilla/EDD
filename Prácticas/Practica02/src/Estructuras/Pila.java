@@ -64,4 +64,21 @@ public class Pila<T> extends PushPop<T>{
         return regreso;
     }
 
+    /**
+     * Regresa una representación en cadena para Hanoi de la pila.
+     * @return una representación en cadena para Hanoi de la pila.
+     */
+    public String toStringHanoi(){
+        if (this.isEmpty()) {
+            return "";
+        }
+        String regreso = this.cabeza.elemento.toString();
+        Nodo n = this.cabeza;
+        while (n.siguiente != null) {
+            regreso = n.siguiente.elemento.toString() + ", " + regreso;
+            n = n.siguiente;
+        }
+        return regreso;
+    }
+
 }
