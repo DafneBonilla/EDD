@@ -19,6 +19,18 @@ public class Cola<T> extends PushPop<T> {
      *         <code>null</code>.
      */
     public void push(T elemento){
+        if(elemento == null){
+            throw new IllegalArgumentException("");
+        }
+        Nodo aux = new Nodo(elemento);
+        if(isEmpty()){
+            this.cabeza=ultimo=aux;
+            longi++;
+            return ;
+        }
+        ultimo.siguiente = nuevo;
+        ultimo = nuevo;
+        longi ++;
         // Aquí va su código.
     }
 
@@ -27,6 +39,17 @@ public class Cola<T> extends PushPop<T> {
      * @return una copia de la pila.
      */
     public Cola<T> clone(){
+        COla<T> nueva = new Cola<T>();
+        if (this.isEmpty()) {
+            return nueva;
+        }
+        nueva.push(this.cabeza.elemento);
+        Nodo n = this.cabeza;
+        while (n.siguiente != null) {
+           nueva.push(n.siguiente.elemento);
+           n = n.siguiente;
+        }
+        return nueva;
         // Aquí va su código.
     }
 
@@ -35,6 +58,16 @@ public class Cola<T> extends PushPop<T> {
      * @return una representación en cadena de la cola.
      */
     public String toString(){
+        if (this.isEmpty()) {
+            return "";
+        }
+        String regreso = this.cabeza.elemento.toString();
+        Nodo n = this.cabeza;
+        while (n.siguiente != null) {
+            regreso += ", " + n.siguiente.elemento.toString();
+            n = n.siguiente;
+        }
+        return regreso;
         // Aquí va su código.
     }
 

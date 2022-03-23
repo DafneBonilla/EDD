@@ -27,7 +27,6 @@ public class Pila<T> extends PushPop<T>{
         aux.siguiente = cabeza;
         cabeza = aux;
         longi ++;
-
     }
 
     /**
