@@ -22,9 +22,9 @@ public class Cola<T> extends PushPop<T> {
         if(elemento == null){
             throw new IllegalArgumentException("");
         }
-        Nodo aux = new Nodo(elemento);
+        Nodo nuevo = new Nodo(elemento);
         if(isEmpty()){
-            this.cabeza=ultimo=aux;
+            this.cabeza=ultimo=nuevo;
             longi++;
             return ;
         }
@@ -39,7 +39,7 @@ public class Cola<T> extends PushPop<T> {
      * @return una copia de la pila.
      */
     public Cola<T> clone(){
-        COla<T> nueva = new Cola<T>();
+        Cola<T> nueva = new Cola<T>();
         if (this.isEmpty()) {
             return nueva;
         }
