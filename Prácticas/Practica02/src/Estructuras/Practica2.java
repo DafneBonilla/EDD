@@ -30,7 +30,13 @@ public class Practica2 {
             return;
         }
         Cola<String> numeritos = new Cola<>();
-
+        numeritos.push("1");
+        for (int i = 0; i < N; i++) {
+            String actual = numeritos.pop();
+            System.out.println(actual);
+            numeritos.push(actual+"0");
+            numeritos.push(actual+"1");
+        }
         // Aquí va su código.
     }
 
@@ -49,6 +55,11 @@ public class Practica2 {
         }
         Cola<Integer> num = numeritos.clone();
         System.out.println(num.size());
+        */
+
+        // "Prueba" de Binario      Funciona
+        /*
+        binarioColas(20);
         */
     }
 
