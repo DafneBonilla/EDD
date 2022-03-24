@@ -5,4 +5,18 @@ package Proyectos.Wizard;
  */
 public class Baraja {
     
+    /* Lista de cartas. */
+    //private Lista<Carta> cartitas;
+
+    /**
+     * Constructor único.
+     */
+    public Baraja() {
+        //this.cartitas = new Lista<Carta>();
+    }
+
+    public void agregaCarta(Carta nueva) {
+        //this.carititas.add(nueva);
+    }
+
 }
