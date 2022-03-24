@@ -11,7 +11,9 @@ public class Proyecto1Cliente {
         System.exit(0);
     }
 
+    public static void main(String[] args) {
 
-    //codigo bonito y funcional
+        //codigo bonito y funcional
 
+    }
 }
