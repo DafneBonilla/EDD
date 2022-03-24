@@ -1,43 +1,39 @@
 package Proyectos.Wizard;
 
 /**
- * Clase para representar cartas. Una carta tiene nombre, color y valor.
+ * Clase para representar cartas. Una carta tiene valor y color.
  */
 public class Carta {
     
-    /* Nombre de la carta. */
-    private String nombre;
+    /* Valor de la carta. */
+    private String valor;
     /* Color de la carta. */
     private String color;
-    /* Valor de la carta.*/
-    private int valor;
 
     /**
      * Define el estado inicial de una carta.
-     * @param nombre el nombre de la carta.
-     * @param color el color de la carta.
      * @param valor el valor de la carta.
+     * @param color el color de la carta.
      */
-    public Carta(String nombre, String color, int valor) {
-        this.nombre = nombre;
-        this.color = color;
+    public Carta(String valor, String color) {
         this.valor = valor;
+        this.color = color;
     }
 
     /**
-     * Regresa el nombre de la carta.
-     * @return el nombre de la carta.
+     * Regresa el valor de la carta.
+     * @return el valor de la carta.
      */
-    public String getNombre() {
-        return nombre;
+    public String getValor() {
+        return valor;
     }
 
     /**
-     * Define el nombre de la carta.
-     * @param nombre el nuevo nombre el nombre de la carta.
+     * Define el valor de la carta.
+     * @param valor el nuevo valor de la carta.
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     /**
@@ -55,29 +51,13 @@ public class Carta {
     public void setColor(String color) {
         this.color = color;
     }
-
-    /**
-     * Regresa el valor de la carta.
-     * @return el valor de la carta.
-     */
-    public int getValor() {
-        return valor;
-    }
-
-    /**
-     * Define el valor de la carta.
-     * @param valor el nuevo valor el nombre de la carta.
-     */
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
     
     /**
      * Regresa una representación en cadena de la carta.
      * @return una representación en cadena de la carta.
      */
     @Override public String toString() {
-        String datitos = String.format("Nombre: %s Color: %s Valor: %d", nombre, color, valor);
+        String datitos = String.format("Un %s de color %s", valor, color);
 	    return datitos;
     }
 
@@ -93,14 +73,69 @@ public class Carta {
         if (!(objeto instanceof Carta))
             return false;
         Carta cartita = (Carta)objeto;
-        if ((this.nombre.equals(cartita.nombre)) == false){
+        if ((this.valor.equals(cartita.valor)) == false){
             return false;
         } else if ((this.color.equals(cartita.color)) == false) {
-            return false;
-        } else if ((this.valor == cartita.valor) == false){
             return false;
         }
         return true;
     }
 
+    /*
+    Metodos auxiliares para caza
+    */
+    private boolean cazaValor(Object buscar){
+        if (!(buscar instanceof String)) {
+            return false;
+        }
+        if ((String)buscar == "") {
+            return false;
+        }
+        if (valor.contains((String)buscar)) {
+            return true;
+        }
+        return false;
+    }
+    private boolean cazaColor(Object buscar){
+        if (!(buscar instanceof String)) {
+            return false;
+        }
+        if ((String)buscar == "") {
+            return false;
+        }
+        if (color.contains((String)buscar)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Nos dice si la carta caza el valor dado en el campo especificado.
+     * @param campo el campo que hay que cazar.
+     * @param buscar el valor con el que debe cazar el campo del registro.
+     * @return <code>true</code> si:
+     *         <ul>
+     *           <li><code>campo</code> es {@link CampoCarta#VALOR} y
+     *              <code>valor</code> es instancia de {@link String} y es una
+     *              subcadena del valor de la carta.</li>
+     *           <li><code>campo</code> es {@link CampoCarta#COLOR} y
+     *              <code>valor</code> es instancia de {@link String} y es una
+     *              subcadena del color de la carta.</li>
+     *         </ul>
+     *         <code>false</code> en otro caso.
+     * @throws IllegalArgumentException si el campo es <code>null</code>.
+     */
+    public boolean caza(CampoCarta campo, Object buscar) {
+        if (campo == null) {
+            throw new IllegalArgumentException("el campo es null");
+        }
+        switch (campo) {
+            case VALOR:
+                return cazaValor(buscar);
+            case COLOR:
+                return cazaColor(buscar);
+            default:
+                throw new IllegalArgumentException("el campo no es instancia de CampoCarta");
+        }
+    }
 }
