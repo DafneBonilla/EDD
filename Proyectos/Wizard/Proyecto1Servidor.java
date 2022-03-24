@@ -22,7 +22,7 @@ public class Proyecto1Servidor {
             uso();
         }
 
-        int puerto = Integer.parseInt(args[0]);
+        int puerto = 1234;
         try {
             puerto = Integer.parseInt(args[0]);
         } catch (NumberFormatException nfe) {
