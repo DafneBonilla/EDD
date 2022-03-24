@@ -126,16 +126,20 @@ public class Practica2 {
         // Escribe aqui tu codigo para probar los metodos anteriores. 
         // No olvides comentar tu codigo y escribir tu nombre en el readme.
 
-        // "Prueba" de Cola         Funciona
+        // "Prueba" de Cola         Funciona 100% creo faltan pruebas a clone
         /*
         Cola<Integer> numeritos = new Cola<>();
         for (int i = 0; i < 5; i++) {
             numeritos.push(i);
         } 
+        Cola<Integer> num1 = numeritos.clone();
         for (int i = 0; i < 5; i++) {
             System.out.println(numeritos.pop());
         }
-        Cola<Integer> num = numeritos.clone();
+        Cola<Integer> num2 = numeritos.clone();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(num1.pop());
+        }
         System.out.println(num.size());
         */
 
