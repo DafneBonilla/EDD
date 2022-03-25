@@ -68,17 +68,17 @@ public class Imagen extends JPanel {
                 int aux1j = (sizeCell*(j-1)+j);
                switch (matriz [i-1][j-1]) {
                     case 0:
-                        gc.setColor(Color.YELLOW); break;
+                        gc.setColor(new Color(116,4,191)); break;
                     case 1:
-                        gc.setColor(Color.BLUE); break;
+                        gc.setColor(new Color(5,151,242)); break;
                     case 2:
-                        gc.setColor(Color.WHITE); break;
+                        gc.setColor(new Color(73,217,7)); break;
                     case 3:
-                        gc.setColor(Color.BLACK); break;
+                        gc.setColor(new Color(234,242,5)); break;
                     case 4:
-                        gc.setColor(Color.RED); break;
+                        gc.setColor(new Color(166,33,3)); break;
                     case 5: 
-                        gc.setColor(Color.GREEN); break;
+                        gc.setColor(new Color(255,255,255)); break;
                     
                 }
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);

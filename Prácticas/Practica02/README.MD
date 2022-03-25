@@ -25,9 +25,9 @@ de la linea 172 de la clase Ventana Principal, mientras más grande el número, 
 
 ## Colores
 Para agregar nuevos colores revisa el metodo Pinta de la clase Imagen.
-color 0: YELLOW
+color 0: PURPLE
 color 1: BLUE
-color 2: WHITE
-color 3: BLACK
+color 2: GREEN
+color 3: YELLOW
 color 4: RED
-color 5: GREEN
+color 5: WHITE

@@ -61,16 +61,88 @@ public class Mondrian extends AC {
         
         // Aqui empieza una evolucion.
 
-        //Creamos una pila y una cola para que te diviertas joven Artista. 
+        //Creamos una pila y una cola, para que te diviertas joven Artista. 
         Pila<Integer> pila = new Pila<Integer>();
-        Pila<Integer> cola = new Pila<Integer>();
+        Cola<Integer> cola = new Cola<Integer>();
         
         //La matriz Maux2 Contiene el estado actual de la matriz.
         //La matriz CopiaM es una matriz copia de Maux2 donde debes poner los nuevos valores
         
-        // Aqui va tu codigo  
-        
+        for (int i=0;i<Maux2.length;i++) { 
+			for (int j=0;j<Maux2.length;j++) {
+				//pila.empty(); //Vaciar la pila.
+                //cola.empty(); //Vaciar la cola.
 
+				//System.out.println("Revisando " + i  + ","  + j  ); SOP que ayuda a checar que se realize correctamente el for.
+				for (int k=i-1;k<=i+1;k++) {
+					for (int l=j-1;l<=j+1;l++) {
+						//Analisis de casillas vecindad.
+						if (k>=0&&l>=0&&k<Maux2.length&&l<Maux2.length&&(k!=i|| l!=j)) {
+							//System.out.println("    Analizando " + k  + ","  + l  + "  --> " + Maux2[k][l]     ); SOP que ayuda a checar los for.
+                            switch (Maux2[k][l]) {
+                                case 0:
+                                    pila.push(0);
+                                    cola.push(5);
+                                    break;
+                                case 1:
+                                    pila.push(1);
+                                    cola.push(4);
+                                    break;
+                                case 2:
+                                    pila.push(2);
+                                     cola.push(3);
+                                    break;
+                                case 3:
+                                    pila.push(3);
+                                    cola.push(2);
+                                    break;
+                                case 4:
+                                    pila.push(4);
+                                    cola.push(1);
+                                    break;
+                                case 5:
+                                    pila.push(5);
+                                    cola.push(0);
+                                    break;
+                                default:    break;
+                            }
+						}
+					}
+				}
+                if (cola.pop()%2 == 0) {
+                    switch (pila.pop()) {
+                        case 0:
+                            CopiaM[i][j] = pila.pop();
+                            break;
+                        case 2:
+                            CopiaM[i][j] = cola.pop();
+                            break;
+                        case 4:
+                            CopiaM[i][j] = (pila.pop()+cola.pop())%6;
+                            break;
+                        default:
+                            if (Maux2[i][j] == 5) {
+                                CopiaM[i][j] = 0;
+                            } else {
+                                CopiaM[i][j] = Maux2[i][j]+1;
+                            }
+                            break;
+                    }
+                } else {
+                    CopiaM[i][j] = Maux2[i][j];
+                }
+                }
+				// SOP que cuenta las casillas vecinas muertas y vivas y dice como cambiara el estado de la casilla.
+				// System.out.println("      Muertos " + muertos + "  Vivos-> " + vivos   + " -----> " + CopiaM[i][j]   );
+			}
+		for (int i=0;i<Maux2.length;i++) { 			//Fors que arreglan la matriz a regresar en la copia.
+			for (int j=0;j<Maux2.length;j++) {
+				Maux2[i][j]=CopiaM[i][j];
+			}
+		}
+        // Aqui va tu codigo  
+
+        
 
 
         for (int i = 0; i < Maux2.length; i++) { // Fors que arreglan la matriz a regresar en la copia.
