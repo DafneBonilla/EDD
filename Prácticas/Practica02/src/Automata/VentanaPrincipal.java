@@ -169,7 +169,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 labelEvolucion.setText("Evolucionando: "+automata.getEvolucion());
                 imagen.pinta(automata.getAutomata2(),automata.getColores());
                 try {
-                    Thread.sleep(600);
+                    Thread.sleep(200);
                 } catch (InterruptedException ex) {}
             }
         }

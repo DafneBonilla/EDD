@@ -70,8 +70,8 @@ public class Mondrian extends AC {
         
         for (int i=0;i<Maux2.length;i++) { 
 			for (int j=0;j<Maux2.length;j++) {
-				//pila.empty(); //Vaciar la pila.
-                //cola.empty(); //Vaciar la cola.
+				pila.empty(); //Vaciar la pila.
+                cola.empty(); //Vaciar la cola.
 
 				//System.out.println("Revisando " + i  + ","  + j  ); SOP que ayuda a checar que se realize correctamente el for.
 				for (int k=i-1;k<=i+1;k++) {
@@ -82,54 +82,48 @@ public class Mondrian extends AC {
                             switch (Maux2[k][l]) {
                                 case 0:
                                     pila.push(0);
-                                    cola.push(5);
+                                    cola.push(0);
                                     break;
                                 case 1:
                                     pila.push(1);
-                                    cola.push(4);
+                                    cola.push(1);
                                     break;
                                 case 2:
                                     pila.push(2);
-                                     cola.push(3);
+                                    cola.push(2);
                                     break;
                                 case 3:
                                     pila.push(3);
-                                    cola.push(2);
+                                    cola.push(3);
                                     break;
                                 case 4:
                                     pila.push(4);
-                                    cola.push(1);
+                                    cola.push(4);
                                     break;
                                 case 5:
                                     pila.push(5);
-                                    cola.push(0);
+                                    cola.push(5);
                                     break;
                                 default:    break;
                             }
 						}
 					}
 				}
-                if (cola.pop()%2 == 0) {
-                    switch (pila.pop()) {
+                if (Maux2[i][j]%2 == 0) {
+                    switch (cola.peek()%2) {
                         case 0:
-                            CopiaM[i][j] = pila.pop();
+                            CopiaM[i][j] = (Maux2[i][j]+5)%6;
                             break;
-                        case 2:
-                            CopiaM[i][j] = cola.pop();
-                            break;
-                        case 4:
-                            CopiaM[i][j] = (pila.pop()+cola.pop())%6;
+                        case 1:
+                            CopiaM[i][j] = (Maux2[i][j]+4)%6;
                             break;
                         default:
-                            if (Maux2[i][j] == 5) {
-                                CopiaM[i][j] = 0;
-                            } else {
-                                CopiaM[i][j] = Maux2[i][j]+1;
-                            }
                             break;
                     }
+                } else if (pila.peek()>2) {
+                    CopiaM[i][j] = cola.pop();
                 } else {
-                    CopiaM[i][j] = Maux2[i][j];
+                    CopiaM[i][j] = pila.pop();
                 }
                 }
 				// SOP que cuenta las casillas vecinas muertas y vivas y dice como cambiara el estado de la casilla.
