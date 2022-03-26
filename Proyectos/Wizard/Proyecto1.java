@@ -25,12 +25,5 @@ public class Proyecto1 {
         }
         */
         
-        Baraja mano = new Baraja();
-        for (int i=0; i<6; i++) {
-            mano.agregaCarta(new Carta(String.valueOf(i),"rojo"));
-        }
-        System.out.println(mano);
-        mano.shuffle();
-        System.out.println(mano);
     }
 }

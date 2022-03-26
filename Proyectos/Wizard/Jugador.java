@@ -70,11 +70,19 @@ public class Jugador {
     }
 
     /**
-     * Metodo para agregar una carta a la mano jugador.
+     * Metodo para agregar una carta a la mano del jugador.
      * @param nueva la carta a agregar a la mano.
      */
     public void recibirCarta(Carta nueva) {
         mano.agregaCarta(nueva);
+    }
+
+    /**
+     * Metodo para jugar una carta de la mano del jugador.
+     * @param i la posicion de la carta.
+     */
+    public Carta devuelveCarta(int i) {
+        return mano.sacaCarta(i);
     }
 
 }

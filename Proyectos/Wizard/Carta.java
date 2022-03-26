@@ -56,7 +56,27 @@ public class Carta {
      * @return una representación en cadena de la carta.
      */
     @Override public String toString() {
-        String datitos = String.format("Un %s de color %s", valor, color);
+        String datitos = "";
+        switch (color) {
+            case "rojo":
+                datitos += String.format("Un \u001B[31m %s \t \u001B[0m de color \u001B[31m %s \u001B[0m", valor, color);
+                break;
+            case "azul":
+                datitos += String.format("Un \u001B[34m %s \t \u001B[0m de color \u001B[34m %s \u001B[0m", valor, color);
+                break;
+            case "amarillo":
+                datitos += String.format("Un \u001B[33m %s \t \u001B[0m de color \u001B[33m %s \u001B[0m", valor, color);
+                break;
+            case "verde":
+                datitos += String.format("Un \u001B[32m %s \t \u001B[0m de color \u001B[32m %s \u001B[0m", valor, color);
+                break;
+            case "blanco":
+                datitos += String.format("Un \u001B[37m %s \t \u001B[0m de color \u001B[37m %s \u001B[0m", valor, color);
+                break;
+            default:
+                datitos += String.format("Un %s de color %s", valor, color);
+                break;
+        }
 	    return datitos;
     }
 

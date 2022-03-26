@@ -9,5 +9,7 @@ public class Ronda {
     //private Lista<Jugadores> jugadores;
     /* Numero de trucos. */
     private int numTrucos;
+
+    //palo de triundo
     
 }

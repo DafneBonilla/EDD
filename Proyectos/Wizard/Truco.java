@@ -7,5 +7,7 @@ public class Truco {
 
     /* Lista de jugadores. */
     //private Lista<Jugadores> jugadores;
+
+    //palo lider
     
 }

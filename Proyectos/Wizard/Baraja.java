@@ -1,6 +1,5 @@
 package Wizard;
 
-import java.lang.Math;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -14,12 +13,40 @@ public class Baraja {
     
     /* Lista de cartas. */
     private Lista<Carta> cartitas;
+    /* Seed de random */
+    private long seed;
 
     /**
-     * Constructor único.
+     * Constructor 1.
      */
-    public Baraja() {
+    public Baraja(){
         cartitas = new Lista<Carta>();
+        seed = 0;
+    }
+
+    /**
+     * Constructor 2.
+     */
+    public Baraja(long seed) {
+        cartitas = new Lista<Carta>();
+        for (int i = 1; i <= 13; i++) {
+            cartitas.add(new Carta(String.valueOf(i), "rojo"));
+        }
+        for (int i = 1; i <= 13; i++) {
+            cartitas.add(new Carta(String.valueOf(i), "azul"));
+        }
+        for (int i = 1; i <= 13; i++) {
+            cartitas.add(new Carta(String.valueOf(i), "amarillo"));
+        }
+        for (int i = 1; i <= 13; i++) {
+            cartitas.add(new Carta(String.valueOf(i), "verde"));
+        }
+        for (int i = 1; i <= 4; i++) {
+            cartitas.add(new Carta(String.valueOf("W"), "blanco"));
+        }
+        for (int i = 1; i <= 4; i++) {
+            cartitas.add(new Carta(String.valueOf("J"), "blanco"));
+        }
     }
 
     /**
@@ -50,7 +77,7 @@ public class Baraja {
         int contador = 0;
         Iterator<Carta> iterator = cartitas.iterator();
         while (iterator.hasNext()) {
-            datitos += "[" + contador + "] " + iterator.next() + "\n";
+            datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;
         }
 	    return datitos;
@@ -105,7 +132,7 @@ public class Baraja {
      */
     private void shuffleAux(Carta[] array) {
         int n = array.length;
-        Random random = new Random();
+        Random random = new Random(seed);
         for (int i = 0; i < array.length; i++) {
             int randomValue = i + random.nextInt(n - i);
             Carta randomElement = array[randomValue];
@@ -113,5 +140,4 @@ public class Baraja {
             array[i] = randomElement;
         }
     }
-
 }
