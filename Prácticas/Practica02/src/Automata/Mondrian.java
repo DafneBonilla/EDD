@@ -81,54 +81,54 @@ public class Mondrian extends AC {
 							//System.out.println("    Analizando " + k  + ","  + l  + "  --> " + Maux2[k][l]     ); SOP que ayuda a checar los for.
                             switch (Maux2[k][l]) {
                                 case 0:
-                                    pila.push(0);
-                                    cola.push(0);
+                                    pila.push(0); //Agregando a la pila el color de su vecino.
+                                    cola.push(0); //Agregando a la cola el color de su vecino.
                                     break;
                                 case 1:
-                                    pila.push(1);
-                                    cola.push(1);
+                                    pila.push(1); //Agregando a la pila el color de su vecino.
+                                    cola.push(1); //Agregando a la cola el color de su vecino.
                                     break;
                                 case 2:
-                                    pila.push(2);
-                                    cola.push(2);
+                                    pila.push(2); //Agregando a la pila el color de su vecino.
+                                    cola.push(2); //Agregando a la cola el color de su vecino.
                                     break;
                                 case 3:
-                                    pila.push(3);
-                                    cola.push(3);
+                                    pila.push(3); //Agregando a la pila el color de su vecino.
+                                    cola.push(3); //Agregando a la cola el color de su vecino.
                                     break;
                                 case 4:
-                                    pila.push(4);
-                                    cola.push(4);
+                                    pila.push(4); //Agregando a la pila el color de su vecino.
+                                    cola.push(4); //Agregando a la cola el color de su vecino.
                                     break;
                                 case 5:
-                                    pila.push(5);
-                                    cola.push(5);
+                                    pila.push(5); //Agregando a la pila el color de su vecino.
+                                    cola.push(5); //Agregando a la cola el color de su vecino.
                                     break;
                                 default:    break;
                             }
 						}
 					}
 				}
-                if (Maux2[i][j]%2 == 0) {
-                    switch (cola.peek()%2) {
+                if (Maux2[i][j] % 2 == 0) { //Checamos si el color actual es par
+                    switch (cola.peek() % 2) { //Checamos si su primer vecino es par o impar
                         case 0:
-                            CopiaM[i][j] = (Maux2[i][j]+5)%6;
+                            CopiaM[i][j] = (Maux2[i][j] + 5) % 6; //Si es par hacemos esto
                             break;
                         case 1:
-                            CopiaM[i][j] = (Maux2[i][j]+4)%6;
+                            CopiaM[i][j] = (Maux2[i][j] + 4) % 6; //Si es impar hacemos esto
                             break;
-                        default:
+                        default: //No se deberia llegar a este caso
                             break;
                     }
-                } else if (pila.peek()>2) {
-                    CopiaM[i][j] = cola.pop();
+                } else if (pila.peek()>3) { //Checamos si su ultimo vecino es mayor estricto que 3
+                    CopiaM[i][j] = (cola.pop() + 5)%6; //Si pasa esto sacamos al primer vecino y hacemos esto
                 } else {
-                    CopiaM[i][j] = pila.pop();
-                }
-                }
+                    CopiaM[i][j] = (pila.pop() + 4)%6; //Si pasa esto sacamos al ultimo vecino y hacemos esto
+                }  
+            }  //Usamos la vecindad de Maux2[i][j]
 				// SOP que cuenta las casillas vecinas muertas y vivas y dice como cambiara el estado de la casilla.
 				// System.out.println("      Muertos " + muertos + "  Vivos-> " + vivos   + " -----> " + CopiaM[i][j]   );
-			}
+		}
 		for (int i=0;i<Maux2.length;i++) { 			//Fors que arreglan la matriz a regresar en la copia.
 			for (int j=0;j<Maux2.length;j++) {
 				Maux2[i][j]=CopiaM[i][j];
