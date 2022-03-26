@@ -126,7 +126,7 @@ public class Practica2 {
         // Escribe aqui tu codigo para probar los metodos anteriores. 
         // No olvides comentar tu codigo y escribir tu nombre en el readme.
 
-        // "Prueba" de Cola         Funciona
+        // "Prueba" de Cola             Funciona
         /*
         Cola<Integer> numeritos = new Cola<>();
         for (int i = 0; i < 5; i++) {
@@ -143,7 +143,24 @@ public class Practica2 {
         System.out.println(num1.size());
         */
 
-        // "Prueba" de Hanoi        Funciona
+        // "Prueba" de Pila (clone())   NO Funciona
+        
+        Pila<Integer> numeritos = new Pila<>();
+        for (int i = 0; i < 5; i++) {
+            numeritos.push(i);
+        } 
+        Pila<Integer> num1 = numeritos.clone();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(numeritos.pop());
+        }
+        Pila<Integer> num2 = numeritos.clone();
+        for (int i = 0; i < 5; i++) {
+            System.out.println(num1.pop());
+        }
+        System.out.println(num1.size());
+        
+
+        // "Prueba" de Hanoi            Funciona
         /*
         Pila<Integer> origen = new Pila<>();
         Pila<Integer> auxiliar = new Pila<>();
@@ -151,7 +168,7 @@ public class Practica2 {
         torresHanoi(5, origen, auxiliar, destino);
         */
 
-        // "Prueba" de Binario      Funciona
+        // "Prueba" de Binario          Funciona
         /*
         binarioColas(15);
         */

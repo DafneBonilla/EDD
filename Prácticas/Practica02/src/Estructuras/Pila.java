@@ -44,6 +44,23 @@ public class Pila<T> extends PushPop<T>{
            nueva.push(n.siguiente.elemento);
            n = n.siguiente;
         }
+        return nueva.cloneAux();
+    }
+
+    /**
+     * Metodo auxiliar para clone().
+     */
+    private Pila<T> cloneAux() {
+        Pila<T> nueva = new Pila<T>();
+        if (this.isEmpty()) {
+            return nueva;
+        }
+        nueva.push(this.cabeza.elemento);
+        Nodo n = this.cabeza;
+        while (n.siguiente != null) {
+           nueva.push(n.siguiente.elemento);
+           n = n.siguiente;
+        }
         return nueva;
     }
 
