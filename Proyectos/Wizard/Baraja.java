@@ -56,10 +56,20 @@ public class Baraja {
 	    return datitos;
     }
 
+    /**
+     * Regresa el tamaño de la baraja.
+     * @return el tamaño de la bajara.
+     */
     public int tamanio() {
         return cartitas.size();
     }
 
+    /**
+     * Vuelve la baraja en un arreglo.
+     * El arreglo que regresa puede ser aceptado por el método
+     * {@link Baraja#volverBaraja}.
+     * @return un arreglo con las cartas de la baraja.
+     */
     private Carta[] volverArreglo() {
         Carta[] regresar = new Carta[cartitas.size()];
         for (int i=0; i<regresar.length; i++) {
@@ -68,6 +78,11 @@ public class Baraja {
         return regresar;
     }
 
+    /**
+     * Agrega todas las cartas de un arreglo a la baraja.
+     * El arreglo que recibe debe ser del método
+     * {@link Baraja#volverArreglo}.
+     */
     private void volverBaraja(Carta[] arreglo) {
         cartitas.empty();
         for (int i=0; i<arreglo.length; i++) {
@@ -75,12 +90,19 @@ public class Baraja {
         }
     }
 
+    /**
+     * Revuelve las cartas de la baraja.
+     */
     public void shuffle() {
         Carta[] arreglo = volverArreglo();
         shuffleAux(arreglo);
         volverBaraja(arreglo);
     }
 
+    /**
+     * Auxiliar para devolver las cartas.
+     * Algoritmo: Fisher–Yates shuffle
+     */
     private void shuffleAux(Carta[] array) {
         int n = array.length;
         Random random = new Random();
