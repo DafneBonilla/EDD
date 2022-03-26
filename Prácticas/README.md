@@ -9,3 +9,4 @@ Curso EDD 2022-2
 Prácticas realizadas durante el curso de EDD.
 
 * Práctica 01 terminada *
+* Práctica 02 terminada *
