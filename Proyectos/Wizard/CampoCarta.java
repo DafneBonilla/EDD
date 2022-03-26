@@ -1,4 +1,4 @@
-package Proyectos.Wizard;
+package Wizard;
 
 /**
  * Enumeración para los campos de un {@link Carta}.
@@ -21,7 +21,7 @@ public enum CampoCarta {
             case COLOR:
                 return "Color";
             default:
-                return "Algo salio mal";
+                return "Algo salió mal";
         }
     }
 }

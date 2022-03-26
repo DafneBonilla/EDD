@@ -11,9 +11,8 @@ José Camilo García Ponce - 319210536
 
 ### Uso
 
-Servidor ->
-
-Cliente ->
+Compilar -> javac -d . Wizard/*.java
+Ejecutar -> java Wizard/Proyecto1
 
 ## Explicacion
 

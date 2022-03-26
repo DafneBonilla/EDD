@@ -1,5 +1,4 @@
-package Proyectos.Wizard;
-
+package Wizard;
 /**
  * Clase para representar cartas. Una carta tiene valor y color.
  */
@@ -82,9 +81,9 @@ public class Carta {
     }
 
     /*
-    Metodos auxiliares para caza
+    Metodos auxiliares para caza.
     */
-    private boolean cazaValor(Object buscar){
+    private boolean cazaValor(Object buscar) {
         if (!(buscar instanceof String)) {
             return false;
         }
@@ -96,7 +95,7 @@ public class Carta {
         }
         return false;
     }
-    private boolean cazaColor(Object buscar){
+    private boolean cazaColor(Object buscar) {
         if (!(buscar instanceof String)) {
             return false;
         }
@@ -127,7 +126,7 @@ public class Carta {
      */
     public boolean caza(CampoCarta campo, Object buscar) {
         if (campo == null) {
-            throw new IllegalArgumentException("el campo es null");
+            throw new IllegalArgumentException("El campo es null");
         }
         switch (campo) {
             case VALOR:
@@ -135,7 +134,7 @@ public class Carta {
             case COLOR:
                 return cazaColor(buscar);
             default:
-                throw new IllegalArgumentException("el campo no es instancia de CampoCarta");
+                throw new IllegalArgumentException("El campo no es instancia de CampoCarta");
         }
     }
 }

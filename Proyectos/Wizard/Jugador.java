@@ -1,4 +1,4 @@
-package Proyectos.Wizard;
+package Wizard;
 
 /**
  * Clase para representar jugadores.
