@@ -1,12 +1,5 @@
 package edd.src.Automata;
 
-
-
-/*
-*@Author Macias Gomez Jorge
-*
-*
-*/
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private AutomataCelular automata;
@@ -16,7 +9,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     /**
      * Clase para mostar una ventana grafica con una malla para simular una automata celular.
-     * @author Manuel
      */
     public VentanaPrincipal(AutomataCelular automata) {
         this.automata = automata;
@@ -26,10 +18,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         imagen.pinta(automata.getAutomata(), automata.getColores());
         setVisible(true);
     }
-
     
     /**
-     * Metodo main para ejecutar la aplicacion. 
+     * Método main para ejecutar la aplicación. 
      * @param args
      */
     public static void main(String args[]) {
@@ -57,10 +48,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          * AutomataCelular a = new Mondrian();
          * AutomataCelular a = new juego();
          */
-       //AutomataCelular a = new JuegoVida();
-       AutomataCelular a = new Mondrian();
-       //AutomataCelular a=new juego();
-       vp = new VentanaPrincipal(a);
+        //AutomataCelular a = new JuegoVida();
+        AutomataCelular a = new Mondrian();
+        //AutomataCelular a=new juego();
+        vp = new VentanaPrincipal(a);
     }
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -71,7 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelEvolucion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Automata Celular by Canek");
+        setTitle("Automata Celular by Facultad de Ciencias");
         setResizable(false);
 
         javax.swing.GroupLayout imagenLayout = new javax.swing.GroupLayout(imagen);
@@ -152,16 +143,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonIniciar.setEnabled(true);
         imagen.pinta(automata.getAutomata(), automata.getColores());
         botonDetener.setEnabled(true);
-        //stop = false;	
-        //t = new Thread(new Evolucionador());
-        //t.start();
-
-        //AutomataCelular a = new JuegoVida();
-        //vp = new VentanaPrincipal(a);
+        // stop = false;	
+        // t = new Thread(new Evolucionador());
+        // t.start();
+        // AutomataCelular a = new JuegoVida();
+        // vp = new VentanaPrincipal(a);
     }
 
     private class Evolucionador implements Runnable {
-
         @Override
         public void run() {
             while (!stop) {
@@ -174,7 +163,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }
-    
     private javax.swing.JButton botonDetener;
     private javax.swing.JButton botonIniciar;
     private Imagen imagen;

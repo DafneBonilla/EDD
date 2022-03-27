@@ -1,34 +1,34 @@
 package edd.src.Automata;
 
 import java.awt.Color;
-public abstract class AC implements AutomataCelular{
-    int estado; //Contador de evoluciones.
-    Color[] colores; //Arreglo de colores.
-    int [][] Maux;  //Matriz auxiliar.
+public abstract class AC implements AutomataCelular {
+    int estado; // Contador de evoluciones.
+    Color[] colores; // Arreglo de colores.
+    int [][] Maux;  // Matriz auxiliar.
 
-     /*
-     *Metodo que regresa el numero de evolucion.
+    /*
+     * Método que regresa el número de evolución.
      */
-     @Override
+    @Override
     public int getEvolucion() {
         return estado++;
     }
 
-     /*
-     *Metodo que reinicia el numero de evolucion.
+    /*
+     * Método que reinicia el número de evolución.
      */
     public void reiniciaEvolucion() {
         estado = 0;
     }
 
     /*
-    *Metodo que inicia el automata sin evoluciones.
-    */
+     * Método que inicia el autómata sin evoluciones.
+     */
     @Override
     public int[][] getAutomata() {
         Maux = new int[Imagen.numCells][Imagen.numCells];
-        for (int i=0;i<Maux.length;i++) {
-            for (int j =0;i<Maux.length;i++) {
+        for (int i = 0; i < Maux.length; i++) {
+            for (int j =0; i < Maux.length; i++) {
                 Maux[i][j]=3;
             }
         }
@@ -36,22 +36,23 @@ public abstract class AC implements AutomataCelular{
     }
 
     /*
-    *Metodo que regresa el arreglo de colores.
-    */
+     * Método que regresa el arreglo de colores.
+     */
     @Override
     public Color[] getColores() {
         colores = new Color[]{Color.ORANGE,Color.BLUE,Color.BLACK,Color.WHITE,Color.RED,Color.GREEN};
         return colores;
     }
+
     /*
-    *Metodo absracto para evolucionar.
-    */
+     * Método absracto para evolucionar.
+     */
     @Override
     abstract public void evoluciona();
 
     /*
-    *Metodo que regresa la matriz en las evoluciones.
-    */
+     * Método que regresa la matriz en las evoluciones.
+     */
     @Override
     abstract public int[][] getAutomata2();
 }

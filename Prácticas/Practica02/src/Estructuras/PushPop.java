@@ -30,7 +30,7 @@ public abstract class PushPop<T> {
 
     /**
      * Agrega un elemento al final o principio del PushPop. Si el PushPop no tiene elementos,
-     * el elemento a agregar será el primero y el ultimo.
+     * el elemento a agregar será el primero y el último.
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
      *         <code>null</code>.
@@ -42,9 +42,9 @@ public abstract class PushPop<T> {
      * @param elemento el elemento a eliminar.
      * @return el elemento eliminado.
      * @throws NoSuchElementException si <code>elemento</code> es
-     *         <code>null</code> o no si es vacia.
+     *         <code>null</code> o si es vacía.
      */
-    public T pop(){
+    public T pop() {
         if (longi == 0 || cabeza == null) {
             throw new NoSuchElementException("");
         }
@@ -63,12 +63,11 @@ public abstract class PushPop<T> {
     /**
      * Regresa el elemento de la cabeza.
      * @return el elemento de la cabeza.
-     * @throws NoSuchElementException si es vacia.
+     * @throws NoSuchElementException si es vacía.
      */
-    public T peek(){
-        if (isEmpty()) {
+    public T peek() {
+        if (isEmpty()) 
             throw new NoSuchElementException("");
-        }
         return cabeza.elemento;
     } 
 
@@ -129,7 +128,4 @@ public abstract class PushPop<T> {
         }  
         return true;
     }
-
-
-
 }

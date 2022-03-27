@@ -8,7 +8,7 @@ package edd.src.Estructuras;
 public class Practica2 {
     
     /**
-     * Metodo auxiliar para mover "discos" entre "postes"
+     * Método auxiliar para mover "discos" entre "postes".
      * @param primero el primer "poste".
      * @param segundo el segundo "poste".
      */
@@ -18,57 +18,56 @@ public class Practica2 {
             int wowi = Segundo.pop();
             Primero.push(wowi);
             System.out.println("~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~");
-            System.out.println("Moviendo el disco "+wowi+" del poste "+nombre2+" al poste "+nombre1);
-            System.out.println("Origen\t\t"+origen.toStringHanoi());
-            System.out.println("Auxiliar\t"+auxiliar.toStringHanoi());
-            System.out.println("Destino\t\t"+destino.toStringHanoi());
+            System.out.println("Moviendo el disco " + wowi + " del poste " + nombre2 + " al poste " + nombre1);
+            System.out.println("Origen\t\t" + origen.toStringHanoi());
+            System.out.println("Auxiliar\t" + auxiliar.toStringHanoi());
+            System.out.println("Destino\t\t" + destino.toStringHanoi());
         } else if (Segundo.isEmpty()) {
             int wowi = Primero.pop();
             Segundo.push(wowi);
             System.out.println("~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~");
-            System.out.println("Moviendo el disco "+wowi+" del poste "+nombre1+" al poste "+nombre2);
-            System.out.println("Origen\t\t"+origen.toStringHanoi());
-            System.out.println("Auxiliar\t"+auxiliar.toStringHanoi());
-            System.out.println("Destino\t\t"+destino.toStringHanoi());
+            System.out.println("Moviendo el disco " + wowi + " del poste " + nombre1 + " al poste " + nombre2);
+            System.out.println("Origen\t\t" + origen.toStringHanoi());
+            System.out.println("Auxiliar\t" + auxiliar.toStringHanoi());
+            System.out.println("Destino\t\t" + destino.toStringHanoi());
         } else if (Primero.peek() > Segundo.peek()) {
             int wowi = Segundo.pop();
             Primero.push(wowi);
             System.out.println("~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~");
-            System.out.println("Moviendo el disco "+wowi+" del poste "+nombre2+" al poste "+nombre1);
-            System.out.println("Origen\t\t"+origen.toStringHanoi());
-            System.out.println("Auxiliar\t"+auxiliar.toString());
-            System.out.println("Destino\t\t"+destino.toStringHanoi());
+            System.out.println("Moviendo el disco " + wowi + " del poste " + nombre2 + " al poste " + nombre1);
+            System.out.println("Origen\t\t" + origen.toStringHanoi());
+            System.out.println("Auxiliar\t" + auxiliar.toString());
+            System.out.println("Destino\t\t" + destino.toStringHanoi());
         } else {
             int wowi = Primero.pop();
             Segundo.push(wowi);
             System.out.println("~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~▫~~~");
-            System.out.println("Moviendo el disco "+wowi+" del poste "+nombre1+" al poste "+nombre2);
-            System.out.println("Origen\t\t"+origen.toStringHanoi());
-            System.out.println("Auxiliar\t"+auxiliar.toStringHanoi());
-            System.out.println("Destino\t\t"+destino.toStringHanoi());
+            System.out.println("Moviendo el disco " + wowi + " del poste " + nombre1 + " al poste " + nombre2);
+            System.out.println("Origen\t\t" + origen.toStringHanoi());
+            System.out.println("Auxiliar\t" + auxiliar.toStringHanoi());
+            System.out.println("Destino\t\t" + destino.toStringHanoi());
         }
     }
 
     /**
-     * Metodo que "resuelve" las torres de Hanoi, sin usar
-     * recursion, porque no tengo amor propio CorgiDerp
-     * Metodo sacado con mucho esfuerzo y mucha ayuda de tutoriales de YouTube
-     * @param cantidadDiscos el numero de discos a mover.
+     * Método que resuelve las torres de Hanoi iterativamente.
+     * Método sacado con mucho esfuerzo y mucha ayuda de tutoriales de YouTube.
+     * @param cantidadDiscos el número de discos a mover.
      * @param origen el primer "poste" (donde estan los discos al inicio).
      * @param auxiliar el segundo "poste" (el auxiliar).
-     * @param destino el tercer "poste" (donde estaran los discos al final).
+     * @param destino el tercer "poste" (donde estarán los discos al final).
      */
-    public static void torresHanoi(int cantidadDiscos, Pila<Integer> origen, Pila<Integer> auxiliar, Pila<Integer> destino){
+    public static void torresHanoi(int cantidadDiscos, Pila<Integer> origen, Pila<Integer> auxiliar, Pila<Integer> destino) {
         int pasitos = (int)(Math.pow(2, cantidadDiscos))-1;
         for (int i = 0; i < cantidadDiscos; i++) {
             origen.push(cantidadDiscos-i);
         }
-        System.out.println("Origen\t\t"+origen.toStringHanoi());
-        System.out.println("Auxiliar\t"+auxiliar.toStringHanoi());
-        System.out.println("Destino\t\t"+destino.toStringHanoi());
-        if (cantidadDiscos%2 == 1) {
+        System.out.println("Origen\t\t" + origen.toStringHanoi());
+        System.out.println("Auxiliar\t" + auxiliar.toStringHanoi());
+        System.out.println("Destino\t\t" + destino.toStringHanoi());
+        if (cantidadDiscos % 2 == 1) {
             for (int i = 1; i <= pasitos; i++) {
-                switch (i%3) {
+                switch (i % 3) {
                     case 1:
                         moverDiscos(origen, destino, origen, auxiliar, destino, "Origen", "Destino");
                         break;
@@ -84,7 +83,7 @@ public class Practica2 {
             }
         } else {
             for (int i = 1; i <= pasitos; i++) {
-                switch (i%3) {
+                switch (i % 3) {
                     case 1:
                         moverDiscos(origen, auxiliar, origen, auxiliar, destino, "Origen", "Auxiliar");
                         break;
@@ -99,15 +98,13 @@ public class Practica2 {
                 }
             }
         }
-        // Aquí va su código.
     }
 
     /**
-     * Metodo que imprime los numeros en binario desde 1 hasta
-     * el numero dado.
-     * @param N hasta que numero.
+     * Método que imprime los numeros en binario desde 1 hasta el número dado.
+     * @param N hasta que número.
      */
-    public static void binarioColas(int N){
+    public static void binarioColas(int N) {
         if (N < 1) {
             return;
         }
@@ -119,7 +116,6 @@ public class Practica2 {
             numeritos.push(actual+"0");
             numeritos.push(actual+"1");
         }
-        // Aquí va su código.
     }
 
     public static void main(String[] args) {
