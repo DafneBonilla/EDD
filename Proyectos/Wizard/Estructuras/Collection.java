@@ -2,7 +2,7 @@ package Wizard.Estructuras;
 
 //import java.util.Comparator;
 
-public interface Collection<T> {
+public interface Collection<T> extends Iterable<T> {
 
     /**
      * Agrega un elemento a la colección.

@@ -30,22 +30,22 @@ public class Baraja {
     public Baraja(long seed) {
         cartitas = new Lista<Carta>();
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "rojo"));
+            cartitas.add(new Carta(i, 1));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "azul"));
+            cartitas.add(new Carta(i, 2));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "amarillo"));
+            cartitas.add(new Carta(i, 3));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "verde"));
+            cartitas.add(new Carta(i, 4));
         }
         for (int i = 1; i <= 4; i++) {
-            cartitas.add(new Carta(String.valueOf("W"), "blanco"));
+            cartitas.add(new Carta(14, 5));
         }
         for (int i = 1; i <= 4; i++) {
-            cartitas.add(new Carta(String.valueOf("J"), "blanco"));
+            cartitas.add(new Carta(0, 5));
         }
     }
 
@@ -76,6 +76,27 @@ public class Baraja {
         }
         int contador = 0;
         Iterator<Carta> iterator = cartitas.iterator();
+        while (iterator.hasNext()) {
+            datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
+            contador++;
+        }
+	    return datitos;
+    }
+
+    /**
+     * Regresa una representación en cadena de la baraja ordenada.
+     * @return una representación en cadena de la baraja ordenada.
+     */
+    public String toStringOrden() {
+        String datitos = "";
+        if (cartitas.isEmpty()) {
+            return datitos;
+        }
+        Lista<Carta> orden = cartitas.mergeSort(
+            (card1, card2) -> card1.compareTo(card2)
+        );
+        int contador = 0;
+        Iterator<Carta> iterator = orden.iterator();
         while (iterator.hasNext()) {
             datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;

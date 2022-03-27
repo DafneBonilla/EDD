@@ -64,10 +64,12 @@ public class Partida {
     /**
      * Inicia la partida.
      */
-    public void iniciar() {
+    public void iniciar() throws IOException {
+        System.out.println("La partida va a empezar, todos listos :)");
+        System.out.println("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
             Ronda actual = new Ronda();
-            actual.iniciar(mazo, log, i);
+            //actual.iniciar(mazo, log, i);
             seguir();
             if (!sigue) {
                 break;
@@ -81,10 +83,8 @@ public class Partida {
         guardar(out);
     }
 
-    public void resultados() {
+    private void resultados() {
         String resultados = "";
-        
-        log += resultados;
         System.out.println(resultados);
         int contador = 1;
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -92,10 +92,13 @@ public class Partida {
             resultados += "El jugador " + contador + " tiene "+ iterator.next().getPuntuacion() + " puntos\n";
             contador++;
         }
+        resultados += "Ahora se anunciara el ganador del juego...\n\n";
         resultados += ganador();
+        log += resultados;
+        System.out.print(resultados);
     }
 
-    public String ganador() {
+    private String ganador() {
         Iterator<Jugador> iterator = jugadores.iterator();
         int i = 0;
         int contador = 1;
@@ -111,24 +114,31 @@ public class Partida {
 
     private String superior(int[][] arreglo) {
         String winner = "Hubo un empate entre los Jugadores ";
-        int posicion = 0;
+        int posicion = mayor(arreglo);
         boolean empate = false;
-        int puntuacion = -11111111;
         for (int i = 0; i <= jugadores.size(); i++) {
-            if (arreglo[1][i] > puntuacion) {
-                puntuacion = arreglo[1][i];
+            if (arreglo[1][i] > arreglo[1][posicion]) {
                 posicion = i;
-            } else if (arreglo[1][i] == puntuacion) {
-                puntuacion = arreglo[1][i];
+            } else if (arreglo[1][i] == arreglo[1][posicion]) {
                 posicion = i;
                 empate = true;
-                winner += posicion + "con " + puntuacion + "puntos, ";
+                winner += posicion + ", ";
             }
         }
         if (empate) {
-            return winner.substring(0, winner.length() - 2)+".";
+            return winner+" todos con"+ arreglo[1][posicion]  +"puntos.\n";
         }
-        return "El ganador es el Jugador "+posicion+" con "+puntuacion+" puntos.";
+        return "El ganador es el Jugador "+posicion+" con "+arreglo[1][posicion]+" puntos.\n";
+    }
+
+    private int mayor(int[][] arreglo) {
+        int respuesta = 0;
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (arreglo[1][i] > arreglo[1][i]) {
+                respuesta = i;
+            }
+        }
+        return respuesta;
     }
 
     public void seguir() {
@@ -142,7 +152,7 @@ public class Partida {
                     sigue = false;
                     break;
                 default:
-                    System.out.println("Respuesta inválida");
+                    System.out.println("Respuesta inválida.");
                     seguir();
                     break;
             }
@@ -153,7 +163,7 @@ public class Partida {
         try {
             out.write(log);
         } catch (IOException ioe) {
-            System.out.println("Algo salió mal al guardar");
+            System.out.println("Error al itentar guardar.");
         }
     }
 }

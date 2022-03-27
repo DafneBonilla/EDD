@@ -6,7 +6,7 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
-
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -543,4 +543,74 @@ public class Lista<T> implements Collection<T> {
     public IteradorLista<T> iteradorLista() {
         return new Iterador();
     }
+
+    /**
+     * Regresa una copia de la lista, pero ordenada. Para poder hacer el
+     * ordenamiento, el método necesita una instancia de {@link Comparator} para
+     * poder comparar los elementos de la lista.
+     * @param comparador el comparador que la lista usará para hacer el
+     *                   ordenamiento.
+     * @return una copia de la lista, pero ordenada.
+     */
+    public Lista<T> mergeSort(Comparator<T> comparador) {
+        if (longi == 0 || longi == 1) {
+            return clone();
+        }
+        Lista<T> l1 = new Lista<T>();
+        Lista<T> l2 = new Lista<T>();
+        int m = longi/2;
+        int conta = 0;
+        for (T e : this) {
+            if (conta < m) {
+                l1.agregaFinal(e);
+            } else {
+                l2.agregaFinal(e);
+            }
+            conta++;
+        }
+        l1 = l1.mergeSort(comparador);
+        l2 = l2.mergeSort(comparador);
+        return mezcla(l1, l2, comparador);
+    }
+
+    /* 
+    Metodo auxiliar para mergeSort
+    */
+    private Lista<T> mezcla(Lista<T> l1, Lista<T> l2, Comparator<T> comparador) {
+        Lista<T> mezclada = new Lista<T>();
+        Nodo i = l1.cabeza;
+        Nodo j = l2.cabeza;
+        while (i != null && j != null) {
+            if (comparador.compare(i.elemento, j.elemento) <= 0) {
+                mezclada.agregaFinal(i.elemento);
+                i = i.siguiente;
+            } else {
+                mezclada.agregaFinal(j.elemento);
+                j = j.siguiente;
+            }
+        }
+        while (i != null) {
+            mezclada.agregaFinal(i.elemento);
+            i = i.siguiente;
+        }
+        while (j != null) {
+            mezclada.agregaFinal(j.elemento);
+            j = j.siguiente;
+        }
+        return mezclada;
+    }
+
+    /**
+     * Regresa una copia de la lista recibida, pero ordenada. La lista recibida
+     * tiene que contener nada más elementos que implementan la interfaz {@link
+     * Comparable}.
+     * @param <T> tipo del que puede ser la lista.
+     * @param lista la lista que se ordenará.
+     * @return una copia de la lista recibida, pero ordenada.
+     */
+    public static <T extends Comparable<T>>
+    Lista<T> mergeSort(Lista<T> lista) {
+        return lista.mergeSort((a, b) -> a.compareTo(b));
+    }
+
 }
