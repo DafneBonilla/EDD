@@ -42,7 +42,7 @@ public class Color {
             case 5:
                 return "blanco";
             default:
-                return "no existe";
+                return "no hay";
         }
     }
 

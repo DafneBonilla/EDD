@@ -11,14 +11,17 @@ public class Jugador {
     private int puntuacion;
     /* Apuesta actual del jugador. */
     private int apuesta;
+    /* Trucos ganados por el jugador. */
+    private int ganados;
 
     /**
-     * Constructor único.
+     * Define el estado inicial de un jugador.
      */
     public Jugador() {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
+        this.ganados = 0;
     }
 
     /**
@@ -67,6 +70,22 @@ public class Jugador {
      */
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
+    }
+
+    /**
+     * Regresa los trucos ganapor por el jugador.
+     * @return los trucos ganapor por el jugador.
+     */
+    public int getGanados() {
+        return ganados;
+    }
+
+    /**
+     * Define los trucos ganapor por el jugador.
+     * @param ganados los trucos ganapor por el jugador.
+     */
+    public void setGanados(int ganados) {
+        this.ganados = ganados;
     }
 
     /**

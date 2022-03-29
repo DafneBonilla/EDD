@@ -1,10 +1,8 @@
 package Wizard;
 
+import Wizard.Estructuras.Lista;
 import java.util.Iterator;
 import java.util.Random;
-
-import Wizard.Estructuras.Lista;
-
 
 /**
  * Clase para representar barajas. Seran listas de la clase {@link Carta}.
@@ -17,7 +15,7 @@ public class Baraja {
     private long seed;
 
     /**
-     * Constructor 1.
+     * Define el estado inical de una baraja.
      */
     public Baraja(){
         cartitas = new Lista<Carta>();
@@ -25,7 +23,9 @@ public class Baraja {
     }
 
     /**
-     * Constructor 2.
+     * Define el estado inicial de una baraja,
+     * usando una seed.
+     * @param seed la semilla de la baraja.
      */
     public Baraja(long seed) {
         cartitas = new Lista<Carta>();

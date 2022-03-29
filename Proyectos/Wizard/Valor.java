@@ -62,7 +62,7 @@ public class Valor {
             case 14:
                 return "W";
             default:
-                return "no existe";
+                return "no hay";
         }
     }
 

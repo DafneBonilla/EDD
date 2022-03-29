@@ -1,7 +1,6 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
-
 import java.util.Iterator;
 import java.util.Scanner;
 import java.io.BufferedWriter;
@@ -30,7 +29,9 @@ public class Partida {
     private long seed;
 
     /**
-     * Constructor único.
+     * Define el estado inicial de una partida.
+     * @param numJugadores el numero de jugadores.
+     * @param archivo el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo) {
         jugadores = new Lista<>();
@@ -62,42 +63,46 @@ public class Partida {
     }
 
     /**
-     * Inicia la partida.
+     * Comienza la partida.
      */
-    public void iniciar() throws IOException {
-        System.out.println("La partida va a empezar, todos listos :)");
-        System.out.println("La seed del juego es "+seed);
+    public void iniciar() {
+        enviarMensaje("La partida va a empezar, todos listos :)");
+        enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda();
-            //actual.iniciar(mazo, log, i);
+            Ronda actual = new Ronda(jugadores, numRondas, log, mazo);
+            actual.iniciar();
             seguir();
             if (!sigue) {
                 break;
             }
         }
         resultados();
-        BufferedWriter out = 
-            new BufferedWriter(
-                new OutputStreamWriter(
-                    new FileOutputStream(historial))); 
-        guardar(out);
+        guardar(historial);
     }
 
+    /**
+     * Imprime un mensaje al usuario, ademes el mensaje lo
+     * agrega a log.
+     * @param mensaje el mensaje a imprimir y agregar.
+     */
+    private void enviarMensaje(String mensaje) {
+        System.out.println(mensaje);
+        log += mensaje;
+    }
+
+    /**
+     * Muesta los resultados de la partida.
+     */
     private void resultados() {
-        String resultados = "";
-        System.out.println(resultados);
-        int contador = 1;
-        Iterator<Jugador> iterator = jugadores.iterator();
-        while (iterator.hasNext()) {
-            resultados += "El jugador " + contador + " tiene "+ iterator.next().getPuntuacion() + " puntos\n";
-            contador++;
-        }
-        resultados += "Ahora se anunciara el ganador del juego...\n\n";
+        String resultados = "Ahora se anunciara el ganador del juego...\n\n";
         resultados += ganador();
-        log += resultados;
-        System.out.print(resultados);
+        enviarMensaje(resultados);
     }
 
+    /**
+     * Calcula quien fue el ganador de la partida.
+     * @return una cadena con los datos del ganador.
+     */
     private String ganador() {
         Iterator<Jugador> iterator = jugadores.iterator();
         int i = 0;
@@ -112,6 +117,11 @@ public class Partida {
         return superior(arreglo);
     }
 
+    /**
+     * Ayuda a calcular el ganador.
+     * @param arreglo un arreglo con los datos de los jugadores.
+     * @return una cadena con el ganador.
+     */
     private String superior(int[][] arreglo) {
         String winner = "Hubo un empate entre los Jugadores ";
         int posicion = mayor(arreglo);
@@ -122,15 +132,20 @@ public class Partida {
             } else if (arreglo[1][i] == arreglo[1][posicion]) {
                 posicion = i;
                 empate = true;
-                winner += posicion + ", ";
+                winner += posicion+1 + ", ";
             }
         }
         if (empate) {
             return winner+" todos con"+ arreglo[1][posicion]  +"puntos.\n";
         }
-        return "El ganador es el Jugador "+posicion+" con "+arreglo[1][posicion]+" puntos.\n";
+        return "El ganador es el Jugador "+posicion+1+" con "+arreglo[1][posicion]+" puntos.\n";
     }
 
+    /**
+     * Buscar la puntacion más alta de los jugadores.
+     * @param arreglo un arreglo con los datos de los jugadores.
+     * @return la posicion del jugador con mayor puntacion.
+     */
     private int mayor(int[][] arreglo) {
         int respuesta = 0;
         for (int i = 0; i < jugadores.size(); i++) {
@@ -141,7 +156,10 @@ public class Partida {
         return respuesta;
     }
 
-    public void seguir() {
+    /**
+     * Saber si el juego va a seguir o se detendra.
+     */
+    private void seguir() {
         System.out.println("¿Quieres seguir jugando? s/n");
         try (Scanner scanner = new Scanner(System.in)) {
             String algo = scanner.nextLine();
@@ -159,9 +177,18 @@ public class Partida {
         }
     }
 
-    public void guardar(BufferedWriter out) {
+    /**
+     * Guarda el log en un archivo.
+     * @param historial el archivo donde se guardara.
+     */
+    private void guardar(String historial) { 
         try {
+            BufferedWriter out = 
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        new FileOutputStream(historial)));
             out.write(log);
+            out.close();
         } catch (IOException ioe) {
             System.out.println("Error al itentar guardar.");
         }

@@ -22,11 +22,11 @@ javac -d . *.java Estructuras/*.java
 
 Ejecutar
 ```
-$ java Wizard/Proyecto1
+java Wizard/Proyecto1
 ```
 Ejecutar desde Wizard/
 ```
-$ java Wizard/Proyecto1
+java Wizard/Proyecto1
 ```
 
 ## Explicación

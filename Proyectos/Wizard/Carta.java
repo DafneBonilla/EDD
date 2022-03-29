@@ -159,6 +159,15 @@ public class Carta implements Comparable<Carta> {
         }
     }
 
+    /**
+     * Metodo para poder comparar dos cartas, primero se checan sus
+     * colores y luego se checan sus valores.
+     * @param card la carta a comparar.
+     * @return dependiendo si la carta que llamo el metodo es:
+     *         menor que card, regresa -1
+     *         mayor que card, regresa 1
+     *         igual que card, regresa 0
+     */
     @Override public int compareTo(Carta card) {
         if (this.color.getMerito() > card.color.getMerito()) {
             return 1;            
