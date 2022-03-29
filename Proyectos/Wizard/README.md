@@ -14,10 +14,12 @@ José Camilo García Ponce - 319210536
 Compilar 
 ```
 $ javac -d . Wizard/*.java
+$ javac -d . *.java Estructuras/*.java (desde Wizard)
 ```
 Ejecutar
 ```
 $ java Wizard/Proyecto1
+$ java Wizard/Proyecto1 (desde Wizard)
 ```
 
 ## Explicación
