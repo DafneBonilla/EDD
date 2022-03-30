@@ -1,6 +1,8 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -40,8 +42,9 @@ public class Ronda {
 
     /**
      * Comienza la ronda.
+     * @throws IOException
      */
-    public void iniciar() {
+    public void iniciar() throws IOException {
         enviarMensaje("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
         repartirCartas();
@@ -53,11 +56,8 @@ public class Ronda {
         }
         verPuntuacion();
         enviarMensaje("Las puntaciones se ven asi...");
-        int contador = 1;
-        Iterator<Jugador> iterator = jugadores.iterator();
-        while (iterator.hasNext()) {
-            enviarMensaje("El jugador " + contador + " tiene " + iterator.next().getPuntuacion() + " puntos\n");
-            contador++;
+        for (Jugador jugador : jugadores) {
+            enviarMensaje("El jugador " + jugador.getNombre() + " tiene " + jugador.getPuntuacion() + " puntos\n");
         }
     }
 
@@ -98,8 +98,8 @@ public class Ronda {
         int contador = 1;
         try (Scanner scanner = new Scanner(System.in)) {
             for (Jugador jugador : jugadores) {
-                System.out.println("Jugador "+ contador + " es tu turno de ver tus cartas.\n(Presiona cualquier tecla para continuar)");
-                String basura = scanner.nextLine();
+                System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+                System.out.println("Tu mano actual es\n" + jugador.getBaraja());
                 int ap = pedirApuesta(scanner);
                 jugador.setApuesta(ap);
                 contador++;
@@ -109,7 +109,8 @@ public class Ronda {
 
     private int pedirApuesta(Scanner sc) {
         System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
-        int apuesta = sc.nextInt();
+        String cadenita = sc.nextLine();
+        int apuesta = Integer.parseInt(cadenita);
         if (apuesta < 0 || apuesta > numRonda) {
             System.out.println("Apuesta inválida");
             return pedirApuesta(sc);

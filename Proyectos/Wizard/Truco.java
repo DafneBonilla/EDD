@@ -38,13 +38,12 @@ public class Truco {
         int cont = 1;
         try (Scanner scanner = new Scanner(System.in)) {
             for (Jugador jugador : jugadores) {
-                System.out.println("Jugador "+ cont + " es tu turno de jugar una carta.\n(Presiona cualquier tecla para continuar).");
-                String basura = scanner.nextLine();
+                System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
                 System.out.println("Tu mano actual es\n" + jugador.getBaraja());
                 int indice = validarCarta(scanner, jugador);
                 Carta cartita = recibeCarta(jugador, indice);
                 defineLider(cartita);
-                enviarMensaje("El jugador " + cont + " jugó la carta " + cartita);
+                enviarMensaje("El jugador " + jugador.getNombre() + " jugó la carta " + cartita);
                 jugadas[cont - 1] = cartita;
                 cont++;
             }
@@ -56,7 +55,7 @@ public class Truco {
             for (Carta carta : jugadas) {
                 mazo.agregaCarta(carta);
             }
-            //actualizarLista(ganador);
+            actualizarLista(ganador);
         }
     }
     
@@ -90,9 +89,10 @@ public class Truco {
      */
     private int validarCarta(Scanner sc, Jugador jugador) {
         System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar.");
-        int i = sc.nextInt();
+        String cadenita = sc.nextLine();
+        int i = Integer.parseInt(cadenita);
         if (i < 0 || i > (jugador.getBaraja().tamanio()-1)) {
-            System.out.println("Número inválido,");
+            System.out.println("Número inválido");
             return validarCarta(sc, jugador);
         }
         Carta cartita = jugador.getBaraja().checaCarta(i);

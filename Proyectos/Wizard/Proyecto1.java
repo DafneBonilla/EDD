@@ -1,5 +1,7 @@
 package Wizard;
 
+import java.io.IOException;
+
 public class Proyecto1 {
     
     /* Imprime un mensaje de cómo usar el programa. */
@@ -22,6 +24,10 @@ public class Proyecto1 {
             uso();
         }
         Partida partida = new Partida(numJugadores, args[1]);
-        partida.iniciar();
+        try {
+            partida.iniciar();
+        } catch (IOException ioe) {
+            System.out.println("Escribiste algo mal. Adios");
+        }
     }
 }

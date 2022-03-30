@@ -64,13 +64,14 @@ public class Partida {
 
     /**
      * Comienza la partida.
+     * @throws IOException
      */
-    public void iniciar() {
+    public void iniciar() throws IOException {
         enviarMensaje("La partida va a empezar, todos listos :)");
         enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda(jugadores, numRondas, log, mazo);
-            actual.iniciar();
+            Ronda actual = new Ronda(jugadores, i, log, mazo);
+            actual.iniciar();   
             seguir();
             if (!sigue) {
                 break;
@@ -132,13 +133,13 @@ public class Partida {
             } else if (arreglo[1][i] == arreglo[1][posicion]) {
                 posicion = i;
                 empate = true;
-                winner += posicion+1 + ", ";
+                winner += jugadores.buscarIndice(posicion).getNombre() + ", ";
             }
         }
         if (empate) {
             return winner+" todos con"+ arreglo[1][posicion]  +"puntos.\n";
         }
-        return "El ganador es el Jugador "+posicion+1+" con "+arreglo[1][posicion]+" puntos.\n";
+        return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
     }
 
     /**
