@@ -2,6 +2,7 @@ package Wizard;
 
 import Wizard.Estructuras.Lista;
 import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  * Clase para representar una ronda.
@@ -41,12 +42,13 @@ public class Ronda {
      * Comienza la ronda.
      */
     public void iniciar() {
-        enviarMensaje("La ronda "+numRonda+" va a empezar");
+        enviarMensaje("La ronda " + numRonda + " va a empezar");
+        mazo.shuffle();
         repartirCartas();
         defineTriunfo();
         defineApuestas();
-        for (int i = 1; i < numTrucos; i++) {
-            Truco actual = new Truco();
+        for (int i = 1; i <= numTrucos; i++) {
+            Truco actual = new Truco(jugadores, log, mazo, triunfo);
             actual.iniciar();
         }
         verPuntuacion();
@@ -54,7 +56,7 @@ public class Ronda {
         int contador = 1;
         Iterator<Jugador> iterator = jugadores.iterator();
         while (iterator.hasNext()) {
-            enviarMensaje("El jugador " + contador + " tiene "+ iterator.next().getPuntuacion() + " puntos\n");
+            enviarMensaje("El jugador " + contador + " tiene " + iterator.next().getPuntuacion() + " puntos\n");
             contador++;
         }
     }
@@ -73,29 +75,62 @@ public class Ronda {
      * Reparte las cartas a los jugadores.
      */
     private void repartirCartas() {
-        
+        for (int i = 0; i < numRonda; i++) {
+            for (Jugador jugador : jugadores) {
+                jugador.recibirCarta(mazo.sacaCarta(0));
+            }
+        }
     }
 
     /**
      * Define la bara de triunfo de la ronda.
      */
     private void defineTriunfo() {
-
+        if (!mazo.esVacio()) {
+            triunfo = mazo.sacaCarta(0).getColor();
+        }
     }
 
     /**
      * Define las apuestas de los jugadores.
      */
     private void defineApuestas() {
+        int contador = 1;
+        try (Scanner scanner = new Scanner(System.in)) {
+            for (Jugador jugador : jugadores) {
+                System.out.println("Jugador "+ contador + " es tu turno de ver tus cartas.\n(Presiona cualquier tecla para continuar)");
+                String basura = scanner.nextLine();
+                int ap = pedirApuesta(scanner);
+                jugador.setApuesta(ap);
+                contador++;
+            }
+        }
+    }
 
+    private int pedirApuesta(Scanner sc) {
+        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
+        int apuesta = sc.nextInt();
+        if (apuesta < 0 || apuesta > numRonda) {
+            System.out.println("Apuesta inválida");
+            return pedirApuesta(sc);
+        }
+        return apuesta;
     }
 
     /**
-     * Define la puntaucion de los jugadores
+     * Define la puntuación de los jugadores
      * basado en sus apuestas.
      */
     private void verPuntuacion() {
-
+        for (Jugador jugador : jugadores) {
+            if (jugador.getApuesta() == jugador.getGanados()) {
+                int punt = jugador.getPuntuacion();
+                punt += 20 + 10*jugador.getGanados();
+                jugador.setPuntuacion(punt);
+            }
+            jugador.setApuesta(0);
+            jugador.setGanados(0);
+        }
     }
     
 }

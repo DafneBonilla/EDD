@@ -195,6 +195,15 @@ public class Lista<T> implements Collection<T> {
     }
 
     /**
+     * Método para buscar el elemento en un índice.
+     * Obtener nodo dando int i.
+     * @param i el índice del nodo a buscar.
+     */
+    public T buscarIndice(int i) {
+        return buscaNodoConI(i).elemento;
+    }
+
+    /**
      * Metodo auxiliar para eliminar un nodo.
      * Eliminar nodo dando el nodo.
      * @param condenado nodo a eliminar.
@@ -404,11 +413,11 @@ public class Lista<T> implements Collection<T> {
     }
 
     /**
-     * Regresa un entero con la posicion del elemento.
+     * Regresa un entero con la posición del elemento.
      * Solo nos importara la primera aparición del elemento
      * Empieza a contar desde 0.
      * @param elemento elemento del cual queremos conocer la posición.
-     * @return entero con la posicion del elemento
+     * @return entero con la posición del elemento
      * @throws IllegalArgumentException si <code>elemento</code> es
      *         <code>null</code>.
      */

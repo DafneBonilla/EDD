@@ -36,7 +36,7 @@ public class Partida {
     public Partida(int numJugadores, String archivo) {
         jugadores = new Lista<>();
         for (int i = 1; i <= numJugadores; i++) {
-            jugadores.add(new Jugador());
+            jugadores.add(new Jugador(String.valueOf(i)));
         }
         switch (numJugadores) {
             case 3:

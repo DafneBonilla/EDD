@@ -22,6 +22,11 @@ public class Baraja {
         seed = 0;
     }
 
+    public Baraja(Lista<Carta> cartitas) {
+        this.cartitas = cartitas;
+        seed = 0;
+    }
+
     /**
      * Define el estado inicial de una baraja,
      * usando una seed.
@@ -57,13 +62,22 @@ public class Baraja {
         cartitas.add(nueva);
     }
     
-     /**
+    /**
      * Saca una carta de la baraja.
-     * @param i el indice de la carta.
+     * @param i el índice de la carta.
      */ 
     public Carta sacaCarta(int i) {
         return cartitas.delete2(i);
     }
+
+    /**
+     * Checa una carta de la baraja.
+     * @param i el índice de la carta.
+     */ 
+    public Carta checaCarta(int i) {
+        return cartitas.buscarIndice(i);
+    }
+
 
     /**
      * Regresa una representación en cadena de la baraja.
@@ -160,5 +174,17 @@ public class Baraja {
             array[randomValue] = array[i];
             array[i] = randomElement;
         }
+    }
+
+    public boolean esVacio() {
+        return cartitas.isEmpty();
+    }
+
+    public Baraja copia() {
+        return new Baraja(cartitas.clone());
+    }
+
+    public Lista<Carta> getLista() {
+        return cartitas;
     }
 }

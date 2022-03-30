@@ -13,15 +13,26 @@ public class Jugador {
     private int apuesta;
     /* Trucos ganados por el jugador. */
     private int ganados;
+    /* Trucos ganados por el jugador. */
+    private String nombre;
 
     /**
      * Define el estado inicial de un jugador.
      */
-    public Jugador() {
+    public Jugador(String nombre) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
         this.ganados = 0;
+        this.nombre = nombre;
+    }
+
+    /**
+     * Regresa el nombre del jugador.
+     * @return el nombre del jugador.
+     */
+    public String getNombre() {
+        return nombre;
     }
 
     /**
@@ -100,8 +111,8 @@ public class Jugador {
      * Metodo para jugar una carta de la mano del jugador.
      * @param i la posicion de la carta.
      */
-    public Carta devuelveCarta(int i) {
+    public Carta sacaCarta(int i) {
         return mano.sacaCarta(i);
     }
-
+    
 }
