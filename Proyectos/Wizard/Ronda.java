@@ -87,7 +87,9 @@ public class Ronda {
     private void defineTriunfo() {
         if (!mazo.esVacio()) {
             triunfo = mazo.sacaCarta(0).getColor();
+            enviarMensaje("El palo de triunfo es " + triunfo);
         }
+
     }
 
     /**
@@ -99,6 +101,7 @@ public class Ronda {
             System.out.println("Tu mano actual es\n" + jugador.getBaraja());
             int ap = pedirApuesta(sc);
             jugador.setApuesta(ap);
+            enviarMensaje("El jugador " + jugador.getNombre() + " ha apostado " + ap);
         }
     }
 
