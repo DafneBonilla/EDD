@@ -48,7 +48,7 @@ public class Truco {
         int cont = 1;
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
-            System.out.println("Tu mano actual es\n" + jugador.getBaraja());
+            System.out.println("Tu mano actual es\n" + jugador.getBaraja().toStringOrden());
             int indice = validarCarta(sc, jugador);
             Carta cartita = recibeCarta(jugador, indice);
             defineLider(cartita);
@@ -87,6 +87,7 @@ public class Truco {
                 return;
             }
             lider = carta.getColor();
+            enviarMensaje("El palo lider es " + lider);
         }
     }
 

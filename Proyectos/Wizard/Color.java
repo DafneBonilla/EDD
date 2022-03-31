@@ -32,15 +32,15 @@ public class Color {
     @Override public String toString() {
         switch (merito) {
             case 1:
-                return "rojo";
+                return "\u001B[91m rojo \u001B[0m";
             case 2:
-                return "azul";
+                return "\u001B[94m azul \u001B[0m";
             case 3:
-                return "amarillo";
+                return "\u001B[93m amarillo \u001B[0m";
             case 4:
-                return "verde";
+                return "\u001B[92m verde \u001B[0m";
             case 5:
-                return "blanco";
+                return "\u001B[97m blanco \u001B[0m";
             default:
                 return "no hay";
         }

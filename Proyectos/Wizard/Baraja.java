@@ -100,7 +100,7 @@ public class Baraja {
             datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;
         }
-	    return datitos;
+	    return datitos.substring(0, datitos.length() - 2);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Baraja {
             datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;
         }
-	    return datitos;
+	    return datitos.substring(0, datitos.length() - 2);
     }
 
     /**
