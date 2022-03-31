@@ -1,9 +1,6 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
-
-import java.io.IOException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -23,6 +20,8 @@ public class Ronda {
     private String log;
     /* Mazo principal del juego. */
     private Baraja mazo;
+    /* Scanner para comunicacion con el usuario. */
+    private Scanner sc;
 
     /**
      * Define el estado inicial de una ronda.
@@ -31,27 +30,27 @@ public class Ronda {
      * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
      */
-    public Ronda(Lista<Jugador> jugadores, int numRonda, String log, Baraja mazo) {
+    public Ronda(Lista<Jugador> jugadores, int numRonda, String log, Baraja mazo, Scanner sc) {
         this.jugadores = jugadores;
         this.numRonda = numRonda;
         this.numTrucos = numRonda;
         this.triunfo = new Color(-1);
         this.log = log;
         this.mazo = mazo;
+        this.sc = sc;
     }
 
     /**
      * Comienza la ronda.
-     * @throws IOException
      */
-    public void iniciar() throws IOException {
+    public void iniciar() {
         enviarMensaje("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
         repartirCartas();
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
-            Truco actual = new Truco(jugadores, log, mazo, triunfo);
+            Truco actual = new Truco(jugadores, log, mazo, triunfo, sc);
             actual.iniciar();
         }
         verPuntuacion();
@@ -95,18 +94,19 @@ public class Ronda {
      * Define las apuestas de los jugadores.
      */
     private void defineApuestas() {
-        int contador = 1;
-        try (Scanner scanner = new Scanner(System.in)) {
-            for (Jugador jugador : jugadores) {
-                System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
-                System.out.println("Tu mano actual es\n" + jugador.getBaraja());
-                int ap = pedirApuesta(scanner);
-                jugador.setApuesta(ap);
-                contador++;
-            }
+        for (Jugador jugador : jugadores) {
+            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+            System.out.println("Tu mano actual es\n" + jugador.getBaraja());
+            int ap = pedirApuesta(sc);
+            jugador.setApuesta(ap);
         }
     }
 
+    /**
+     * Pide una apuesta al usuario.
+     * @param sc el scanner para pedir datos.
+     * @return la apuesta del usuario.
+     */
     private int pedirApuesta(Scanner sc) {
         System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
         String cadenita = sc.nextLine();

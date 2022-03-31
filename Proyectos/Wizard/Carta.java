@@ -101,64 +101,6 @@ public class Carta implements Comparable<Carta> {
         return true;
     }
 
-    /*
-    Metodos auxiliares para caza.
-    */
-    private boolean cazaValor(Object buscar) {
-        if (!(buscar instanceof String)) {
-            return false;
-        }
-        if ((String)buscar == "") {
-            return false;
-        }
-        if (valor.toString().equals((String)buscar)) {
-            return true;
-        }
-        return false;
-    }
-    private boolean cazaColor(Object buscar) {
-        if (!(buscar instanceof String)) {
-            return false;
-        }
-        if ((String)buscar == "") {
-            return false;
-        }
-        if (color.toString().equals((String)buscar)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Nos dice si la carta caza el valor dado en el campo especificado.
-     * @param campo el campo que hay que cazar.
-     * @param buscar el valor con el que debe cazar el campo del registro.
-     * @return <code>true</code> si:
-     *         <ul>
-     *           <li><code>campo</code> es {@link CampoCarta#VALOR} y
-     *              <code>valor</code> es instancia de {@link String} y es una
-     *              subcadena del valor de la carta.</li>
-     *           <li><code>campo</code> es {@link CampoCarta#COLOR} y
-     *              <code>valor</code> es instancia de {@link String} y es una
-     *              subcadena del color de la carta.</li>
-     *         </ul>
-     *         <code>false</code> en otro caso.
-     * @throws IllegalArgumentException si el campo es <code>null</code>.
-     */
-    public boolean caza(CampoCarta campo, Object buscar) {
-        if (campo == null) {
-            throw new IllegalArgumentException("El campo es null");
-        }
-        switch (campo) {
-            case VALOR:
-                return cazaValor(buscar);
-            case COLOR:
-                return cazaColor(buscar);
-            default:
-                throw new IllegalArgumentException("El campo no es instancia de CampoCarta");
-        }
-    }
-
     /**
      * Metodo para poder comparar dos cartas, primero se checan sus
      * colores y luego se checan sus valores.

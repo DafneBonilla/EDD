@@ -22,6 +22,12 @@ public class Baraja {
         seed = 0;
     }
 
+    /**
+     * Define el estado inical de una baraja, usando
+     * una lista de carta. Usado para generar una copia
+     * de una baraja.
+     * @param cartitas la lista de cartas
+     */
     public Baraja(Lista<Carta> cartitas) {
         this.cartitas = cartitas;
         seed = 0;
@@ -176,14 +182,26 @@ public class Baraja {
         }
     }
 
+    /**
+     * Nos dice si la baraja está vacía.
+     * @return <code>true</code> si la baraja es vacia, <code>false</code> en caso contrario.
+     */
     public boolean esVacio() {
         return cartitas.isEmpty();
     }
 
+    /**
+     * Regresa una copia de la baraja.
+     * @return una copia de la baraja.
+     */
     public Baraja copia() {
         return new Baraja(cartitas.clone());
     }
 
+    /**
+     * Regresa la lista de cartas.
+     * @return la lista de cartas.
+     */
     public Lista<Carta> getLista() {
         return cartitas;
     }

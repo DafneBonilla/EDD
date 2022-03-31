@@ -27,6 +27,8 @@ public class Partida {
     private Boolean sigue;
     /* Seed de random */
     private long seed;
+    /* Scanner para comunicacion con el usuario. */
+    private Scanner sc;
 
     /**
      * Define el estado inicial de una partida.
@@ -60,17 +62,17 @@ public class Partida {
         log = "";
         sigue = true;
         historial = archivo;
+        sc = new Scanner(System.in);
     }
 
     /**
      * Comienza la partida.
-     * @throws IOException
      */
-    public void iniciar() throws IOException {
+    public void iniciar() {
         enviarMensaje("La partida va a empezar, todos listos :)");
         enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda(jugadores, i, log, mazo);
+            Ronda actual = new Ronda(jugadores, i, log, mazo, sc);
             actual.iniciar();   
             seguir();
             if (!sigue) {
@@ -162,19 +164,17 @@ public class Partida {
      */
     private void seguir() {
         System.out.println("¿Quieres seguir jugando? s/n");
-        try (Scanner scanner = new Scanner(System.in)) {
-            String algo = scanner.nextLine();
-            switch (algo) {
-                case "s":
+        String respuesta = sc.nextLine();
+        switch (respuesta) {
+            case "s":
+                break;
+            case "n":
+                sigue = false;
                     break;
-                case "n":
-                    sigue = false;
-                    break;
-                default:
-                    System.out.println("Respuesta inválida.");
-                    seguir();
-                    break;
-            }
+            default:
+                System.out.println("Respuesta inválida.");
+                seguir();
+                break;
         }
     }
 
