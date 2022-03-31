@@ -2,6 +2,7 @@ package Wizard;
 
 import Wizard.Estructuras.Lista;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -90,7 +91,7 @@ public class Partida {
      */
     private void enviarMensaje(String mensaje) {
         System.out.println(mensaje);
-        log += mensaje;
+        log += mensaje+"\n";
     }
 
     /**
@@ -129,7 +130,7 @@ public class Partida {
         String winner = "Hubo un empate entre los Jugadores ";
         int posicion = mayor(arreglo);
         boolean empate = false;
-        for (int i = 0; i <= jugadores.size(); i++) {
+        for (int i = 0; i < jugadores.size(); i++) {
             if (arreglo[1][i] > arreglo[1][posicion]) {
                 posicion = i;
             } else if (arreglo[1][i] == arreglo[1][posicion]) {
@@ -139,7 +140,7 @@ public class Partida {
             }
         }
         if (empate) {
-            return winner+" todos con"+ arreglo[1][posicion]  +"puntos.\n";
+            return winner+" todos con"+ arreglo[1][posicion]  +" puntos.\n";
         }
         return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
     }

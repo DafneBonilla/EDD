@@ -67,7 +67,7 @@ public class Ronda {
      */
     private void enviarMensaje(String mensaje) {
         System.out.println(mensaje);
-        log += mensaje;
+        log += mensaje + "\n";
     }
 
     /**
