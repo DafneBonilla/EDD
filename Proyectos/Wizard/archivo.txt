@@ -1,3 +1,6 @@
-La partida va a empezar, todos listos :)La seed del juego es 1648767395691Ahora se anunciara el ganador del juego...
+La partida va a empezar, todos listos :)
+La seed del juego es 1648768723129
+Ahora se anunciara el ganador del juego...
 
-Hubo un empate entre los Jugadores 1, 2, 3, 4,  todos con20puntos.
+Hubo un empate entre los Jugadores 1, 2,  todos con40 puntos.
+

@@ -1,6 +1,7 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
+import java.io.BufferedWriter;
 import java.util.Scanner;
 
 /**
@@ -16,12 +17,12 @@ public class Ronda {
     private int numTrucos;
     /* Palo de triundo. */
     private Color triunfo;
-    /* Historial del juego. */
-    private String log;
     /* Mazo principal del juego. */
     private Baraja mazo;
     /* Scanner para comunicacion con el usuario. */
     private Scanner sc;
+    /* Manera de escribir en el archivo. */
+    private BufferedWriter out;
 
     /**
      * Define el estado inicial de una ronda.
@@ -30,14 +31,14 @@ public class Ronda {
      * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
      */
-    public Ronda(Lista<Jugador> jugadores, int numRonda, String log, Baraja mazo, Scanner sc) {
+    public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, Scanner sc, BufferedWriter out) {
         this.jugadores = jugadores;
         this.numRonda = numRonda;
         this.numTrucos = numRonda;
         this.triunfo = new Color(-1);
-        this.log = log;
         this.mazo = mazo;
         this.sc = sc;
+        this.out = out;
     }
 
     /**
@@ -50,7 +51,7 @@ public class Ronda {
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
-            Truco actual = new Truco(jugadores, log, mazo, triunfo, sc);
+            Truco actual = new Truco(jugadores, mazo, triunfo, sc, out);
             actual.iniciar();
         }
         verPuntuacion();
@@ -62,12 +63,17 @@ public class Ronda {
 
     /**
      * Imprime un mensaje al usuario, ademes el mensaje lo
-     * agrega a log.
+     * guarda en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
         System.out.println(mensaje);
-        log += mensaje + "\n";
+        try {
+            out.write(mensaje);
+        } catch (Exception e) {
+            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.exit(0);
+        }
     }
 
     /**

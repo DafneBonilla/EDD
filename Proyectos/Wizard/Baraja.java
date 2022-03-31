@@ -58,6 +58,7 @@ public class Baraja {
         for (int i = 1; i <= 4; i++) {
             cartitas.add(new Carta(0, 5));
         }
+        this.seed = seed;
     }
 
     /**
@@ -181,6 +182,7 @@ public class Baraja {
     /**
      * Auxiliar para devolver las cartas.
      * Algoritmo: Fisher–Yates shuffle
+     * Fuente: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
      */
     private void shuffleAux(Carta[] array) {
         int n = array.length;

@@ -2,9 +2,9 @@ package Wizard;
 
 import Wizard.Estructuras.Lista;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Scanner;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -22,14 +22,14 @@ public class Partida {
     private Baraja mazo;
     /* Historial del juego. */
     private String log;
-    /* Archivo del historial. */
-    private String historial;
     /* Ver si el juego sigue. */
     private Boolean sigue;
-    /* Seed de random */
-    private long seed;
+    /* Manera de escribir en el archivo. */
+    private BufferedWriter out;
     /* Scanner para comunicacion con el usuario. */
     private Scanner sc;
+    /* Seed de random */
+    private long seed;
 
     /**
      * Define el estado inicial de una partida.
@@ -60,10 +60,14 @@ public class Partida {
         }
         seed = System.currentTimeMillis();
         mazo = new Baraja(seed);
-        log = "";
         sigue = true;
-        historial = archivo;
         sc = new Scanner(System.in);
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
+        } catch (FileNotFoundException e) {
+            System.out.println("No se pudo abrir el archivo, abortando la ejecucion.");
+            System.exit(0);
+        }
     }
 
     /**
@@ -73,7 +77,7 @@ public class Partida {
         enviarMensaje("La partida va a empezar, todos listos :)");
         enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda(jugadores, i, log, mazo, sc);
+            Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
             actual.iniciar();   
             seguir();
             if (!sigue) {
@@ -81,17 +85,21 @@ public class Partida {
             }
         }
         resultados();
-        guardar(historial);
     }
 
     /**
      * Imprime un mensaje al usuario, ademes el mensaje lo
-     * agrega a log.
+     * guarda en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
         System.out.println(mensaje);
-        log += mensaje+"\n";
+        try {
+            out.write(mensaje);
+        } catch (Exception e) {
+            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.exit(0);
+        }
     }
 
     /**
@@ -140,7 +148,7 @@ public class Partida {
             }
         }
         if (empate) {
-            return winner+" todos con"+ arreglo[1][posicion]  +" puntos.\n";
+            return winner+" todos con "+ arreglo[1][posicion]  +" puntos.\n";
         }
         return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
     }
@@ -176,23 +184,6 @@ public class Partida {
                 System.out.println("Respuesta inválida.");
                 seguir();
                 break;
-        }
-    }
-
-    /**
-     * Guarda el log en un archivo.
-     * @param historial el archivo donde se guardara.
-     */
-    private void guardar(String historial) { 
-        try {
-            BufferedWriter out = 
-                new BufferedWriter(
-                    new OutputStreamWriter(
-                        new FileOutputStream(historial)));
-            out.write(log);
-            out.close();
-        } catch (IOException ioe) {
-            System.out.println("Error al itentar guardar.");
         }
     }
 }

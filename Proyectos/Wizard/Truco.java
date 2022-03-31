@@ -1,6 +1,7 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
+import java.io.BufferedWriter;
 import java.util.Scanner;
 
 /**
@@ -10,8 +11,6 @@ public class Truco {
 
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
-    /* Historial del juego. */
-    private String log;
     /* Palo de triunfo. */
     private Color triunfo;
     /* Palo líder. */
@@ -22,6 +21,8 @@ public class Truco {
     private Carta[] jugadas;
     /* Scanner para comunicacion con el usuario. */
     private Scanner sc;
+    /* Manera de escribir en el archivo. */
+    private BufferedWriter out;
     
     /**
      * Define el estado inicial de una ronda.
@@ -30,14 +31,14 @@ public class Truco {
      * @param mazo la baraja principal.
      * @param sc el scanner para comunicacion con el usuario.
      */
-    public Truco(Lista<Jugador> jugadores, String log, Baraja mazo, Color triunfo, Scanner sc) {
+    public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, Scanner sc, BufferedWriter out) {
         this.jugadores = jugadores;
-        this.log = log;
         this.triunfo = triunfo;
         this.lider = new Color(-1);
         this.mazo = mazo;
         this.jugadas = new Carta[jugadores.size()];
         this.sc = sc;
+        this.out = out;
     }
 
     /**
@@ -70,13 +71,18 @@ public class Truco {
     }
     
     /**
-     * Imprime un mensaje al usuario, además el mensaje lo
-     * agrega a log.
+     * Imprime un mensaje al usuario, ademes el mensaje lo
+     * guarda en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
         System.out.println(mensaje);
-        log += mensaje + "\n";
+        try {
+            out.write(mensaje);
+        } catch (Exception e) {
+            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.exit(0);
+        }
     }
 
     /**
