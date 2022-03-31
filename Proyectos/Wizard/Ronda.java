@@ -110,12 +110,17 @@ public class Ronda {
     private int pedirApuesta(Scanner sc) {
         System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
         String cadenita = sc.nextLine();
-        int apuesta = Integer.parseInt(cadenita);
-        if (apuesta < 0 || apuesta > numRonda) {
-            System.out.println("Apuesta inválida");
+        try {
+            int apuesta = Integer.parseInt(cadenita);
+            if (apuesta < 0 || apuesta > numRonda) {
+                System.out.println("Apuesta inválida");
+                return pedirApuesta(sc);
+            }
+            return apuesta;
+        } catch (NumberFormatException e) {
+            System.out.println("No ingresaste un número.");
             return pedirApuesta(sc);
         }
-        return apuesta;
     }
 
     /**

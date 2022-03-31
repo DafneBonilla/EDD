@@ -106,16 +106,21 @@ public class Truco {
     private int validarCarta(Scanner sc, Jugador jugador) {
         System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar.");
         String cadenita = sc.nextLine();
-        int i = Integer.parseInt(cadenita);
-        if (i < 0 || i > (jugador.getBaraja().tamanio()-1)) {
-            System.out.println("Número inválido");
-            return validarCarta(sc, jugador);
-        }
-        Carta cartita = jugador.getBaraja().checaCarta(i);
-        if (cartaLegal(cartita, jugador.getBaraja().copia(), i)) {
-            return i;
-        } else {
-            System.out.println("Carta inválida");
+        try {
+            int i = Integer.parseInt(cadenita);
+            if (i < 0 || i > (jugador.getBaraja().tamanio()-1)) {
+                System.out.println("Número inválido");
+                return validarCarta(sc, jugador);
+            }
+            Carta cartita = jugador.getBaraja().checaCarta(i);
+            if (cartaLegal(cartita, jugador.getBaraja().copia(), i)) {
+                return i;
+            } else {
+                System.out.println("Carta inválida");
+                return validarCarta(sc, jugador);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("No ingresaste un número.");
             return validarCarta(sc, jugador);
         }
     }
