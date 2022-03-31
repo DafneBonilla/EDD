@@ -125,6 +125,17 @@ public class Baraja {
     }
 
     /**
+     * Regresa una representación en cadena de la baraja ordenada.
+     * @return una representación en cadena de la baraja ordenada.
+     */
+    public void ordenar() {
+        Lista<Carta> orden = cartitas.mergeSort(
+            (card1, card2) -> card1.compareTo(card2)
+        );
+        this.cartitas = orden;
+    }
+
+    /**
      * Regresa el tamaño de la baraja.
      * @return el tamaño de la bajara.
      */

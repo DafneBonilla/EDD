@@ -138,7 +138,7 @@ public class Ronda {
     private void defineApuestas() {
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
-            System.out.println("Tu mano actual es\n" + jugador.getBaraja().toStringOrden());
+            System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int ap = pedirApuesta(sc);
             jugador.setApuesta(ap);
             enviarMensaje("El jugador " + jugador.getNombre() + " ha apostado " + ap);

@@ -50,11 +50,11 @@ public class Truco {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
             System.out.println("El palo lider es "+lider);
             System.out.println("El palo de triunfo es "+triunfo);
-            System.out.println("Tu mano actual es\n" + jugador.getBaraja().toStringOrden());
+            System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int indice = validarCarta(sc, jugador);
             Carta cartita = recibeCarta(jugador, indice);
-            defineLider(cartita);
             enviarMensaje("El jugador " + jugador.getNombre() + " jugó la carta " + cartita);
+            defineLider(cartita);
             jugadas[cont - 1] = cartita;
             cont++;
         }
@@ -62,7 +62,7 @@ public class Truco {
         Jugador jug = jugadores.buscarIndice(ganador);
         int ganados = jug.getGanados();
         jug.setGanados(ganados);
-        enviarMensaje("El jugador " + ganador + " ganó el truco");
+        enviarMensaje("El jugador " + jug.getNombre() + " ganó el truco");
         for (Carta carta : jugadas) {
             mazo.agregaCarta(carta);
         }

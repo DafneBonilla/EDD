@@ -114,5 +114,10 @@ public class Jugador {
     public Carta sacaCarta(int i) {
         return mano.sacaCarta(i);
     }
+
+    public String verBarajaOrdenada() {
+        mano.ordenar();
+        return mano.toString();
+    }
     
 }
