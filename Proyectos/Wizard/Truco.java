@@ -48,6 +48,8 @@ public class Truco {
         int cont = 1;
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
+            System.out.println("El palo lider es "+lider);
+            System.out.println("El palo de triunfo es "+triunfo);
             System.out.println("Tu mano actual es\n" + jugador.getBaraja().toStringOrden());
             int indice = validarCarta(sc, jugador);
             Carta cartita = recibeCarta(jugador, indice);

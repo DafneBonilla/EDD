@@ -86,10 +86,50 @@ public class Ronda {
      */
     private void defineTriunfo() {
         if (!mazo.esVacio()) {
-            triunfo = mazo.sacaCarta(0).getColor();
+            Carta cartita = mazo.sacaCarta(0);
+            Color triunfi = cartita.getColor();
+            switch (triunfi.getMerito()) {
+                case 5:
+                    if (cartita.getValor().getNumero() == 0) {
+                        return;
+                    }
+                    pedirTriunfo();
+                    break;
+                default:
+                    triunfo = triunfi;
+                    break;
+            }
             enviarMensaje("El palo de triunfo es " + triunfo);
         }
+    }
 
+    /**
+     * Pide al usuario que elija el palo de triunfo.
+     */
+    private void pedirTriunfo() {
+        Jugador elegir = jugadores.buscarIndice(0);
+        System.out.println("Jugador " + elegir.getNombre() + " elige el palo de triunfo");
+        int i = validarTriunfo();
+        triunfo = new Color(i);
+    }
+
+    /**
+     * Valida que el palo de triunfo sea valido.
+     * @return el numero del palo de triunfo.
+     */
+    private int validarTriunfo() {
+        System.out.println("Escribe el numero del palo de triunfo \n 1 para rojo \n 2 para azul \n 3 para amarillo \n 4 para verde");
+        String respuesta = sc.nextLine();
+        try {
+            int i = Integer.parseInt(respuesta);
+            if (i < 1 || i > 4) {
+                throw new NumberFormatException();
+            }
+            return i;
+        } catch (NumberFormatException e) {
+            System.out.println("No es un numero valido");
+            return validarTriunfo();
+        }
     }
 
     /**
