@@ -67,9 +67,10 @@ public class Ronda {
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
-        System.out.println(mensaje);
+        System.out.println(mensaje+"\n");
         try {
             out.write(mensaje);
+            out.newLine();
         } catch (Exception e) {
             System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
             System.exit(0);
@@ -182,6 +183,20 @@ public class Ronda {
                 int punt = jugador.getPuntuacion();
                 punt += 20 + 10*jugador.getGanados();
                 jugador.setPuntuacion(punt);
+            } else {
+                int gan = jugador.getGanados();
+                int ap = jugador.getApuesta();
+                if (gan > ap) {
+                    int diferencia = gan - ap;
+                    int punt = jugador.getPuntuacion();
+                    punt -= diferencia*10;
+                    jugador.setPuntuacion(punt);
+                } else {
+                    int diferencia = ap - gan;
+                    int punt = jugador.getPuntuacion();
+                    punt -= diferencia*10;
+                    jugador.setPuntuacion(punt);
+                }
             }
             jugador.setApuesta(0);
             jugador.setGanados(0);

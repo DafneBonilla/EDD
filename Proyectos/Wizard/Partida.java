@@ -20,8 +20,6 @@ public class Partida {
     private int numRondas;
     /* Mazo principal del juego. */
     private Baraja mazo;
-    /* Historial del juego. */
-    private String log;
     /* Ver si el juego sigue. */
     private Boolean sigue;
     /* Manera de escribir en el archivo. */
@@ -85,6 +83,12 @@ public class Partida {
             }
         }
         resultados();
+        try {
+            out.close();
+        } catch (IOException e) {
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecucion.");
+            System.exit(0);
+        }
     }
 
     /**
@@ -93,9 +97,10 @@ public class Partida {
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
-        System.out.println(mensaje);
+        System.out.println(mensaje+"\n");
         try {
             out.write(mensaje);
+            out.newLine();
         } catch (Exception e) {
             System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
             System.exit(0);
@@ -148,6 +153,7 @@ public class Partida {
             }
         }
         if (empate) {
+            winner = winner.substring(0, winner.length() - 2);
             return winner+" todos con "+ arreglo[1][posicion]  +" puntos.\n";
         }
         return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
