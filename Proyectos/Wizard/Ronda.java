@@ -159,7 +159,7 @@ public class Ronda {
      * @return la apuesta del usuario.
      */
     private int pedirApuesta(Scanner sc) {
-        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
+        System.out.println("DDefine tu apuesta (un número entre 0 y " + numRonda + ")");
         String cadenita = sc.nextLine();
         try {
             int apuesta = Integer.parseInt(cadenita);

@@ -62,7 +62,7 @@ public class Partida {
         try {
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
         } catch (FileNotFoundException e) {
-            System.out.println("No se pudo abrir el archivo, abortando la ejecucion.");
+            System.out.println("No se pudo abrir el archivo, abortando la ejecución.");
             System.exit(0);
         }
     }
@@ -85,7 +85,7 @@ public class Partida {
         try {
             out.close();
         } catch (IOException e) {
-            System.out.println("No se pudo cerrar el archivo, abortando la ejecucion.");
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecución.");
             System.exit(0);
         }
     }
@@ -101,7 +101,7 @@ public class Partida {
             out.write(mensaje);
             out.newLine();
         } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
             System.exit(0);
         }
     }
@@ -110,7 +110,7 @@ public class Partida {
      * Muesta los resultados de la partida.
      */
     private void resultados() {
-        String resultados = "Ahora se anunciara el ganador del juego...\n\n";
+        String resultados = "Ahora se anunciará al ganador del juego...\n\n";
         resultados += ganador();
         enviarMensaje(resultados);
     }
@@ -170,7 +170,7 @@ public class Partida {
      * Saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
-        System.out.println("¿Quieres seguir jugando? s/n");
+        System.out.println("¿Quieres seguir jugando? S/n");
         String respuesta = sc.nextLine();
         switch (respuesta) {
             case "s":

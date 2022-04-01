@@ -79,7 +79,7 @@ public class Truco {
             out.write(mensaje);
             out.newLine();
         } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
             System.exit(0);
         }
     }
@@ -112,7 +112,7 @@ public class Truco {
      * @param jugador el mensaje a imprimir y agregar.
      */
     private int validarCarta(Scanner sc, Jugador jugador) {
-        System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar.");
+        System.out.println("IIngresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar.");
         String cadenita = sc.nextLine();
         try {
             int i = Integer.parseInt(cadenita);
