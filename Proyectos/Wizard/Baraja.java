@@ -108,27 +108,6 @@ public class Baraja {
      * Regresa una representación en cadena de la baraja ordenada.
      * @return una representación en cadena de la baraja ordenada.
      */
-    public String toStringOrden() {
-        String datitos = "";
-        if (cartitas.isEmpty()) {
-            return datitos;
-        }
-        Lista<Carta> orden = cartitas.mergeSort(
-            (card1, card2) -> card1.compareTo(card2)
-        );
-        int contador = 0;
-        Iterator<Carta> iterator = orden.iterator();
-        while (iterator.hasNext()) {
-            datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
-            contador++;
-        }
-	    return datitos.substring(0, datitos.length() - 2);
-    }
-
-    /**
-     * Regresa una representación en cadena de la baraja ordenada.
-     * @return una representación en cadena de la baraja ordenada.
-     */
     public void ordenar() {
         Lista<Carta> orden = cartitas.mergeSort(
             (card1, card2) -> card1.compareTo(card2)
@@ -164,7 +143,6 @@ public class Baraja {
      * {@link Baraja#volverArreglo}.
      */
     private void volverBaraja(Carta[] arreglo) {
-        cartitas.empty();
         for (int i = 0; i < arreglo.length; i++) {
             agregaCarta(arreglo[i]);
         }

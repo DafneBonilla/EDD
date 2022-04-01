@@ -170,7 +170,7 @@ public class Partida {
      * Saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
-        System.out.println("¿Quieres seguir jugando? S/n");
+        System.out.println("¿Quieres seguir jugando? s/n");
         String respuesta = sc.nextLine();
         switch (respuesta) {
             case "s":

@@ -47,9 +47,9 @@ public class Truco {
     public void iniciar() {
         enviarMensaje("El truco va a empezar");
         for (Jugador jugador : jugadores) {
-            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
-            System.out.println("El palo lider es "+lider);
-            System.out.println("El palo de triunfo es "+triunfo);
+            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
+            System.out.println("El palo lider es " + lider);
+            System.out.println("El palo de triunfo es "+ triunfo);
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int indice = validarCarta(sc, jugador);
             Carta cartita = recibeCarta(jugador, indice);
@@ -61,7 +61,7 @@ public class Truco {
         Jugador jug = jugadores.buscarIndice(ganador);
         int ganados = jug.getGanados();
         jug.setGanados(ganados + 1);
-        enviarMensaje("El jugador " + jug.getNombre() + " ganó el truco");
+        enviarMensaje("El jugador " + jug.getNombre() + " gana el truco");
         for (Carta carta : jugadas) {
             mazo.agregaCarta(carta);
         }
@@ -79,7 +79,7 @@ public class Truco {
             out.write(mensaje);
             out.newLine();
         } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
+            System.out.println("Error al guardar el mensaje, abortando la ejercución");
             System.exit(0);
         }
     }
@@ -90,7 +90,7 @@ public class Truco {
      */
     private void defineLider(Carta carta) {
         if (lider.getMerito() == -1) {
-            if (carta.getColor().getMerito() == 0) {
+            if (carta.getColor().getMerito() == 5) {
                 return;
             }
             lider = carta.getColor();
@@ -112,7 +112,7 @@ public class Truco {
      * @param jugador el mensaje a imprimir y agregar.
      */
     private int validarCarta(Scanner sc, Jugador jugador) {
-        System.out.println("IIngresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar.");
+        System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar");
         String cadenita = sc.nextLine();
         try {
             int i = Integer.parseInt(cadenita);

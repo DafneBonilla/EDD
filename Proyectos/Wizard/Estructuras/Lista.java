@@ -105,7 +105,7 @@ public class Lista<T> implements Collection<T> {
      *         <code>null</code>.
      */
     @Override public void add(T elemento){
-        if(elemento == null){
+        if (elemento == null) {
             throw new IllegalArgumentException("El elemento es null");
         }
         agregaFinal(elemento);
@@ -295,7 +295,7 @@ public class Lista<T> implements Collection<T> {
      * Vacía la lista.
      */
     public void empty(){
-        cabeza =ultimo= null;
+        cabeza = ultimo = null;
         longi = 0;
     }
 

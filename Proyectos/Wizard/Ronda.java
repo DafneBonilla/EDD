@@ -47,7 +47,9 @@ public class Ronda {
     public void iniciar() {
         enviarMensaje("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
+        System.out.println("EL TAMAÑO DEL MAZO ES " + mazo.tamanio());
         repartirCartas();
+        System.out.println("EL TAMAÑO DEL MAZO LUEGO DE REPARTIR ES " + mazo.tamanio());
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
@@ -83,7 +85,12 @@ public class Ronda {
     private void repartirCartas() {
         for (int i = 0; i < numRonda; i++) {
             for (Jugador jugador : jugadores) {
-                jugador.recibirCarta(mazo.sacaCarta(0));
+                if (mazo.esVacio()) {
+                    System.out.println("El mazo se vacio");
+                    System.exit(0);
+                }
+                Carta cartita = mazo.sacaCarta(0);
+                jugador.recibirCarta(cartita);
             }
         }
     }
@@ -107,6 +114,7 @@ public class Ronda {
                     triunfo = triunfi;
                     break;
             }
+            mazo.agregaCarta(cartita);
             enviarMensaje("El palo de triunfo es " + triunfo);
         }
     }
@@ -126,7 +134,7 @@ public class Ronda {
      * @return el numero del palo de triunfo.
      */
     private int validarTriunfo() {
-        System.out.println("Escribe el numero del palo de triunfo \n 1 para rojo \n 2 para azul \n 3 para amarillo \n 4 para verde");
+        System.out.println("Escribe el numero del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
         String respuesta = sc.nextLine();
         try {
             int i = Integer.parseInt(respuesta);
@@ -147,6 +155,7 @@ public class Ronda {
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
+            System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
             int ap = pedirApuesta(sc);
             jugador.setApuesta(ap);
             enviarMensaje("El jugador " + jugador.getNombre() + " ha apostado " + ap);
@@ -159,7 +168,7 @@ public class Ronda {
      * @return la apuesta del usuario.
      */
     private int pedirApuesta(Scanner sc) {
-        System.out.println("DDefine tu apuesta (un número entre 0 y " + numRonda + ")");
+        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
         String cadenita = sc.nextLine();
         try {
             int apuesta = Integer.parseInt(cadenita);
