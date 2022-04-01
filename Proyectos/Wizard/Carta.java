@@ -60,22 +60,22 @@ public class Carta implements Comparable<Carta> {
         String datitos = "";
         switch (color.getMerito()) {
             case 1:
-                datitos += String.format("Un \u001B[91m %s \t \u001B[0m de color \u001B[91m %s \u001B[0m", valor, color);
+                datitos += "Un \u001B[91m "+valor+"\t \u001B[0m de color "+color+"\u001B[0m";
                 break;
             case 2:
-                datitos += String.format("Un \u001B[94m %s \t \u001B[0m de color \u001B[94m %s \u001B[0m", valor, color);
+                datitos += "Un \u001B[94m "+valor+"\t \u001B[0m de color "+color+"\u001B[0m";
                 break;
             case 3:
-                datitos += String.format("Un \u001B[93m %s \t \u001B[0m de color \u001B[93m %s \u001B[0m", valor, color);
+                datitos += "Un \u001B[93m "+valor+"\t \u001B[0m de color "+color+"\u001B[0m";
                 break;
             case 4:
-                datitos += String.format("Un \u001B[92m %s \t \u001B[0m de color \u001B[92m %s \u001B[0m", valor, color);
+                datitos += "Un \u001B[92m "+valor+"\t \u001B[0m de color "+color+"\u001B[0m";
                 break;
             case 5:
-                datitos += String.format("Un \u001B[97m %s \t \u001B[0m de color \u001B[97m %s \u001B[0m", valor, color);
+                datitos += "Un \u001B[97m "+valor+"\t \u001B[0m de color "+color+"\u001B[0m";
                 break;
             default:
-                datitos += String.format("Un %s de color %s", valor, color);
+                datitos += "Un "+valor+"\t  de color "+color+"\u001B[0m";
                 break;
         }
 	    return datitos;
