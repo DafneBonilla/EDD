@@ -1,10 +1,8 @@
 package Wizard;
 
+import Wizard.Estructuras.Lista;
 import java.util.Iterator;
 import java.util.Random;
-
-import Wizard.Estructuras.Lista;
-
 
 /**
  * Clase para representar barajas. Seran listas de la clase {@link Carta}.
@@ -17,7 +15,7 @@ public class Baraja {
     private long seed;
 
     /**
-     * Constructor 1.
+     * Define el estado inical de una baraja.
      */
     public Baraja(){
         cartitas = new Lista<Carta>();
@@ -25,28 +23,42 @@ public class Baraja {
     }
 
     /**
-     * Constructor 2.
+     * Define el estado inical de una baraja, usando
+     * una lista de carta. Usado para generar una copia
+     * de una baraja.
+     * @param cartitas la lista de cartas
+     */
+    public Baraja(Lista<Carta> cartitas) {
+        this.cartitas = cartitas;
+        seed = 0;
+    }
+
+    /**
+     * Define el estado inicial de una baraja,
+     * usando una seed.
+     * @param seed la semilla de la baraja.
      */
     public Baraja(long seed) {
         cartitas = new Lista<Carta>();
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "rojo"));
+            cartitas.add(new Carta(i, 1));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "azul"));
+            cartitas.add(new Carta(i, 2));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "amarillo"));
+            cartitas.add(new Carta(i, 3));
         }
         for (int i = 1; i <= 13; i++) {
-            cartitas.add(new Carta(String.valueOf(i), "verde"));
+            cartitas.add(new Carta(i, 4));
         }
         for (int i = 1; i <= 4; i++) {
-            cartitas.add(new Carta(String.valueOf("W"), "blanco"));
+            cartitas.add(new Carta(14, 5));
         }
         for (int i = 1; i <= 4; i++) {
-            cartitas.add(new Carta(String.valueOf("J"), "blanco"));
+            cartitas.add(new Carta(0, 5));
         }
+        this.seed = seed;
     }
 
     /**
@@ -57,13 +69,22 @@ public class Baraja {
         cartitas.add(nueva);
     }
     
-     /**
+    /**
      * Saca una carta de la baraja.
-     * @param i el indice de la carta.
+     * @param i el índice de la carta.
      */ 
     public Carta sacaCarta(int i) {
         return cartitas.delete2(i);
     }
+
+    /**
+     * Checa una carta de la baraja.
+     * @param i el índice de la carta.
+     */ 
+    public Carta checaCarta(int i) {
+        return cartitas.buscarIndice(i);
+    }
+
 
     /**
      * Regresa una representación en cadena de la baraja.
@@ -80,7 +101,39 @@ public class Baraja {
             datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;
         }
-	    return datitos;
+	    return datitos.substring(0, datitos.length() - 2);
+    }
+
+    /**
+     * Regresa una representación en cadena de la baraja ordenada.
+     * @return una representación en cadena de la baraja ordenada.
+     */
+    public String toStringOrden() {
+        String datitos = "";
+        if (cartitas.isEmpty()) {
+            return datitos;
+        }
+        Lista<Carta> orden = cartitas.mergeSort(
+            (card1, card2) -> card1.compareTo(card2)
+        );
+        int contador = 0;
+        Iterator<Carta> iterator = orden.iterator();
+        while (iterator.hasNext()) {
+            datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
+            contador++;
+        }
+	    return datitos.substring(0, datitos.length() - 2);
+    }
+
+    /**
+     * Regresa una representación en cadena de la baraja ordenada.
+     * @return una representación en cadena de la baraja ordenada.
+     */
+    public void ordenar() {
+        Lista<Carta> orden = cartitas.mergeSort(
+            (card1, card2) -> card1.compareTo(card2)
+        );
+        this.cartitas = orden;
     }
 
     /**
@@ -129,6 +182,7 @@ public class Baraja {
     /**
      * Auxiliar para devolver las cartas.
      * Algoritmo: Fisher–Yates shuffle
+     * Fuente: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
      */
     private void shuffleAux(Carta[] array) {
         int n = array.length;
@@ -139,5 +193,29 @@ public class Baraja {
             array[randomValue] = array[i];
             array[i] = randomElement;
         }
+    }
+
+    /**
+     * Nos dice si la baraja está vacía.
+     * @return <code>true</code> si la baraja es vacia, <code>false</code> en caso contrario.
+     */
+    public boolean esVacio() {
+        return cartitas.isEmpty();
+    }
+
+    /**
+     * Regresa una copia de la baraja.
+     * @return una copia de la baraja.
+     */
+    public Baraja copia() {
+        return new Baraja(cartitas.clone());
+    }
+
+    /**
+     * Regresa la lista de cartas.
+     * @return la lista de cartas.
+     */
+    public Lista<Carta> getLista() {
+        return cartitas;
     }
 }

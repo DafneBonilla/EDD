@@ -1,0 +1,7 @@
+La partida va a empezar, todos listos :)La seed del juego es 1648775583900La ronda 1 va a empezarEl palo de triunfo es [92m verde [0mEl jugador 1 ha apostado 0El jugador 2 ha apostado 1El jugador 3 ha apostado 0El jugador 4 ha apostado 1El truco va a empezarEl jugador 1 jugó la carta Un [97m J 	 [0m de color [97m [97m blanco [0m [0mEl palo lider es [97m blanco [0mEl jugador 2 jugó la carta Un [92m 8 	 [0m de color [92m [92m verde [0m [0mEl jugador 3 jugó la carta Un [94m 3 	 [0m de color [94m [94m azul [0m [0mEl jugador 4 jugó la carta Un [93m 1 	 [0m de color [93m [93m amarillo [0m [0mEl jugador 2 ganó el trucoLas puntaciones se ven asi...El jugador 1 tiene 20 puntos
+El jugador 3 tiene 20 puntos
+El jugador 4 tiene -10 puntos
+El jugador 2 tiene -10 puntos
+Ahora se anunciara el ganador del juego...
+
+Hubo un empate entre los Jugadores 1, 3 todos con 20 puntos.

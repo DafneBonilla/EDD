@@ -11,14 +11,28 @@ public class Jugador {
     private int puntuacion;
     /* Apuesta actual del jugador. */
     private int apuesta;
+    /* Trucos ganados por el jugador. */
+    private int ganados;
+    /* Trucos ganados por el jugador. */
+    private String nombre;
 
     /**
-     * Constructor único.
+     * Define el estado inicial de un jugador.
      */
-    public Jugador() {
+    public Jugador(String nombre) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
+        this.ganados = 0;
+        this.nombre = nombre;
+    }
+
+    /**
+     * Regresa el nombre del jugador.
+     * @return el nombre del jugador.
+     */
+    public String getNombre() {
+        return nombre;
     }
 
     /**
@@ -70,6 +84,22 @@ public class Jugador {
     }
 
     /**
+     * Regresa los trucos ganapor por el jugador.
+     * @return los trucos ganapor por el jugador.
+     */
+    public int getGanados() {
+        return ganados;
+    }
+
+    /**
+     * Define los trucos ganapor por el jugador.
+     * @param ganados los trucos ganapor por el jugador.
+     */
+    public void setGanados(int ganados) {
+        this.ganados = ganados;
+    }
+
+    /**
      * Metodo para agregar una carta a la mano del jugador.
      * @param nueva la carta a agregar a la mano.
      */
@@ -81,8 +111,13 @@ public class Jugador {
      * Metodo para jugar una carta de la mano del jugador.
      * @param i la posicion de la carta.
      */
-    public Carta devuelveCarta(int i) {
+    public Carta sacaCarta(int i) {
         return mano.sacaCarta(i);
     }
 
+    public String verBarajaOrdenada() {
+        mano.ordenar();
+        return mano.toString();
+    }
+    
 }

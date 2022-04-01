@@ -1,10 +1,10 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
-
 import java.util.Iterator;
 import java.util.Scanner;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -20,22 +20,24 @@ public class Partida {
     private int numRondas;
     /* Mazo principal del juego. */
     private Baraja mazo;
-    /* Historial del juego. */
-    private String log;
-    /* Archivo del historial. */
-    private String historial;
     /* Ver si el juego sigue. */
     private Boolean sigue;
+    /* Manera de escribir en el archivo. */
+    private BufferedWriter out;
+    /* Scanner para comunicacion con el usuario. */
+    private Scanner sc;
     /* Seed de random */
     private long seed;
 
     /**
-     * Constructor único.
+     * Define el estado inicial de una partida.
+     * @param numJugadores el numero de jugadores.
+     * @param archivo el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo) {
         jugadores = new Lista<>();
         for (int i = 1; i <= numJugadores; i++) {
-            jugadores.add(new Jugador());
+            jugadores.add(new Jugador(String.valueOf(i)));
         }
         switch (numJugadores) {
             case 3:
@@ -56,46 +58,69 @@ public class Partida {
         }
         seed = System.currentTimeMillis();
         mazo = new Baraja(seed);
-        log = "";
         sigue = true;
-        historial = archivo;
+        sc = new Scanner(System.in);
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
+        } catch (FileNotFoundException e) {
+            System.out.println("No se pudo abrir el archivo, abortando la ejecucion.");
+            System.exit(0);
+        }
     }
 
     /**
-     * Inicia la partida.
+     * Comienza la partida.
      */
     public void iniciar() {
+        enviarMensaje("La partida va a empezar, todos listos :)");
+        enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda();
-            actual.iniciar(mazo, log, i);
+            Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
+            actual.iniciar();   
             seguir();
             if (!sigue) {
                 break;
             }
         }
         resultados();
-        BufferedWriter out = 
-            new BufferedWriter(
-                new OutputStreamWriter(
-                    new FileOutputStream(historial))); 
-        guardar(out);
-    }
-
-    public void resultados() {
-        String resultados = "";
-        
-        log += resultados;
-        System.out.println(resultados);
-        int contador = 1;
-        Iterator<Jugador> iterator = jugadores.iterator();
-        while (iterator.hasNext()) {
-            resultados += "El jugador " + contador + " tiene "+ iterator.next().getPuntuacion() + " puntos\n";
-            contador++;
+        try {
+            out.close();
+        } catch (IOException e) {
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecucion.");
+            System.exit(0);
         }
-        resultados += ganador();
     }
 
-    public String ganador() {
+    /**
+     * Imprime un mensaje al usuario, ademes el mensaje lo
+     * guarda en el archivo.
+     * @param mensaje el mensaje a imprimir y agregar.
+     */
+    private void enviarMensaje(String mensaje) {
+        System.out.println(mensaje+"\n");
+        try {
+            out.write(mensaje);
+            out.newLine();
+        } catch (Exception e) {
+            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.exit(0);
+        }
+    }
+
+    /**
+     * Muesta los resultados de la partida.
+     */
+    private void resultados() {
+        String resultados = "Ahora se anunciara el ganador del juego...\n\n";
+        resultados += ganador();
+        enviarMensaje(resultados);
+    }
+
+    /**
+     * Calcula quien fue el ganador de la partida.
+     * @return una cadena con los datos del ganador.
+     */
+    private String ganador() {
         Iterator<Jugador> iterator = jugadores.iterator();
         int i = 0;
         int contador = 1;
@@ -109,51 +134,62 @@ public class Partida {
         return superior(arreglo);
     }
 
+    /**
+     * Ayuda a calcular el ganador.
+     * @param arreglo un arreglo con los datos de los jugadores.
+     * @return una cadena con el ganador.
+     */
     private String superior(int[][] arreglo) {
         String winner = "Hubo un empate entre los Jugadores ";
-        int posicion = 0;
+        int posicion = mayor(arreglo);
         boolean empate = false;
-        int puntuacion = -11111111;
-        for (int i = 0; i <= jugadores.size(); i++) {
-            if (arreglo[1][i] > puntuacion) {
-                puntuacion = arreglo[1][i];
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (arreglo[1][i] > arreglo[1][posicion]) {
                 posicion = i;
-            } else if (arreglo[1][i] == puntuacion) {
-                puntuacion = arreglo[1][i];
+            } else if (arreglo[1][i] == arreglo[1][posicion]) {
                 posicion = i;
                 empate = true;
-                winner += posicion + "con " + puntuacion + "puntos, ";
+                winner += jugadores.buscarIndice(posicion).getNombre() + ", ";
             }
         }
         if (empate) {
-            return winner.substring(0, winner.length() - 2)+".";
+            winner = winner.substring(0, winner.length() - 2);
+            return winner+" todos con "+ arreglo[1][posicion]  +" puntos.\n";
         }
-        return "El ganador es el Jugador "+posicion+" con "+puntuacion+" puntos.";
+        return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
     }
 
-    public void seguir() {
-        System.out.println("¿Quieres seguir jugando? s/n");
-        try (Scanner scanner = new Scanner(System.in)) {
-            String algo = scanner.nextLine();
-            switch (algo) {
-                case "s":
-                    break;
-                case "n":
-                    sigue = false;
-                    break;
-                default:
-                    System.out.println("Respuesta inválida");
-                    seguir();
-                    break;
+    /**
+     * Buscar la puntacion más alta de los jugadores.
+     * @param arreglo un arreglo con los datos de los jugadores.
+     * @return la posicion del jugador con mayor puntacion.
+     */
+    private int mayor(int[][] arreglo) {
+        int respuesta = 0;
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (arreglo[1][i] > arreglo[1][i]) {
+                respuesta = i;
             }
         }
+        return respuesta;
     }
 
-    public void guardar(BufferedWriter out) {
-        try {
-            out.write(log);
-        } catch (IOException ioe) {
-            System.out.println("Algo salió mal al guardar");
+    /**
+     * Saber si el juego va a seguir o se detendra.
+     */
+    private void seguir() {
+        System.out.println("¿Quieres seguir jugando? s/n");
+        String respuesta = sc.nextLine();
+        switch (respuesta) {
+            case "s":
+                break;
+            case "n":
+                sigue = false;
+                    break;
+            default:
+                System.out.println("Respuesta inválida.");
+                seguir();
+                break;
         }
     }
 }
