@@ -1,7 +1,6 @@
 package Wizard;
 
 import Wizard.Estructuras.Lista;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;

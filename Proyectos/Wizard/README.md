@@ -31,6 +31,6 @@ java Wizard/Proyecto1 #jugadores archivo
 
 ## Explicación
 
-Una pequeña explicacion de como usar el programa y sobre las cartas.
+Una pequeña explicación de como usar el programa y sobre las cartas.
 
 ...

@@ -23,5 +23,6 @@ public class Proyecto1 {
         }
         Partida partida = new Partida(numJugadores, args[1]);
         partida.iniciar();
+        System.out.println("Gracias por jugar :D");
     }
 }

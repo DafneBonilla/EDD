@@ -152,7 +152,7 @@ public class Baraja {
      */
     private Carta[] volverArreglo() {
         Carta[] regresar = new Carta[cartitas.size()];
-        for (int i=0; i<regresar.length; i++) {
+        for (int i = 0; i < regresar.length; i++) {
             regresar[i] = sacaCarta(0);
         }
         return regresar;
@@ -165,7 +165,7 @@ public class Baraja {
      */
     private void volverBaraja(Carta[] arreglo) {
         cartitas.empty();
-        for (int i=0; i<arreglo.length; i++) {
+        for (int i = 0; i < arreglo.length; i++) {
             agregaCarta(arreglo[i]);
         }
     }
