@@ -98,6 +98,7 @@ public class Ronda {
             switch (triunfi.getMerito()) {
                 case 5:
                     if (cartita.getValor().getNumero() == 0) {
+                        enviarMensaje("El palo de triunfo es " + triunfo);
                         return;
                     }
                     pedirTriunfo();

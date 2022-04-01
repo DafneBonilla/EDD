@@ -17,8 +17,8 @@ public class Truco {
     private Color lider;
     /* Mazo principal del juego. */
     private Baraja mazo;
-    /* Lista de cartas. */
-    private Carta[] jugadas;
+    /* Lista de cartas jugadas. */
+    private Lista<Carta> jugadas;
     /* Scanner para comunicacion con el usuario. */
     private Scanner sc;
     /* Manera de escribir en el archivo. */
@@ -36,7 +36,7 @@ public class Truco {
         this.triunfo = triunfo;
         this.lider = new Color(-1);
         this.mazo = mazo;
-        this.jugadas = new Carta[jugadores.size()];
+        this.jugadas = new Lista<>();
         this.sc = sc;
         this.out = out;
     }
@@ -46,7 +46,6 @@ public class Truco {
      */
     public void iniciar() {
         enviarMensaje("El truco va a empezar");
-        int cont = 1;
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta.");
             System.out.println("El palo lider es "+lider);
@@ -56,13 +55,12 @@ public class Truco {
             Carta cartita = recibeCarta(jugador, indice);
             enviarMensaje("El jugador " + jugador.getNombre() + " jugó la carta " + cartita);
             defineLider(cartita);
-            jugadas[cont - 1] = cartita;
-            cont++;
+            jugadas.agregaFinal(cartita);
         }
         int ganador = cartaGanadora();
         Jugador jug = jugadores.buscarIndice(ganador);
         int ganados = jug.getGanados();
-        jug.setGanados(ganados);
+        jug.setGanados(ganados + 1);
         enviarMensaje("El jugador " + jug.getNombre() + " ganó el truco");
         for (Carta carta : jugadas) {
             mazo.agregaCarta(carta);
@@ -126,11 +124,11 @@ public class Truco {
             if (cartaLegal(cartita, jugador.getBaraja().copia(), i)) {
                 return i;
             } else {
-                System.out.println("Carta inválida");
+                System.out.println("Carta inválida, debes jugar otra carta");
                 return validarCarta(sc, jugador);
             }
         } catch (NumberFormatException e) {
-            System.out.println("No ingresaste un número.");
+            System.out.println("No ingresaste un número");
             return validarCarta(sc, jugador);
         }
     }
@@ -143,22 +141,22 @@ public class Truco {
      * @return <code>true</code> si la carta es legal, <code>false</code> en caso contrario.
      */
     private boolean cartaLegal(Carta carta, Baraja mano, int i) {
-        boolean colorLider = false;
         mano.sacaCarta(i);
         if (mano.esVacio()) {
             return true;
         }
-        if (carta.getColor() == lider) {
-            colorLider = true;
+        if (carta.getColor().equals(lider)) {
+            return true;
         }
         if (carta.getValor().getNumero() == 0 || carta.getValor().getNumero() == 14) {
             return true;
         }
+        if (lider.getMerito() == -1) {
+            return true;
+        }
         for (Carta cartita : mano.getLista()) {
-            if (cartita.getColor() == lider) {
-                if (!colorLider) {
-                    return false;
-                }
+            if (cartita.getColor().equals(lider)) {
+                return false;
             }
         }
         return true;
@@ -193,9 +191,9 @@ public class Truco {
      * @return el índice del primer jugador que jugo un mago.
      */
     private int jugoMago() {
-        for (int i = 0; i < jugadas.length; i++) {
-            if (jugadas[i].getValor().getNumero() == 14) {
-                return i;
+        for (Carta cartita : jugadas) {
+            if (cartita.getValor().getNumero() == 14) {
+                return jugadas.indexOf(cartita);
             }
         }
         return -1;
@@ -208,11 +206,11 @@ public class Truco {
     private int altaTriunfo() {
         int comparar = 0;
         int indice = -1;
-        for (int i = 0; i < jugadas.length; i++) {
-            if (jugadas[i].getColor().getMerito() == triunfo.getMerito()) {
-                if (jugadas[i].getValor().getNumero() > comparar) {
-                    comparar = jugadas[i].getValor().getNumero();
-                    indice = i;
+        for (Carta cartita : jugadas) {
+            if (cartita.getColor().equals(triunfo)) {
+                if (cartita.getValor().getNumero() > comparar) {
+                    comparar = cartita.getValor().getNumero();
+                    indice = jugadas.indexOf(cartita);
                 }
             }
         }
@@ -226,11 +224,11 @@ public class Truco {
     private int altaLider() {
         int comparar = 0;
         int indice = -1;
-        for (int i = 0; i < jugadas.length; i++) {
-            if (jugadas[i].getColor().getMerito() == lider.getMerito()) {
-                if (jugadas[i].getValor().getNumero() > comparar) {
-                    comparar = jugadas[i].getValor().getNumero();
-                    indice = i;
+        for (Carta cartita : jugadas) {
+            if (cartita.getColor().equals(lider)) {
+                if (cartita.getValor().getNumero() > comparar) {
+                    comparar = cartita.getValor().getNumero();
+                    indice = jugadas.indexOf(cartita);
                 }
             }
         }
@@ -242,21 +240,21 @@ public class Truco {
      * @return el índice del primer jugador que jugo un bufón.
      */
     private int bufon() {
-        for (int i = 0; i < jugadas.length; i++) {
-            if (jugadas[i].getValor().getNumero() == 0) {
-                return i;
+        for (Carta cartita : jugadas) {
+            if (cartita.getValor().getNumero() == 0) {
+                return jugadas.indexOf(cartita);
             }
         }
         return -1;
     }
 
     /**
-     * Intento en actualiza el orden de judores.
-     * @param i el indice del ganador del truco
+     * Actualiza el orden de jugadores.
+     * @param i el índice del ganador del truco.
      */
     private void actualizarLista(int i) {
         for (int j = 0; j < i; j++) {
-            Jugador ajustando = jugadores.delete2(i);
+            Jugador ajustando = jugadores.delete2(0);
             jugadores.agregaFinal(ajustando);
         }
     }

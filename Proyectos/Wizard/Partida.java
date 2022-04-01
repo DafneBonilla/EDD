@@ -121,17 +121,7 @@ public class Partida {
      * @return una cadena con los datos del ganador.
      */
     private String ganador() {
-        Iterator<Jugador> iterator = jugadores.iterator();
-        int i = 0;
-        int contador = 1;
-        int[][] arreglo = new int[2][jugadores.size()];
-        while (iterator.hasNext()) {
-            arreglo[0][i] = contador;
-            arreglo[1][i] = iterator.next().getPuntuacion();
-            contador++;
-            i++;
-        }
-        return superior(arreglo);
+        return superior(jugadores);
     }
 
     /**
@@ -139,24 +129,26 @@ public class Partida {
      * @param arreglo un arreglo con los datos de los jugadores.
      * @return una cadena con el ganador.
      */
-    private String superior(int[][] arreglo) {
+    private String superior(Lista<Jugador> lista) {
         String winner = "Hubo un empate entre los Jugadores ";
-        int posicion = mayor(arreglo);
+        int posicion = mayor(lista);
+        int punt = jugadores.buscarIndice(posicion).getPuntuacion();
+        Lista<Jugador> resto = lista.clone();
+        resto.delete2(posicion);
         boolean empate = false;
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (arreglo[1][i] > arreglo[1][posicion]) {
-                posicion = i;
-            } else if (arreglo[1][i] == arreglo[1][posicion]) {
-                posicion = i;
+        for (Jugador jug : resto) {
+            if (jug.getPuntuacion() == punt) {
                 empate = true;
-                winner += jugadores.buscarIndice(posicion).getNombre() + ", ";
+                winner += jug.getNombre() + ", ";
             }
         }
         if (empate) {
             winner = winner.substring(0, winner.length() - 2);
-            return winner+" todos con "+ arreglo[1][posicion]  +" puntos.\n";
+            winner += " y " + lista.buscarIndice(posicion).getNombre();
+            return winner + " todos con " + jugadores.buscarIndice(posicion).getPuntuacion()  + " puntos.\n";
         }
-        return "El ganador es el Jugador "+jugadores.buscarIndice(posicion).getNombre()+" con "+arreglo[1][posicion]+" puntos.\n";
+        Jugador ganadorsito = jugadores.buscarIndice(posicion);
+        return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion() + " puntos.\n";
     }
 
     /**
@@ -164,18 +156,19 @@ public class Partida {
      * @param arreglo un arreglo con los datos de los jugadores.
      * @return la posicion del jugador con mayor puntacion.
      */
-    private int mayor(int[][] arreglo) {
+    private int mayor(Lista<Jugador> lista) {
         int respuesta = 0;
-        for (int i = 0; i < jugadores.size(); i++) {
-            if (arreglo[1][i] > arreglo[1][i]) {
-                respuesta = i;
+        int puntuacion = lista.buscarIndice(0).getPuntuacion();
+        for (Jugador jug : lista) {
+            if (jug.getPuntuacion() >= puntuacion) {
+                respuesta = lista.indexOf(jug);
             }
         }
         return respuesta;
     }
 
     /**
-     * Saber si el juego va a seguir o se detendra.
+     * Saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
         System.out.println("¿Quieres seguir jugando? s/n");
