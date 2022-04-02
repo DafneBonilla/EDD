@@ -3,10 +3,7 @@ package WizardServidor;
 import WizardServidor.Estructuras.Lista;
 import java.util.Scanner;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 /**
  * Clase para representar una partida.
@@ -33,7 +30,7 @@ public class Partida {
      * @param numJugadores el numero de jugadores.
      * @param archivo el archivo a escribir.
      */
-    public Partida(int numJugadores, String archivo, Lista<Jugador> jugadores) {
+    public Partida(int numJugadores, String archivo, Lista<Jugador> jugadores, BufferedWriter out) {
         this.jugadores = jugadores;
         switch (numJugadores) {
             case 3:
@@ -56,12 +53,7 @@ public class Partida {
         mazo = new Baraja(seed);
         sigue = true;
         sc = new Scanner(System.in);
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
-        } catch (FileNotFoundException e) {
-            System.out.println("No se pudo abrir el archivo, abortando la ejecución.");
-            System.exit(0);
-        }
+        this.out = out;
     }
 
     /**

@@ -1,6 +1,8 @@
 package WizardServidor;
 
-import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
  * Clase para representar jugadores.
@@ -17,19 +19,22 @@ public class Jugador {
     private int ganados;
     /* Trucos ganados por el jugador. */
     private String nombre;
-    /* Socket para comunicacion con el servidor. */
-    private Socket enchufe;
+    /* Buffered para leer al jugador */
+    private BufferedReader in;
+    /* Buffered para escribir al jugador */
+    private BufferedWriter out;
 
     /**
      * Define el estado inicial de un jugador.
      */
-    public Jugador(String nombre, Socket enchufe) {
+    public Jugador(String nombre, BufferedReader in, BufferedWriter out) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
         this.ganados = 0;
         this.nombre = nombre;
-        this.enchufe = enchufe;
+        this.in = in;
+        this.out = out;
     }
 
     /**
@@ -120,9 +125,31 @@ public class Jugador {
         return mano.sacaCarta(i);
     }
 
+    /**
+     * Ver en forma de cadena la baraja ordenada del jugador.
+     * @return la baraja ordenada del jugador.
+     */
     public String verBarajaOrdenada() {
         mano.ordenar();
         return mano.toString();
+    }
+
+    /**
+     * Regresa la cadena recibida del jugador.
+     * @return la cadena recibida del jugador.
+     */
+    public String leerJugador() throws IOException {
+        String cadenita = in.readLine();
+        return cadenita;
+    }
+
+    /**
+     * Envia una cadena al jugador.
+     * @param cadena la cadena a enviar.
+     */
+    public void hablarJugador(String mensaje) throws IOException {
+        out.write(mensaje+"\n");
+        out.flush();
     }
     
 }
