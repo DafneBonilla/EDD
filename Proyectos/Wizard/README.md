@@ -3,11 +3,13 @@ Proyecto 1
 
 Implementación de Wizard
 ----------------------------------------------------
-Equipo:
 <pre>
+Equipo:
+
 Bonilla Reyes Dafne       -    319089660  
 García Ponce José Camilo  -    319210536  
 <pre>
+
 ----------------------------------------------------
 
 ### Uso
