@@ -1,12 +1,12 @@
-Proyecto 1 "Wizard"
+Proyecto 1: Wizard
 =========================================
 
 Implementación de Wizard
 ----------------------------------------------------
-Nombres:
+Equipo:
 
-Dafne Bonilla Reyes - 319089660  
-José Camilo García Ponce - 319210536  
+Bonilla Reyes Dafne      -    319089660  
+García Ponce José Camilo -    319210536  
 
 ----------------------------------------------------
 
