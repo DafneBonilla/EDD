@@ -75,8 +75,10 @@ public class Partida {
         enviarMensaje("La seed del juego es "+seed);
         for (int i = 1; i <= numRondas; i++) {
             Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
-            actual.iniciar();   
-            seguir();
+            actual.iniciar();  
+            if (i != numRondas) {
+                seguir();
+            } 
             if (!sigue) {
                 break;
             }
@@ -131,7 +133,8 @@ public class Partida {
     private String superior(Lista<Jugador> lista) {
         String winner = "Hubo un empate entre los Jugadores ";
         int posicion = mayor(lista);
-        int punt = jugadores.buscarIndice(posicion).getPuntuacion();
+        Jugador ganadorsito = lista.buscarIndice(posicion);
+        int punt = ganadorsito.getPuntuacion();
         Lista<Jugador> resto = lista.clone();
         resto.delete2(posicion);
         boolean empate = false;
@@ -143,10 +146,9 @@ public class Partida {
         }
         if (empate) {
             winner = winner.substring(0, winner.length() - 2);
-            winner += " y " + lista.buscarIndice(posicion).getNombre();
-            return winner + " todos con " + jugadores.buscarIndice(posicion).getPuntuacion()  + " puntos.\n";
+            winner += " y " + ganadorsito.getNombre();
+            return winner + " todos con " + punt  + " puntos.\n";
         }
-        Jugador ganadorsito = jugadores.buscarIndice(posicion);
         return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion() + " puntos.\n";
     }
 

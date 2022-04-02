@@ -47,9 +47,7 @@ public class Ronda {
     public void iniciar() {
         enviarMensaje("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
-        System.out.println("EL TAMAÑO DEL MAZO ES " + mazo.tamanio());
         repartirCartas();
-        System.out.println("EL TAMAÑO DEL MAZO LUEGO DE REPARTIR ES " + mazo.tamanio());
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
@@ -85,10 +83,6 @@ public class Ronda {
     private void repartirCartas() {
         for (int i = 0; i < numRonda; i++) {
             for (Jugador jugador : jugadores) {
-                if (mazo.esVacio()) {
-                    System.out.println("El mazo se vacio");
-                    System.exit(0);
-                }
                 Carta cartita = mazo.sacaCarta(0);
                 jugador.recibirCarta(cartita);
             }
@@ -106,6 +100,7 @@ public class Ronda {
                 case 5:
                     if (cartita.getValor().getNumero() == 0) {
                         enviarMensaje("El palo de triunfo es " + triunfo);
+                        mazo.agregaCarta(cartita);
                         return;
                     }
                     pedirTriunfo();

@@ -63,7 +63,7 @@ public class Carta implements Comparable<Carta> {
                 datitos += String.format("Un \u001B[91m%s\u001B[0m de color \u001B[91m%s\u001B[0m ", valor, color);
                 break;
             case 2:
-                datitos += String.format("Un \u001B[94m%s\u001B[0m  de color \u001B[94m%s\u001B[0m ", valor, color);
+                datitos += String.format("Un \u001B[94m%s\u001B[0m de color \u001B[94m%s\u001B[0m ", valor, color);
                 break;
             case 3:
                 datitos += String.format("Un \u001B[93m%s\u001B[0m de color \u001B[93m%s\u001B[0m ", valor, color);
