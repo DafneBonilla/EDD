@@ -11,22 +11,14 @@ José Camilo García Ponce - 319210536
 
 ### Uso
 
-Compilar 
-```
-javac -d . Wizard/*.java
-```
 Compilar desde Wizard/
 ```
 javac -d . *.java Estructuras/*.java
 ```
 
-Ejecutar
-```
-java Wizard/Proyecto1
-```
 Ejecutar desde Wizard/
 ```
-java Wizard/Proyecto1 #jugadores archivo
+java Wizard/Proyecto1 #jugadores archivo.txt
 ```
 
 ## Explicación

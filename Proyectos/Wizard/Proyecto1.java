@@ -4,7 +4,7 @@ public class Proyecto1 {
     
     /* Imprime un mensaje de cómo usar el programa. */
     private static void uso() {
-        System.out.println("Uso: java Wizard/Proyecto1 #jugadores archivo");
+        System.out.println("Uso: java Wizard/Proyecto1 #jugadores archivo.txt");
         System.exit(0);
     }
 
