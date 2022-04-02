@@ -6,14 +6,15 @@ Implementación de Wizard
 
 Equipo:
 
-Bonilla Reyes Dafne       -    319089660  
-García Ponce José Camilo  -    319210536  
+Bonilla Reyes Dafne       -    319089660  <br />
+García Ponce José Camilo  -    319210536  <br />
 
 
-The action of every agent <br />
-  into the world <br />
+The action of every agent 
+  into the world 
 starts <br />
   from their physical selves. <br />
+  
 ----------------------------------------------------
 
 ### Uso
