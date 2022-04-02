@@ -1,6 +1,11 @@
 package WizardServidor;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import WizardServidor.Estructuras.Lista;
@@ -13,12 +18,23 @@ public class Proyecto1Servidor {
         System.exit(0);
     }
 
+    private static void enviarMensaje(String mensaje, BufferedWriter out) {
+        System.out.println(mensaje);
+        try {
+            out.write(mensaje);
+            out.newLine();
+        } catch (Exception e) {
+            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
+            System.exit(0);
+        }
+    }
+
     public static void main(String[] args) {
         if (args.length != 3) {
             uso();
         }
         int numJugadores = 0;
-        int puerto = 0;
+        int puerto = 1234;
         try {
             numJugadores = Integer.parseInt(args[0]);
             puerto = Integer.parseInt(args[2]);
@@ -30,22 +46,35 @@ public class Proyecto1Servidor {
         }
 
         try {
+            BufferedWriter archivo = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(args[1])));
             ServerSocket serverSocket = new ServerSocket(puerto);
+            enviarMensaje("El servidor esta andando", archivo);
             Lista<Jugador> jugadores = new Lista<Jugador>();
-            int cont = 0;
+            enviarMensaje("Esperando jugadores...", archivo);
             while (jugadores.size() != numJugadores) {
-                cont++;
                 Socket socket = serverSocket.accept();
-                Jugador jugador = new Jugador(String.valueOf(cont), socket);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                out.write("Ingresa tu nombre: ");
+                out.flush();
+                String nombre = in.readLine();
+                Jugador jugador = new Jugador(nombre, in, out);
                 jugadores.agregaFinal(jugador);
+                out.write("Bienvenido " + nombre + "!\n");
+                out.write("La partida comenzara en unos momentos...\n");
+                enviarMensaje("El jugador "+nombre+" ingreso.", archivo);
+                out.flush();
             }
-            Partida partida = new Partida(numJugadores, args[1], jugadores);
-            System.out.println("la partida se creo exitosamente");
+            Partida partida = new Partida(numJugadores, args[1], jugadores, archivo);
+            enviarMensaje("Jugadores conectados. Iniciando partida...", archivo);
             //partida.iniciar();
-            //System.out.println("Gracias por jugar :D"); //imprimir a cada jugador
+            for (Jugador jugador : jugadores) {
+                jugador.hablarJugador("Gracias por jugar :D");
+            }
             serverSocket.close();
+            archivo.close();
         } catch (IOException e) {
-            System.out.println("Error con el servidor. Abortando la ejecucion.");
+            System.out.println("Error con el servidor/archivo. Abortando la ejecucion.");
             System.exit(0);
         }       
     }

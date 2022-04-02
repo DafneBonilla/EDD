@@ -3,9 +3,6 @@ package WizardServidor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
 
 /**
  * Clase para representar jugadores.
@@ -22,8 +19,6 @@ public class Jugador {
     private int ganados;
     /* Trucos ganados por el jugador. */
     private String nombre;
-    /* Socket para comunicacion con el servidor. */
-    private Socket enchufe;
     /* Buffered para leer al jugador */
     private BufferedReader in;
     /* Buffered para escribir al jugador */
@@ -32,20 +27,14 @@ public class Jugador {
     /**
      * Define el estado inicial de un jugador.
      */
-    public Jugador(String nombre, Socket enchufe) {
+    public Jugador(String nombre, BufferedReader in, BufferedWriter out) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
         this.ganados = 0;
         this.nombre = nombre;
-        this.enchufe = enchufe;
-        try {
-            this.in = new BufferedReader(new InputStreamReader(enchufe.getInputStream()));
-            this.out = new BufferedWriter(new OutputStreamWriter(enchufe.getOutputStream()));
-        } catch (IOException e) {
-            System.out.println("Error al crear al jugador "+nombre+", abortando la ejeccion.");
-            System.exit(0);
-        }
+        this.in = in;
+        this.out = out;
     }
 
     /**
