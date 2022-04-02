@@ -7,13 +7,13 @@ public class Jugador {
     
     /* Mano del jugador. */
     private Baraja mano;
-    /* Puntuacion del jugador. */
+    /* Puntuación del jugador. */
     private int puntuacion;
     /* Apuesta actual del jugador. */
     private int apuesta;
     /* Trucos ganados por el jugador. */
     private int ganados;
-    /* Trucos ganados por el jugador. */
+    /* Nombre del jugador. */
     private String nombre;
 
     /**
@@ -52,16 +52,16 @@ public class Jugador {
     }
 
     /**
-     * Regresa la puntuacion del jugador.
-     * @return la puntuacion del jugador.
+     * Regresa la puntuación del jugador.
+     * @return la puntuación del jugador.
      */
     public int getPuntuacion() {
         return puntuacion;
     }
 
     /**
-     * Define la puntuacion del jugador.
-     * @param puntuacion la nueva puntuacion del jugador.
+     * Define la puntuación del jugador.
+     * @param puntuacion la nueva puntuación del jugador.
      */
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
@@ -77,39 +77,39 @@ public class Jugador {
 
     /**
      * Define la apuesta actual del jugador.
-     * @param puntuacion la nueva apuesta actual del jugador.
+     * @param apuesta la nueva apuesta actual del jugador.
      */
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
     }
 
     /**
-     * Regresa los trucos ganapor por el jugador.
-     * @return los trucos ganapor por el jugador.
+     * Regresa los trucos ganados por por el jugador.
+     * @return los trucos ganados por por el jugador.
      */
     public int getGanados() {
         return ganados;
     }
 
     /**
-     * Define los trucos ganapor por el jugador.
-     * @param ganados los trucos ganapor por el jugador.
+     * Define los trucos ganados por por el jugador.
+     * @param ganados los trucos ganados por por el jugador.
      */
     public void setGanados(int ganados) {
         this.ganados = ganados;
     }
 
     /**
-     * Metodo para agregar una carta a la mano del jugador.
-     * @param nueva la carta a agregar a la mano.
+     * Método para agregar una carta a la mano del jugador.
+     * @param nueva la carta a agregar a la mano del jugador.
      */
     public void recibirCarta(Carta nueva) {
         mano.agregaCarta(nueva);
     }
 
     /**
-     * Metodo para jugar una carta de la mano del jugador.
-     * @param i la posicion de la carta.
+     * Método para jugar una carta de la mano del jugador.
+     * @param i la posición de la carta de la mano del jugador.
      */
     public Carta sacaCarta(int i) {
         return mano.sacaCarta(i);

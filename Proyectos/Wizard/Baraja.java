@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Clase para representar barajas. Seran listas de la clase {@link Carta}.
+ * Clase para representar barajas. Serán listas de la clase {@link Carta}.
  */
 public class Baraja {
     
@@ -17,7 +17,7 @@ public class Baraja {
     /**
      * Define el estado inical de una baraja.
      */
-    public Baraja(){
+    public Baraja() {
         cartitas = new Lista<Carta>();
         seed = 0;
     }
@@ -26,7 +26,7 @@ public class Baraja {
      * Define el estado inical de una baraja, usando
      * una lista de carta. Usado para generar una copia
      * de una baraja.
-     * @param cartitas la lista de cartas
+     * @param cartitas la lista de cartas.
      */
     public Baraja(Lista<Carta> cartitas) {
         this.cartitas = cartitas;
@@ -85,16 +85,14 @@ public class Baraja {
         return cartitas.buscarIndice(i);
     }
 
-
     /**
      * Regresa una representación en cadena de la baraja.
      * @return una representación en cadena de la baraja.
      */
     @Override public String toString() {
         String datitos = "";
-        if (cartitas.isEmpty()) {
+        if (cartitas.isEmpty()) 
             return datitos;
-        }
         int contador = 0;
         Iterator<Carta> iterator = cartitas.iterator();
         while (iterator.hasNext()) {
@@ -141,6 +139,7 @@ public class Baraja {
      * Agrega todas las cartas de un arreglo a la baraja.
      * El arreglo que recibe debe ser del método
      * {@link Baraja#volverArreglo}.
+     * @param arreglo el arreglo con las cartas a agregar.
      */
     private void volverBaraja(Carta[] arreglo) {
         for (int i = 0; i < arreglo.length; i++) {
@@ -158,9 +157,10 @@ public class Baraja {
     }
 
     /**
-     * Auxiliar para devolver las cartas.
+     * Auxiliar para revolver las cartas.
      * Algoritmo: Fisher–Yates shuffle
      * Fuente: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
+     * @param array el arreglo con las cartas a revolver.
      */
     private void shuffleAux(Carta[] array) {
         int n = array.length;
