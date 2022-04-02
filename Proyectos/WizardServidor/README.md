@@ -13,16 +13,16 @@ García Ponce José Camilo &nbsp;   - &nbsp;   &nbsp;   319210536
 
 ### Uso
 
-Compilar desde `Wizard/`
+Compilar desde `WizardServidor/`
 
 ```
 javac -d . *.java Estructuras/*.java
 ```
 
-Ejecutar desde `Wizard/`
+Ejecutar el servidor desde `WizardServidor/` 
 
 ```
-java Wizard/Proyecto1Servidor #jugadores archivo.txt
+java WizardServidor/Proyecto1Servidor #jugadores archivo.txt puerto
 ```
 
 ## Explicación

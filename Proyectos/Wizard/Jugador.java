@@ -115,6 +115,10 @@ public class Jugador {
         return mano.sacaCarta(i);
     }
 
+    /**
+     * Ver en forma de cadena la baraja ordenada del jugador.
+     * @return la baraja ordenada del jugador.
+     */
     public String verBarajaOrdenada() {
         mano.ordenar();
         return mano.toString();
