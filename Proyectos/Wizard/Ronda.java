@@ -11,15 +11,15 @@ public class Ronda {
 
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
-    /* Numero de ronda acutal. */
+    /* Número de ronda acutal. */
     private int numRonda;
-    /* Numero de trucos. */
+    /* Número de trucos. */
     private int numTrucos;
-    /* Palo de triundo. */
+    /* Palo de triunfo. */
     private Color triunfo;
     /* Mazo principal del juego. */
     private Baraja mazo;
-    /* Scanner para comunicacion con el usuario. */
+    /* Scanner para comunicación con el usuario. */
     private Scanner sc;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
@@ -27,9 +27,10 @@ public class Ronda {
     /**
      * Define el estado inicial de una ronda.
      * @param jugadores la lista de jugadores.
-     * @param numRonda el numero de la ronda actual.
-     * @param log la cadena del historial del juego.
+     * @param numRonda el número de la ronda actual.
      * @param mazo la baraja principal.
+     * @param sc el scanner para comunicación con el usuario.
+     * @param out la manera de escribir en el archivo.
      */
     public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, Scanner sc, BufferedWriter out) {
         this.jugadores = jugadores;
@@ -55,15 +56,15 @@ public class Ronda {
             actual.iniciar();
         }
         verPuntuacion();
-        enviarMensaje("Las puntaciones se ven asi...");
+        enviarMensaje("Las puntaciones se ven así...");
         for (Jugador jugador : jugadores) {
             enviarMensaje("El jugador " + jugador.getNombre() + " tiene " + jugador.getPuntuacion() + " puntos\n");
         }
     }
 
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje al usuario y guarda el mensaje
+     * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
@@ -72,7 +73,7 @@ public class Ronda {
             out.write(mensaje);
             out.newLine();
         } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
+            System.out.println("Error al guardar el mensaje, abortando la ejercución");
             System.exit(0);
         }
     }
@@ -90,7 +91,7 @@ public class Ronda {
     }
 
     /**
-     * Define la bara de triunfo de la ronda.
+     * Define la carta de triunfo de la ronda.
      */
     private void defineTriunfo() {
         if (!mazo.esVacio()) {
@@ -125,11 +126,11 @@ public class Ronda {
     }
 
     /**
-     * Valida que el palo de triunfo sea valido.
-     * @return el numero del palo de triunfo.
+     * Valida que el palo de triunfo sea válido.
+     * @return el número del palo de triunfo.
      */
     private int validarTriunfo() {
-        System.out.println("Escribe el numero del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
+        System.out.println("Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
         String respuesta = sc.nextLine();
         try {
             int i = Integer.parseInt(respuesta);
@@ -138,7 +139,7 @@ public class Ronda {
             }
             return i;
         } catch (NumberFormatException e) {
-            System.out.println("No es un numero valido");
+            System.out.println("No es un número válido");
             return validarTriunfo();
         }
     }

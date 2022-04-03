@@ -15,7 +15,7 @@ public class Partida {
     
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
-    /* Numero de rondas. */
+    /* Número de rondas. */
     private int numRondas;
     /* Mazo principal del juego. */
     private Baraja mazo;
@@ -23,14 +23,14 @@ public class Partida {
     private Boolean sigue;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
-    /* Scanner para comunicacion con el usuario. */
+    /* Scanner para comunicación con el usuario. */
     private Scanner sc;
-    /* Seed de random */
+    /* Seed de random. */
     private long seed;
 
     /**
      * Define el estado inicial de una partida.
-     * @param numJugadores el numero de jugadores.
+     * @param numJugadores el número de jugadores.
      * @param archivo el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo) {
@@ -72,7 +72,7 @@ public class Partida {
      */
     public void iniciar() {
         enviarMensaje("La partida va a empezar, todos listos :)");
-        enviarMensaje("La seed del juego es "+seed);
+        enviarMensaje("La seed del juego es " + seed);
         for (int i = 1; i <= numRondas; i++) {
             Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
             actual.iniciar();  
@@ -93,12 +93,12 @@ public class Partida {
     }
 
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje al usuario y guarda el mensaje 
+     * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         try {
             out.write(mensaje);
             out.newLine();
@@ -118,7 +118,7 @@ public class Partida {
     }
 
     /**
-     * Calcula quien fue el ganador de la partida.
+     * Calcula quién fue el ganador de la partida.
      * @return una cadena con los datos del ganador.
      */
     private String ganador() {
@@ -127,7 +127,7 @@ public class Partida {
 
     /**
      * Ayuda a calcular el ganador.
-     * @param arreglo un arreglo con los datos de los jugadores.
+     * @param lista una lista con los jugadores.
      * @return una cadena con el ganador.
      */
     private String superior(Lista<Jugador> lista) {
@@ -153,9 +153,9 @@ public class Partida {
     }
 
     /**
-     * Buscar la puntacion más alta de los jugadores.
-     * @param arreglo un arreglo con los datos de los jugadores.
-     * @return la posicion del jugador con mayor puntacion.
+     * Busca la puntación más alta de los jugadores.
+     * @param lista una lista con los jugadores.
+     * @return la posición del jugador con mayor puntación.
      */
     private int mayor(Lista<Jugador> lista) {
         int respuesta = 0;

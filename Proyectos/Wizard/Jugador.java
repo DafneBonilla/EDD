@@ -116,12 +116,11 @@ public class Jugador {
     }
 
     /**
-     * Ver en forma de cadena la baraja ordenada del jugador.
-     * @return la baraja ordenada del jugador.
-     */
+     * Método para ver una representación en cadena de la baraja ordenada.
+     * @return representación en cadena de la baraja ordenada.
+     */   
     public String verBarajaOrdenada() {
         mano.ordenar();
         return mano.toString();
     }
-    
 }

@@ -19,7 +19,7 @@ public class Truco {
     private Baraja mazo;
     /* Lista de cartas jugadas. */
     private Lista<Carta> jugadas;
-    /* Scanner para comunicacion con el usuario. */
+    /* Scanner para comunicación con el usuario. */
     private Scanner sc;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
@@ -27,9 +27,10 @@ public class Truco {
     /**
      * Define el estado inicial de una ronda.
      * @param jugadores la lista de jugadores.
-     * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
-     * @param sc el scanner para comunicacion con el usuario.
+     * @param triunfo el palo de triunfo.
+     * @param sc el scanner para comunicación con el usuario.
+     * @param out la manera de escribir en el archivo.
      */
     public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, Scanner sc, BufferedWriter out) {
         this.jugadores = jugadores;
@@ -48,7 +49,7 @@ public class Truco {
         enviarMensaje("El truco va a empezar");
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
-            System.out.println("El palo lider es " + lider);
+            System.out.println("El palo líder es " + lider);
             System.out.println("El palo de triunfo es "+ triunfo);
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int indice = validarCarta(sc, jugador);
@@ -69,8 +70,8 @@ public class Truco {
     }
     
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje al usuario y guarda el mensaje 
+     * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) {
@@ -85,8 +86,8 @@ public class Truco {
     }
 
     /**
-     * Define el color lider.
-     * @param carta la carta con el color lider.
+     * Define el color líder.
+     * @param carta la carta con el color líder.
      */
     private void defineLider(Carta carta) {
         if (lider.getMerito() == -1) {
@@ -100,6 +101,8 @@ public class Truco {
 
     /**
      * Saca una carta de la mano del jugador.
+     * @param jugador el jugador que saca la carta.
+     * @param indice el índice de la carta.
      * @return la carta sacada.
      */
     private Carta recibeCarta(Jugador jugador, int i) {
@@ -138,7 +141,8 @@ public class Truco {
      * @param carta la carta a revisar.
      * @param baraja la baraja del jugador.
      * @param i el índice de la carta.
-     * @return <code>true</code> si la carta es legal, <code>false</code> en caso contrario.
+     * @return <code>true</code> si la carta es legal, 
+     *         <code>false</code> en caso contrario.
      */
     private boolean cartaLegal(Carta carta, Baraja mano, int i) {
         mano.sacaCarta(i);
@@ -201,7 +205,7 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó una carta con el palo de triunfo.
-     * @return el índice del primer jugador que jugo una carta con el plao de triunfo.
+     * @return el índice del primer jugador que jugo una carta con el palo de triunfo.
      */
     private int altaTriunfo() {
         int comparar = 0;
@@ -218,8 +222,8 @@ public class Truco {
     }
 
     /**
-     * Revisa si un jugador jugó una carta con el palo lider.
-     * @return el índice del primer jugador que jugo una carta con el palo lider.
+     * Revisa si un jugador jugó una carta con el palo líder.
+     * @return el índice del primer jugador que jugó una carta con el palo líder.
      */
     private int altaLider() {
         int comparar = 0;
@@ -237,7 +241,7 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó un bufón.
-     * @return el índice del primer jugador que jugo un bufón.
+     * @return el índice del primer jugador que jugó un bufón.
      */
     private int bufon() {
         for (Carta cartita : jugadas) {
