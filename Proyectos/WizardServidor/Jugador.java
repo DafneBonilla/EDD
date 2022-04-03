@@ -142,10 +142,13 @@ public class Jugador {
      * @return la ultima cadena recibida del jugador.
      */
     public String leerJugador() throws IOException {
-        String ultimaLinea = "";
-        String actualLinea = "";
+        String ultimaLinea = null;
+        String actualLinea = null;
         while ((actualLinea = in.readLine()) != null) {
             ultimaLinea = actualLinea;
+        }
+        if (ultimaLinea == null) {
+            throw new IOException();
         }
         return ultimaLinea;
     }

@@ -60,17 +60,21 @@ public class Partida {
      * Comienza la partida.
      */
     public void iniciar() {
-        enviarMensaje("La partida va a empezar, todos listos :)");
-        enviarMensaje("La seed del juego es "+seed);
-        for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
-            actual.iniciar();  
-            if (i != numRondas) {
-                seguir();
-            } 
-            if (!sigue) {
-                break;
+        try {
+            enviarMensaje("La partida va a empezar, todos listos :)");
+            enviarMensaje("La seed del juego es "+seed);
+            for (int i = 1; i <= numRondas; i++) {
+                Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
+                actual.iniciar();  
+                if (i != numRondas) {
+                    seguir();
+                } 
+                if (!sigue) {
+                    break;
+                }
             }
+        } catch (IOException e) {
+            System.out.println("Un jugador se pudo haer desconectado, terminando el juego");
         }
         resultados();
         try {
@@ -95,6 +99,14 @@ public class Partida {
             System.out.println("Error al guardar el mensaje, abortando la ejercución.");
             System.exit(0);
         }
+    }
+
+    private void enviarMensajeTodos() {
+        
+    }
+
+    private void enviarMensajeJugador(Jugador jugador) {
+        
     }
 
     /**
