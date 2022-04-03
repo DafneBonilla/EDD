@@ -42,7 +42,7 @@ public class Color {
             case 5:
                 return "\u001B[97mblanco\u001B[0m ";
             default:
-                return "No hay";
+                return "no hay";
         }
     }
 
