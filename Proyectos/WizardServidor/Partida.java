@@ -73,16 +73,24 @@ public class Partida {
                     break;
                 }
             }
-        } catch (IOException e) {
+        } catch (JugadorInactivo e) {
             System.out.println("Un jugador se pudo haer desconectado, terminando el juego");
+            //finalizar();
+        } catch (IOException e) {
+            System.out.println("Error al guardar en el archivo, terminando el juego");
+            //finalizar();
         }
-        resultados();
         try {
-            out.close();
+            finalizar();
         } catch (IOException e) {
             System.out.println("No se pudo cerrar el archivo, abortando la ejecución.");
             System.exit(0);
         }
+    }
+
+    private void finalizar() throws IOException {
+        resultados();
+        out.close();
     }
 
     /**
@@ -90,15 +98,10 @@ public class Partida {
      * guarda en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) {
+    private void enviarMensaje(String mensaje) throws IOException {
         System.out.println(mensaje+"\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
-            System.exit(0);
-        }
+        out.write(mensaje);
+        out.newLine();
     }
 
     private void enviarMensajeTodos() {
@@ -112,7 +115,7 @@ public class Partida {
     /**
      * Muesta los resultados de la partida.
      */
-    private void resultados() {
+    private void resultados() throws IOException {
         String resultados = "Ahora se anunciará al ganador del juego...\n\n";
         resultados += ganador();
         enviarMensaje(resultados);

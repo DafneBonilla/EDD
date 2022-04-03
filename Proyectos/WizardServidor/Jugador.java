@@ -141,25 +141,33 @@ public class Jugador {
      * Regresa la ultima cadena recibida del jugador.
      * @return la ultima cadena recibida del jugador.
      */
-    public String leerJugador() throws IOException {
-        String ultimaLinea = null;
-        String actualLinea = null;
-        while ((actualLinea = in.readLine()) != null) {
-            ultimaLinea = actualLinea;
+    public String leerJugador() throws JugadorInactivo {
+        try {
+            String ultimaLinea = null;
+            String actualLinea = null;
+            while ((actualLinea = in.readLine()) != null) {
+                ultimaLinea = actualLinea;
+            }
+            if (ultimaLinea == null) {
+                throw new IOException();
+            }
+            return ultimaLinea;
+        } catch (IOException e) {
+            throw new JugadorInactivo();
         }
-        if (ultimaLinea == null) {
-            throw new IOException();
-        }
-        return ultimaLinea;
     }
 
     /**
      * Envia una cadena al jugador.
      * @param cadena la cadena a enviar.
      */
-    public void hablarJugador(String mensaje) throws IOException {
-        out.write(mensaje+"\n");
-        out.flush();
+    public void hablarJugador(String mensaje) throws JugadorInactivo {
+        try {
+            out.write(mensaje+"\n");
+            out.flush();
+        } catch (IOException e) {
+            throw new JugadorInactivo();
+        }
     }
     
 }
