@@ -58,7 +58,7 @@ public class Proyecto1Servidor {
                 out.write("Ingresa tu nombre: ");
                 out.flush();
                 String nombre = in.readLine();
-                Jugador jugador = new Jugador(nombre, in, out);
+                Jugador jugador = new Jugador(nombre, out, in, socket);
                 jugadores.agregaFinal(jugador);
                 out.write("Bienvenido " + nombre + "!\n");
                 out.write("La partida comenzara en unos momentos...\n");

@@ -3,6 +3,7 @@ package WizardServidor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Clase para representar jugadores.
@@ -19,22 +20,24 @@ public class Jugador {
     private int ganados;
     /* Trucos ganados por el jugador. */
     private String nombre;
-    /* Buffered para leer al jugador */
-    private BufferedReader in;
     /* Buffered para escribir al jugador */
     private BufferedWriter out;
+    /* Buffered para leer al jugador */
+    private BufferedReader in;
+    /* Socket del jugador */
+    private Socket enchufe;
 
     /**
      * Define el estado inicial de un jugador.
      */
-    public Jugador(String nombre, BufferedReader in, BufferedWriter out) {
+    public Jugador(String nombre, BufferedWriter out, BufferedReader in, Socket enchufe) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
         this.ganados = 0;
         this.nombre = nombre;
-        this.in = in;
         this.out = out;
+        this.enchufe = enchufe;
     }
 
     /**
@@ -135,12 +138,16 @@ public class Jugador {
     }
 
     /**
-     * Regresa la cadena recibida del jugador.
-     * @return la cadena recibida del jugador.
+     * Regresa la ultima cadena recibida del jugador.
+     * @return la ultima cadena recibida del jugador.
      */
     public String leerJugador() throws IOException {
-        String cadenita = in.readLine();
-        return cadenita;
+        String ultimaLinea = "";
+        String actualLinea = "";
+        while ((actualLinea = in.readLine()) != null) {
+            ultimaLinea = actualLinea;
+        }
+        return ultimaLinea;
     }
 
     /**
@@ -151,5 +158,30 @@ public class Jugador {
         out.write(mensaje+"\n");
         out.flush();
     }
+
+    /**
+     * Regresa el estado de la conexion del jugador.
+     * @return <code> true </code> si la conexion esta activa, <code> false </code> en caso contrario.
+     */
+    public boolean estaActivo() {
+        return enchufe.isConnected();
+    }
+    
+    /**
+     * Regresa si el jugador puede leer.
+     * @return <code> true </code> si puede leer, <code> false </code> en caso contrario.
+     */
+    public boolean puedeLeer() {
+        return !enchufe.isInputShutdown();
+    }
+
+    /**
+     * Regresa si el jugador puede escribir.
+     * @return <code> true </code> si puede escribir, <code> false </code> en caso contrario.
+     */
+    public boolean puedeEscribir() {
+        return !enchufe.isOutputShutdown();
+    }
+
     
 }
