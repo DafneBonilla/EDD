@@ -158,30 +158,5 @@ public class Jugador {
         out.write(mensaje+"\n");
         out.flush();
     }
-
-    /**
-     * Regresa el estado de la conexion del jugador.
-     * @return <code> true </code> si la conexion esta activa, <code> false </code> en caso contrario.
-     */
-    public boolean estaActivo() {
-        return enchufe.isConnected();
-    }
-    
-    /**
-     * Regresa si el jugador puede leer.
-     * @return <code> true </code> si puede leer, <code> false </code> en caso contrario.
-     */
-    public boolean puedeLeer() {
-        return !enchufe.isInputShutdown();
-    }
-
-    /**
-     * Regresa si el jugador puede escribir.
-     * @return <code> true </code> si puede escribir, <code> false </code> en caso contrario.
-     */
-    public boolean puedeEscribir() {
-        return !enchufe.isOutputShutdown();
-    }
-
     
 }
