@@ -1,5 +1,6 @@
 package WizardServidor;
 
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -20,24 +21,22 @@ public class Jugador {
     private int ganados;
     /* Trucos ganados por el jugador. */
     private String nombre;
-    /* Buffered para escribir al jugador */
+    /* Trucos ganados por el jugador. */
     private BufferedWriter out;
-    /* Buffered para leer al jugador */
-    private BufferedReader in;
     /* Socket del jugador */
     private Socket enchufe;
 
     /**
      * Define el estado inicial de un jugador.
      */
-    public Jugador(String nombre, BufferedWriter out, BufferedReader in, Socket enchufe) {
+    public Jugador(String nombre, BufferedWriter out, Socket enchufe) {
         this.mano = new Baraja();
         this.puntuacion = 0;
         this.apuesta = 0;
         this.ganados = 0;
         this.nombre = nombre;
-        this.out = out;
         this.enchufe = enchufe;
+        this.out = out;
     }
 
     /**
@@ -143,16 +142,14 @@ public class Jugador {
      */
     public String leerJugador() throws JugadorInactivo {
         try {
-            String ultimaLinea = null;
-            String actualLinea = null;
-            while ((actualLinea = in.readLine()) != null) {
-                ultimaLinea = actualLinea;
+            BufferedReader in = new BufferedReader(new InputStreamReader(enchufe.getInputStream()));
+            String linea = in.readLine();
+            if (linea == null) {
+                throw new JugadorInactivo();
             }
-            if (ultimaLinea == null) {
-                throw new IOException();
-            }
-            return ultimaLinea;
-        } catch (IOException e) {
+            //in2.close();
+            return linea;
+        } catch (IOException ioe) {
             throw new JugadorInactivo();
         }
     }
@@ -170,5 +167,4 @@ public class Jugador {
             throw new JugadorInactivo();
         }
     }
-    
 }

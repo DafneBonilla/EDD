@@ -149,7 +149,7 @@ public class Ronda {
         for (Jugador jugador : jugadores) {
             enviarMensajeJugador(jugador, "Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
             enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
-            enviarMensajeTodos("\nEl palo de triunfo es " + triunfo + "\n");
+            enviarMensajeJugador(jugador, "\nEl palo de triunfo es " + triunfo + "\n");
             int ap = pedirApuesta(jugador);
             jugador.setApuesta(ap);
             enviarMensajeTodos("El jugador " + jugador.getNombre() + " ha apostado " + ap);
@@ -166,12 +166,12 @@ public class Ronda {
         try {
             int apuesta = Integer.parseInt(cadenita);
             if (apuesta < 0 || apuesta > numRonda) {
-                System.out.println("Apuesta inválida");
+                enviarMensajeJugador(jugador, "Apuesta inválida");
                 return pedirApuesta(jugador);
             }
             return apuesta;
         } catch (NumberFormatException e) {
-            System.out.println("No ingresaste un número");
+            enviarMensajeJugador(jugador, "No ingresaste un número");
             return pedirApuesta(jugador);
         }
     }
