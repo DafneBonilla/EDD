@@ -3,6 +3,7 @@ package WizardServidor;
 import WizardServidor.Estructuras.Lista;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * Clase para representar una truco.
@@ -70,11 +71,13 @@ public class Truco {
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
-        System.out.println(mensaje + "\n");
+        System.out.println(mensaje+"\n");
         out.write(mensaje);
         out.newLine();
-        for (Jugador jugador : jugadores) {
-            enviarMensajeJugador(jugador, mensaje);
+        Iterator<Jugador> iterator = jugadores.iterator();
+        while (iterator.hasNext()) {
+            Jugador jug = iterator.next();
+            enviarMensajeJugador(jug, mensaje);
         }
     }
 
