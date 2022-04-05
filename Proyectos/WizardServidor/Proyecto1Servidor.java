@@ -67,13 +67,13 @@ public class Proyecto1Servidor {
             }
             Partida partida = new Partida(numJugadores, args[1], jugadores, archivo);
             enviarMensaje("Jugadores conectados. Iniciando partida...", archivo);
-            //partida.iniciar();
+            partida.iniciar();
             for (Jugador jugador : jugadores) {
                 jugador.hablarJugador("Gracias por jugar :D");
             }
             serverSocket.close();
             archivo.close();
-        } catch (IOException e) {
+        } catch (IOException ioe) {
             System.out.println("Error con el servidor/archivo. Abortando la ejecucion.");
             System.exit(0);
         }       

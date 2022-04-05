@@ -2,7 +2,7 @@ package WizardServidor;
 
 import WizardServidor.Estructuras.Lista;
 import java.io.BufferedWriter;
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Clase para representar una ronda.
@@ -19,8 +19,6 @@ public class Ronda {
     private Color triunfo;
     /* Mazo principal del juego. */
     private Baraja mazo;
-    /* Scanner para comunicacion con el usuario. */
-    private Scanner sc;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
 
@@ -31,50 +29,51 @@ public class Ronda {
      * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
      */
-    public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, Scanner sc, BufferedWriter out) {
+    public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, BufferedWriter out) {
         this.jugadores = jugadores;
         this.numRonda = numRonda;
         this.numTrucos = numRonda;
         this.triunfo = new Color(-1);
         this.mazo = mazo;
-        this.sc = sc;
         this.out = out;
     }
 
     /**
      * Comienza la ronda.
      */
-    public void iniciar() {
-        enviarMensaje("La ronda " + numRonda + " va a empezar");
+    public void iniciar() throws IOException {
+        enviarMensajeTodos("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
         repartirCartas();
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
-            Truco actual = new Truco(jugadores, mazo, triunfo, sc, out);
+            Truco actual = new Truco(jugadores, mazo, triunfo, out);
             actual.iniciar();
         }
         verPuntuacion();
-        enviarMensaje("Las puntaciones se ven asi...");
+        enviarMensajeTodos("Las puntaciones se ven así...");
         for (Jugador jugador : jugadores) {
-            enviarMensaje("El jugador " + jugador.getNombre() + " tiene " + jugador.getPuntuacion() + " puntos\n");
+            enviarMensajeTodos("El jugador " + jugador.getNombre() + " tiene " + jugador.getPuntuacion() + " puntos\n");
         }
     }
 
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje a todos los usuarios y guarda 
+     * el mensaje en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) {
+    private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje+"\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercucion.");
-            System.exit(0);
+        out.write(mensaje);
+        out.newLine();
+        for (Jugador jugador : jugadores) {
+            enviarMensajeJugador(jugador, mensaje);
         }
+    }
+
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
     }
 
     /**
@@ -92,14 +91,14 @@ public class Ronda {
     /**
      * Define la bara de triunfo de la ronda.
      */
-    private void defineTriunfo() {
+    private void defineTriunfo() throws IOException {
         if (!mazo.esVacio()) {
             Carta cartita = mazo.sacaCarta(0);
             Color triunfi = cartita.getColor();
             switch (triunfi.getMerito()) {
                 case 5:
                     if (cartita.getValor().getNumero() == 0) {
-                        enviarMensaje("El palo de triunfo es " + triunfo);
+                        enviarMensajeTodos("El palo de triunfo es " + triunfo);
                         mazo.agregaCarta(cartita);
                         return;
                     }
@@ -110,27 +109,27 @@ public class Ronda {
                     break;
             }
             mazo.agregaCarta(cartita);
-            enviarMensaje("El palo de triunfo es " + triunfo);
+            enviarMensajeTodos("El palo de triunfo es " + triunfo);
         }
     }
 
     /**
      * Pide al usuario que elija el palo de triunfo.
      */
-    private void pedirTriunfo() {
+    private void pedirTriunfo() throws JugadorInactivo {
         Jugador elegir = jugadores.buscarIndice(0);
-        System.out.println("Jugador " + elegir.getNombre() + " elige el palo de triunfo");
-        int i = validarTriunfo();
+        enviarMensajeJugador(elegir, "Jugador " + elegir.getNombre() + " elige el palo de triunfo");
+        int i = validarTriunfo(elegir);
         triunfo = new Color(i);
     }
 
     /**
-     * Valida que el palo de triunfo sea valido.
-     * @return el numero del palo de triunfo.
+     * Valida que el palo de triunfo sea válido.
+     * @return el número del palo de triunfo.
      */
-    private int validarTriunfo() {
-        System.out.println("Escribe el numero del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
-        String respuesta = sc.nextLine();
+    private int validarTriunfo(Jugador jugador) throws JugadorInactivo {
+        enviarMensajeJugador(jugador, "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
+        String respuesta = jugador.leerJugador();
         try {
             int i = Integer.parseInt(respuesta);
             if (i < 1 || i > 4) {
@@ -138,43 +137,42 @@ public class Ronda {
             }
             return i;
         } catch (NumberFormatException e) {
-            System.out.println("No es un numero valido");
-            return validarTriunfo();
+            enviarMensajeJugador(jugador, "No es un número válido");
+            return validarTriunfo(jugador);
         }
     }
 
     /**
      * Define las apuestas de los jugadores.
      */
-    private void defineApuestas() {
+    private void defineApuestas() throws IOException {
         for (Jugador jugador : jugadores) {
-            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
-            System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
-            System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
-            int ap = pedirApuesta(sc);
+            enviarMensajeJugador(jugador, "Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+            enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
+            enviarMensajeTodos("\nEl palo de triunfo es " + triunfo + "\n");
+            int ap = pedirApuesta(jugador);
             jugador.setApuesta(ap);
-            enviarMensaje("El jugador " + jugador.getNombre() + " ha apostado " + ap);
+            enviarMensajeTodos("El jugador " + jugador.getNombre() + " ha apostado " + ap);
         }
     }
 
     /**
      * Pide una apuesta al usuario.
-     * @param sc el scanner para pedir datos.
      * @return la apuesta del usuario.
      */
-    private int pedirApuesta(Scanner sc) {
-        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
-        String cadenita = sc.nextLine();
+    private int pedirApuesta(Jugador jugador) throws JugadorInactivo {
+        enviarMensajeJugador(jugador, "Define tu apuesta (un número entre 0 y " + numRonda + ")");
+        String cadenita = jugador.leerJugador();
         try {
             int apuesta = Integer.parseInt(cadenita);
             if (apuesta < 0 || apuesta > numRonda) {
                 System.out.println("Apuesta inválida");
-                return pedirApuesta(sc);
+                return pedirApuesta(jugador);
             }
             return apuesta;
         } catch (NumberFormatException e) {
-            System.out.println("No ingresaste un número.");
-            return pedirApuesta(sc);
+            System.out.println("No ingresaste un número");
+            return pedirApuesta(jugador);
         }
     }
 
@@ -207,5 +205,4 @@ public class Ronda {
             jugador.setGanados(0);
         }
     }
-    
 }

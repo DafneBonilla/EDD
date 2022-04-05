@@ -1,6 +1,0 @@
-El servidor esta andando
-Esperando jugadores...
-El jugador Camilo ingreso.
-El jugador Patito ingreso.
-El jugador Pinguino ingreso.
-Jugadores conectados. Iniciando partida...

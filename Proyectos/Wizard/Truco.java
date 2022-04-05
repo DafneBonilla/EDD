@@ -2,7 +2,9 @@ package Wizard;
 
 import Wizard.Estructuras.Lista;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
 
 /**
  * Clase para representar una truco.
@@ -44,8 +46,9 @@ public class Truco {
 
     /**
      * Comienza el truco.
+     * @throws IOException
      */
-    public void iniciar() {
+    public void iniciar() throws IOException {
         enviarMensaje("El truco va a empezar");
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
@@ -74,22 +77,17 @@ public class Truco {
      * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) {
+    private void enviarMensaje(String mensaje) throws IOException {
         System.out.println(mensaje+"\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución");
-            System.exit(0);
-        }
+        out.write(mensaje);
+        out.newLine();
     }
 
     /**
      * Define el color líder.
      * @param carta la carta con el color líder.
      */
-    private void defineLider(Carta carta) {
+    private void defineLider(Carta carta) throws IOException {
         if (lider.getMerito() == -1) {
             if (carta.getColor().getMerito() == 5) {
                 return;

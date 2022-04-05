@@ -163,7 +163,8 @@ public class Jugador {
      */
     public void hablarJugador(String mensaje) throws JugadorInactivo {
         try {
-            out.write(mensaje+"\n");
+            out.write(mensaje);
+            out.newLine();
             out.flush();
         } catch (IOException e) {
             throw new JugadorInactivo();

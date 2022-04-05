@@ -1,7 +1,6 @@
 package WizardServidor;
 
 import WizardServidor.Estructuras.Lista;
-import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
@@ -12,7 +11,7 @@ public class Partida {
     
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
-    /* Numero de rondas. */
+    /* Número de rondas. */
     private int numRondas;
     /* Mazo principal del juego. */
     private Baraja mazo;
@@ -20,14 +19,12 @@ public class Partida {
     private Boolean sigue;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
-    /* Scanner para comunicacion con el usuario. */
-    private Scanner sc;
     /* Seed de random */
     private long seed;
 
     /**
      * Define el estado inicial de una partida.
-     * @param numJugadores el numero de jugadores.
+     * @param numJugadores el número de jugadores.
      * @param archivo el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo, Lista<Jugador> jugadores, BufferedWriter out) {
@@ -52,7 +49,6 @@ public class Partida {
         seed = System.currentTimeMillis();
         mazo = new Baraja(seed);
         sigue = true;
-        sc = new Scanner(System.in);
         this.out = out;
     }
 
@@ -61,10 +57,10 @@ public class Partida {
      */
     public void iniciar() {
         try {
-            enviarMensaje("La partida va a empezar, todos listos :)");
-            enviarMensaje("La seed del juego es "+seed);
+            enviarMensajeTodos("La partida va a empezar, todos listos :)");
+            enviarMensajeTodos("La seed del juego es "+seed);
             for (int i = 1; i <= numRondas; i++) {
-                Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
+                Ronda actual = new Ronda(jugadores, i, mazo, out);
                 actual.iniciar();  
                 if (i != numRondas) {
                     seguir();
@@ -74,11 +70,14 @@ public class Partida {
                 }
             }
         } catch (JugadorInactivo e) {
-            System.out.println("Un jugador se pudo haer desconectado, terminando el juego");
-            //finalizar();
+            try {
+                resultadosDesconecta();
+            } catch (IOException error) {
+                resultadosErrorEscribir();
+            }
         } catch (IOException e) {
             System.out.println("Error al guardar en el archivo, terminando el juego");
-            //finalizar();
+            resultadosErrorEscribir();
         }
         try {
             finalizar();
@@ -87,38 +86,94 @@ public class Partida {
             System.exit(0);
         }
     }
-
+    
+    /**
+     * Muestra los resultados de la partida y termina.
+     * @throws IOException si no se pudo cerrar correctamente.
+     */
     private void finalizar() throws IOException {
         resultados();
         out.close();
     }
 
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje a todos los usuarios y guarda 
+     * el mensaje en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) throws IOException {
+    private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje+"\n");
         out.write(mensaje);
         out.newLine();
+        for (Jugador jugador : jugadores) {
+            enviarMensajeJugador(jugador, mensaje);
+        }
     }
 
-    private void enviarMensajeTodos() {
-        
-    }
-
-    private void enviarMensajeJugador(Jugador jugador) {
-        
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
     }
 
     /**
      * Muesta los resultados de la partida.
+     * @throws IOException si no ...
      */
     private void resultados() throws IOException {
         String resultados = "Ahora se anunciará al ganador del juego...\n\n";
         resultados += ganador();
-        enviarMensaje(resultados);
+        enviarMensajeTodos(resultados);
+    }
+
+    /**
+     * Cuando un jugador se deconecta.
+     * @throws IOException si no se pudo haer.
+     */
+    private void resultadosDesconecta() throws IOException {
+        String resultados = "Un jugador se pudo haber desconectado, terminando el juego...\n";
+        resultados += "Ahora se anunciará al ganador del juego...\n\n";
+        resultados += ganador();
+        enviarMensajeTodosDesconecta(resultados);
+        System.exit(0);
+    }
+
+    /**
+     * Cuando un jugador se deconecta, avisamos a todos los resultados.
+     * el mensaje en el archivo.
+     * @param mensaje el mensaje a imprimir y agregar.
+     */
+    private void enviarMensajeTodosDesconecta(String mensaje) throws IOException {
+        System.out.println(mensaje + "\n");
+        out.write(mensaje);
+        out.newLine();
+        for (Jugador jugador : jugadores) {
+            try {
+                enviarMensajeJugador(jugador, mensaje);
+            } catch (JugadorInactivo e) {
+                continue;
+            }
+        }
+    }
+    
+    /**
+     * Hubo en error al escribir.
+     */
+    private void resultadosErrorEscribir() {
+        String resultados = "Un jugador se pudo haber desconectado, terminando el juego...\n";
+        resultados += "Ahora se anunciará al ganador del juego...\n\n";
+        resultados += ganador();
+        enviarMensajeTodosErrorEscribir(resultados);
+        System.exit(0);
+    }
+    
+    private void enviarMensajeTodosErrorEscribir(String mensaje) {
+        System.out.println(mensaje + "\n");
+        for (Jugador jugador : jugadores) {
+            try {
+                enviarMensajeJugador(jugador, mensaje);
+            } catch (JugadorInactivo e) {
+                continue;
+            }
+        }
     }
 
     /**
@@ -175,19 +230,38 @@ public class Partida {
     /**
      * Saber si el juego va a seguir o se detendrá.
      */
-    private void seguir() {
-        System.out.println("¿Quieres seguir jugando? s/n");
-        String respuesta = sc.nextLine();
+    private void seguir() throws JugadorInactivo {
+        Lista<String> si = new Lista<>();
+        Lista<String> no = new Lista<>();
+        for (Jugador jugador : jugadores) {
+            pedirRespuesta(jugador, si, no);
+        }
+        if (si.size() < no.size()) {
+            sigue = false;
+            return;
+        } else if (si.size() == no.size()) {
+            for (Jugador jugador : jugadores) {
+                enviarMensajeJugador(jugador, "Hubo un empate, se realizará una nueva votación");
+            }
+            seguir();
+            return;
+        }
+    }
+
+    private void pedirRespuesta(Jugador jugador, Lista<String> si, Lista<String> no) throws JugadorInactivo {
+        enviarMensajeJugador(jugador, "¿Quieres seguir jugando? s/n");
+        String respuesta = jugador.leerJugador();
         switch (respuesta) {
-            case "s":
-                break;
-            case "n":
-                sigue = false;
-                    break;
-            default:
-                System.out.println("Respuesta inválida.");
-                seguir();
-                break;
+        case "s":
+            si.add("si");
+            break;
+        case "n":
+            no.add("no");
+            break;
+        default:
+            enviarMensajeJugador(jugador, "Respuesta inválida.");
+            pedirRespuesta(jugador, si, no);
+            break;
         }
     }
 }

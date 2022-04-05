@@ -71,19 +71,25 @@ public class Partida {
      * Comienza la partida.
      */
     public void iniciar() {
-        enviarMensaje("La partida va a empezar, todos listos :)");
-        enviarMensaje("La seed del juego es " + seed);
-        for (int i = 1; i <= numRondas; i++) {
-            Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
-            actual.iniciar();  
-            if (i != numRondas) {
-                seguir();
-            } 
-            if (!sigue) {
-                break;
+        try {
+            enviarMensaje("La partida va a empezar, todos listos :)");
+            enviarMensaje("La seed del juego es " + seed);
+            for (int i = 1; i <= numRondas; i++) {
+                Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
+                actual.iniciar();  
+                if (i != numRondas) {
+                    seguir();
+                } 
+                if (!sigue) {
+                    break;
+                }
+            resultados();
             }
+        } catch (IOException ioe) {
+            System.out.println("Hubo un problema al escribir en el archivo, el juego se terminará.");
+            resultados2();
+            System.exit(0);
         }
-        resultados();
         try {
             out.close();
         } catch (IOException e) {
@@ -96,25 +102,31 @@ public class Partida {
      * Imprime un mensaje al usuario y guarda el mensaje 
      * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
+     * @throws IOException si hubo un problema al escribir en el archivo.
      */
-    private void enviarMensaje(String mensaje) {
-        System.out.println(mensaje + "\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución.");
-            System.exit(0);
-        }
+    private void enviarMensaje(String mensaje) throws IOException {
+        System.out.println(mensaje+"\n");
+        out.write(mensaje);
+        out.newLine();
     }
 
     /**
      * Muesta los resultados de la partida.
+     * @throws IOException si hubo un problema al escribir en el archivo.
      */
-    private void resultados() {
+    private void resultados() throws IOException {
         String resultados = "Ahora se anunciará al ganador del juego...\n\n";
         resultados += ganador();
         enviarMensaje(resultados);
+    }
+
+    /**
+     * Muesta los resultados de la partida si hubo un problema al escribir en el archivo.
+     */
+    private void resultados2() {
+        String resultados = "Ahora se anunciará al ganador del juego...\n\n";
+        resultados += ganador();
+        System.out.println(resultados);
     }
 
     /**
@@ -179,7 +191,7 @@ public class Partida {
                 break;
             case "n":
                 sigue = false;
-                    break;
+                break;
             default:
                 System.out.println("Respuesta inválida.");
                 seguir();

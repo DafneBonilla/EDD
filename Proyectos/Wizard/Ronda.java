@@ -2,6 +2,7 @@ package Wizard;
 
 import Wizard.Estructuras.Lista;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -44,8 +45,9 @@ public class Ronda {
 
     /**
      * Comienza la ronda.
+     * @throws IOException si hay un error de entrada/salida.
      */
-    public void iniciar() {
+    public void iniciar() throws IOException {
         enviarMensaje("La ronda " + numRonda + " va a empezar");
         mazo.shuffle();
         repartirCartas();
@@ -67,15 +69,10 @@ public class Ronda {
      * en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) {
+    private void enviarMensaje(String mensaje) throws IOException {
         System.out.println(mensaje+"\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución");
-            System.exit(0);
-        }
+        out.write(mensaje);
+        out.newLine();
     }
 
     /**
@@ -93,7 +90,7 @@ public class Ronda {
     /**
      * Define la carta de triunfo de la ronda.
      */
-    private void defineTriunfo() {
+    private void defineTriunfo() throws IOException {
         if (!mazo.esVacio()) {
             Carta cartita = mazo.sacaCarta(0);
             Color triunfi = cartita.getColor();
@@ -146,8 +143,9 @@ public class Ronda {
 
     /**
      * Define las apuestas de los jugadores.
+     * @throws IOException si hay un error de entrada/salida.
      */
-    private void defineApuestas() {
+    private void defineApuestas() throws IOException {
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());

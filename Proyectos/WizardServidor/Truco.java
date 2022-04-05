@@ -2,7 +2,7 @@ package WizardServidor;
 
 import WizardServidor.Estructuras.Lista;
 import java.io.BufferedWriter;
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Clase para representar una truco.
@@ -19,8 +19,6 @@ public class Truco {
     private Baraja mazo;
     /* Lista de cartas jugadas. */
     private Lista<Carta> jugadas;
-    /* Scanner para comunicacion con el usuario. */
-    private Scanner sc;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
     
@@ -29,31 +27,29 @@ public class Truco {
      * @param jugadores la lista de jugadores.
      * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
-     * @param sc el scanner para comunicacion con el usuario.
      */
-    public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, Scanner sc, BufferedWriter out) {
+    public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, BufferedWriter out) {
         this.jugadores = jugadores;
         this.triunfo = triunfo;
         this.lider = new Color(-1);
         this.mazo = mazo;
         this.jugadas = new Lista<>();
-        this.sc = sc;
         this.out = out;
     }
 
     /**
      * Comienza el truco.
      */
-    public void iniciar() {
-        enviarMensaje("El truco va a empezar");
+    public void iniciar() throws IOException {
+        enviarMensajeTodos("El truco va a empezar");
         for (Jugador jugador : jugadores) {
-            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
-            System.out.println("El palo lider es " + lider);
-            System.out.println("El palo de triunfo es "+ triunfo);
-            System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
-            int indice = validarCarta(sc, jugador);
+            enviarMensajeJugador(jugador, "Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
+            enviarMensajeJugador(jugador, "El palo líder es " + lider);
+            enviarMensajeJugador(jugador, "El palo de triunfo es "+ triunfo);
+            enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
+            int indice = validarCarta(jugador);
             Carta cartita = recibeCarta(jugador, indice);
-            enviarMensaje("El jugador " + jugador.getNombre() + " jugó la carta " + cartita);
+            enviarMensajeTodos("El jugador " + jugador.getNombre() + " jugó la carta " + cartita);
             defineLider(cartita);
             jugadas.agregaFinal(cartita);
         }
@@ -61,7 +57,7 @@ public class Truco {
         Jugador jug = jugadores.buscarIndice(ganador);
         int ganados = jug.getGanados();
         jug.setGanados(ganados + 1);
-        enviarMensaje("El jugador " + jug.getNombre() + " gana el truco");
+        enviarMensajeTodos("El jugador " + jug.getNombre() + " gana el truco");
         for (Carta carta : jugadas) {
             mazo.agregaCarta(carta);
         }
@@ -69,32 +65,34 @@ public class Truco {
     }
     
     /**
-     * Imprime un mensaje al usuario, ademes el mensaje lo
-     * guarda en el archivo.
+     * Imprime un mensaje a todos los usuarios y guarda 
+     * el mensaje en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
      */
-    private void enviarMensaje(String mensaje) {
-        System.out.println(mensaje+"\n");
-        try {
-            out.write(mensaje);
-            out.newLine();
-        } catch (Exception e) {
-            System.out.println("Error al guardar el mensaje, abortando la ejercución");
-            System.exit(0);
+    private void enviarMensajeTodos(String mensaje) throws IOException {
+        System.out.println(mensaje + "\n");
+        out.write(mensaje);
+        out.newLine();
+        for (Jugador jugador : jugadores) {
+            enviarMensajeJugador(jugador, mensaje);
         }
+    }
+
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
     }
 
     /**
      * Define el color lider.
      * @param carta la carta con el color lider.
      */
-    private void defineLider(Carta carta) {
+    private void defineLider(Carta carta) throws IOException {
         if (lider.getMerito() == -1) {
             if (carta.getColor().getMerito() == 5) {
                 return;
             }
             lider = carta.getColor();
-            enviarMensaje("El palo lider es " + lider);
+            enviarMensajeTodos("El palo líder es " + lider);
         }
     }
 
@@ -111,25 +109,25 @@ public class Truco {
      * @param sc el mensaje a imprimir y agregar.
      * @param jugador el mensaje a imprimir y agregar.
      */
-    private int validarCarta(Scanner sc, Jugador jugador) {
-        System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar");
-        String cadenita = sc.nextLine();
+    private int validarCarta(Jugador jugador) throws JugadorInactivo {
+        enviarMensajeJugador(jugador, "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar");
+        String cadenita = jugador.leerJugador();
         try {
             int i = Integer.parseInt(cadenita);
             if (i < 0 || i > (jugador.getBaraja().tamanio()-1)) {
-                System.out.println("Número inválido");
-                return validarCarta(sc, jugador);
+                enviarMensajeJugador(jugador, "Número inválido");
+                return validarCarta(jugador);
             }
             Carta cartita = jugador.getBaraja().checaCarta(i);
             if (cartaLegal(cartita, jugador.getBaraja().copia(), i)) {
                 return i;
             } else {
-                System.out.println("Carta inválida, debes jugar otra carta");
-                return validarCarta(sc, jugador);
+                enviarMensajeJugador(jugador, "Carta inválida, debes jugar otra carta");
+                return validarCarta(jugador);
             }
         } catch (NumberFormatException e) {
-            System.out.println("No ingresaste un número");
-            return validarCarta(sc, jugador);
+            enviarMensajeJugador(jugador, "No ingresaste un número");
+            return validarCarta(jugador);
         }
     }
 
