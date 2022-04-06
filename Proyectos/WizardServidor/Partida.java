@@ -72,7 +72,6 @@ public class Partida {
             }
         } catch (JugadorInactivo e) {
             try {
-                e.printStackTrace(System.out);
                 resultadosDesconecta();
             } catch (IOException error) {
                 resultadosErrorEscribir();
