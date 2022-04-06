@@ -1,12 +1,12 @@
 package WizardServidor;
 
 /**
- * Clase para representar valores de cartas. Un valor tiene numero.
- * Numero sera un numero entre 0 y 14.
+ * Clase para representar valores de cartas. Un valor tiene número.
+ * Número será un número entre 0 y 14.
  */
 public class Valor {
     
-    /* NUmero del valor. */
+    /* Número del valor. */
     private int numero;
 
     /**
@@ -18,8 +18,8 @@ public class Valor {
     }
 
     /**
-     * Regresa el numero del valor.
-     * @return el numero del valor.
+     * Regresa el número del valor.
+     * @return el número del valor.
      */
     public int getNumero() {
         return numero;
@@ -83,5 +83,4 @@ public class Valor {
         }
         return true;
     }
-
 }

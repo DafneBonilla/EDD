@@ -89,6 +89,7 @@ public class Ronda {
 
     /**
      * Define la carta de triunfo de la ronda.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineTriunfo() throws IOException {
         if (!mazo.esVacio()) {
@@ -143,11 +144,11 @@ public class Ronda {
 
     /**
      * Define las apuestas de los jugadores.
-     * @throws IOException si hay un error de entrada/salida.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineApuestas() throws IOException {
         for (Jugador jugador : jugadores) {
-            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+            System.out.println("Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas.");
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
             int ap = pedirApuesta(sc);
@@ -171,7 +172,7 @@ public class Ronda {
                 return pedirApuesta(sc);
             }
             return apuesta;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             System.out.println("No ingresaste un número.");
             return pedirApuesta(sc);
         }
@@ -206,5 +207,4 @@ public class Ronda {
             jugador.setGanados(0);
         }
     }
-    
 }

@@ -138,7 +138,7 @@ public class Partida {
     }
 
     /**
-     * Ayuda a calcular el ganador.
+     * Calcula el jugador ganador.
      * @param lista una lista con los jugadores.
      * @return una cadena con el ganador.
      */
@@ -181,7 +181,7 @@ public class Partida {
     }
 
     /**
-     * Saber si el juego va a seguir o se detendrá.
+     * Ayuda a saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
         System.out.println("¿Quieres seguir jugando? s/n");

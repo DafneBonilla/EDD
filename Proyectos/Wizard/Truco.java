@@ -46,14 +46,14 @@ public class Truco {
 
     /**
      * Comienza el truco.
-     * @throws IOException
+     * @throws IOException si hubo un error de entrada/salida.
      */
     public void iniciar() throws IOException {
         enviarMensaje("El truco va a empezar");
         for (Jugador jugador : jugadores) {
             System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
             System.out.println("El palo líder es " + lider);
-            System.out.println("El palo de triunfo es "+ triunfo);
+            System.out.println("El palo de triunfo es " + triunfo);
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int indice = validarCarta(sc, jugador);
             Carta cartita = recibeCarta(jugador, indice);
@@ -86,6 +86,7 @@ public class Truco {
     /**
      * Define el color líder.
      * @param carta la carta con el color líder.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineLider(Carta carta) throws IOException {
         if (lider.getMerito() == -1) {
@@ -111,6 +112,7 @@ public class Truco {
      * Revisa si el índice de la carta es válido.
      * @param sc el mensaje a imprimir y agregar.
      * @param jugador el mensaje a imprimir y agregar.
+     * @return el índice de la carta.
      */
     private int validarCarta(Scanner sc, Jugador jugador) {
         System.out.println("Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar");
@@ -128,7 +130,7 @@ public class Truco {
                 System.out.println("Carta inválida, debes jugar otra carta");
                 return validarCarta(sc, jugador);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             System.out.println("No ingresaste un número");
             return validarCarta(sc, jugador);
         }
@@ -190,7 +192,7 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó un mago.
-     * @return el índice del primer jugador que jugo un mago.
+     * @return el índice del primer jugador que jugó un mago.
      */
     private int jugoMago() {
         for (Carta cartita : jugadas) {
@@ -203,7 +205,7 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó una carta con el palo de triunfo.
-     * @return el índice del primer jugador que jugo una carta con el palo de triunfo.
+     * @return el índice del primer jugador que jugó una carta con el palo de triunfo.
      */
     private int altaTriunfo() {
         int comparar = 0;

@@ -17,7 +17,12 @@ public class Proyecto1Servidor {
         System.out.println("Uso: java Wizard/Proyecto1Servidor #jugadores archivo.txt puerto");
         System.exit(0);
     }
-
+    
+    /** 
+     * Imprime y guarda los mensaje en el archivo. 
+     * @param mensaje el mensaje a imprimir y guardar.
+     * @param out el buffer de escritura.
+     */
     private static void enviarMensaje(String mensaje, BufferedWriter out) {
         System.out.println(mensaje);
         try {
@@ -44,11 +49,10 @@ public class Proyecto1Servidor {
         if (numJugadores < 3 || numJugadores > 6) {
             uso();
         }
-
         try {
             BufferedWriter archivo = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(args[1])));
             ServerSocket serverSocket = new ServerSocket(puerto);
-            enviarMensaje("El servidor esta andando", archivo);
+            enviarMensaje("El servidor está andando", archivo);
             Lista<Jugador> jugadores = new Lista<Jugador>();
             enviarMensaje("Esperando jugadores...", archivo);
             while (jugadores.size() != numJugadores) {
@@ -61,7 +65,7 @@ public class Proyecto1Servidor {
                 Jugador jugador = new Jugador(nombre, out, socket);
                 jugadores.agregaFinal(jugador);
                 out.write("Bienvenido " + nombre + "!\n");
-                out.write("La partida comenzara en unos momentos...\n");
+                out.write("La partida comenzará en unos momentos...\n");
                 enviarMensaje("El jugador "+nombre+" ingreso.", archivo);
                 out.flush();
             }
@@ -74,7 +78,7 @@ public class Proyecto1Servidor {
             serverSocket.close();
             archivo.close();
         } catch (IOException ioe) {
-            System.out.println("Error con el servidor/archivo. Abortando la ejecucion.");
+            System.out.println("Error con el servidor/archivo. Abortando la ejecución.");
             System.exit(0);
         }       
     }

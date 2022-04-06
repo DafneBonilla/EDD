@@ -59,7 +59,7 @@ public class Partida {
     public void iniciar() {
         try {
             enviarMensajeTodos("La partida va a empezar, todos listos :)");
-            enviarMensajeTodos("La seed del juego es "+seed);
+            enviarMensajeTodos("La seed del juego es " + seed);
             for (int i = 1; i <= numRondas; i++) {
                 Ronda actual = new Ronda(jugadores, i, mazo, out);
                 actual.iniciar();  
@@ -98,9 +98,20 @@ public class Partida {
     }
 
     /**
+     * Imprime un mensaje a un usuario.
+     * @param jugador el jugador al que se le imprimirá el mensaje.
+     * @param mensaje el mensaje a imprimir.
+     * @throws JugadorInactivo si no se pudo imprimir el mensaje.
+     */
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
+    }    
+    
+    /**
      * Imprime un mensaje a todos los usuarios y guarda 
      * el mensaje en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
+     * @throws IOException si no se pudo imprimir o escribir en el archivo.
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
@@ -113,36 +124,11 @@ public class Partida {
         }
     }
 
-    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
-        jugador.hablarJugador(mensaje);
-    }
-
     /**
-     * Muesta los resultados de la partida.
-     * @throws IOException si no ...
-     */
-    private void resultados() throws IOException {
-        String resultados = "Ahora se anunciará al ganador del juego...\n\n";
-        resultados += ganador();
-        enviarMensajeTodos(resultados);
-    }
-
-    /**
-     * Cuando un jugador se deconecta.
-     * @throws IOException si no se pudo haer.
-     */
-    private void resultadosDesconecta() throws IOException {
-        String resultados = "Un jugador se pudo haber desconectado, terminando el juego...\n";
-        resultados += "Ahora se anunciará al ganador del juego...\n\n";
-        resultados += ganador();
-        enviarMensajeTodosDesconecta(resultados);
-        System.exit(0);
-    }
-
-    /**
-     * Cuando un jugador se deconecta, avisamos a todos los resultados.
-     * el mensaje en el archivo.
-     * @param mensaje el mensaje a imprimir y agregar.
+     * Muestra a todos los jugadores los resultados cuando un jugador
+     * se deconecta.
+     * @param mensaje el mensaje a mostrar.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void enviarMensajeTodosDesconecta(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
@@ -151,14 +137,53 @@ public class Partida {
         for (Jugador jugador : jugadores) {
             try {
                 enviarMensajeJugador(jugador, mensaje);
-            } catch (JugadorInactivo e) {
+            } catch (JugadorInactivo ji) {
                 continue;
             }
         }
     }
+
+    /**
+     * Muestra a todos los jugadores los resultados cuando hubo
+     * en error al escribir.
+     * @param mensaje el mensaje a mostrar.
+     */
+    private void enviarMensajeTodosErrorEscribir(String mensaje) {
+        System.out.println(mensaje + "\n");
+        for (Jugador jugador : jugadores) {
+            try {
+                enviarMensajeJugador(jugador, mensaje);
+            } catch (JugadorInactivo ji) {
+                continue;
+            }
+        }
+    }
+
+    /**
+     * Muestra los resultados de la partida.
+     * @throws IOException si los resultados no se pudieron enviar.
+     */
+    private void resultados() throws IOException {
+        String resultados = "Ahora se anunciará al ganador del juego...\n\n";
+        resultados += ganador();
+        enviarMensajeTodos(resultados);
+    }
+
+    /**
+     * Muestra los resultados de la partida cuando un jugador se deconecta.
+     * @throws IOException si los resultados no se pudieron enviar.
+     */
+    private void resultadosDesconecta() throws IOException {
+        String resultados = "Un jugador se pudo haber desconectado, terminando el juego...\n";
+        resultados += "Ahora se anunciará al ganador del juego...\n\n";
+        resultados += ganador();
+        enviarMensajeTodosDesconecta(resultados);
+        System.exit(0);
+    }
     
     /**
-     * Hubo en error al escribir.
+     * Muestra los resultados cuando hubo 
+     * un error al escribir.
      */
     private void resultadosErrorEscribir() {
         String resultados = "Un jugador se pudo haber desconectado, terminando el juego...\n";
@@ -168,17 +193,6 @@ public class Partida {
         System.exit(0);
     }
     
-    private void enviarMensajeTodosErrorEscribir(String mensaje) {
-        System.out.println(mensaje + "\n");
-        for (Jugador jugador : jugadores) {
-            try {
-                enviarMensajeJugador(jugador, mensaje);
-            } catch (JugadorInactivo e) {
-                continue;
-            }
-        }
-    }
-
     /**
      * Calcula quien fue el ganador de la partida.
      * @return una cadena con los datos del ganador.
@@ -188,8 +202,8 @@ public class Partida {
     }
 
     /**
-     * Ayuda a calcular el ganador.
-     * @param arreglo un arreglo con los datos de los jugadores.
+     * Calcula el jugador ganador.
+     * @param lista una lista con los jugadores.
      * @return una cadena con el ganador.
      */
     private String superior(Lista<Jugador> lista) {
@@ -215,9 +229,9 @@ public class Partida {
     }
 
     /**
-     * Buscar la puntacion más alta de los jugadores.
-     * @param arreglo un arreglo con los datos de los jugadores.
-     * @return la posicion del jugador con mayor puntacion.
+     * Busca la puntación más alta de los jugadores.
+     * @param lista una lista con los jugadores.
+     * @return la posición del jugador con mayor puntación.
      */
     private int mayor(Lista<Jugador> lista) {
         int respuesta = 0;
@@ -231,7 +245,8 @@ public class Partida {
     }
 
     /**
-     * Saber si el juego va a seguir o se detendrá.
+     * Ayuda a si el juego va a seguir o se detendrá.
+     * @throws JugadorInactivo si un jugador se desconectó.
      */
     private void seguir() throws JugadorInactivo {
         Lista<String> si = new Lista<>();
@@ -251,6 +266,13 @@ public class Partida {
         }
     }
 
+    /**
+     * Pregunta a cada jugar si quiere continuar jugando.
+     * @param jugador el jugador al que se le preguntará.
+     * @param si una lista con las respuestas de si.
+     * @param no una lista con las respuestas de no.
+     * @throws JugadorInactivo si un jugador se desconectó.
+     */
     private void pedirRespuesta(Jugador jugador, Lista<String> si, Lista<String> no) throws JugadorInactivo {
         enviarMensajeJugador(jugador, "¿Quieres seguir jugando? s/n");
         String respuesta = jugador.leerJugador();

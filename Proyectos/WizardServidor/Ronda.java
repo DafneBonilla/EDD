@@ -12,11 +12,11 @@ public class Ronda {
 
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
-    /* Numero de ronda acutal. */
+    /* Número de ronda actual. */
     private int numRonda;
-    /* Numero de trucos. */
+    /* Número de trucos. */
     private int numTrucos;
-    /* Palo de triundo. */
+    /* Palo de triunfo. */
     private Color triunfo;
     /* Mazo principal del juego. */
     private Baraja mazo;
@@ -27,8 +27,8 @@ public class Ronda {
      * Define el estado inicial de una ronda.
      * @param jugadores la lista de jugadores.
      * @param numRonda el numero de la ronda actual.
-     * @param log la cadena del historial del juego.
      * @param mazo la baraja principal.
+     * @param out la manera de escribir en el archivo.
      */
     public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, BufferedWriter out) {
         this.jugadores = jugadores;
@@ -41,6 +41,7 @@ public class Ronda {
 
     /**
      * Comienza la ronda.
+     * @throws IOException si hay un error de entrada/salida.
      */
     public void iniciar() throws IOException {
         enviarMensajeTodos("La ronda " + numRonda + " va a empezar");
@@ -60,12 +61,23 @@ public class Ronda {
     }
 
     /**
+     * Imprime un mensaje a un usuario.
+     * @param jugador el jugador al que se le imprimirá el mensaje.
+     * @param mensaje el mensaje a imprimir.
+     * @throws JugadorInactivo si no se pudo imprimir el mensaje.
+     */
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
+    }    
+    
+    /**
      * Imprime un mensaje a todos los usuarios y guarda 
      * el mensaje en el archivo.
      * @param mensaje el mensaje a imprimir y agregar.
+     * @throws IOException si no se pudo imprimir o escribir en el archivo.
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -73,10 +85,6 @@ public class Ronda {
             Jugador jug = iterator.next();
             enviarMensajeJugador(jug, mensaje);
         }
-    }
-
-    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
-        jugador.hablarJugador(mensaje);
     }
 
     /**
@@ -92,7 +100,8 @@ public class Ronda {
     }
 
     /**
-     * Define la bara de triunfo de la ronda.
+     * Define la carta de triunfo de la ronda.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineTriunfo() throws IOException {
         if (!mazo.esVacio()) {
@@ -118,6 +127,7 @@ public class Ronda {
 
     /**
      * Pide al usuario que elija el palo de triunfo.
+     * @throws JugadorInactivo si un jugador se desconectó.
      */
     private void pedirTriunfo() throws JugadorInactivo {
         Jugador elegir = jugadores.buscarIndice(0);
@@ -128,7 +138,9 @@ public class Ronda {
 
     /**
      * Valida que el palo de triunfo sea válido.
+     * @param jugador el jugador que eligió el palo de triunfo.
      * @return el número del palo de triunfo.
+     * @throws JugadorInactivo si el jugador se desconectó.
      */
     private int validarTriunfo(Jugador jugador) throws JugadorInactivo {
         enviarMensajeJugador(jugador, "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
@@ -139,7 +151,7 @@ public class Ronda {
                 throw new NumberFormatException();
             }
             return i;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             enviarMensajeJugador(jugador, "No es un número válido");
             return validarTriunfo(jugador);
         }
@@ -147,10 +159,11 @@ public class Ronda {
 
     /**
      * Define las apuestas de los jugadores.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineApuestas() throws IOException {
         for (Jugador jugador : jugadores) {
-            enviarMensajeJugador(jugador, "Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+            enviarMensajeJugador(jugador, "Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas.");
             enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
             enviarMensajeJugador(jugador, "\nEl palo de triunfo es " + triunfo + "\n");
             int ap = pedirApuesta(jugador);
@@ -161,7 +174,9 @@ public class Ronda {
 
     /**
      * Pide una apuesta al usuario.
+     * @param jugador el jugador al que se pide la apuesta.
      * @return la apuesta del usuario.
+     * @throws JugadorInactivo si el jugador se desconectó.
      */
     private int pedirApuesta(Jugador jugador) throws JugadorInactivo {
         enviarMensajeJugador(jugador, "Define tu apuesta (un número entre 0 y " + numRonda + ")");
