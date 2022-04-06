@@ -20,7 +20,7 @@ public class Partida {
     private Boolean sigue;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
-    /* Seed de random */
+    /* Seed de random. */
     private long seed;
 
     /**
@@ -70,20 +70,20 @@ public class Partida {
                     break;
                 }
             }
-        } catch (JugadorInactivo e) {
+        } catch (JugadorInactivo ji) {
             try {
                 resultadosDesconecta();
-            } catch (IOException error) {
+            } catch (IOException ioe) {
                 resultadosErrorEscribir();
             }
-        } catch (IOException e) {
-            System.out.println("Error al guardar en el archivo, terminando el juego");
+        } catch (IOException ioe) {
+            System.out.println("Error al guardar en el archivo, terminando el juego...");
             resultadosErrorEscribir();
         }
         try {
             finalizar();
-        } catch (IOException e) {
-            System.out.println("No se pudo cerrar el archivo, abortando la ejecución.");
+        } catch (IOException ioe) {
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecución...");
             System.exit(0);
         }
     }
@@ -103,7 +103,7 @@ public class Partida {
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();

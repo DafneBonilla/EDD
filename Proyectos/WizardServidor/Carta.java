@@ -46,7 +46,7 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Define el color de la carta.
-     * @param color el nuevo color el nombre de la carta.
+     * @param color el nuevo color de la carta.
      */
     public void setColor(Color color) {
         this.color = color;
@@ -125,5 +125,4 @@ public class Carta implements Comparable<Carta> {
             return -1;
         }
     }
-
 }

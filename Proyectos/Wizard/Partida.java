@@ -61,8 +61,8 @@ public class Partida {
         sc = new Scanner(System.in);
         try {
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
-        } catch (FileNotFoundException e) {
-            System.out.println("No se pudo abrir el archivo, abortando la ejecución.");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("No se pudo abrir el archivo, abortando la ejecución...");
             System.exit(0);
         }
     }
@@ -92,8 +92,8 @@ public class Partida {
         }
         try {
             out.close();
-        } catch (IOException e) {
-            System.out.println("No se pudo cerrar el archivo, abortando la ejecución.");
+        } catch (IOException ioe) {
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecución...");
             System.exit(0);
         }
     }
@@ -105,7 +105,7 @@ public class Partida {
      * @throws IOException si hubo un problema al escribir en el archivo.
      */
     private void enviarMensaje(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
     }

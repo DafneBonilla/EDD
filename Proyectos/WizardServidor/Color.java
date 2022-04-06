@@ -1,25 +1,25 @@
 package WizardServidor;
 
 /**
- * Clase para representar colores de cartas. Un color tiene merito.
- * Merito sera un numero entre 1 y 5.
+ * Clase para representar colores de cartas. Un color tiene mérito.
+ * Mérito será un número entre 1 y 5.
  */
 public class Color {
     
-    /* Merito del color. */
+    /* Mérito del color. */
     private int merito;
 
     /**
      * Define el estado inicial de un color.
-     * @param merito el merito del color.
+     * @param merito el mérito del color.
      */
     public Color(int merito) {
         this.merito = merito;
     }
 
     /**
-     * Regresa el merito del color.
-     * @return el merito del color.
+     * Regresa el mérito del color.
+     * @return el mérito del color.
      */
     public int getMerito() {
         return merito;
@@ -63,5 +63,4 @@ public class Color {
         }
         return true;
     }
-
 }

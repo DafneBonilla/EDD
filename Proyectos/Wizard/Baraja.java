@@ -11,7 +11,7 @@ public class Baraja {
     
     /* Lista de cartas. */
     private Lista<Carta> cartitas;
-    /* Seed de random */
+    /* Seed de random. */
     private long seed;
 
     /**

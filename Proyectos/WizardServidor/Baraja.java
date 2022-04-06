@@ -5,19 +5,19 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * Clase para representar barajas. Seran listas de la clase {@link Carta}.
+ * Clase para representar barajas. Serán listas de la clase {@link Carta}.
  */
 public class Baraja {
     
     /* Lista de cartas. */
     private Lista<Carta> cartitas;
-    /* Seed de random */
+    /* Seed de random. */
     private long seed;
 
     /**
      * Define el estado inical de una baraja.
      */
-    public Baraja(){
+    public Baraja() {
         cartitas = new Lista<Carta>();
         seed = 0;
     }
@@ -141,6 +141,7 @@ public class Baraja {
      * Agrega todas las cartas de un arreglo a la baraja.
      * El arreglo que recibe debe ser del método
      * {@link Baraja#volverArreglo}.
+     * @param arreglo el arreglo con las cartas a agregar a la baraja.
      */
     private void volverBaraja(Carta[] arreglo) {
         for (int i = 0; i < arreglo.length; i++) {
@@ -161,6 +162,7 @@ public class Baraja {
      * Auxiliar para devolver las cartas.
      * Algoritmo: Fisher–Yates shuffle
      * Fuente: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
+     * @param arreglo el arreglo con las cartas a revolver.
      */
     private void shuffleAux(Carta[] array) {
         int n = array.length;

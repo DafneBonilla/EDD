@@ -5,6 +5,8 @@ package Wizard;
  */
 public class Jugador {
     
+    /* Nombre del jugador. */
+    private String nombre;
     /* Mano del jugador. */
     private Baraja mano;
     /* Puntuación del jugador. */
@@ -13,11 +15,10 @@ public class Jugador {
     private int apuesta;
     /* Trucos ganados por el jugador. */
     private int ganados;
-    /* Nombre del jugador. */
-    private String nombre;
 
     /**
      * Define el estado inicial de un jugador.
+     * @param nombre el nombre del jugador.
      */
     public Jugador(String nombre) {
         this.mano = new Baraja();

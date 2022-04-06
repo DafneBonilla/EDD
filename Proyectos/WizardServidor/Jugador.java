@@ -11,23 +11,26 @@ import java.net.Socket;
  */
 public class Jugador {
     
+    /* Nombre del jugador. */
+    private String nombre;
     /* Mano del jugador. */
     private Baraja mano;
-    /* Puntuacion del jugador. */
+    /* Puntuación del jugador. */
     private int puntuacion;
     /* Apuesta actual del jugador. */
     private int apuesta;
     /* Trucos ganados por el jugador. */
     private int ganados;
-    /* Trucos ganados por el jugador. */
-    private String nombre;
-    /* Trucos ganados por el jugador. */
+    /* Buffer de escritura del jugador. */
     private BufferedWriter out;
-    /* Socket del jugador */
+    /* Socket del jugador. */
     private Socket enchufe;
 
     /**
      * Define el estado inicial de un jugador.
+     * @param nombre el nombre del jugador.
+     * @param out el buffer de escritura del jugador.
+     * @param enchufe el socket del jugador.
      */
     public Jugador(String nombre, BufferedWriter out, Socket enchufe) {
         this.mano = new Baraja();
@@ -64,16 +67,16 @@ public class Jugador {
     }
 
     /**
-     * Regresa la puntuacion del jugador.
-     * @return la puntuacion del jugador.
+     * Regresa la puntuación del jugador.
+     * @return la puntuación del jugador.
      */
     public int getPuntuacion() {
         return puntuacion;
     }
 
     /**
-     * Define la puntuacion del jugador.
-     * @param puntuacion la nueva puntuacion del jugador.
+     * Define la puntuación del jugador.
+     * @param puntuacion la nueva puntuación del jugador.
      */
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
@@ -89,56 +92,58 @@ public class Jugador {
 
     /**
      * Define la apuesta actual del jugador.
-     * @param puntuacion la nueva apuesta actual del jugador.
+     * @param apuesta la nueva apuesta actual del jugador.
      */
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
     }
 
     /**
-     * Regresa los trucos ganapor por el jugador.
-     * @return los trucos ganapor por el jugador.
+     * Regresa los trucos ganados por por el jugador.
+     * @return los trucos ganados por por el jugador.
      */
     public int getGanados() {
         return ganados;
     }
 
     /**
-     * Define los trucos ganapor por el jugador.
-     * @param ganados los trucos ganapor por el jugador.
+     * Define los trucos ganados por por el jugador.
+     * @param ganados los trucos ganados por por el jugador.
      */
     public void setGanados(int ganados) {
         this.ganados = ganados;
     }
 
     /**
-     * Metodo para agregar una carta a la mano del jugador.
-     * @param nueva la carta a agregar a la mano.
+     * Método para agregar una carta a la mano del jugador.
+     * @param nueva la carta a agregar a la mano del jugador.
      */
     public void recibirCarta(Carta nueva) {
         mano.agregaCarta(nueva);
     }
 
     /**
-     * Metodo para jugar una carta de la mano del jugador.
-     * @param i la posicion de la carta.
+     * Método para jugar una carta de la mano del jugador.
+     * @param i la posición de la carta de la mano del jugador.
      */
     public Carta sacaCarta(int i) {
         return mano.sacaCarta(i);
     }
 
     /**
-     * Ver en forma de cadena la baraja ordenada del jugador.
-     * @return la baraja ordenada del jugador.
-     */
+     * Método para ver una representación en cadena de la baraja ordenada.
+     * @return representación en cadena de la baraja ordenada.
+     */   
     public String verBarajaOrdenada() {
         mano.ordenar();
         return mano.toString();
     }
 
     /**
-     * Regresa la ultima cadena recibida del jugador.
-     * @return la ultima cadena recibida del jugador.
+     * Regresa la última cadena recibida del jugador.
+     * @return la última cadena recibida del jugador.
+     * @throws JugadorInactivo si <code>linea</code> es <code>null</code>
+     *         o si hay un error de entrada/ salida.
      */
     public String leerJugador() throws JugadorInactivo {
         try {
@@ -147,7 +152,6 @@ public class Jugador {
             if (linea == null) {
                 throw new JugadorInactivo();
             }
-            //in2.close();
             return linea;
         } catch (IOException ioe) {
             throw new JugadorInactivo();
@@ -156,14 +160,15 @@ public class Jugador {
 
     /**
      * Envia una cadena al jugador.
-     * @param cadena la cadena a enviar.
+     * @param mensaje la cadena a enviar.
+     * @throws JugadorInactivo si hay un error de entrada/salida.
      */
     public void hablarJugador(String mensaje) throws JugadorInactivo {
         try {
             out.write(mensaje);
             out.newLine();
             out.flush();
-        } catch (IOException e) {
+        } catch (IOException ioe) {
             throw new JugadorInactivo();
         }
     }
