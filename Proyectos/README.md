@@ -14,7 +14,7 @@ García Ponce José Camilo &nbsp;   - &nbsp;   &nbsp;   319210536
 ### Uso
 
 Realizamos dos versiones del proyecto, una para que se juegue en una sola terminal y otra version con un servidor (una version más "volatil") para poder tener multijugador usando diferentes terminales y (en teoria, porque no pudimos probarlo) multijugador de diferentes computadoras.
-Cada version del proyecto tiene su forma de usar y su README respectivo.
+Cada version del proyecto tiene su forma de usar y su README respectivo para un pequeña explicacion.
 
 ## Explicación
 
