@@ -25,16 +25,6 @@ Ejecutar el servidor desde `WizardServidor/`
 java WizardServidor/Proyecto1Servidor #jugadores archivo.txt puerto
 ```
 
-Uniser a la partida desde otra terminal
-```
-telnet localhost puerto
-```
-
-Uniser a la partida desde otra computadora*
-```
-telnet ip puerto
-```
-
 ## Explicación
 
 <div align="justify">
@@ -47,10 +37,18 @@ Wizard es un juego de cartas desarrollado por rondas que consisten de cierto nú
 Para iniciar el servidor, se debe escribir el número de jugadores, el nombre de un archivo para que se guarde el historial del juego (si el archivo no existe, se creará y si ya existe, se borrará su contenido) y un puerto (para conectar a los jugadores). A continuación, cada jugador debe conectarse al servidor por medio de telnet, para lo cual, hay dos opciones: 
 
 * Unirse a la partida través de la misma computadora:
-`telnet localhost puerto`
+  
+  `telnet localhost puerto`
+  
 * Unirse a la partida través de otra computadora:
-`telnet <IP del host> puerto`
-En este caso, se usa la IP de la computadora que inicio el servidor (esto en teoría deberia funcionar, pero debido a que el equipo no tiene la capacidad y conocimiento suficiente para hacerlo, no pudimos probrarlo, se intentó, pero no se logró, los routers son muy poderosos). Despues, una vez que los jugadores estén conectados, se inicia el juego. 
+  
+  `telnet <IP del host> puerto`
+  
+   En este caso, se usa la IP de la computadora que inició el servidor (esto en teoría debería funcionar, pero debido a que el equipo no tiene la      capacidad y conocimientos suficiente para hacerlo, no pudimos probrarlo, se intentó, pero no se logró, los routers son muy poderosos). Después, una vez que los jugadores están conectados, se inicia el juego. 
 
-Cada jugador recibira texto (lo que sucede en el juego) en su terminal, y deberá ingresar texto cuando se le pida, una aclaracion en esta parte, si el jugador solo debe escribir una linea de texto a la vez, no más, ya que si pone más es posible que solo lea la primera y luego cuando ingrese más texto no se lea bien (por esto esta version del proyecto es más inestable). Al final de cada ronda se hace una votacion para ver si el juego sigue o no. Cuando el juego termine cada jugador se le enviará un mensaje de texto que indicará si gano o perdió, seguido seran desconectados del servidor.
+Cada jugador recibirá un mensaje de lo que sucede en el juego a través de su terminal. Al final de cada ronda se hace una votación para ver si el juego sigue o no. Cuando el juego termine, a cada jugador se le enviará un mensaje de texto indicando si fue ganador o no. Finalmente, todos los jugadores serán desconectados del servidor.
+  
+### Aclaración
+  
+  Cada jugador debe escribir solo una línea de texto a la vez, ya que de lo contrario, es posible que el programa lea solo la primera línea y después, cuando se ingrese más texto este se lea incorrectamente (por esto, esta versión del proyecto es más inestable). 
 </div>
