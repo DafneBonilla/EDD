@@ -50,5 +50,5 @@ Cada jugador recibirá un mensaje de lo que sucede en el juego a través de su t
   
 ### Aclaración
   
-  Cada jugador debe escribir solo una línea de texto a la vez, ya que de lo contrario, es posible que el programa lea solo la primera línea y después, cuando se ingrese más texto este se lea incorrectamente (por esto, esta versión del proyecto es más inestable). 
+  Cada jugador debe escribir solo una línea de texto a la vez, ya que de lo contrario, es posible que el programa lea solo la primera línea y después, cuando se ingrese más texto este se lea incorrectamente (por esto, ésta versión del proyecto es más inestable). 
 </div>
