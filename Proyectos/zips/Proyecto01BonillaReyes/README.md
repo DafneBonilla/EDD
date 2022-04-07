@@ -13,8 +13,8 @@ García Ponce José Camilo &nbsp;   - &nbsp;   &nbsp;   319210536
 
 ### Uso
 
-Realizamos dos versiones del proyecto, una para que se juegue en una sola terminal y otra version con un servidor (una version más "volatil") para poder tener multijugador usando diferentes terminales y (en teoria, porque no pudimos probarlo) multijugador de diferentes computadoras.
-Cada version del proyecto tiene su forma de usar y su README respectivo para un pequeña explicacion.
+Realizamos dos versiones del proyecto, una para que se juegue en una sola terminal y otra versión con un servidor (una version más "volátil") para poder tener multijugador usando diferentes terminales y (en teoría, porque no pudimos probarlo) multijugador de diferentes computadoras.
+Cada versión del proyecto tiene su forma de usar y su README respectivo con un pequeña explicación.
 
 ## Explicación
 
@@ -25,12 +25,13 @@ Wizard es un juego de cartas desarrollado por rondas que consisten de cierto nú
 ## Estructura
 
 <div align="justify">
-En el proyecto tenemos diferentes clases, primero estan las clases para objetos del juego, como carta, jugador, baraja, entre otros, en estas clases utilizamos listas principalmente para tener las manos del jugador y la baraja principal del juego. Las otras clases son para cosas de la partida, como ronda, trucos y la partida misma. En estas clases utilizamos listas para tener a los jugadores y tambien para poder saber las cartas que jugo cada uno. Las dos versiones funcionan de la misma manera solo hay pequeñas diferencias en la parte de jugador, en como se agregan jugadores, como se les envia lo que pasa en el juego y como leemos lo que juegan los jugadores.
+En el proyecto tenemos diferentes clases, primero están las clases para objetos del juego, como carta, jugador, baraja, entre otros. En estas clases utilizamos listas principalmente para tener las manos de cada jugador y la baraja principal del juego. Las otras clases son para cosas de la partida, como ronda, trucos y la partida misma. En estas clases utilizamos listas para guardar a los jugadores y también para saber las cartas que jugó cada uno. Las dos versiones funcionan de la misma manera, solo hay pequeñas diferencias en la parte de jugador, en como se agregan jugadores, como se les envía lo que pasa en el juego y como leemos lo que juegan los jugadores.
 </div>
 
 ## Inconvenientes
 
 <div align="justify">
-En la version sin servidor no hay inconvenientes, las veces que lo probamos funciono bien, solo lo que no pudimos probrar (no sabemos como generar que suceda este caso) que la excepcion al intentar escribir en el archivo funcione correctamente.
-En la version con servidor, si hubo algunos inconvenientes, el mismo de la excepcion al escribir y que no pudimos probrar que realmente si funcionara con diferentes computadoras, ya que cuando intentamos probarlo no pudimos conectarnos por medio de telnet por la seguridad de las ips y routers. 
+En la versión sin servidor no hay inconvenientes, las veces que lo probamos funcionó bien, solo lo que no pudimos probrar (no sabemos como generar que suceda este caso) es que la excepción al intentar escribir en el archivo funcione correctamente.
+
+En la versión con servidor, si hubo algunos inconvenientes, el mismo de la excepción al escribir y que no pudimos probrar que realmente si funcionara con diferentes computadoras, ya que cuando intentamos probarlo no pudimos conectarnos por medio de telnet por la seguridad de las IP y routers. 
 </div>
