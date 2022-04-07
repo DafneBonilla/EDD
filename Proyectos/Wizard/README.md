@@ -34,5 +34,5 @@ Wizard es un juego de cartas desarrollado por rondas que consisten de cierto nú
 ## Como jugar
 
 <div align="justify">
-Primero se tiene que iniciar el juego, dando el número de jugadores y un archivo para que se guarde el historial del juego (si el archivo no existe se creara y si ya existe se borrara lo que ya tenia antes). Luego los jugadores se tendran que ir turnando dependiendo de su número de jugadora para poder ingresar lo que la terminal les pida. Al final de cada ronda se tendra la posiblidad de terminar el juego. Cuando el juego termine cada jugador se le enviará un mensaje de texto que indicará si gano o perdió, seguido seran desconectados del servidor.
+Para iniciar el juego, se debe escribir el número de jugadores y el nombre del archivo en donde se guardará el historial del juego (si el archivo no existe, se creará y si ya existe, se borrará su contenido). A continuación, cada jugador se turnará dependiendo de su número y turno para jugar a través de la terminal. Al final de cada ronda se tendrá la posiblidad de terminar el juego. Cuando el juego termine, a cada jugador se le enviará un mensaje de texto indicando si fue ganador o no. Finalmente, todos los jugadores serán desconectados.
 </div>
