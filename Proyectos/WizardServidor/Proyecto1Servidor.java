@@ -62,7 +62,7 @@ public class Proyecto1Servidor {
                 jugadores.agregaFinal(jugador);
                 out.write("Bienvenido " + nombre + "!\n");
                 out.write("La partida comenzara en unos momentos...\n");
-                enviarMensaje("El jugador "+nombre+" ingreso.", archivo);
+                enviarMensaje("El jugador " + nombre + " ingreso.", archivo);
                 out.flush();
             }
             Partida partida = new Partida(numJugadores, args[1], jugadores, archivo);
