@@ -91,6 +91,7 @@ public class Truco {
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
+        log += mensaje + "\n";
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -136,7 +137,7 @@ public class Truco {
      */
     private int validarCarta(Jugador jugador) throws JugadorInactivo {
         enviarMensajeJugador(jugador,
-                "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio() - 1) + ") de la carta a jugar");
+                "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio() - 1) + ") de la carta a jugar (presiona \"h\" para ver todo el historial del juego)");
         String cadenita = jugador.leerJugador();
         try {
             int i = Integer.parseInt(cadenita);
@@ -152,6 +153,15 @@ public class Truco {
                 return validarCarta(jugador);
             }
         } catch (NumberFormatException nfe) {
+            if (cadenita.equals("h")){
+                enviarMensajeJugador(jugador, "Historial:");
+                enviarMensajeJugador(jugador, log);
+                enviarMensajeJugador(jugador, "Jugador " + jugador.getNombre() + " es tu turno de jugar una carta");
+                enviarMensajeJugador(jugador, "El palo líder es " + lider);
+                enviarMensajeJugador(jugador, "El palo de triunfo es " + triunfo);
+                enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
+                return validarCarta(jugador);  
+            }
             enviarMensajeJugador(jugador, "No ingresaste un número");
             return validarCarta(jugador);
         }

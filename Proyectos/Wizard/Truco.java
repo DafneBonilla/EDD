@@ -84,6 +84,7 @@ public class Truco {
      */
     private void enviarMensaje(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
+        log += mensaje + "\n";
         out.write(mensaje);
         out.newLine();
     }

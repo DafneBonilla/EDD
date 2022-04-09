@@ -122,6 +122,7 @@ public class Partida {
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
+        log += mensaje + "\n";
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -236,10 +237,10 @@ public class Partida {
         if (empate) {
             winner = winner.substring(0, winner.length() - 2);
             winner += " y " + ganadorsito.getNombre();
-            return winner + " todos con " + punt + " puntos.\n";
+            return winner + " todos con " + punt + " puntos\n";
         }
         return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion()
-                + " puntos.\n";
+                + " puntos\n";
     }
 
     /**
@@ -291,7 +292,7 @@ public class Partida {
      * @throws JugadorInactivo si un jugador se desconectó.
      */
     private void pedirRespuesta(Jugador jugador, Lista<String> si, Lista<String> no) throws JugadorInactivo {
-        enviarMensajeJugador(jugador, "¿Quieres seguir jugando? s/n");
+        enviarMensajeJugador(jugador, "¿Quieres seguir jugando? s/n (presiona \"h\" para ver todo el historial del juego)");
         String respuesta = jugador.leerJugador();
         switch (respuesta) {
             case "s":
@@ -299,6 +300,11 @@ public class Partida {
                 break;
             case "n":
                 no.add("no");
+                break;
+            case "h":
+                enviarMensajeJugador(jugador, "Historial:");
+                enviarMensajeJugador(jugador, log);
+                pedirRespuesta(jugador, si, no);
                 break;
             default:
                 enviarMensajeJugador(jugador, "Respuesta inválida.");

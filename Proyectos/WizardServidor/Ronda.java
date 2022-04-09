@@ -86,6 +86,7 @@ public class Ronda {
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
         System.out.println(mensaje + "\n");
+        log += mensaje + "\n";
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -155,7 +156,7 @@ public class Ronda {
      */
     private int validarTriunfo(Jugador jugador) throws JugadorInactivo {
         enviarMensajeJugador(jugador,
-                "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
+                "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m (presiona \"h\" para ver todo el historial del juego)");
         String respuesta = jugador.leerJugador();
         try {
             int i = Integer.parseInt(respuesta);
@@ -164,6 +165,11 @@ public class Ronda {
             }
             return i;
         } catch (NumberFormatException nfe) {
+            if (respuesta.equals("h")) {
+                enviarMensajeJugador(jugador, "Historial:");
+                enviarMensajeJugador(jugador, log);
+                return validarTriunfo(jugador);
+            }
             enviarMensajeJugador(jugador, "No es un número válido");
             return validarTriunfo(jugador);
         }
@@ -193,7 +199,7 @@ public class Ronda {
      * @throws JugadorInactivo si el jugador se desconectó.
      */
     private int pedirApuesta(Jugador jugador) throws JugadorInactivo {
-        enviarMensajeJugador(jugador, "Define tu apuesta (un número entre 0 y " + numRonda + ")");
+        enviarMensajeJugador(jugador, "Define tu apuesta (un número entre 0 y " + numRonda + ") (presiona \"h\" para ver todo el historial del juego)");
         String cadenita = jugador.leerJugador();
         try {
             int apuesta = Integer.parseInt(cadenita);
@@ -202,7 +208,15 @@ public class Ronda {
                 return pedirApuesta(jugador);
             }
             return apuesta;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
+            if (cadenita.equals("h")){
+                enviarMensajeJugador(jugador, "Historial:");
+                enviarMensajeJugador(jugador, log);
+                enviarMensajeJugador(jugador, "Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas.");
+                enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
+                enviarMensajeJugador(jugador, "\nEl palo de triunfo es " + triunfo + "\n");
+                return pedirApuesta(jugador);
+            }
             enviarMensajeJugador(jugador, "No ingresaste un número");
             return pedirApuesta(jugador);
         }
