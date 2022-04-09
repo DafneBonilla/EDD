@@ -1,8 +1,6 @@
-Proyectos
-=========================================
+# Proyectos
 
-Curso EDD 2022-2
--------------------------------------------
+## Curso EDD 2022-2
 
 ### Estructuras de Datos
 
