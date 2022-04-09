@@ -1,15 +1,13 @@
-Proyecto 1
-=========================================
+# Proyecto 1
 
-Implementación de Wizard
-----------------------------------------------------
+## Implementación de Wizard
 
 Equipo:
 
-Bonilla Reyes Dafne &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   &nbsp;   - &nbsp;   &nbsp;   319089660  
-García Ponce José Camilo &nbsp;   - &nbsp;   &nbsp;   319210536  
+Bonilla Reyes Dafne &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - &nbsp; &nbsp; 319089660  
+García Ponce José Camilo &nbsp; - &nbsp; &nbsp; 319210536
 
-----------------------------------------------------
+---
 
 ### Uso
 
@@ -34,5 +32,5 @@ Wizard es un juego de cartas desarrollado por rondas que consisten de cierto nú
 ## Como jugar
 
 <div align="justify">
-Para iniciar el juego, se debe escribir el número de jugadores y el nombre del archivo en donde se guardará el historial del juego (si el archivo no existe, se creará y si ya existe, se borrará su contenido). A continuación, cada jugador se turnará dependiendo de su número y turno para jugar a través de la terminal. Al final de cada ronda se tendrá la posiblidad de terminar el juego. Cuando el juego termine, a cada jugador se le enviará un mensaje de texto indicando si fue ganador o no. Finalmente, todos los jugadores serán desconectados.
+Para iniciar el juego, se debe escribir el número de jugadores y el nombre del archivo en donde se guardará el historial del juego (si el archivo no existe, se creará y si ya existe, se borrará su contenido). A continuación, cada jugador se turnará dependiendo de su número y turno para jugar a través de la terminal. Al final de cada ronda se tendrá la posiblidad de terminar el juego. Cuando el juego termine, se enviará un mensaje de texto indicando quien gano la partida. Finalmente, la partida se terminara. Cada vez que se le pide algo a un jugador (texto) este tendra la oportunidad de escribir "h" para recibir todo el historial del juego (se recomienda precaucion, ya que el historial puede llegar a ser muy extenso).
 </div>
