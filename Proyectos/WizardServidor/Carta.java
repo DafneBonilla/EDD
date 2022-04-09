@@ -4,7 +4,7 @@ package WizardServidor;
  * Clase para representar cartas. Una carta tiene valor y color.
  */
 public class Carta implements Comparable<Carta> {
-    
+
     /* Valor de la carta. */
     private Valor valor;
     /* Color de la carta. */
@@ -12,6 +12,7 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Define el estado inicial de una carta.
+     * 
      * @param valor el valor de la carta.
      * @param color el color de la carta.
      */
@@ -22,6 +23,7 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Regresa el valor de la carta.
+     * 
      * @return el valor de la carta.
      */
     public Valor getValor() {
@@ -30,6 +32,7 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Define el valor de la carta.
+     * 
      * @param valor el nuevo valor de la carta.
      */
     public void setValor(Valor valor) {
@@ -38,6 +41,7 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Regresa el color de la carta.
+     * 
      * @return el color de la carta.
      */
     public Color getColor() {
@@ -46,17 +50,20 @@ public class Carta implements Comparable<Carta> {
 
     /**
      * Define el color de la carta.
+     * 
      * @param color el nuevo color de la carta.
      */
     public void setColor(Color color) {
         this.color = color;
     }
-    
+
     /**
      * Regresa una representación en cadena de la carta.
+     * 
      * @return una representación en cadena de la carta.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         String datitos = "";
         switch (color.getMerito()) {
             case 1:
@@ -78,22 +85,24 @@ public class Carta implements Comparable<Carta> {
                 datitos += String.format("Un %s de color %s", valor, color);
                 break;
         }
-	    return datitos;
+        return datitos;
     }
 
     /**
      * Nos dice si el objeto recibido es una carta igual al que manda llamar
      * el método.
+     * 
      * @param objeto el objeto con el que la carta se comparará.
      * @return <code>true</code> si el objeto recibido es una cartas con las
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean equals(Object objeto) {
+    @Override
+    public boolean equals(Object objeto) {
         if (!(objeto instanceof Carta))
             return false;
-        Carta cartita = (Carta)objeto;
-        if ((this.valor.equals(cartita.valor)) == false){
+        Carta cartita = (Carta) objeto;
+        if ((this.valor.equals(cartita.valor)) == false) {
             return false;
         } else if ((this.color.equals(cartita.color)) == false) {
             return false;
@@ -104,15 +113,17 @@ public class Carta implements Comparable<Carta> {
     /**
      * Metodo para poder comparar dos cartas, primero se checan sus
      * colores y luego se checan sus valores.
+     * 
      * @param card la carta a comparar.
      * @return dependiendo si la carta que llamo el metodo es:
      *         menor que card, regresa -1
      *         mayor que card, regresa 1
      *         igual que card, regresa 0
      */
-    @Override public int compareTo(Carta card) {
+    @Override
+    public int compareTo(Carta card) {
         if (this.color.getMerito() > card.color.getMerito()) {
-            return 1;            
+            return 1;
         } else if (this.color.getMerito() == card.color.getMerito()) {
             if (this.valor.getNumero() > card.valor.getNumero()) {
                 return 1;

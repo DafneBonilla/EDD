@@ -11,17 +11,18 @@ import java.net.Socket;
 import WizardServidor.Estructuras.Lista;
 
 public class Proyecto1Servidor {
-    
+
     /* Imprime un mensaje de cómo usar el programa. */
     private static void uso() {
         System.out.println("Uso: java Wizard/Proyecto1Servidor #jugadores archivo.txt puerto");
         System.exit(0);
     }
-    
-    /** 
-     * Imprime y guarda los mensaje en el archivo. 
+
+    /**
+     * Imprime y guarda los mensaje en el archivo.
+     * 
      * @param mensaje el mensaje a imprimir y guardar.
-     * @param out el buffer de escritura.
+     * @param out     el buffer de escritura.
      */
     private static void enviarMensaje(String mensaje, BufferedWriter out) {
         System.out.println(mensaje);
@@ -66,7 +67,7 @@ public class Proyecto1Servidor {
                 jugadores.agregaFinal(jugador);
                 out.write("Bienvenido " + nombre + "!\n");
                 out.write("La partida comenzará en unos momentos...\n");
-                enviarMensaje("El jugador "+nombre+" ingreso.", archivo);
+                enviarMensaje("El jugador " + nombre + " ingreso.", archivo);
                 out.flush();
             }
             Partida partida = new Partida(numJugadores, args[1], jugadores, archivo);
@@ -80,6 +81,6 @@ public class Proyecto1Servidor {
         } catch (IOException ioe) {
             System.out.println("Error con el servidor/archivo. Abortando la ejecución.");
             System.exit(0);
-        }       
+        }
     }
 }

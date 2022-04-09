@@ -27,6 +27,8 @@ public class Partida {
     private Scanner sc;
     /* Seed de random. */
     private long seed;
+    /* El historial de la partida. */
+    private String log;
 
     /**
      * Define el estado inicial de una partida.
@@ -57,6 +59,7 @@ public class Partida {
                 break;
         }
         seed = System.currentTimeMillis();
+        log = "";
         mazo = new Baraja(seed);
         sigue = true;
         sc = new Scanner(System.in);
@@ -76,8 +79,9 @@ public class Partida {
             enviarMensaje("La partida va a empezar, todos listos :)");
             enviarMensaje("La seed del juego es " + seed);
             for (int i = 1; i <= numRondas; i++) {
-                Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
+                Ronda actual = new Ronda(jugadores, i, mazo, sc, out, log);
                 actual.iniciar();
+                log = actual.getLog();
                 if (i != numRondas) {
                     seguir();
                 }

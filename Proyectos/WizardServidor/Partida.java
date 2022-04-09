@@ -9,7 +9,7 @@ import java.util.Iterator;
  * Clase para representar una partida.
  */
 public class Partida {
-    
+
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
     /* Número de rondas. */
@@ -22,11 +22,14 @@ public class Partida {
     private BufferedWriter out;
     /* Seed de random. */
     private long seed;
+    /* El historial de la partida. */
+    private String log;
 
     /**
      * Define el estado inicial de una partida.
+     * 
      * @param numJugadores el número de jugadores.
-     * @param archivo el archivo a escribir.
+     * @param archivo      el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo, Lista<Jugador> jugadores, BufferedWriter out) {
         this.jugadores = jugadores;
@@ -61,11 +64,12 @@ public class Partida {
             enviarMensajeTodos("La partida va a empezar, todos listos :)");
             enviarMensajeTodos("La seed del juego es " + seed);
             for (int i = 1; i <= numRondas; i++) {
-                Ronda actual = new Ronda(jugadores, i, mazo, out);
-                actual.iniciar();  
+                Ronda actual = new Ronda(jugadores, i, mazo, out, log);
+                actual.iniciar();
+                log = actual.getLog();
                 if (i != numRondas) {
                     seguir();
-                } 
+                }
                 if (!sigue) {
                     break;
                 }
@@ -87,9 +91,10 @@ public class Partida {
             System.exit(0);
         }
     }
-    
+
     /**
      * Muestra los resultados de la partida y termina.
+     * 
      * @throws IOException si no se pudo cerrar correctamente.
      */
     private void finalizar() throws IOException {
@@ -99,17 +104,19 @@ public class Partida {
 
     /**
      * Imprime un mensaje a un usuario.
+     * 
      * @param jugador el jugador al que se le imprimirá el mensaje.
      * @param mensaje el mensaje a imprimir.
      * @throws JugadorInactivo si no se pudo imprimir el mensaje.
      */
     private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
         jugador.hablarJugador(mensaje);
-    }    
-    
+    }
+
     /**
-     * Imprime un mensaje a todos los usuarios y guarda 
+     * Imprime un mensaje a todos los usuarios y guarda
      * el mensaje en el archivo.
+     * 
      * @param mensaje el mensaje a imprimir y agregar.
      * @throws IOException si no se pudo imprimir o escribir en el archivo.
      */
@@ -127,6 +134,7 @@ public class Partida {
     /**
      * Muestra a todos los jugadores los resultados cuando un jugador
      * se deconecta.
+     * 
      * @param mensaje el mensaje a mostrar.
      * @throws IOException si hubo un error de entrada/salida.
      */
@@ -146,6 +154,7 @@ public class Partida {
     /**
      * Muestra a todos los jugadores los resultados cuando hubo
      * en error al escribir.
+     * 
      * @param mensaje el mensaje a mostrar.
      */
     private void enviarMensajeTodosErrorEscribir(String mensaje) {
@@ -161,6 +170,7 @@ public class Partida {
 
     /**
      * Muestra los resultados de la partida.
+     * 
      * @throws IOException si los resultados no se pudieron enviar.
      */
     private void resultados() throws IOException {
@@ -171,6 +181,7 @@ public class Partida {
 
     /**
      * Muestra los resultados de la partida cuando un jugador se deconecta.
+     * 
      * @throws IOException si los resultados no se pudieron enviar.
      */
     private void resultadosDesconecta() throws IOException {
@@ -180,9 +191,9 @@ public class Partida {
         enviarMensajeTodosDesconecta(resultados);
         System.exit(0);
     }
-    
+
     /**
-     * Muestra los resultados cuando hubo 
+     * Muestra los resultados cuando hubo
      * un error al escribir.
      */
     private void resultadosErrorEscribir() {
@@ -192,9 +203,10 @@ public class Partida {
         enviarMensajeTodosErrorEscribir(resultados);
         System.exit(0);
     }
-    
+
     /**
      * Calcula quien fue el ganador de la partida.
+     * 
      * @return una cadena con los datos del ganador.
      */
     private String ganador() {
@@ -203,6 +215,7 @@ public class Partida {
 
     /**
      * Calcula el jugador ganador.
+     * 
      * @param lista una lista con los jugadores.
      * @return una cadena con el ganador.
      */
@@ -223,13 +236,15 @@ public class Partida {
         if (empate) {
             winner = winner.substring(0, winner.length() - 2);
             winner += " y " + ganadorsito.getNombre();
-            return winner + " todos con " + punt  + " puntos.\n";
+            return winner + " todos con " + punt + " puntos.\n";
         }
-        return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion() + " puntos.\n";
+        return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion()
+                + " puntos.\n";
     }
 
     /**
      * Busca la puntación más alta de los jugadores.
+     * 
      * @param lista una lista con los jugadores.
      * @return la posición del jugador con mayor puntación.
      */
@@ -246,6 +261,7 @@ public class Partida {
 
     /**
      * Ayuda a si el juego va a seguir o se detendrá.
+     * 
      * @throws JugadorInactivo si un jugador se desconectó.
      */
     private void seguir() throws JugadorInactivo {
@@ -268,25 +284,26 @@ public class Partida {
 
     /**
      * Pregunta a cada jugar si quiere continuar jugando.
+     * 
      * @param jugador el jugador al que se le preguntará.
-     * @param si una lista con las respuestas de si.
-     * @param no una lista con las respuestas de no.
+     * @param si      una lista con las respuestas de si.
+     * @param no      una lista con las respuestas de no.
      * @throws JugadorInactivo si un jugador se desconectó.
      */
     private void pedirRespuesta(Jugador jugador, Lista<String> si, Lista<String> no) throws JugadorInactivo {
         enviarMensajeJugador(jugador, "¿Quieres seguir jugando? s/n");
         String respuesta = jugador.leerJugador();
         switch (respuesta) {
-        case "s":
-            si.add("si");
-            break;
-        case "n":
-            no.add("no");
-            break;
-        default:
-            enviarMensajeJugador(jugador, "Respuesta inválida.");
-            pedirRespuesta(jugador, si, no);
-            break;
+            case "s":
+                si.add("si");
+                break;
+            case "n":
+                no.add("no");
+                break;
+            default:
+                enviarMensajeJugador(jugador, "Respuesta inválida.");
+                pedirRespuesta(jugador, si, no);
+                break;
         }
     }
 }

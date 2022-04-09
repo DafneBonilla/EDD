@@ -8,7 +8,7 @@ import java.util.Random;
  * Clase para representar barajas. Serán listas de la clase {@link Carta}.
  */
 public class Baraja {
-    
+
     /* Lista de cartas. */
     private Lista<Carta> cartitas;
     /* Seed de random. */
@@ -26,6 +26,7 @@ public class Baraja {
      * Define el estado inical de una baraja, usando
      * una lista de carta. Usado para generar una copia
      * de una baraja.
+     * 
      * @param cartitas la lista de cartas
      */
     public Baraja(Lista<Carta> cartitas) {
@@ -36,6 +37,7 @@ public class Baraja {
     /**
      * Define el estado inicial de una baraja,
      * usando una seed.
+     * 
      * @param seed la semilla de la baraja.
      */
     public Baraja(long seed) {
@@ -63,34 +65,38 @@ public class Baraja {
 
     /**
      * Agrega una carta a la baraja.
+     * 
      * @param nueva la carta a agregar.
-     */ 
+     */
     public void agregaCarta(Carta nueva) {
         cartitas.add(nueva);
     }
-    
+
     /**
      * Saca una carta de la baraja.
+     * 
      * @param i el índice de la carta.
-     */ 
+     */
     public Carta sacaCarta(int i) {
         return cartitas.delete2(i);
     }
 
     /**
      * Checa una carta de la baraja.
+     * 
      * @param i el índice de la carta.
-     */ 
+     */
     public Carta checaCarta(int i) {
         return cartitas.buscarIndice(i);
     }
 
-
     /**
      * Regresa una representación en cadena de la baraja.
+     * 
      * @return una representación en cadena de la baraja.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         String datitos = "";
         if (cartitas.isEmpty()) {
             return datitos;
@@ -101,22 +107,23 @@ public class Baraja {
             datitos += " [" + contador + "] " + "\t" + iterator.next() + "\n";
             contador++;
         }
-	    return datitos.substring(0, datitos.length() - 2);
+        return datitos.substring(0, datitos.length() - 2);
     }
 
     /**
      * Regresa una representación en cadena de la baraja ordenada.
+     * 
      * @return una representación en cadena de la baraja ordenada.
      */
     public void ordenar() {
         Lista<Carta> orden = cartitas.mergeSort(
-            (card1, card2) -> card1.compareTo(card2)
-        );
+                (card1, card2) -> card1.compareTo(card2));
         this.cartitas = orden;
     }
 
     /**
      * Regresa el tamaño de la baraja.
+     * 
      * @return el tamaño de la bajara.
      */
     public int tamanio() {
@@ -127,6 +134,7 @@ public class Baraja {
      * Vuelve la baraja en un arreglo.
      * El arreglo que regresa puede ser aceptado por el método
      * {@link Baraja#volverBaraja}.
+     * 
      * @return un arreglo con las cartas de la baraja.
      */
     private Carta[] volverArreglo() {
@@ -141,6 +149,7 @@ public class Baraja {
      * Agrega todas las cartas de un arreglo a la baraja.
      * El arreglo que recibe debe ser del método
      * {@link Baraja#volverArreglo}.
+     * 
      * @param arreglo el arreglo con las cartas a agregar a la baraja.
      */
     private void volverBaraja(Carta[] arreglo) {
@@ -161,7 +170,9 @@ public class Baraja {
     /**
      * Auxiliar para devolver las cartas.
      * Algoritmo: Fisher–Yates shuffle
-     * Fuente: https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
+     * Fuente:
+     * https://www.geeksforgeeks.org/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
+     * 
      * @param arreglo el arreglo con las cartas a revolver.
      */
     private void shuffleAux(Carta[] array) {
@@ -177,7 +188,9 @@ public class Baraja {
 
     /**
      * Nos dice si la baraja está vacía.
-     * @return <code>true</code> si la baraja es vacia, <code>false</code> en caso contrario.
+     * 
+     * @return <code>true</code> si la baraja es vacia, <code>false</code> en caso
+     *         contrario.
      */
     public boolean esVacio() {
         return cartitas.isEmpty();
@@ -185,6 +198,7 @@ public class Baraja {
 
     /**
      * Regresa una copia de la baraja.
+     * 
      * @return una copia de la baraja.
      */
     public Baraja copia() {
@@ -193,6 +207,7 @@ public class Baraja {
 
     /**
      * Regresa la lista de cartas.
+     * 
      * @return la lista de cartas.
      */
     public Lista<Carta> getLista() {
