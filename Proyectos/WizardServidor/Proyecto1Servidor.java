@@ -66,11 +66,7 @@ public class Proyecto1Servidor {
                 Jugador jugador = new Jugador(nombre, out, socket);
                 jugadores.agregaFinal(jugador);
                 out.write("Bienvenido " + nombre + "!\n");
-<<<<<<< HEAD
-                out.write("La partida comenzara en unos momentos...\n");
-=======
                 out.write("La partida comenzará en unos momentos...\n");
->>>>>>> 01ccd52dee5b46cc27fd7a08af19310f40af7f02
                 enviarMensaje("El jugador " + nombre + " ingreso.", archivo);
                 out.flush();
             }

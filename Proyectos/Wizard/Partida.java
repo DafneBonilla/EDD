@@ -205,13 +205,18 @@ public class Partida {
      * Ayuda a saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
-        System.out.println("¿Quieres seguir jugando? s/n");
+        System.out.println("¿Quieres seguir jugando? s/n (presiona \"h\" para ver todo el historial del juego)");
         String respuesta = sc.nextLine();
         switch (respuesta) {
             case "s":
                 break;
             case "n":
                 sigue = false;
+                break;
+            case "h":
+                System.out.println("Historial:");    
+                System.out.println(log);
+                seguir();
                 break;
             default:
                 System.out.println("Respuesta inválida.");

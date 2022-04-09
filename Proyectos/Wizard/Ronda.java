@@ -138,7 +138,7 @@ public class Ronda {
      */
     private int validarTriunfo() {
         System.out.println(
-                "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
+                "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m (presiona \"h\" para ver todo el historial del juego)");
         String respuesta = sc.nextLine();
         try {
             int i = Integer.parseInt(respuesta);
@@ -146,7 +146,12 @@ public class Ronda {
                 throw new NumberFormatException();
             }
             return i;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
+            if (respuesta.equals("h")) {
+                System.out.println("Historial:");
+                System.out.println(log);
+                return validarTriunfo();
+            }
             System.out.println("No es un número válido");
             return validarTriunfo();
         }
@@ -162,7 +167,7 @@ public class Ronda {
             System.out.println("Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas.");
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
-            int ap = pedirApuesta(sc);
+            int ap = pedirApuesta(sc, jugador);
             jugador.setApuesta(ap);
             enviarMensaje("El jugador " + jugador.getNombre() + " ha apostado " + ap);
         }
@@ -172,21 +177,30 @@ public class Ronda {
      * Pide una apuesta al usuario.
      * 
      * @param sc el scanner para pedir datos.
+     * @param jugador el jugador al que se le pide la apuesta.
      * @return la apuesta del usuario.
      */
-    private int pedirApuesta(Scanner sc) {
-        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ")");
+    private int pedirApuesta(Scanner sc, Jugador jugador) {
+        System.out.println("Define tu apuesta (un número entre 0 y " + numRonda + ") (presiona \"h\" para ver todo el historial del juego)");
         String cadenita = sc.nextLine();
         try {
             int apuesta = Integer.parseInt(cadenita);
             if (apuesta < 0 || apuesta > numRonda) {
                 System.out.println("Apuesta inválida");
-                return pedirApuesta(sc);
+                return pedirApuesta(sc, jugador);
             }
             return apuesta;
         } catch (NumberFormatException nfe) {
-            System.out.println("No ingresaste un número.");
-            return pedirApuesta(sc);
+            if (cadenita.equals("h")) {
+                System.out.println("Historial:");
+                System.out.println(log);
+                System.out.println("Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas");
+                System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
+                System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
+                return pedirApuesta(sc, jugador);
+            }
+            System.out.println("No ingresaste un número");
+            return pedirApuesta(sc, jugador);
         }
     }
 

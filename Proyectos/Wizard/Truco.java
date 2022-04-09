@@ -117,14 +117,13 @@ public class Truco {
 
     /**
      * Revisa si el índice de la carta es válido.
-     * 
-     * @param sc      el mensaje a imprimir y agregar.
+     * @param sc el mensaje a imprimir y agregar.
      * @param jugador el mensaje a imprimir y agregar.
      * @return el índice de la carta.
      */
     private int validarCarta(Scanner sc, Jugador jugador) {
         System.out.println(
-                "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio() - 1) + ") de la carta a jugar");
+                "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio() - 1) + ") de la carta a jugar (presiona \"h\" para ver todo el historial del juego)");
         String cadenita = sc.nextLine();
         try {
             int i = Integer.parseInt(cadenita);
@@ -140,6 +139,15 @@ public class Truco {
                 return validarCarta(sc, jugador);
             }
         } catch (NumberFormatException nfe) {
+            if (cadenita.equals("h")) {
+                System.out.println("Historial:");
+                System.out.println(log);
+                System.out.println("Jugador " + jugador.getNombre() + " es tu turno de jugar una carta");
+                System.out.println("El palo líder es " + lider);
+                System.out.println("El palo de triunfo es " + triunfo);
+                System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
+                return validarCarta(sc, jugador);
+            }
             System.out.println("No ingresaste un número");
             return validarCarta(sc, jugador);
         }

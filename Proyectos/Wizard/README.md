@@ -1,6 +1,6 @@
 # Proyecto 1
 
-## Implementación de Wizard
+## Implementación de Wizard 🐧
 
 Equipo:
 
