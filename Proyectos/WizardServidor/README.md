@@ -42,8 +42,9 @@ Para iniciar el servidor, se debe escribir el número de jugadores, el nombre de
 
   `telnet <IP del host> puerto`
 
-  En este caso, se usa la IP de la computadora que inició el servidor (esto en teoría debería funcionar, pero debido a que el equipo no tiene la capacidad y conocimientos suficiente para hacerlo, no pudimos probrarlo, se intentó, pero no se logró, los routers son muy poderosos). Después, una vez que los jugadores están conectados, se inicia el juego.
+  En este caso, se usa la IP de la computadora que inició el servidor (esto en teoría debería funcionar, pero debido a que el equipo no tiene la capacidad y conocimientos suficiente para hacerlo, no pudimos probrarlo, se intentó, pero no se logró, los routers son muy poderosos).
 
+Una vez que los jugadores están conectados, se inicia el juego.
 Cada jugador recibirá un mensaje de lo que sucede en el juego a través de su terminal. Al final de cada ronda se hace una votación para ver si el juego sigue o no. Cuando el juego termine, a cada jugador se le enviará un mensaje de texto indicando si fue ganador o no. Finalmente, todos los jugadores serán desconectados del servidor. Cada vez que se le pide algo a un jugador (texto) este tendra la oportunidad de escribir "h" para recibir todo el historial del juego (se recomienda precaucion, ya que el historial puede llegar a ser muy extenso).
 
 ### Aclaración
