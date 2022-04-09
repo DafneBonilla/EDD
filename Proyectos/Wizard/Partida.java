@@ -12,7 +12,7 @@ import java.io.OutputStreamWriter;
  * Clase para representar una partida.
  */
 public class Partida {
-    
+
     /* Lista de jugadores. */
     private Lista<Jugador> jugadores;
     /* Número de rondas. */
@@ -27,11 +27,14 @@ public class Partida {
     private Scanner sc;
     /* Seed de random. */
     private long seed;
+    /* El historial de la partida. */
+    private String log;
 
     /**
      * Define el estado inicial de una partida.
+     * 
      * @param numJugadores el número de jugadores.
-     * @param archivo el archivo a escribir.
+     * @param archivo      el archivo a escribir.
      */
     public Partida(int numJugadores, String archivo) {
         jugadores = new Lista<>();
@@ -56,13 +59,14 @@ public class Partida {
                 break;
         }
         seed = System.currentTimeMillis();
+        log = "";
         mazo = new Baraja(seed);
         sigue = true;
         sc = new Scanner(System.in);
         try {
             out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo)));
-        } catch (FileNotFoundException e) {
-            System.out.println("No se pudo abrir el archivo, abortando la ejecución.");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("No se pudo abrir el archivo, abortando la ejecución...");
             System.exit(0);
         }
     }
@@ -75,15 +79,15 @@ public class Partida {
             enviarMensaje("La partida va a empezar, todos listos :)");
             enviarMensaje("La seed del juego es " + seed);
             for (int i = 1; i <= numRondas; i++) {
-                Ronda actual = new Ronda(jugadores, i, mazo, sc, out);
-                actual.iniciar();  
+                Ronda actual = new Ronda(jugadores, i, mazo, sc, out, log);
+                actual.iniciar();
+                log = actual.getLog();
                 if (i != numRondas) {
                     seguir();
-                } 
+                }
                 if (!sigue) {
                     break;
                 }
-            resultados();
             }
         } catch (IOException ioe) {
             System.out.println("Hubo un problema al escribir en el archivo, el juego se terminará.");
@@ -91,27 +95,39 @@ public class Partida {
             System.exit(0);
         }
         try {
-            out.close();
-        } catch (IOException e) {
-            System.out.println("No se pudo cerrar el archivo, abortando la ejecución.");
+            finalizar();
+        } catch (IOException ioe) {
+            System.out.println("No se pudo cerrar el archivo, abortando la ejecución...");
             System.exit(0);
         }
     }
 
     /**
-     * Imprime un mensaje al usuario y guarda el mensaje 
+     * Muestra los resultados de la partida y termina.
+     * 
+     * @throws IOException si no se pudo cerrar correctamente.
+     */
+    private void finalizar() throws IOException {
+        resultados();
+        out.close();
+    }
+
+    /**
+     * Imprime un mensaje al usuario y guarda el mensaje
      * en el archivo.
+     * 
      * @param mensaje el mensaje a imprimir y agregar.
      * @throws IOException si hubo un problema al escribir en el archivo.
      */
     private void enviarMensaje(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
     }
 
     /**
      * Muesta los resultados de la partida.
+     * 
      * @throws IOException si hubo un problema al escribir en el archivo.
      */
     private void resultados() throws IOException {
@@ -121,7 +137,8 @@ public class Partida {
     }
 
     /**
-     * Muesta los resultados de la partida si hubo un problema al escribir en el archivo.
+     * Muesta los resultados de la partida si hubo un problema al escribir en el
+     * archivo.
      */
     private void resultados2() {
         String resultados = "Ahora se anunciará al ganador del juego...\n\n";
@@ -131,6 +148,7 @@ public class Partida {
 
     /**
      * Calcula quién fue el ganador de la partida.
+     * 
      * @return una cadena con los datos del ganador.
      */
     private String ganador() {
@@ -138,7 +156,8 @@ public class Partida {
     }
 
     /**
-     * Ayuda a calcular el ganador.
+     * Calcula el jugador ganador.
+     * 
      * @param lista una lista con los jugadores.
      * @return una cadena con el ganador.
      */
@@ -159,13 +178,15 @@ public class Partida {
         if (empate) {
             winner = winner.substring(0, winner.length() - 2);
             winner += " y " + ganadorsito.getNombre();
-            return winner + " todos con " + punt  + " puntos.\n";
+            return winner + " todos con " + punt + " puntos.\n";
         }
-        return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion() + " puntos.\n";
+        return "El ganador es el Jugador " + ganadorsito.getNombre() + " con " + ganadorsito.getPuntuacion()
+                + " puntos.\n";
     }
 
     /**
      * Busca la puntación más alta de los jugadores.
+     * 
      * @param lista una lista con los jugadores.
      * @return la posición del jugador con mayor puntación.
      */
@@ -181,7 +202,7 @@ public class Partida {
     }
 
     /**
-     * Saber si el juego va a seguir o se detendrá.
+     * Ayuda a saber si el juego va a seguir o se detendrá.
      */
     private void seguir() {
         System.out.println("¿Quieres seguir jugando? s/n");

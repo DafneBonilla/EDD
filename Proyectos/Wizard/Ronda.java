@@ -24,16 +24,19 @@ public class Ronda {
     private Scanner sc;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
+    /* El historial de la partida. */
+    private String log;
 
     /**
      * Define el estado inicial de una ronda.
+     * 
      * @param jugadores la lista de jugadores.
-     * @param numRonda el número de la ronda actual.
-     * @param mazo la baraja principal.
-     * @param sc el scanner para comunicación con el usuario.
-     * @param out la manera de escribir en el archivo.
+     * @param numRonda  el número de la ronda actual.
+     * @param mazo      la baraja principal.
+     * @param sc        el scanner para comunicación con el usuario.
+     * @param out       la manera de escribir en el archivo.
      */
-    public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, Scanner sc, BufferedWriter out) {
+    public Ronda(Lista<Jugador> jugadores, int numRonda, Baraja mazo, Scanner sc, BufferedWriter out, String log) {
         this.jugadores = jugadores;
         this.numRonda = numRonda;
         this.numTrucos = numRonda;
@@ -41,10 +44,12 @@ public class Ronda {
         this.mazo = mazo;
         this.sc = sc;
         this.out = out;
+        this.log = log;
     }
 
     /**
      * Comienza la ronda.
+     * 
      * @throws IOException si hay un error de entrada/salida.
      */
     public void iniciar() throws IOException {
@@ -54,8 +59,9 @@ public class Ronda {
         defineTriunfo();
         defineApuestas();
         for (int i = 1; i <= numTrucos; i++) {
-            Truco actual = new Truco(jugadores, mazo, triunfo, sc, out);
+            Truco actual = new Truco(jugadores, mazo, triunfo, sc, out, log);
             actual.iniciar();
+            log = actual.getLog();
         }
         verPuntuacion();
         enviarMensaje("Las puntaciones se ven así...");
@@ -67,10 +73,11 @@ public class Ronda {
     /**
      * Imprime un mensaje al usuario y guarda el mensaje
      * en el archivo.
+     * 
      * @param mensaje el mensaje a imprimir y agregar.
      */
     private void enviarMensaje(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
     }
@@ -89,6 +96,8 @@ public class Ronda {
 
     /**
      * Define la carta de triunfo de la ronda.
+     * 
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineTriunfo() throws IOException {
         if (!mazo.esVacio()) {
@@ -124,10 +133,12 @@ public class Ronda {
 
     /**
      * Valida que el palo de triunfo sea válido.
+     * 
      * @return el número del palo de triunfo.
      */
     private int validarTriunfo() {
-        System.out.println("Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
+        System.out.println(
+                "Escribe el número del palo de triunfo \n 1 para \u001B[91mrojo\u001B[0m \n 2 para \u001B[94mazul\u001B[0m \n 3 para \u001B[93mamarillo\u001B[0m \n 4 para \u001B[92mverde\u001B[0m");
         String respuesta = sc.nextLine();
         try {
             int i = Integer.parseInt(respuesta);
@@ -143,11 +154,12 @@ public class Ronda {
 
     /**
      * Define las apuestas de los jugadores.
-     * @throws IOException si hay un error de entrada/salida.
+     * 
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineApuestas() throws IOException {
         for (Jugador jugador : jugadores) {
-            System.out.println("Jugador "+ jugador.getNombre() + " es tu turno de ver tus cartas.");
+            System.out.println("Jugador " + jugador.getNombre() + " es tu turno de ver tus cartas.");
             System.out.println("Tu mano actual es\n" + jugador.verBarajaOrdenada());
             System.out.println("\nEl palo de triunfo es " + triunfo + "\n");
             int ap = pedirApuesta(sc);
@@ -158,6 +170,7 @@ public class Ronda {
 
     /**
      * Pide una apuesta al usuario.
+     * 
      * @param sc el scanner para pedir datos.
      * @return la apuesta del usuario.
      */
@@ -171,7 +184,7 @@ public class Ronda {
                 return pedirApuesta(sc);
             }
             return apuesta;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             System.out.println("No ingresaste un número.");
             return pedirApuesta(sc);
         }
@@ -185,7 +198,7 @@ public class Ronda {
         for (Jugador jugador : jugadores) {
             if (jugador.getApuesta() == jugador.getGanados()) {
                 int punt = jugador.getPuntuacion();
-                punt += 20 + 10*jugador.getGanados();
+                punt += 20 + 10 * jugador.getGanados();
                 jugador.setPuntuacion(punt);
             } else {
                 int gan = jugador.getGanados();
@@ -193,12 +206,12 @@ public class Ronda {
                 if (gan > ap) {
                     int diferencia = gan - ap;
                     int punt = jugador.getPuntuacion();
-                    punt -= diferencia*10;
+                    punt -= diferencia * 10;
                     jugador.setPuntuacion(punt);
                 } else {
                     int diferencia = ap - gan;
                     int punt = jugador.getPuntuacion();
-                    punt -= diferencia*10;
+                    punt -= diferencia * 10;
                     jugador.setPuntuacion(punt);
                 }
             }
@@ -206,5 +219,13 @@ public class Ronda {
             jugador.setGanados(0);
         }
     }
-    
+
+    /**
+     * Regresa el historial de la partida.
+     * 
+     * @return el historial de la partida.
+     */
+    public String getLog() {
+        return log;
+    }
 }

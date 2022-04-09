@@ -22,31 +22,37 @@ public class Truco {
     private Lista<Carta> jugadas;
     /* Manera de escribir en el archivo. */
     private BufferedWriter out;
-    
+    /* El historial de la partida. */
+    private String log;
+
     /**
      * Define el estado inicial de una ronda.
+     * 
      * @param jugadores la lista de jugadores.
-     * @param log la cadena del historial del juego.
-     * @param mazo la baraja principal.
+     * @param log       la cadena del historial del juego.
+     * @param mazo      la baraja principal.
      */
-    public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, BufferedWriter out) {
+    public Truco(Lista<Jugador> jugadores, Baraja mazo, Color triunfo, BufferedWriter out, String log) {
         this.jugadores = jugadores;
         this.triunfo = triunfo;
         this.lider = new Color(-1);
         this.mazo = mazo;
         this.jugadas = new Lista<>();
         this.out = out;
+        this.log = log;
     }
 
     /**
      * Comienza el truco.
+     * 
+     * @throws IOException si hubo un error de entrada/salida.
      */
     public void iniciar() throws IOException {
         enviarMensajeTodos("El truco va a empezar");
         for (Jugador jugador : jugadores) {
-            enviarMensajeJugador(jugador, "Jugador "+ jugador.getNombre() + " es tu turno de jugar una carta");
+            enviarMensajeJugador(jugador, "Jugador " + jugador.getNombre() + " es tu turno de jugar una carta");
             enviarMensajeJugador(jugador, "El palo líder es " + lider);
-            enviarMensajeJugador(jugador, "El palo de triunfo es "+ triunfo);
+            enviarMensajeJugador(jugador, "El palo de triunfo es " + triunfo);
             enviarMensajeJugador(jugador, "Tu mano actual es\n" + jugador.verBarajaOrdenada());
             int indice = validarCarta(jugador);
             Carta cartita = recibeCarta(jugador, indice);
@@ -64,14 +70,27 @@ public class Truco {
         }
         actualizarLista(ganador);
     }
-    
+
     /**
-     * Imprime un mensaje a todos los usuarios y guarda 
+     * Imprime un mensaje a un usuario.
+     * 
+     * @param jugador el jugador al que se le imprimirá el mensaje.
+     * @param mensaje el mensaje a imprimir.
+     * @throws JugadorInactivo si no se pudo imprimir el mensaje.
+     */
+    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
+        jugador.hablarJugador(mensaje);
+    }
+
+    /**
+     * Imprime un mensaje a todos los usuarios y guarda
      * el mensaje en el archivo.
+     * 
      * @param mensaje el mensaje a imprimir y agregar.
+     * @throws IOException si no se pudo imprimir o escribir en el archivo.
      */
     private void enviarMensajeTodos(String mensaje) throws IOException {
-        System.out.println(mensaje+"\n");
+        System.out.println(mensaje + "\n");
         out.write(mensaje);
         out.newLine();
         Iterator<Jugador> iterator = jugadores.iterator();
@@ -81,13 +100,11 @@ public class Truco {
         }
     }
 
-    private void enviarMensajeJugador(Jugador jugador, String mensaje) throws JugadorInactivo {
-        jugador.hablarJugador(mensaje);
-    }
-
     /**
-     * Define el color lider.
-     * @param carta la carta con el color lider.
+     * Define el color líder.
+     * 
+     * @param carta la carta con el color líder.
+     * @throws IOException si hubo un error de entrada/salida.
      */
     private void defineLider(Carta carta) throws IOException {
         if (lider.getMerito() == -1) {
@@ -101,23 +118,29 @@ public class Truco {
 
     /**
      * Saca una carta de la mano del jugador.
+     * 
+     * @param jugador el jugador que saca la carta.
+     * @param indice  el índice de la carta.
      * @return la carta sacada.
      */
     private Carta recibeCarta(Jugador jugador, int i) {
         return jugador.sacaCarta(i);
     }
-    
+
     /**
      * Revisa si el índice de la carta es válido.
-     * @param sc el mensaje a imprimir y agregar.
+     * 
      * @param jugador el mensaje a imprimir y agregar.
+     * @return el índice de la carta.
+     * @throws JugadorInactivo si el jugador se desconectó.
      */
     private int validarCarta(Jugador jugador) throws JugadorInactivo {
-        enviarMensajeJugador(jugador, "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio()-1) +") de la carta a jugar");
+        enviarMensajeJugador(jugador,
+                "Ingresa el número (entre 0 y " + (jugador.getBaraja().tamanio() - 1) + ") de la carta a jugar");
         String cadenita = jugador.leerJugador();
         try {
             int i = Integer.parseInt(cadenita);
-            if (i < 0 || i > (jugador.getBaraja().tamanio()-1)) {
+            if (i < 0 || i > (jugador.getBaraja().tamanio() - 1)) {
                 enviarMensajeJugador(jugador, "Número inválido");
                 return validarCarta(jugador);
             }
@@ -128,7 +151,7 @@ public class Truco {
                 enviarMensajeJugador(jugador, "Carta inválida, debes jugar otra carta");
                 return validarCarta(jugador);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             enviarMensajeJugador(jugador, "No ingresaste un número");
             return validarCarta(jugador);
         }
@@ -136,10 +159,12 @@ public class Truco {
 
     /**
      * Revisa si la carta es legal para jugarla.
-     * @param carta la carta a revisar.
+     * 
+     * @param carta  la carta a revisar.
      * @param baraja la baraja del jugador.
-     * @param i el índice de la carta.
-     * @return <code>true</code> si la carta es legal, <code>false</code> en caso contrario.
+     * @param i      el índice de la carta.
+     * @return <code>true</code> si la carta es legal, <code>false</code> en caso
+     *         contrario.
      */
     private boolean cartaLegal(Carta carta, Baraja mano, int i) {
         mano.sacaCarta(i);
@@ -165,6 +190,7 @@ public class Truco {
 
     /**
      * Revisa cual es la carta ganadora del truco.
+     * 
      * @return el índice del jugador ganador.
      */
     private int cartaGanadora() {
@@ -189,7 +215,8 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó un mago.
-     * @return el índice del primer jugador que jugo un mago.
+     * 
+     * @return el índice del primer jugador que jugó un mago.
      */
     private int jugoMago() {
         for (Carta cartita : jugadas) {
@@ -202,7 +229,9 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó una carta con el palo de triunfo.
-     * @return el índice del primer jugador que jugo una carta con el plao de triunfo.
+     * 
+     * @return el índice del primer jugador que jugó una carta con el palo de
+     *         triunfo.
      */
     private int altaTriunfo() {
         int comparar = 0;
@@ -219,8 +248,9 @@ public class Truco {
     }
 
     /**
-     * Revisa si un jugador jugó una carta con el palo lider.
-     * @return el índice del primer jugador que jugo una carta con el palo lider.
+     * Revisa si un jugador jugó una carta con el palo líder.
+     * 
+     * @return el índice del primer jugador que jugó una carta con el palo líder.
      */
     private int altaLider() {
         int comparar = 0;
@@ -238,7 +268,8 @@ public class Truco {
 
     /**
      * Revisa si un jugador jugó un bufón.
-     * @return el índice del primer jugador que jugo un bufón.
+     * 
+     * @return el índice del primer jugador que jugó un bufón.
      */
     private int bufon() {
         for (Carta cartita : jugadas) {
@@ -251,6 +282,7 @@ public class Truco {
 
     /**
      * Actualiza el orden de jugadores.
+     * 
      * @param i el índice del ganador del truco.
      */
     private void actualizarLista(int i) {
@@ -258,5 +290,14 @@ public class Truco {
             Jugador ajustando = jugadores.delete2(0);
             jugadores.agregaFinal(ajustando);
         }
+    }
+
+    /**
+     * Regresa el historial de la partida.
+     * 
+     * @return el historial de la partida.
+     */
+    public String getLog() {
+        return log;
     }
 }

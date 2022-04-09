@@ -1,16 +1,17 @@
 package WizardServidor;
 
 /**
- * Clase para representar valores de cartas. Un valor tiene numero.
- * Numero sera un numero entre 0 y 14.
+ * Clase para representar valores de cartas. Un valor tiene número.
+ * Número será un número entre 0 y 14.
  */
 public class Valor {
-    
-    /* NUmero del valor. */
+
+    /* Número del valor. */
     private int numero;
 
     /**
      * Define el estado inicial de un valor.
+     * 
      * @param numero el merito del valor.
      */
     public Valor(int numero) {
@@ -18,8 +19,9 @@ public class Valor {
     }
 
     /**
-     * Regresa el numero del valor.
-     * @return el numero del valor.
+     * Regresa el número del valor.
+     * 
+     * @return el número del valor.
      */
     public int getNumero() {
         return numero;
@@ -27,9 +29,11 @@ public class Valor {
 
     /**
      * Regresa una representación en cadena del valor.
+     * 
      * @return una representación en cadena del valor.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         switch (numero) {
             case 0:
                 return "J";
@@ -69,19 +73,20 @@ public class Valor {
     /**
      * Nos dice si el objeto recibido es un valor igual al que manda llamar
      * el método.
+     * 
      * @param objeto el objeto con el que el valor se comparará.
      * @return <code>true</code> si el objeto recibido es un color con las
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
-    @Override public boolean equals(Object objeto) {
+    @Override
+    public boolean equals(Object objeto) {
         if (!(objeto instanceof Valor))
             return false;
-        Valor valorcito = (Valor)objeto;
-        if (!(this.numero == valorcito.numero)){
+        Valor valorcito = (Valor) objeto;
+        if (!(this.numero == valorcito.numero)) {
             return false;
         }
         return true;
     }
-
 }
