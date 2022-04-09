@@ -1,0 +1,56 @@
+El servidor está andando
+Esperando jugadores...
+El jugador Dafne ingreso.
+El jugador Camilo ingreso.
+El jugador Choco ingreso.
+Jugadores conectados. Iniciando partida...
+La partida va a empezar, todos listos :)
+La seed del juego es 1649547965642
+La ronda 1 va a empezar
+El palo de triunfo es no hay
+El jugador Dafne ha apostado 0
+El jugador Camilo ha apostado 0
+El jugador Choco ha apostado 1
+El truco va a empezar
+El jugador Dafne jugó la carta Un [94m12[0m de color [94m[94mazul[0m [0m 
+El palo líder es [94mazul[0m 
+El jugador Camilo jugó la carta Un [93m6[0m de color [93m[93mamarillo[0m [0m 
+El jugador Choco jugó la carta Un [94m13[0m de color [94m[94mazul[0m [0m 
+El jugador Choco gana el truco
+Las puntaciones se ven así...
+
+El jugador Choco tiene 30 puntos
+
+El jugador Dafne tiene 20 puntos
+
+El jugador Camilo tiene 20 puntos
+
+La ronda 2 va a empezar
+El palo de triunfo es [92mverde[0m 
+El jugador Choco ha apostado 0
+El jugador Dafne ha apostado 1
+El jugador Camilo ha apostado 1
+El truco va a empezar
+El jugador Choco jugó la carta Un [93m6[0m de color [93m[93mamarillo[0m [0m 
+El palo líder es [93mamarillo[0m 
+El jugador Dafne jugó la carta Un [92m4[0m de color [92m[92mverde[0m [0m 
+El jugador Camilo jugó la carta Un [93m2[0m de color [93m[93mamarillo[0m [0m 
+El jugador Dafne gana el truco
+El truco va a empezar
+El jugador Dafne jugó la carta Un [91m9[0m de color [91m[91mrojo[0m [0m 
+El palo líder es [91mrojo[0m 
+El jugador Camilo jugó la carta Un [94m5[0m de color [94m[94mazul[0m [0m 
+El jugador Choco jugó la carta Un [92m12[0m de color [92m[92mverde[0m [0m 
+El jugador Choco gana el truco
+Las puntaciones se ven así...
+
+El jugador Choco tiene 20 puntos
+
+El jugador Dafne tiene 50 puntos
+
+El jugador Camilo tiene 10 puntos
+
+Ahora se anunciará al ganador del juego...
+
+El ganador es el Jugador Dafne con 50 puntos
+

@@ -52,6 +52,7 @@ public class Partida {
         }
         seed = System.currentTimeMillis();
         mazo = new Baraja(seed);
+        log = "";
         sigue = true;
         this.out = out;
     }
