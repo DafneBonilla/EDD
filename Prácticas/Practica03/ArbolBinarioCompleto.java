@@ -1,4 +1,3 @@
-package edd.src.Estructuras;
 
 import java.util.NoSuchElementException;
 import java.util.Iterator;
@@ -7,8 +6,6 @@ import java.util.Iterator;
  * <p>
  * Clase para árboles binarios completos.
  * </p>
- *
- * <p>
  * Un árbol binario completo agrega y elimina elementos de tal forma que el
  * árbol siempre es lo más cercano posible a estar lleno.
  * </p>
@@ -66,7 +63,6 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     /**
      * Agrega un elemento al árbol binario completo. El nuevo elemento se coloca
      * a la derecha del último nivel, o a la izquierda de un nuevo nivel.
-     * 
      * @param elemento el elemento a agregar al árbol.
      * @throws IllegalArgumentException si <code>elemento</code> es
      *                                  <code>null</code>.
@@ -137,6 +133,12 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         return new Iterador();
     }
 
+    @Override public T pop() {
+        return null;
+    }
 
+    @Override public boolean delete(T elemento) {
+        return false;
+    }
 
 }

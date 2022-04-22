@@ -1,4 +1,3 @@
-package edd.src.Estructuras;
 
 import java.util.NoSuchElementException;
 import java.util.Comparator;
@@ -107,9 +106,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
 
         /**
          * Regresa la altura del vértice.
-         * 
          * @return la altura del vértice.
-         * 
          * Hay que probar. 
          */
         @Override public int altura() {

@@ -1,26 +1,48 @@
-package edd.src.Estructuras;
-
 import java.util.NoSuchElementException;
 
+/**
+ * <p>Clase abstracta para colas y pilas genéricas.</p>
+ * @param <T> El tipo de los elementos de la lista.
+ */
 public abstract class PushPop<T> {
-    // Clase Nodo
+
+    /* Clase protegida interna para nodos. */
     protected class Nodo {
+        /* Elemento del nodo. */
         public T elemento;
+        /* Nodo siguente. */
         public Nodo siguiente;
 
+        /* Constructor de nodos para la lista */
         public Nodo(T elemento) {
             this.elemento = elemento;
         }
     }
 
+    /* Primer nodo del PushPop. */
     protected Nodo cabeza;
+    /* Último nodo del PushPop. */
     protected Nodo ultimo;
+    /* Entero que es la cantidad de elementos en el PushPop. */
     protected int longi;
 
+    /**
+     * Agrega un elemento al final o principio del PushPop. Si el PushPop no tiene elementos,
+     * el elemento a agregar será el primero y el último.
+     * @param elemento el elemento a agregar.
+     * @throws IllegalArgumentException si <code>elemento</code> es
+     *         <code>null</code>.
+     */
     public abstract void push(T elemento);
 
-    // Eliminar al inicio. 
-    public T pop(){
+    /**
+     * Elimina el primer elemento del PushPop. Y lo regresa.
+     * @param elemento el elemento a eliminar.
+     * @return el elemento eliminado.
+     * @throws NoSuchElementException si <code>elemento</code> es
+     *         <code>null</code> o si es vacía.
+     */
+    public T pop() {
         if (longi == 0 || cabeza == null) {
             throw new NoSuchElementException("");
         }
@@ -36,17 +58,19 @@ public abstract class PushPop<T> {
         return valor;
     }
 
-
-    public T peek(){
-        if (isEmpty()) {
+    /**
+     * Regresa el elemento de la cabeza.
+     * @return el elemento de la cabeza.
+     * @throws NoSuchElementException si es vacía.
+     */
+    public T peek() {
+        if (isEmpty()) 
             throw new NoSuchElementException("");
-        }
         return cabeza.elemento;
     } 
 
     /**
      * Regresa el número de elementos en la estructura.
-     * 
      * @return el número de elementos en la estructura.
      */
     public int size() {
@@ -55,7 +79,6 @@ public abstract class PushPop<T> {
 
     /**
      * Vacía la estructura.
-     * 
      */
     public void empty() {
         cabeza = ultimo = null;
@@ -64,7 +87,6 @@ public abstract class PushPop<T> {
 
     /**
      * Nos dice si la estructura es vacía.
-     * 
      * @return <code>true</code> si la estructura es vacía, <code>false</code> en
      *         otro caso.
      */
@@ -74,7 +96,6 @@ public abstract class PushPop<T> {
 
     /**
      * Regresa un clon de la estructura.
-     * 
      * @return un clon de la estructura.
      */
     public abstract PushPop<T> clone() ;
@@ -105,7 +126,4 @@ public abstract class PushPop<T> {
         }  
         return true;
     }
-
-
-
 }

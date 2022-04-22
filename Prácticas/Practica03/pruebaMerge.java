@@ -1,5 +1,3 @@
-package edd.src.Estructuras;
-
 import java.util.Comparator;
 
 public class pruebaMerge {
