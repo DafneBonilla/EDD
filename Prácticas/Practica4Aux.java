@@ -112,14 +112,35 @@ public class Practica4Aux {
         if (sumaRaraAux(primos, s, n, respuestas) == true) {
             respuestas.sort((a, b) -> a - b);
             int cont = 1;
+            System.out.print("Los primos son: ");
+            for (Integer i : respuestas) {
+                if (cont <= n) {
+                    System.out.print(i + ", ");
+                    cont++;
+                }
+            }
+            System.out.print("\n");
+        } else {
+            System.out.println("No hay solucion");
+        }
+    }
+
+    private static void sumaRaraSinRepetir(int n, int p, int s) {
+        List<Integer> primos = PrimosMayores(p, s);
+        List<Integer> respuestas = new ArrayList<Integer>();
+        if (sumaRaraSinRepetirAux(primos, s, n, respuestas) == true) {
+            respuestas.sort((a, b) -> a - b);
+            int cont = 1;
+            System.out.print("Los primos son: ");
             for (Integer i : respuestas) {
                 if (cont <= n) {
                     System.out.print(i + " ");
                     cont++;
                 }
             }
+            System.out.print("\n");
         } else {
-            System.out.println("No hay solucion");
+            System.out.println("No hay solución");
         }
     }
 
@@ -140,34 +161,6 @@ public class Practica4Aux {
         return false;
     }
 
-    private static boolean checar(List<Integer> respuestas, int s) {
-        int total = 0;
-        for (Integer i : respuestas) {
-            total += i;
-        }
-        if (total == s) {
-            return true;
-        }
-        return false;
-    }
-
-    private static void sumaRaraSinRepetir(int n, int p, int s) {
-        List<Integer> primos = PrimosMayores(p, s);
-        List<Integer> respuestas = new ArrayList<Integer>();
-        if (sumaRaraSinRepetirAux(primos, s, n, respuestas) == true) {
-            respuestas.sort((a, b) -> a - b);
-            int cont = 1;
-            for (Integer i : respuestas) {
-                if (cont <= n) {
-                    System.out.print(i + " ");
-                    cont++;
-                }
-            }
-        } else {
-            System.out.println("No hay solución");
-        }
-    }
-
     private static boolean sumaRaraSinRepetirAux(List<Integer> primos, int s, int n, List<Integer> respuestas) {
         if (n <= respuestas.size()) {
             if (checar(respuestas, s)) {
@@ -176,13 +169,25 @@ public class Practica4Aux {
             return false;
         }
         for (int i = 0; i < primos.size(); i++) {
-            respuestas.add(primos.get(i));
-            primos.remove(i);
+            Integer numero = primos.get(i);
+            respuestas.add(numero);
+            primos.remove(numero);
             if (sumaRaraSinRepetirAux(primos, s, n, respuestas)) {
                 return true;
             }
-            primos.add(respuestas.get(respuestas.size() - 1));
-            respuestas.remove(respuestas.size() - 1);
+            primos.add(i, numero);
+            respuestas.remove(numero);
+        }
+        return false;
+    }
+
+    private static boolean checar(List<Integer> respuestas, int s) {
+        int total = 0;
+        for (Integer i : respuestas) {
+            total += i;
+        }
+        if (total == s) {
+            return true;
         }
         return false;
     }
@@ -225,5 +230,10 @@ public class Practica4Aux {
     public static void main(String[] args) {
 
         sumaRara(2, 7, 28);
+        sumaRara(3, 2, 23);
+        System.out.println();
+        sumaRaraSinRepetir(2, 7, 28);
+        sumaRaraSinRepetir(3, 2, 23);
+
     }
 }

@@ -109,12 +109,14 @@ public class Practica3 {
         if (sumaRaraSinRepetirAux(primos, S, N, respuestas) == true) {
             respuestas.mergeSort((a, b) -> a - b);
             int cont = 1;
+            System.out.print("Los primos son: ");
             for (Integer i : respuestas) {
                 if (cont <= N) {
                     System.out.print(i + " ");
                     cont++;
                 }
             }
+            System.out.print("\n");
         } else {
             System.out.println("No hay solución");
         }
@@ -172,13 +174,14 @@ public class Practica3 {
             return false;
         }
         for (int i = 0; i < primos.size(); i++) {
-            respuestas.add(primos.buscarIndice(i));
-            primos.delete2(i);
+            Integer numero = primos.buscarIndice(i);
+            respuestas.add(numero);
+            primos.delete(numero);
             if (sumaRaraSinRepetirAux(primos, s, n, respuestas)) {
                 return true;
             }
-            primos.add(respuestas.buscarIndice(respuestas.size() - 1));
-            respuestas.delete2(respuestas.size() - 1);
+            primos.insert(i, numero);
+            respuestas.delete(numero);
         }
         return false;
     }
@@ -353,7 +356,7 @@ public class Practica3 {
         // permutacionesCadena("pato");
 
         // pruebas de primos
-        // primosQueSuman(28, 7, 2); // sale mal
+        // primosQueSuman(28, 7, 2);
         // primosQueSuman(23, 2, 3);
 
         // pruebas de reinas
