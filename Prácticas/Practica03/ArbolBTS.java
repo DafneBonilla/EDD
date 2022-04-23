@@ -1,23 +1,26 @@
+import java.util.Iterator;
+
 /*
 Integrantes:
 Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
-import java.util.Iterator;
 
-public class ArbolBTS<T> extends ArbolBinarioCompleto<T> {
+public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
 
-    public BuildUnsorted(Lista<T> lista) {
-        
-    }
-    
-    public BuildSorted(Lista<T> lista) {
-
-    }
-
-    public convertBTS(ArbolBinario<T> arbol) {
-
-    }
+    /*
+     * public BuildUnsorted(Lista<T> lista) {
+     * 
+     * }
+     * 
+     * public BuildSorted(Lista<T> lista) {
+     * 
+     * }
+     * 
+     * public convertBTS(ArbolBinario<T> arbol) {
+     * 
+     * }
+     */
 
     public boolean search(Vertice raiz, T elemento) {
         if (raiz == null) {
@@ -51,37 +54,54 @@ public class ArbolBTS<T> extends ArbolBinarioCompleto<T> {
         return null;
     }
 
-    //ignora repetidos
-    public void insert(Vertice raiz, T elemento) {
+    // ignora repetidos
+    @Override
+    public void add(T elemento) {
         if (raiz == null) {
             raiz = new Vertice(elemento);
         }
-        agregaAux(raiz, elemento);
+        insert(raiz, elemento);
+
     }
-    
-    private void agregaAux(Vertice raiz, T u) {
+
+    private void insert(Vertice raiz, T u) {
         if (u.compareTo(raiz.elemento) < 0) {
             if (raiz.izquierdo == null) {
                 raiz.izquierdo = new Vertice(u);
             } else {
-                agregaAux(raiz.izquierdo, u);
+                insert(raiz.izquierdo, u);
             }
         }
         if (u.compareTo(raiz.elemento) > 0) {
             if (raiz.derecho == null) {
                 raiz.derecho = new Vertice(u);
             } else {
-                agregaAux(raiz.derecho, u);
+                insert(raiz.derecho, u);
             }
-        }  
+        }
     }
 
-    public void delete(Vertice raiz, T elemento) {
+    @Override
+    public boolean delete(T elemento) {
+        return false;
+    }
+
+    private void deleteAux(Vertice raiz, T elemento) {
 
     }
 
     public void balance(Vertice raiz) {
 
+    }
+
+    @Override
+    public T pop() {
+        return null;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
     }
 
 }

@@ -10,7 +10,8 @@ public class Pokemon {
         this.nivel = nivel;
         this.hp = hp;
     }
-    public Pokemon(){
+
+    public Pokemon() {
         this.nombre = "Pikachu";
         this.tipo = "Electrico";
         this.nivel = 1;
@@ -18,7 +19,7 @@ public class Pokemon {
     }
 
     public String toString() {
-        return "nombre=" + nombre ;
+        return "nombre=" + nombre;
     }
-    
+
 }
