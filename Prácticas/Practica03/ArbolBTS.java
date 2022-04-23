@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /*
 Integrantes:
@@ -7,6 +8,39 @@ José Camilo García Ponce
 */
 
 public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
+
+    /* Clase privada para iteradores de árboles binarios. */
+    private class Iterador implements Iterator<T> {
+        /* Cola para recorrer los vértices en BFS. */
+        private Cola<Vertice> cola;
+
+        /* Constructor de iterador. */
+        public Iterador() {
+            cola = new Cola<Vertice>();
+            if (isEmpty())
+                return;
+            cola.push(raiz);
+        }
+
+        /* Nos dice si hay un elemento siguiente. */
+        public boolean hasNext() {
+            return !cola.isEmpty();
+        }
+
+        /* Dice si hay un elemento siguiente. */
+        @Override
+        public T next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+            Vertice v = cola.pop();
+            if (v.izquierdo != null)
+                cola.push(v.izquierdo);
+            if (v.derecho != null)
+                cola.push(v.derecho);
+            return v.elemento;
+        }
+
+    }
 
     /*
      * public BuildUnsorted(Lista<T> lista) {
@@ -101,7 +135,7 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new Iterador();
     }
 
 }
