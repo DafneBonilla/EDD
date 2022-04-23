@@ -224,5 +224,6 @@ public class Practica4Aux {
 
     public static void main(String[] args) {
 
+        sumaRara(2, 7, 28);
     }
 }

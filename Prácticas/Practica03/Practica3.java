@@ -288,6 +288,12 @@ public class Practica3 {
         }
     }
 
+    /**
+     * Método para encontrar la raiz cuadrada de un número.
+     * Tiene una presicion de 6 decimales.
+     * 
+     * @param n el número a encontrar la raiz cuadrada.
+     */
     public static float BusquedaSqrt(int n) {
         double respuesta = BusquedaSqrtAux(0, n, n, 0.0);
         int espaciosCero = 6;
@@ -304,6 +310,16 @@ public class Practica3 {
         return (float) respuesta;
     }
 
+    /**
+     * Método auxiliar para BusquedaSqrt, que se encargar de
+     * buscar la parte entera de la raiz cuadrada.
+     * 
+     * @param menor rango menor de la raiz cuadrada.
+     * @param mayor rango mayor de la raiz cuadrada.
+     * @param n     el número a encontrar la raiz cuadrada.
+     * @param resp  la respuesta que se tiene cada llamada.
+     * @return la parte entera de la raiz cuadrada del número.
+     */
     private static double BusquedaSqrtAux(int menor, int mayor, int n, double respuesta) {
         if (menor <= mayor) {
             int mitad = (menor + mayor) / 2;
