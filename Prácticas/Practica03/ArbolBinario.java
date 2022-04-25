@@ -1,6 +1,4 @@
-
 import java.util.NoSuchElementException;
-import java.util.Comparator;
 
 /**
  * <p>
@@ -127,10 +125,8 @@ public abstract class ArbolBinario<T> implements Collection<T> {
          */
         @Override
         public int altura() {
-
             int alturaIzquierdo = 0;
             int alturaDerecho = 0;
-
             if (hayIzquierdo())
                 alturaIzquierdo = izquierdo.altura();
             if (hayDerecho())
@@ -140,7 +136,6 @@ public abstract class ArbolBinario<T> implements Collection<T> {
 
         /**
          * Regresa la profundidad del vértice.
-         * 
          * @return la profundidad del vértice.
          */
         @Override
@@ -205,6 +200,16 @@ public abstract class ArbolBinario<T> implements Collection<T> {
                 return false;
             }
             return false;
+        }
+
+        /**
+         * Regresa una representación en cadena del vértice.
+         * 
+         * @return una representación en cadena del vértice.
+         */
+        @Override
+        public String toString() {
+            return elemento.toString();
         }
 
     }

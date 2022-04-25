@@ -42,6 +42,10 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
 
     }
 
+    public ArbolBTS() {
+        super();
+    }
+
     /*
      * public BuildUnsorted(Lista<T> lista) {
      * 
@@ -115,13 +119,128 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
         }
     }
 
+    /** 
+     * @param elemento el elemento a eliminar.
+     * @return 
+     */
     @Override
     public boolean delete(T elemento) {
+        if (raiz == null) {
+            return false;
+        }
+        Vertice buscado = buscaVertice(raiz, elemento);
+        if (buscado == null) {
+            return false;
+        }
+        if (!buscado.hayIzquierdo() && !buscado.hayDerecho()) {
+            if (buscado.hayPadre()) {
+                Vertice ancestro = buscado.padre;
+                if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
+                    if (ancestro.izquierdo.equals(buscado)) {
+                        ancestro.izquierdo = null;
+                        return true;
+                    } else {
+                        ancestro.derecho = null;
+                        return true;
+                    }
+                } else if (ancestro.hayIzquierdo()) {
+                    ancestro.izquierdo = null;
+                    return true;
+                } else {
+                    ancestro.derecho = null;
+                    return true;
+                }
+            } else {
+                System.out.println("algo salio mal");
+                raiz = null;
+                return true;
+            }
+        }
+        if (buscado.hayIzquierdo() && !buscado.hayDerecho()) {
+            Vertice ancestro = buscado.padre;
+            ancestro.izquierdo = buscado.izquierdo;
+            buscado.izquierdo.padre = ancestro;
+            return true;
+        }
+        if (!buscado.hayIzquierdo() && buscado.hayDerecho()) {
+            Vertice ancestro = buscado.padre;
+            ancestro.derecho = buscado.derecho;
+            buscado.derecho.padre = ancestro;
+            return true;
+        }
+        if (buscado.hayIzquierdo() && buscado.hayDerecho()) {
+            Vertice hijito = buscaMinimo(buscado.derecho);
+            T aux = buscado.elemento;
+            buscado.elemento = hijito.elemento;
+            hijito.elemento = aux;
+            return this.delete2(hijito);
+        }
         return false;
     }
 
-    private void deleteAux(Vertice raiz, T elemento) {
+    public boolean delete2(Vertice elemento) {
+        if (raiz == null) {
+            return false;
+        }
+        if (elemento == null) {
+            return false;
+        }
+        if (!elemento.hayIzquierdo() && !elemento.hayDerecho()) {
+            if (elemento.hayPadre()) {
+                Vertice ancestro = elemento.padre;
+                if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
+                    if (ancestro.izquierdo.equals(elemento)) {
+                        ancestro.izquierdo = null;
+                        return true;
+                    } else {
+                        ancestro.derecho = null;
+                        return true;
+                    }
+                } else if (ancestro.hayIzquierdo()) {
+                    ancestro.izquierdo = null;
+                    return true;
+                } else {
+                    ancestro.derecho = null;
+                    return true;
+                }
+            } else {
+                raiz = null;
+                return true;
+            }
+        }
+        if (elemento.hayIzquierdo() && !elemento.hayDerecho()) {
+            Vertice ancestro = elemento.padre;
+            ancestro.izquierdo = elemento.izquierdo;
+            elemento.izquierdo.padre = ancestro;
+            return true;
+        }
+        if (!elemento.hayIzquierdo() && elemento.hayDerecho()) {
+            Vertice ancestro = elemento.padre;
+            ancestro.derecho = elemento.derecho;
+            elemento.derecho.padre = ancestro;
+            return true;
+        }
+        if (elemento.hayIzquierdo() && elemento.hayDerecho()) {
+            Vertice hijito = buscaMinimo(elemento.derecho);
+            T aux = elemento.elemento;
+            elemento.elemento = hijito.elemento;
+            hijito.elemento = aux;
+            return this.delete2(hijito);
+        }
+        return false;
+    }
 
+
+    /**
+     * Método auxiliar para delete
+     * @param raiz la raiz desde la cual se busca al mínimo.
+     * @return el vértice mínimo.
+     */
+    private Vertice buscaMinimo(Vertice raiz) {
+        if (raiz.hayIzquierdo()) {
+            return buscaMinimo(raiz.izquierdo);
+        }
+        return raiz;
     }
 
     public void balance(Vertice raiz) {
@@ -137,5 +256,4 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     public Iterator<T> iterator() {
         return new Iterador();
     }
-
 }

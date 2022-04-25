@@ -253,12 +253,14 @@ public class Practica3 {
     }
 
     /**
-     * Checa si la posción dada es válida.
+     * Checa si la posición dada es válida.
      * 
      * @param tablero el tablero.
      * @param fila    la fila de la posición.
      * @param columna la columna de la posición.
      * @param n       el tamaño del arreglo.
+     * @return <tt>true</tt> si encontró una posición válida.
+     *         <tt>false</tt> en otro caso.
      */
     private static boolean valido(int[][] tablero, int fila, int columna, int n) {
         for (int i = 0; i < columna; i++) {
@@ -350,7 +352,7 @@ public class Practica3 {
         // lista.add(25);
         // lista.add(6);
         // lista.add(38);
-        // sumaCercana(lista, 32);
+        //sumaCercana(lista, 32);
 
         // pruebas permutaciones
         // permutacionesCadena("pato");
@@ -364,9 +366,24 @@ public class Practica3 {
 
         // pruebas de raiz
         // for (int i = 1; i < 11; i++) {
-        // System.out.println("la raiz de " + i + " es " + BusquedaSqrt(i));
+        //  System.out.println("la raiz de " + i + " es " + BusquedaSqrt(i));
         // }
+        
+        // pruebas de arbol
+        ArbolBTS<Integer> arbolito = new ArbolBTS<>();
+        arbolito.add(5);
+        arbolito.add(3);
+        arbolito.add(7);
+        arbolito.add(2);
+        arbolito.add(4);
+        arbolito.add(6);
+        arbolito.add(8);
+        arbolito.add(1);
+        System.out.println(arbolito);
+        boolean algo = arbolito.delete(6);
+        System.out.println(algo);
 
+        //Aquí va su código
+        
     }
-
 }
