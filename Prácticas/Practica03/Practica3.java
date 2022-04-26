@@ -4,8 +4,6 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
-import java.lang.Math;
-
 public class Practica3 {
 
     /**
@@ -380,6 +378,7 @@ public class Practica3 {
         arbolito.add(8);
         arbolito.add(1);
 
+        System.out.println(arbolito.toStringBonito());
         System.out.println(arbolito);
 
     }

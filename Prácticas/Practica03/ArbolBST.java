@@ -1,43 +1,50 @@
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 /*
 Integrantes:
 Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
 
     /* Clase privada para iteradores de árboles binarios. */
     private class Iterador implements Iterator<T> {
-        /* Cola para recorrer los vértices en in order. */
-        private Cola<Vertice> cola;
+        /* PIla para recorrer los vértices en in order. */
+        private Pila<Vertice> pila;
 
         /* Constructor de iterador. */
         public Iterador() {
-            cola = new Cola<Vertice>();
+            pila = new Pila<Vertice>();
             if (isEmpty())
                 return;
-            cola.push(buscaMinimo(raiz));
+            Vertice p = raiz;
+            while (p != null) {
+                pila.push(p);
+                p = p.izquierdo;
+            }
         }
 
         /* Nos dice si hay un elemento siguiente. */
         public boolean hasNext() {
-            return !cola.isEmpty();
+            return !pila.isEmpty();
         }
 
-        /* Dice si hay un elemento siguiente. */
+        /* Dice cual es el elemento siguiente. */
         @Override
         public T next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            Vertice v = cola.pop();
-            if (v.padre != null)
-                cola.push(v.padre);
-            if (v.derecho != null)
-                cola.push(v.derecho);
+            Vertice v = pila.pop();
+            if (v.derecho != null) {
+                Vertice u = v.derecho;
+                while (u != null) {
+                    pila.push(u);
+                    u = u.izquierdo;
+                }
+            }
             return v.elemento;
         }
     }
@@ -90,14 +97,19 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
             }
             conta++;
         }
-        ArbolBST<T> izquierdo = buildSorted(izq);
-        ArbolBST<T> derecho = buildSorted(der);
-        if (izquierdo.raiz != null) {
+        if (!izq.isEmpty()) {
+            ArbolBST<T> izquierdo = buildSorted(izq);
             raiz.izquierdo = izquierdo.raiz;
+            izquierdo.raiz.padre = raiz;
+            elementos += izquierdo.elementos + 1;
         }
-        if (derecho.raiz != null) {
-            raiz.derecho = derecho.raiz;
-        }
+        /*
+         * if (!der.isEmpty()) {
+         * ArbolBST<T> derecho = buildSorted(der);
+         * raiz.derecho = derecho.raiz;
+         * elementos += derecho.elementos + 1;
+         * }
+         */
         ArbolBST<T> arbolito = new ArbolBST<T>();
         arbolito.raiz = raiz;
         return arbolito;
@@ -462,21 +474,9 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     @Override
     public String toString() {
         String respuesta = "";
-        if (raiz == null) {
-            return respuesta;
+        for (T i : this) {
+            respuesta += i + " ";
         }
-        respuesta += auxiliarString(raiz.izquierdo) + " " + raiz.elemento.toString() + " "
-                + auxiliarString(raiz.derecho);
-        return respuesta;
-    }
-
-    private String auxiliarString(Vertice raiz) {
-        String respuesta = "";
-        if (raiz == null) {
-            return respuesta;
-        }
-        respuesta += auxiliarString(raiz.izquierdo) + " " + raiz.elemento.toString() + " "
-                + auxiliarString(raiz.derecho);
         return respuesta;
     }
 
