@@ -97,31 +97,37 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     public void add(T elemento) {
         if (raiz == null) {
             raiz = new Vertice(elemento);
+            elementos++;
         }
         insert(raiz, elemento);
-
     }
 
     private void insert(Vertice raiz, T u) {
         if (u.compareTo(raiz.elemento) < 0) {
             if (raiz.izquierdo == null) {
-                raiz.izquierdo = new Vertice(u);
+                Vertice nuevo = new Vertice(u);
+                raiz.izquierdo = nuevo;
+                nuevo.padre = raiz;
+                elementos++;
             } else {
                 insert(raiz.izquierdo, u);
             }
         }
         if (u.compareTo(raiz.elemento) > 0) {
             if (raiz.derecho == null) {
-                raiz.derecho = new Vertice(u);
+                Vertice nuevo = new Vertice(u);
+                raiz.derecho = nuevo;
+                nuevo.padre = raiz;
+                elementos++;
             } else {
                 insert(raiz.derecho, u);
             }
         }
     }
 
-    /** 
+    /**
      * @param elemento el elemento a eliminar.
-     * @return 
+     * @return
      */
     @Override
     public boolean delete(T elemento) {
@@ -138,21 +144,25 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
                 if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
                     if (ancestro.izquierdo.equals(buscado)) {
                         ancestro.izquierdo = null;
+                        elementos--;
                         return true;
                     } else {
                         ancestro.derecho = null;
+                        elementos--;
                         return true;
                     }
                 } else if (ancestro.hayIzquierdo()) {
                     ancestro.izquierdo = null;
+                    elementos--;
                     return true;
                 } else {
                     ancestro.derecho = null;
+                    elementos--;
                     return true;
                 }
             } else {
-                System.out.println("algo salio mal");
                 raiz = null;
+                elementos = 0;
                 return true;
             }
         }
@@ -160,12 +170,14 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
             Vertice ancestro = buscado.padre;
             ancestro.izquierdo = buscado.izquierdo;
             buscado.izquierdo.padre = ancestro;
+            elementos--;
             return true;
         }
         if (!buscado.hayIzquierdo() && buscado.hayDerecho()) {
             Vertice ancestro = buscado.padre;
             ancestro.derecho = buscado.derecho;
             buscado.derecho.padre = ancestro;
+            elementos--;
             return true;
         }
         if (buscado.hayIzquierdo() && buscado.hayDerecho()) {
@@ -191,20 +203,25 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
                 if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
                     if (ancestro.izquierdo.equals(elemento)) {
                         ancestro.izquierdo = null;
+                        elementos--;
                         return true;
                     } else {
                         ancestro.derecho = null;
+                        elementos--;
                         return true;
                     }
                 } else if (ancestro.hayIzquierdo()) {
                     ancestro.izquierdo = null;
+                    elementos--;
                     return true;
                 } else {
                     ancestro.derecho = null;
+                    elementos--;
                     return true;
                 }
             } else {
                 raiz = null;
+                elementos--;
                 return true;
             }
         }
@@ -212,12 +229,14 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
             Vertice ancestro = elemento.padre;
             ancestro.izquierdo = elemento.izquierdo;
             elemento.izquierdo.padre = ancestro;
+            elementos--;
             return true;
         }
         if (!elemento.hayIzquierdo() && elemento.hayDerecho()) {
             Vertice ancestro = elemento.padre;
             ancestro.derecho = elemento.derecho;
             elemento.derecho.padre = ancestro;
+            elementos--;
             return true;
         }
         if (elemento.hayIzquierdo() && elemento.hayDerecho()) {
@@ -230,9 +249,9 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
         return false;
     }
 
-
     /**
      * Método auxiliar para delete
+     * 
      * @param raiz la raiz desde la cual se busca al mínimo.
      * @return el vértice mínimo.
      */

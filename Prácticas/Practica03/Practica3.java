@@ -352,7 +352,7 @@ public class Practica3 {
         // lista.add(25);
         // lista.add(6);
         // lista.add(38);
-        //sumaCercana(lista, 32);
+        // sumaCercana(lista, 32);
 
         // pruebas permutaciones
         // permutacionesCadena("pato");
@@ -366,9 +366,9 @@ public class Practica3 {
 
         // pruebas de raiz
         // for (int i = 1; i < 11; i++) {
-        //  System.out.println("la raiz de " + i + " es " + BusquedaSqrt(i));
+        // System.out.println("la raiz de " + i + " es " + BusquedaSqrt(i));
         // }
-        
+
         // pruebas de arbol
         ArbolBTS<Integer> arbolito = new ArbolBTS<>();
         arbolito.add(5);
@@ -379,11 +379,6 @@ public class Practica3 {
         arbolito.add(6);
         arbolito.add(8);
         arbolito.add(1);
-        System.out.println(arbolito);
-        boolean algo = arbolito.delete(6);
-        System.out.println(algo);
 
-        //Aquí va su código
-        
     }
 }
