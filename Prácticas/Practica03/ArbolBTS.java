@@ -39,7 +39,6 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
                 cola.push(v.derecho);
             return v.elemento;
         }
-
     }
 
     public ArbolBTS() {
@@ -47,16 +46,27 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /*
-     * public BuildUnsorted(Lista<T> lista) {
-     * 
+     * //unsorted
+     * public ArbolBTS(Lista<T> lista) {
+     * super();
+     * lista.mergeSort((a,b) -> a.compareTo(b));
      * }
      * 
-     * public BuildSorted(Lista<T> lista) {
-     * 
+     * // sorted
+     * public ArbolBTS(Lista<T> lista) {
+     * super();
+     * for (T i : lista)
+     * this.add(i);
+     * }
      * }
      * 
-     * public convertBTS(ArbolBinario<T> arbol) {
-     * 
+     * //convertBTS
+     * public ArbolBTS(ArbolBinario<T> arbol) {
+     * super();
+     * for (T i : arbol) {
+     * this.add(i);
+     * }
+     * this.balance(raiz);
      * }
      */
 
@@ -390,8 +400,32 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     @Override
+    public String toString() {
+        String respuesta = "";
+        if (raiz == null) {
+            return respuesta;
+        }
+        respuesta += auxiliarString(raiz.izquierdo) + " " + raiz.elemento.toString() + " "
+                + auxiliarString(raiz.derecho);
+        return respuesta;
+    }
+
+    private String auxiliarString(Vertice raiz) {
+        String respuesta = "";
+        if (raiz == null) {
+            return respuesta;
+        }
+        respuesta += auxiliarString(raiz.izquierdo) + " " + raiz.elemento.toString() + " "
+                + auxiliarString(raiz.derecho);
+        return respuesta;
+    }
+
+    @Override
     public T pop() {
-        return null;
+        Vertice minimo = buscaMinimo(raiz);
+        T aux = minimo.elemento;
+        delete2(minimo);
+        return aux;
     }
 
     @Override

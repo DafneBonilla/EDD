@@ -380,5 +380,7 @@ public class Practica3 {
         arbolito.add(8);
         arbolito.add(1);
 
+        System.out.println(arbolito);
+
     }
 }
