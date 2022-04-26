@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -7,11 +8,11 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
-public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
+public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
 
     /* Clase privada para iteradores de árboles binarios. */
     private class Iterador implements Iterator<T> {
-        /* Cola para recorrer los vértices en BFS. */
+        /* Cola para recorrer los vértices en in order. */
         private Cola<Vertice> cola;
 
         /* Constructor de iterador. */
@@ -19,7 +20,7 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
             cola = new Cola<Vertice>();
             if (isEmpty())
                 return;
-            cola.push(raiz);
+            cola.push(buscaMinimo(raiz));
         }
 
         /* Nos dice si hay un elemento siguiente. */
@@ -33,42 +34,74 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
             if (!hasNext())
                 throw new NoSuchElementException();
             Vertice v = cola.pop();
-            if (v.izquierdo != null)
-                cola.push(v.izquierdo);
+            if (v.padre != null)
+                cola.push(v.padre);
             if (v.derecho != null)
                 cola.push(v.derecho);
             return v.elemento;
         }
     }
 
-    public ArbolBTS() {
-        super();
+    public ArbolBST() {
+        raiz = null;
     }
 
-    /*
-     * //unsorted
-     * public ArbolBTS(Lista<T> lista) {
-     * super();
-     * lista.mergeSort((a,b) -> a.compareTo(b));
-     * }
-     * 
-     * // sorted
-     * public ArbolBTS(Lista<T> lista) {
-     * super();
-     * for (T i : lista)
-     * this.add(i);
-     * }
-     * }
-     * 
-     * //convertBTS
-     * public ArbolBTS(ArbolBinario<T> arbol) {
-     * super();
-     * for (T i : arbol) {
-     * this.add(i);
-     * }
-     * this.balance(raiz);
-     * }
-     */
+    public ArbolBST(Lista<T> lista, boolean sorted) {
+        if (lista.isEmpty()) {
+            raiz = null;
+            return;
+        }
+        if (!sorted) {
+            raiz = buildUnsorted(lista).raiz;
+        }
+        raiz = buildSorted(lista).raiz;
+    }
+
+    public ArbolBST(ArbolBinario<T> arbol) {
+        Lista<T> lista = new Lista<T>();
+        for (T i : arbol) {
+            lista.add(i);
+        }
+        raiz = buildUnsorted(lista).raiz;
+    }
+
+    private ArbolBST<T> buildUnsorted(Lista<T> lista) {
+        if (lista.isEmpty()) {
+            return new ArbolBST<T>();
+        }
+        Lista<T> ordenada = lista.mergeSort((a, b) -> a.compareTo(b));
+        return buildSorted(ordenada);
+    }
+
+    private ArbolBST<T> buildSorted(Lista<T> lista) {
+        if (lista.isEmpty()) {
+            return new ArbolBST<T>();
+        }
+        int mitad = lista.size() / 2;
+        raiz = new Vertice(lista.buscarIndice(mitad));
+        Lista<T> izq = new Lista<T>();
+        Lista<T> der = new Lista<T>();
+        int conta = 0;
+        for (T e : lista) {
+            if (conta < mitad) {
+                izq.agregaFinal(e);
+            } else {
+                der.agregaFinal(e);
+            }
+            conta++;
+        }
+        ArbolBST<T> izquierdo = buildSorted(izq);
+        ArbolBST<T> derecho = buildSorted(der);
+        if (izquierdo.raiz != null) {
+            raiz.izquierdo = izquierdo.raiz;
+        }
+        if (derecho.raiz != null) {
+            raiz.derecho = derecho.raiz;
+        }
+        ArbolBST<T> arbolito = new ArbolBST<T>();
+        arbolito.raiz = raiz;
+        return arbolito;
+    }
 
     public boolean search(Vertice raiz, T elemento) {
         if (raiz == null) {
@@ -396,7 +429,34 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     public void balance(Vertice raiz) {
+        Object[] arreglo = new Object[elementos];
+        int cont = 0;
+        for (T t : this) {
+            arreglo[cont] = t;
+            cont++;
+        }
+        raiz = buildSorted(arreglo).raiz;
+    }
 
+    private ArbolBST<T> buildSorted(Object[] arreglo) {
+        if (arreglo.length == 0) {
+            return new ArbolBST<T>();
+        }
+        int mitad = arreglo.length / 2;
+        raiz = new Vertice((T) arreglo[mitad]);
+        Object[] izq = Arrays.copyOfRange(arreglo, 0, mitad);
+        Object[] der = Arrays.copyOfRange(arreglo, mitad + 1, arreglo.length);
+        ArbolBST<T> izquierdo = buildSorted(izq);
+        ArbolBST<T> derecho = buildSorted(der);
+        if (izquierdo.raiz != null) {
+            raiz.izquierdo = izquierdo.raiz;
+        }
+        if (derecho.raiz != null) {
+            raiz.derecho = derecho.raiz;
+        }
+        ArbolBST<T> arbolito = new ArbolBST<T>();
+        arbolito.raiz = raiz;
+        return arbolito;
     }
 
     @Override
@@ -431,5 +491,69 @@ public class ArbolBTS<T extends Comparable<T>> extends ArbolBinario<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
+    }
+
+    /**
+     * Método auxiliar de toString
+     * 
+     * @return espacios
+     */
+    private String dibujaEspacios(int l, int[] a, int n) {
+        String s = "";
+        for (int i = 0; i < l; i++) {
+            if (a[i] == 1) {
+                s = s + "│  ";
+            } else {
+                s = s + "   ";
+            }
+        }
+        return s;
+    }
+
+    /**
+     * Metodo auxiliar de toString
+     *
+     */
+
+    private String toStringBonito(Vertice v, int l, int[] m) {
+        String s = v.toString() + "\n";
+        m[l] = 1;
+
+        if (v.izquierdo != null && v.derecho != null) {
+            s = s + dibujaEspacios(l, m, m.length);
+            s = s + "├─›";
+            s = s + toStringBonito(v.izquierdo, l + 1, m);
+            s = s + dibujaEspacios(l, m, m.length);
+            s = s + "└─»";
+            m[l] = 0;
+            s = s + toStringBonito(v.derecho, l + 1, m);
+        } else if (v.izquierdo != null) {
+            s = s + dibujaEspacios(l, m, m.length);
+            s = s + "└─›";
+            m[l] = 0;
+            s = s + toStringBonito(v.izquierdo, l + 1, m);
+        } else if (v.derecho != null) {
+            s = s + dibujaEspacios(l, m, m.length);
+            s = s + "└─»";
+            m[l] = 0;
+            s = s + toStringBonito(v.derecho, l + 1, m);
+        }
+        return s;
+    }
+
+    /**
+     * Regresa una representación en cadena del árbol.
+     * 
+     * @return una representación en cadena del árbol.
+     */
+    public String toStringBonito() {
+        if (this.raiz == null) {
+            return "";
+        }
+        int[] a = new int[this.altura() + 1];
+        for (int i = 0; i < a.length; i++) {
+            a[i] = 0;
+        }
+        return toStringBonito(this.raiz, 0, a);
     }
 }

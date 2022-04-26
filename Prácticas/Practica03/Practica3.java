@@ -370,7 +370,7 @@ public class Practica3 {
         // }
 
         // pruebas de arbol
-        ArbolBTS<Integer> arbolito = new ArbolBTS<>();
+        ArbolBST<Integer> arbolito = new ArbolBST<>();
         arbolito.add(5);
         arbolito.add(3);
         arbolito.add(7);
