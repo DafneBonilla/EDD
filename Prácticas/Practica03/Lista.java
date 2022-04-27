@@ -587,22 +587,4 @@ public class Lista<T> implements Collection<T> {
     public T buscarIndice(int i) {
         return buscaNodoConI(i).elemento;
     }
-
-    /**
-     * Regresa la cabeza de la lista.
-     * 
-     * @return la cabeza de la lista.
-     */
-    public Nodo getCabeza() {
-        return cabeza;
-    }
-
-    /**
-     * Regresa el siguiente elemento de una lista.
-     * 
-     * @param nodo el nodo del que se quiere obtener el siguiente.
-     */
-    public Nodo siguiente(Nodo nodito) {
-        return nodito.siguiente;
-    }
 }

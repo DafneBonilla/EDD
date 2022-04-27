@@ -299,7 +299,7 @@ public class Practica3 {
      */
     public static float BusquedaSqrt(int n) {
         double respuesta = BusquedaSqrtAux(0, n, n, 0.0);
-        int espaciosCero = 6;
+        int espaciosCero = 7;
         double aumento = 0.1;
         int cont = 0;
         while (cont < espaciosCero) {
@@ -349,7 +349,7 @@ public class Practica3 {
         // lista.add(5);
         // lista.add(25);
         // lista.add(6);
-        // lista.add(38);
+        // lista.add(33);
         // sumaCercana(lista, 32);
 
         // pruebas permutaciones
@@ -375,8 +375,36 @@ public class Practica3 {
         // lista.add(1);
         // lista.add(3);
         // lista.add(7);
+        // lista.add(-100);
+        // lista.add(0);
         // ArbolBST<Integer> arbol = new ArbolBST<Integer>(lista, false);
         // System.out.println(arbol.toStringBonito());
         // System.out.println(arbol);
+        // arbol.delete(0);
+        // arbol.add(35);
+        // arbol.add(68);
+        // System.out.println(arbol.toStringBonito());
+        // System.out.println(arbol);
+        // arbol.balance(arbol.getRaiz());
+        // System.out.println(arbol.toStringBonito());
+        // System.out.println(arbol);
+        // ArbolBinarioCompleto<Integer> arbolC = new ArbolBinarioCompleto<>();
+        // arbolC.add(1);
+        // arbolC.add(3);
+        // arbolC.add(2);
+        // arbolC.add(9);
+        // arbolC.add(6);
+        // arbolC.add(12);
+        // arbolC.add(7);
+        // arbolC.add(4);
+        // arbolC.add(11);
+        // System.out.println("arbolCompleto");
+        // System.out.println(arbolC);
+        // ArbolBST<Integer> arbolB = new ArbolBST<>(arbolC);
+        // System.out.println("arbolBST");
+        // System.out.println(arbolB.toStringBonito());
+        // System.out.println(arbolB);
+        // System.out.println(arbolB.search(arbolB.getRaiz(), 9));
+        // System.out.println(arbolB.search(arbolB.getRaiz(), 5));
     }
 }

@@ -71,11 +71,16 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
      * @param arbol el árbol para construirlo.
      */
     public ArbolBST(ArbolBinario<T> arbol) {
-        Object[] arreglo = new Object[arbol.size()];
-        int cont = 0;
+        Lista<T> lista = new Lista<T>();
         for (T t : arbol) {
-            arreglo[cont] = t;
-            cont++;
+            lista.add(t);
+        }
+        Lista<T> listaOrdenada = lista.mergeSort((a, b) -> a.compareTo(b));
+        Object[] arreglo = new Object[listaOrdenada.size()];
+        int contador = 0;
+        for (T t : listaOrdenada) {
+            arreglo[contador] = t;
+            contador++;
         }
         ArbolBST<T> arbolito = buildArreglo(arreglo);
         raiz = arbolito.raiz;
@@ -122,29 +127,49 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
 
     /**
      * Regresa un árbol BST construido apartir de una lista ordenada.
+     * La complejidad si es O(n), ya que sortedMagia solo "recorre" la lista una vez
+     * y construye de abaja hacia arriba.
      * 
      * @param lista la lista para construirlo.
      * @return el árbol construido.
      */
     private ArbolBST<T> buildSorted(Lista<T> lista) {
-        Nodo nodito = lista.getCabeza();
-        return sortedMagic(nodito, 0, lista.size() - 1);
+        Iterator<T> iter = lista.iterator();
+        return sortedMagia(iter, 0, lista.size() - 1);
     }
 
-    private ArbolBST<T> sortedMagic(Nodo nodo, int inicio, int ultimo) {
-        if (inicio > ultimo) {
-            return null;
+    /**
+     * Construye un árbol BST apartir de una lista ordenada.
+     * Y lo hace en O(n) ya que no accede al i-ésimo elemento de la lista, la
+     * construye empezando por las hojas y va "dividiendo" la lista.
+     * 
+     * @param iter    el iterador para recorrer la lista.
+     * @param primero el inicio del tamaño de la lista.
+     * @param ultimo  el final del tamaño de la lista.
+     * @return el árbol construido.
+     */
+    private ArbolBST<T> sortedMagia(Iterator<T> iter, int primero, int ultimo) {
+        if (primero > ultimo) {
+            return new ArbolBST<T>();
         }
+        int medio = (primero + ultimo) / 2;
+        ArbolBST<T> izq = sortedMagia(iter, primero, medio - 1);
+        T elemento = iter.next();
+        Vertice v = new Vertice(elemento);
+        ArbolBST<T> der = sortedMagia(iter, medio + 1, ultimo);
         ArbolBST<T> arbol = new ArbolBST<T>();
-        int medio = (inicio + ultimo) / 2;
-        Vertice algo = new Vertice(nodo.getElemento());
-        ArbolBST<T> izq = sortedMagic(nodo, inicio, medio - 1);
-        nodo = nodo.getSiguiente();
-        ArbolBST<T> der = sortedMagic(nodo, medio + 1, ultimo);
-        arbol.raiz = algo;
-        arbol.raiz.izquierdo = izq.raiz;
-        arbol.raiz.derecho = der.raiz;
-        arbol.elementos = izq.elementos + der.elementos + 1;
+        arbol.raiz = v;
+        arbol.elementos = 1;
+        if (!izq.isEmpty()) {
+            arbol.raiz.izquierdo = izq.raiz;
+            izq.raiz.padre = arbol.raiz;
+            arbol.elementos += izq.elementos;
+        }
+        if (!der.isEmpty()) {
+            arbol.raiz.derecho = der.raiz;
+            der.raiz.padre = arbol.raiz;
+            arbol.elementos += der.elementos;
+        }
         return arbol;
     }
 
