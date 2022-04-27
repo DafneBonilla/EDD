@@ -368,18 +368,19 @@ public class Practica3 {
         // }
 
         // pruebas de arbol
-        ArbolBST<Integer> arbolito = new ArbolBST<>();
-        arbolito.add(5);
-        arbolito.add(3);
-        arbolito.add(7);
-        arbolito.add(2);
-        arbolito.add(4);
-        arbolito.add(6);
-        arbolito.add(8);
-        arbolito.add(1);
-
-        System.out.println(arbolito.toStringBonito());
-        System.out.println(arbolito);
-
+        ArbolBST<Integer> lista = new ArbolBST<Integer>();
+        lista.add(4);
+        lista.add(6);
+        lista.add(9);
+        lista.add(1);
+        lista.add(3);
+        lista.add(7);
+        System.out.println("original");
+        System.out.println(lista.toStringBonito());
+        System.out.println(lista);
+        lista.balance(lista.getRaiz());
+        System.out.println("balanceado");
+        System.out.println(lista.toStringBonito());
+        System.out.println(lista);
     }
 }

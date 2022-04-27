@@ -51,6 +51,7 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
 
     public ArbolBST() {
         raiz = null;
+        elementos = 0;
     }
 
     public ArbolBST(Lista<T> lista, boolean sorted) {
@@ -59,17 +60,26 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
             return;
         }
         if (!sorted) {
-            raiz = buildUnsorted(lista).raiz;
+            ArbolBST<T> arbolito = buildUnsorted(lista);
+            raiz = arbolito.raiz;
+            elementos = arbolito.elementos;
+            return;
         }
-        raiz = buildSorted(lista).raiz;
+        ArbolBST<T> arbolito = buildSorted(lista);
+        raiz = arbolito.raiz;
+        elementos = arbolito.elementos;
     }
 
     public ArbolBST(ArbolBinario<T> arbol) {
-        Lista<T> lista = new Lista<T>();
-        for (T i : arbol) {
-            lista.add(i);
+        Object[] arreglo = new Object[arbol.size()];
+        int cont = 0;
+        for (T t : arbol) {
+            arreglo[cont] = t;
+            cont++;
         }
-        raiz = buildUnsorted(lista).raiz;
+        ArbolBST<T> arbolito = buildArreglo(arreglo);
+        raiz = arbolito.raiz;
+        elementos = arbolito.elementos;
     }
 
     private ArbolBST<T> buildUnsorted(Lista<T> lista) {
@@ -81,37 +91,42 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     private ArbolBST<T> buildSorted(Lista<T> lista) {
-        if (lista.isEmpty()) {
-            return new ArbolBST<T>();
+        Object[] arreglo = new Object[lista.size()];
+        int cont = 0;
+        for (T t : lista) {
+            arreglo[cont] = t;
+            cont++;
         }
-        int mitad = lista.size() / 2;
-        raiz = new Vertice(lista.buscarIndice(mitad));
-        Lista<T> izq = new Lista<T>();
-        Lista<T> der = new Lista<T>();
-        int conta = 0;
-        for (T e : lista) {
-            if (conta < mitad) {
-                izq.agregaFinal(e);
-            } else {
-                der.agregaFinal(e);
-            }
-            conta++;
+        return buildArreglo(arreglo);
+    }
+
+    private ArbolBST<T> buildArreglo(Object[] arreglo) {
+        if (arreglo.length == 1) {
+            ArbolBST<T> arbolito = new ArbolBST<T>();
+            arbolito.add((T)arreglo[0]);
+            return arbolito;
         }
-        if (!izq.isEmpty()) {
-            ArbolBST<T> izquierdo = buildSorted(izq);
-            raiz.izquierdo = izquierdo.raiz;
-            izquierdo.raiz.padre = raiz;
-            elementos += izquierdo.elementos + 1;
+        if (arreglo.length == 0) {
+            return null;
         }
-        /*
-         * if (!der.isEmpty()) {
-         * ArbolBST<T> derecho = buildSorted(der);
-         * raiz.derecho = derecho.raiz;
-         * elementos += derecho.elementos + 1;
-         * }
-         */
         ArbolBST<T> arbolito = new ArbolBST<T>();
-        arbolito.raiz = raiz;
+        T algo2 = (T) arreglo[arreglo.length / 2];
+        arbolito.raiz = new Vertice(algo2);
+        arbolito.elementos = 1;
+        Object[] izq = Arrays.copyOfRange(arreglo, 0, (arreglo.length/2));
+        Object[] der = Arrays.copyOfRange(arreglo, (arreglo.length / 2)+1, arreglo.length);
+        ArbolBST<T> izqu = buildArreglo(izq);
+        ArbolBST<T> dere = buildArreglo(der);
+        if (izqu != null) {
+            arbolito.raiz.izquierdo = (ArbolBinario<T>.Vertice) izqu.raiz();
+            izqu.raiz.padre = (ArbolBinario<T>.Vertice) arbolito.raiz();
+            arbolito.elementos += izqu.elementos;
+        }
+        if (dere != null) {
+            arbolito.raiz.derecho = (ArbolBinario<T>.Vertice) dere.raiz();
+            dere.raiz.padre = (ArbolBinario<T>.Vertice) arbolito.raiz();
+            arbolito.elementos += dere.elementos;
+        }
         return arbolito;
     }
 
@@ -447,28 +462,8 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
             arreglo[cont] = t;
             cont++;
         }
-        raiz = buildSorted(arreglo).raiz;
-    }
-
-    private ArbolBST<T> buildSorted(Object[] arreglo) {
-        if (arreglo.length == 0) {
-            return new ArbolBST<T>();
-        }
-        int mitad = arreglo.length / 2;
-        raiz = new Vertice((T) arreglo[mitad]);
-        Object[] izq = Arrays.copyOfRange(arreglo, 0, mitad);
-        Object[] der = Arrays.copyOfRange(arreglo, mitad + 1, arreglo.length);
-        ArbolBST<T> izquierdo = buildSorted(izq);
-        ArbolBST<T> derecho = buildSorted(der);
-        if (izquierdo.raiz != null) {
-            raiz.izquierdo = izquierdo.raiz;
-        }
-        if (derecho.raiz != null) {
-            raiz.derecho = derecho.raiz;
-        }
-        ArbolBST<T> arbolito = new ArbolBST<T>();
-        arbolito.raiz = raiz;
-        return arbolito;
+        ArbolBST<T> arbol = buildArreglo(arreglo);
+        this.raiz = arbol.raiz;
     }
 
     @Override
@@ -477,7 +472,7 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         for (T i : this) {
             respuesta += i + " ";
         }
-        return respuesta;
+        return respuesta+"\n";
     }
 
     @Override
@@ -555,5 +550,9 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
             a[i] = 0;
         }
         return toStringBonito(this.raiz, 0, a);
+    }
+
+    public Vertice getRaiz() {
+        return this.raiz;
     }
 }
