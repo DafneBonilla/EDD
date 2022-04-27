@@ -8,11 +8,19 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * ArbolBST
+ * Implementación de un árbol binario de búsqueda genericos.
+ * 
+ * @author Dafne Bonilla Reyes, José Camilo García Ponce
+ * @version 26-04-2022
+ */
 public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
 
     /* Clase privada para iteradores de árboles binarios. */
     private class Iterador implements Iterator<T> {
-        /* PIla para recorrer los vértices en in order. */
+
+        /* Pila para recorrer los vértices en in order. */
         private Pila<Vertice> pila;
 
         /* Constructor de iterador. */
@@ -49,11 +57,20 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         }
     }
 
+    /**
+     * Construye un árbol BTS vacío.
+     */
     public ArbolBST() {
         raiz = null;
         elementos = 0;
     }
 
+    /**
+     * Construye un árbol BST apartir de una lista.
+     * 
+     * @param lista  la lista para construirlo.
+     * @param sorted si la lista esta ordenada o no.
+     */
     public ArbolBST(Lista<T> lista, boolean sorted) {
         if (lista.isEmpty()) {
             raiz = null;
@@ -70,6 +87,11 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         elementos = arbolito.elementos;
     }
 
+    /**
+     * Construye un árbol BST apartir de otro árbol.
+     * 
+     * @param arbol el árbol para construirlo.
+     */
     public ArbolBST(ArbolBinario<T> arbol) {
         Object[] arreglo = new Object[arbol.size()];
         int cont = 0;
@@ -82,6 +104,14 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         elementos = arbolito.elementos;
     }
 
+    /**
+     * Regresa un árbol BST construido apartir de una lista desordenada.
+     * La complejidad si es O(nlog(n)), ya que ordenaremos la lista y es lo que toma
+     * más tiempo.
+     * 
+     * @param lista la lista para construirlo.
+     * @return el árbol construido.
+     */
     private ArbolBST<T> buildUnsorted(Lista<T> lista) {
         if (lista.isEmpty()) {
             return new ArbolBST<T>();
@@ -90,6 +120,12 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return buildSorted(ordenada);
     }
 
+    /**
+     * Regresa un árbol BST construido apartir de una lista ordenada.
+     * 
+     * @param lista la lista para construirlo.
+     * @return el árbol construido.
+     */
     private ArbolBST<T> buildSorted(Lista<T> lista) {
         Object[] arreglo = new Object[lista.size()];
         int cont = 0;
@@ -100,10 +136,16 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return buildArreglo(arreglo);
     }
 
+    /**
+     * Regresa un árbol BST construido apartir de un arreglo.
+     * 
+     * @param arreglo el arreglo para construirlo.
+     * @return el árbol construido.
+     */
     private ArbolBST<T> buildArreglo(Object[] arreglo) {
         if (arreglo.length == 1) {
             ArbolBST<T> arbolito = new ArbolBST<T>();
-            arbolito.add((T)arreglo[0]);
+            arbolito.add((T) arreglo[0]);
             return arbolito;
         }
         if (arreglo.length == 0) {
@@ -113,8 +155,8 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         T algo2 = (T) arreglo[arreglo.length / 2];
         arbolito.raiz = new Vertice(algo2);
         arbolito.elementos = 1;
-        Object[] izq = Arrays.copyOfRange(arreglo, 0, (arreglo.length/2));
-        Object[] der = Arrays.copyOfRange(arreglo, (arreglo.length / 2)+1, arreglo.length);
+        Object[] izq = Arrays.copyOfRange(arreglo, 0, (arreglo.length / 2));
+        Object[] der = Arrays.copyOfRange(arreglo, (arreglo.length / 2) + 1, arreglo.length);
         ArbolBST<T> izqu = buildArreglo(izq);
         ArbolBST<T> dere = buildArreglo(der);
         if (izqu != null) {
@@ -130,6 +172,13 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return arbolito;
     }
 
+    /**
+     * Ve si el árbol contiene un elemento.
+     * 
+     * @param elemento el elemento a buscar.
+     * @param raiz     la raiz del árbol donde buscaremos.
+     * @return <code>true</code> si el árbol contiene el elemento.
+     */
     public boolean search(Vertice raiz, T elemento) {
         if (raiz == null) {
             return false;
@@ -146,6 +195,13 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return false;
     }
 
+    /**
+     * Ve si el árbol contiene un elemento y regresa el vertice que lo contiene.
+     * 
+     * @param elemento el elemento a buscar.
+     * @param raiz     la raiz del árbol donde buscaremos.
+     * @return el vertice que contiene el elemento.s
+     */
     public Vertice buscaVertice(Vertice raiz, T elemento) {
         if (raiz == null) {
             return null;
@@ -162,9 +218,16 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return null;
     }
 
-    // ignora repetidos
+    /**
+     * Agrega un elemento al árbol.
+     * 
+     * @param elemento el elemento a agregar.
+     */
     @Override
     public void add(T elemento) {
+        if (elemento == null) {
+            return;
+        }
         if (raiz == null) {
             raiz = new Vertice(elemento);
             elementos++;
@@ -172,6 +235,12 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         insert(raiz, elemento);
     }
 
+    /**
+     * Inserta un elemento en el árbol.
+     * 
+     * @param raiz     la raiz del árbol donde insertaremos.
+     * @param elemento el elemento a insertar.
+     */
     private void insert(Vertice raiz, T u) {
         if (u.compareTo(raiz.elemento) < 0) {
             if (raiz.izquierdo == null) {
@@ -196,8 +265,10 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /**
+     * Elimina un elemento del árbol.
+     * 
      * @param elemento el elemento a eliminar.
-     * @return
+     * @return <code>true</code> si el elemento se eliminó.
      */
     @Override
     public boolean delete(T elemento) {
@@ -260,6 +331,12 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return false;
     }
 
+    /**
+     * Elimina un vertice del árbol.
+     * 
+     * @param elemento el vertice a eliminar.
+     * @return <code>true</code> si el vertice se eliminó.
+     */
     public boolean delete2(Vertice elemento) {
         if (raiz == null) {
             return false;
@@ -320,8 +397,10 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /**
+     * Elimina un elemento del árbol.
+     * 
      * @param elemento el elemento a eliminar.
-     * @return
+     * @return el elemento eliminado.
      */
     public T delete3(T elemento) {
         if (raiz == null) {
@@ -383,6 +462,12 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return null;
     }
 
+    /**
+     * Elimina un vertice del árbol.
+     * 
+     * @param elemento el vertice a eliminar.
+     * @return el elemento del vertice eliminado.
+     */
     public T delete4(Vertice elemento) {
         if (raiz == null) {
             return null;
@@ -443,10 +528,10 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /**
-     * Método auxiliar para delete
+     * Regresa el minimo de un árbol.
      * 
-     * @param raiz la raiz desde la cual se busca al mínimo.
-     * @return el vértice mínimo.
+     * @param raiz la raiz del árbol.
+     * @return el vertice con el minimo del árbol.
      */
     private Vertice buscaMinimo(Vertice raiz) {
         if (raiz.hayIzquierdo()) {
@@ -455,6 +540,13 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return raiz;
     }
 
+    /**
+     * Balancea el árbol.
+     * La complejidad si es O(n), ya que lo que toma más tiempo es recorrer el árbol
+     * para generar el arreglo.
+     * 
+     * @param raiz la raiz del árbol.
+     */
     public void balance(Vertice raiz) {
         Object[] arreglo = new Object[elementos];
         int cont = 0;
@@ -466,15 +558,25 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         this.raiz = arbol.raiz;
     }
 
+    /**
+     * Regresa una representación en cadena del árbol.
+     * 
+     * @return una representación en cadena del árbol.
+     */
     @Override
     public String toString() {
         String respuesta = "";
         for (T i : this) {
             respuesta += i + " ";
         }
-        return respuesta+"\n";
+        return respuesta + "\n";
     }
 
+    /**
+     * Regresa un elemento de la colección y lo elimina.
+     * 
+     * @return el elemento a sacar.
+     */
     @Override
     public T pop() {
         Vertice minimo = buscaMinimo(raiz);
@@ -483,6 +585,11 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return aux;
     }
 
+    /**
+     * Regresa un iterador para recorrer el árbol.
+     * 
+     * @return un iterador para recorrer el árbol.
+     */
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
@@ -509,7 +616,6 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
      * Metodo auxiliar de toString
      *
      */
-
     private String toStringBonito(Vertice v, int l, int[] m) {
         String s = v.toString() + "\n";
         m[l] = 1;
@@ -552,6 +658,11 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         return toStringBonito(this.raiz, 0, a);
     }
 
+    /**
+     * Regresa la raiz del árbol.
+     * 
+     * @return la raiz del árbol.
+     */
     public Vertice getRaiz() {
         return this.raiz;
     }

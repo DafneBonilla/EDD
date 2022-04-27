@@ -367,20 +367,16 @@ public class Practica3 {
         // System.out.println("la raiz de " + i + " es " + BusquedaSqrt(i));
         // }
 
-        // pruebas de arbol
-        ArbolBST<Integer> lista = new ArbolBST<Integer>();
-        lista.add(4);
-        lista.add(6);
-        lista.add(9);
-        lista.add(1);
-        lista.add(3);
-        lista.add(7);
-        System.out.println("original");
-        System.out.println(lista.toStringBonito());
-        System.out.println(lista);
-        lista.balance(lista.getRaiz());
-        System.out.println("balanceado");
-        System.out.println(lista.toStringBonito());
-        System.out.println(lista);
+        // pruebas de arbol bst
+        // Lista<Integer> lista = new Lista<Integer>();
+        // lista.add(4);
+        // lista.add(6);
+        // lista.add(9);
+        // lista.add(1);
+        // lista.add(3);
+        // lista.add(7);
+        // ArbolBST<Integer> arbol = new ArbolBST<Integer>(lista, false);
+        // System.out.println(arbol.toStringBonito());
+        // System.out.println(arbol);
     }
 }
