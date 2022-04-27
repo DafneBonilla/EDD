@@ -66,6 +66,23 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /**
+     * Construye un árbol BST apartir de otro árbol.
+     * 
+     * @param arbol el árbol para construirlo.
+     */
+    public ArbolBST(ArbolBinario<T> arbol) {
+        Object[] arreglo = new Object[arbol.size()];
+        int cont = 0;
+        for (T t : arbol) {
+            arreglo[cont] = t;
+            cont++;
+        }
+        ArbolBST<T> arbolito = buildArreglo(arreglo);
+        raiz = arbolito.raiz;
+        elementos = arbolito.elementos;
+    }
+
+    /**
      * Construye un árbol BST apartir de una lista.
      * 
      * @param lista  la lista para construirlo.
@@ -83,23 +100,6 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
             return;
         }
         ArbolBST<T> arbolito = buildSorted(lista);
-        raiz = arbolito.raiz;
-        elementos = arbolito.elementos;
-    }
-
-    /**
-     * Construye un árbol BST apartir de otro árbol.
-     * 
-     * @param arbol el árbol para construirlo.
-     */
-    public ArbolBST(ArbolBinario<T> arbol) {
-        Object[] arreglo = new Object[arbol.size()];
-        int cont = 0;
-        for (T t : arbol) {
-            arreglo[cont] = t;
-            cont++;
-        }
-        ArbolBST<T> arbolito = buildArreglo(arreglo);
         raiz = arbolito.raiz;
         elementos = arbolito.elementos;
     }
@@ -127,13 +127,25 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
      * @return el árbol construido.
      */
     private ArbolBST<T> buildSorted(Lista<T> lista) {
-        Object[] arreglo = new Object[lista.size()];
-        int cont = 0;
-        for (T t : lista) {
-            arreglo[cont] = t;
-            cont++;
+        Nodo nodito = lista.getCabeza();
+        return sortedMagic(nodito, 0, lista.size() - 1);
+    }
+
+    private ArbolBST<T> sortedMagic(Nodo nodo, int inicio, int ultimo) {
+        if (inicio > ultimo) {
+            return null;
         }
-        return buildArreglo(arreglo);
+        ArbolBST<T> arbol = new ArbolBST<T>();
+        int medio = (inicio + ultimo) / 2;
+        Vertice algo = new Vertice(nodo.getElemento());
+        ArbolBST<T> izq = sortedMagic(nodo, inicio, medio - 1);
+        nodo = nodo.getSiguiente();
+        ArbolBST<T> der = sortedMagic(nodo, medio + 1, ultimo);
+        arbol.raiz = algo;
+        arbol.raiz.izquierdo = izq.raiz;
+        arbol.raiz.derecho = der.raiz;
+        arbol.elementos = izq.elementos + der.elementos + 1;
+        return arbol;
     }
 
     /**
