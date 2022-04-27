@@ -59,7 +59,7 @@ public class Posicion {
         String datitos = "";
         switch (dueño) {
             case 0:
-                datitos += String.format(" %d ", lugar);
+                datitos += String.format(" \u001B[92m%d\u001B[0m ", lugar);
                 break;
             case 1:
                 datitos += String.format(" \u001B[91m%d\u001B[0m ", lugar);

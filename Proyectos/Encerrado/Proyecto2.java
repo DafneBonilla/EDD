@@ -18,5 +18,4 @@ public class Proyecto2 {
         System.out.println(prueba);
 
     }
-
 }
