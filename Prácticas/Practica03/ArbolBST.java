@@ -580,18 +580,16 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     /**
      * Balancea el árbol.
      * La complejidad si es O(n), ya que lo que toma más tiempo es recorrer el árbol
-     * para generar el arreglo.
+     * para generar la lista y crear el arbol toma O(n)
      * 
      * @param raiz la raiz del árbol.
      */
     public void balance(Vertice raiz) {
-        Object[] arreglo = new Object[elementos];
-        int cont = 0;
+        Lista<T> lista = new Lista<T>();
         for (T t : this) {
-            arreglo[cont] = t;
-            cont++;
+            lista.add(t);
         }
-        ArbolBST<T> arbol = buildArreglo(arreglo);
+        ArbolBST<T> arbol = buildSorted(lista);
         this.raiz = arbol.raiz;
     }
 
