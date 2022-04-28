@@ -182,14 +182,17 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     private ArbolBST<T> buildArreglo(Object[] arreglo) {
         if (arreglo.length == 1) {
             ArbolBST<T> arbolito = new ArbolBST<T>();
-            arbolito.add((T) arreglo[0]);
+            @SuppressWarnings("unchecked")
+            T bonito = (T) arreglo[0];
+            arbolito.add(bonito);
             return arbolito;
         }
         if (arreglo.length == 0) {
             return null;
         }
-        ArbolBST<T> arbolito = new ArbolBST<T>();
+        @SuppressWarnings("unchecked")
         T algo2 = (T) arreglo[arreglo.length / 2];
+        ArbolBST<T> arbolito = new ArbolBST<T>();
         arbolito.raiz = new Vertice(algo2);
         arbolito.elementos = 1;
         Object[] izq = Arrays.copyOfRange(arreglo, 0, (arreglo.length / 2));
