@@ -406,5 +406,27 @@ public class Practica3 {
         // System.out.println(arbolB);
         // System.out.println(arbolB.search(arbolB.getRaiz(), 9));
         // System.out.println(arbolB.search(arbolB.getRaiz(), 5));
+        // ArbolBST<String> arbolS = new ArbolBST<>();
+        // arbolS.add("pato");
+        // arbolS.add("baba");
+        // arbolS.add("cabra");
+        // arbolS.add("perro");
+        // arbolS.add("gato");
+        // arbolS.add("pinguino");
+        // arbolS.add("tortuga");
+        // arbolS.add("caballo");
+        // arbolS.add("dino");
+        // arbolS.add("elefante");
+        // arbolS.add("cocodrilo");
+        // arbolS.add("cangrejo");
+        // arbolS.add("serpiente");
+        // arbolS.add("tigre");
+        // arbolS.add("aguila");
+        // arbolS.add("leopardo");
+        // System.out.println(arbolS.toStringBonito());
+        // System.out.println(arbolS);
+        // arbolS.balance(arbolS.getRaiz());
+        // System.out.println(arbolS.toStringBonito());
+        // System.out.println(arbolS);
     }
 }
