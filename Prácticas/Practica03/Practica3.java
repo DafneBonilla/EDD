@@ -360,7 +360,7 @@ public class Practica3 {
         // primosQueSuman(23, 2, 3);
 
         // pruebas de reinas
-        N_Reinas(7);
+        // N_Reinas(7);
 
         // pruebas de raiz
         // for (int i = 1; i < 11; i++) {
