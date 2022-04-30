@@ -10,4 +10,3 @@ Tareas realizadas durante el curso de EDD.
 - Tarea 02 terminada
 - Tarea 03 terminada
 - Tarea 04 terminada
-- Tarea 05 terminada
