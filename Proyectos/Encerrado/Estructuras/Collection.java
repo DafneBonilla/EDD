@@ -19,8 +19,7 @@ public interface Collection<T> extends Iterable<T> {
     public boolean delete(T elemento);
 
     /**
-     * Regresa un elemento de la colección.
-     * y lo elimina.
+     * Regresa un elemento de la colección y lo elimina.
      * 
      * @return el elemento a sacar.
      */
@@ -57,10 +56,10 @@ public interface Collection<T> extends Iterable<T> {
     public boolean isEmpty();
 
     /**
-     * Nos dice si la colección es igual a otra colección recibida.
+     * Nos dice si la coleccion es igual a otra coleccion recibida.
      * 
-     * @param coleccion la colección con el que hay que comparar.
-     * @return <tt>true</tt> si la colección es igual a la colección recibida;
+     * @param coleccion la coleccion con el que hay que comparar.
+     * @return <tt>true</tt> si la coleccion es igual a la coleccion recibido;
      *         <tt>false</tt> en otro caso.
      */
     public boolean equals(Object o);
@@ -71,16 +70,4 @@ public interface Collection<T> extends Iterable<T> {
      * @return una representación en cadena de la colección.
      */
     public String toString();
-
-    /**
-     * Método que invierte el orden de la colección.
-     */
-    public void reverse();
-
-    /**
-     * Regresa una copia de la colección.
-     * 
-     * @return una copia de la colección.
-     */
-    public Collection<T> clone();
 }
