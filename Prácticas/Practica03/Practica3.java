@@ -103,20 +103,76 @@ public class Practica3 {
      */
     public static void primosQueSuman(int S, int P, int N) {
         Lista<Integer> primos = PrimosMayores(P, S);
+        Lista<Integer> primos2 = primos.clone();
         Lista<Integer> respuestas = new Lista<Integer>();
+        Lista<String> finales = new Lista<String>();
         if (sumaRaraSinRepetirAux(primos, S, N, respuestas) == true) {
             respuestas.mergeSort((a, b) -> a - b);
             int cont = 1;
-            System.out.print("Los primos son: ");
+            String cadenita = "Los primos son: ";
             for (Integer i : respuestas) {
                 if (cont <= N) {
-                    System.out.print(i + " ");
+                    cadenita += i + " ";
                     cont++;
                 }
             }
-            System.out.print("\n");
+            cadenita += "\n";
+            finales.add(cadenita);
+            restoEnojado(primos2, S, N, finales);
+            Lista<String> finales2 = limpiar(finales);
+            for (String s : finales2) {
+                System.out.println(s);
+            }
         } else {
             System.out.println("No hay solución");
+        }
+    }
+
+    /**
+     * Da una copia de la lista pero sin repetidos.
+     * 
+     * @param lista la lista a limpiar.
+     */
+    private static Lista<String> limpiar(Lista<String> finales) {
+        Lista<String> respuestas = new Lista<String>();
+        for (String s : finales) {
+            if (!respuestas.contains(s)) {
+                respuestas.add(s);
+            }
+        }
+        return respuestas;
+    }
+
+    /**
+     * Método auxiliar para primosQueSuman.
+     * 
+     * @param primos     la lista de primos.
+     * @param S          la suma a llegar.
+     * @param N          el número de primos a encontrar.
+     * @param respuestas la lista de primos encontrados.
+     * @return true si encuentra una solución, false si no.
+     */
+    private static void restoEnojado(Lista<Integer> primos, int S, int N, Lista<String> finales) {
+        Lista<Integer> primos1 = primos.clone();
+        for (int i = 0; i < primos.size(); i++) {
+            Lista<Integer> primos2 = primos1.clone();
+            primos2.delete2(i);
+            Lista<Integer> respuestas = new Lista<Integer>();
+            if (sumaRaraSinRepetirAux(primos2, S, N, respuestas) == true) {
+                respuestas.mergeSort((a, b) -> a - b);
+                int cont = 1;
+                String cadenita = "Los primos son: ";
+                for (Integer inter : respuestas) {
+                    if (cont <= N) {
+                        cadenita += inter + " ";
+                        cont++;
+                    }
+                }
+                cadenita += "\n";
+                finales.add(cadenita);
+                restoEnojado(primos2, S, N, finales);
+            }
+
         }
     }
 
