@@ -1,6 +1,8 @@
 package Encerrado;
 
+import java.util.concurrent.ThreadLocalRandom;
 import Encerrado.Estructuras.ArbolDecision;
+import Encerrado.Estructuras.Lista;
 
 /**
  * Clase para representar Jugadores artificiales.
@@ -22,7 +24,8 @@ public class JugadorCPU extends Jugador {
     public JugadorCPU(int nombre, int inteligencia) {
         super(nombre);
         this.inteligencia = inteligencia;
-        this.arbol = new ArbolDecision();
+        this.arbol = null;
+        setHumano(false);
     }
 
     /**
@@ -39,8 +42,26 @@ public class JugadorCPU extends Jugador {
      * 
      * @param inteligencia la nueva inteligencia del jugador.
      */
+    @Override
     public void setInteligencia(int inteligencia) {
         this.inteligencia = inteligencia;
     }
 
+    /**
+     * Pide un movimiento al jugador.
+     *
+     * @param opciones las opciones que puede tomar el jugador.
+     * @param tablero el tablero del juego.
+     * @return el movimiento del jugador.
+     */
+    @Override
+    public Opcion pedirMovimiento(Lista<Opcion> opciones, Tablero tablero) {
+        if (inteligencia == 0) {
+            int random = ThreadLocalRandom.current().nextInt(0, opciones.size());
+            return opciones.buscarIndice(random);
+        } else {
+            this.arbol = new ArbolDecision(tablero, this.getNombre());
+            return opciones.buscarIndice(0);
+        }
+    }
 }

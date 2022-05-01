@@ -33,6 +33,8 @@ public class Partida {
 
     public void iniciar() {
         System.out.println("El juego comienza!");
+        System.out.println("El tablero es:");
+        System.out.println(tablero);
         while (ganador == false) {
             Jugador jugador = jugadores.buscarIndice(turnoActual);
             Lista<Opcion> opciones = tablero.getOpciones(jugador.getNombre());
@@ -46,6 +48,10 @@ public class Partida {
             System.out.println("El tablero es:");
             System.out.println(tablero);
             actualizarTurno();
+            Jugador jugador2 = jugadores.buscarIndice(turnoActual);
+            if (jugador.isHumano()) {
+                jugador.cambioInteligencia(jugador2);
+            }
         }
         actualizarTurno();
         System.out.println("El ganador es el Jugador " + jugadores.buscarIndice(turnoActual).getNombre());

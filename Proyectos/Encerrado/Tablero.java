@@ -60,7 +60,8 @@ public class Tablero {
      * @return una copia de la lista de posiciones.
      */
     public Tablero copia() {
-        return new Tablero(tablerito.clone());
+        Lista<Posicion> copia = this.tablerito.clone();
+        return new Tablero(copia);
     }
 
     /**
@@ -108,6 +109,16 @@ public class Tablero {
         tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
         tablerito.buscarIndice(origen - 1).setDueño(aux);
         System.out.println("Se movio la ficha de " + origen + " a " + destino);
+    }
+
+    public void moverEspecial(Opcion opcion) {
+        moverEspecial(opcion.getPosicionInicial(), opcion.getPosicionFinal());
+    }
+
+    private void moverEspecial(int origen, int destino) {
+        int aux = tablerito.buscarIndice(destino - 1).getDueño();
+        tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
+        tablerito.buscarIndice(origen - 1).setDueño(aux);
     }
 
     /**

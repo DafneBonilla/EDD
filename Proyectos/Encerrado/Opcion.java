@@ -47,7 +47,7 @@ public class Opcion {
      */
     @Override
     public String toString() {
-        return "Mover la ficha de la posicion " + posicionInicial + " a la posicion " + posicionFinal;
+        return "Mover la ficha de la posicion " + posicionInicial + " a la posición " + posicionFinal;
     }
 
 }
