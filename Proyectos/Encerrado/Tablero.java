@@ -89,15 +89,75 @@ public class Tablero {
     }
 
     /**
+     * Mueve una ficha basado en una opción.
+     * 
+     * @param opcion la opcion que se desea mover.
+     */
+    public void mover(Opcion opcion) {
+        mover(opcion.getPosicionInicial(), opcion.getPosicionFinal());
+    }
+
+    /**
      * Mueve una ficha de una posicion a otra.
      * 
      * @param origen  la posicion de origen.
      * @param destino la posicion de destino.
      */
-    public void mover(int origen, int destino) {
+    private void mover(int origen, int destino) {
         int aux = tablerito.buscarIndice(destino - 1).getDueño();
         tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
         tablerito.buscarIndice(origen - 1).setDueño(aux);
+        System.out.println("Se movio la ficha de " + origen + " a " + destino);
+    }
+
+    /**
+     * Regresa una lista con los posibles movimientos de un jugador.
+     * 
+     * @param jugador el jugador.
+     */
+    public Lista<Opcion> getOpciones(int jugador) {
+        Lista<Opcion> movimientos = new Lista<Opcion>();
+        for (Posicion pos : tablerito) {
+            if (pos.getDueño() == jugador) {
+                int lugarcito = pos.getLugar();
+                for (Posicion pos2 : tablerito) {
+                    if (pos2.getDueño() == 0) {
+                        int lugarcito2 = pos2.getLugar();
+                        switch (lugarcito) {
+                            case 1:
+                                if (lugarcito2 == 2 || lugarcito2 == 3 || lugarcito2 == 4) {
+                                    movimientos.agregaFinal(new Opcion(lugarcito, lugarcito2));
+                                }
+                                break;
+                            case 2:
+                                if (lugarcito2 == 1 || lugarcito2 == 3 || lugarcito2 == 5) {
+                                    movimientos.agregaFinal(new Opcion(lugarcito, lugarcito2));
+                                }
+                                break;
+                            case 3:
+                                if (lugarcito2 == 1 || lugarcito2 == 2 || lugarcito2 == 4 || lugarcito2 == 5) {
+                                    movimientos.agregaFinal(new Opcion(lugarcito, lugarcito2));
+                                }
+                                break;
+                            case 4:
+                                if (lugarcito2 == 1 || lugarcito2 == 3) {
+                                    movimientos.agregaFinal(new Opcion(lugarcito, lugarcito2));
+                                }
+                                break;
+                            case 5:
+                                if (lugarcito2 == 2 || lugarcito2 == 3) {
+                                    movimientos.agregaFinal(new Opcion(lugarcito, lugarcito2));
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+        }
+        return movimientos;
     }
 
 }

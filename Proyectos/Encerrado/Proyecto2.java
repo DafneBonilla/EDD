@@ -1,5 +1,7 @@
 package Encerrado;
 
+import Encerrado.Estructuras.Lista;
+
 public class Proyecto2 {
 
     /* Imprime un mensaje de cómo usar el programa. */
@@ -10,12 +12,10 @@ public class Proyecto2 {
 
     public static void main(String[] args) {
 
-        Tablero prueba = new Tablero(1);
-        System.out.println(prueba);
-        prueba.mover(1, 3);
-        System.out.println(prueba);
-        prueba.mover(2, 1);
-        System.out.println(prueba);
-
+        Lista<Jugador> jugadores = new Lista<Jugador>();
+        jugadores.add(new Jugador(1));
+        jugadores.add(new Jugador(2));
+        Partida partida = new Partida(new Tablero(1), jugadores);
+        partida.iniciar();
     }
 }

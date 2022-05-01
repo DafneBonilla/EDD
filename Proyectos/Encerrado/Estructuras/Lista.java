@@ -641,4 +641,14 @@ public class Lista<T> implements Collection<T> {
     public static <T extends Comparable<T>> Lista<T> mergeSort(Lista<T> lista) {
         return lista.mergeSort((a, b) -> a.compareTo(b));
     }
+
+    public String verOpcionesBonito() {
+        String respuesta = "";
+        int contador = 0;
+        for (T e : this) {
+            respuesta += "[" + contador + "] " + e + "\n";
+            contador++;
+        }
+        return respuesta;
+    }
 }

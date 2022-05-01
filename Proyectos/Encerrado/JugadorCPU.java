@@ -19,7 +19,7 @@ public class JugadorCPU extends Jugador {
      * @param nombre       el nombre del jugador.
      * @param inteligencia la inteligencia del jugador.
      */
-    public JugadorCPU(String nombre, int inteligencia) {
+    public JugadorCPU(int nombre, int inteligencia) {
         super(nombre);
         this.inteligencia = inteligencia;
         this.arbol = new ArbolDecision();

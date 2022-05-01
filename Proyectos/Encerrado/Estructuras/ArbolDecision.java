@@ -1,34 +1,35 @@
 package Encerrado.Estructuras;
 
 import java.util.Iterator;
-import Encerrado.Tablero;
+
+import Encerrado.Desciciones;
 
 /**
  * Clase para representar Arboles de Decisiónes.
  * Un árbol de decisión tiene un nodo raíz y un número de elementos.
  */
-public class ArbolDecision extends ArbolBinario<Tablero> {
+public class ArbolDecision extends ArbolBinario<Desciciones> {
 
     @Override
-    public void add(Tablero elemento) {
+    public void add(Desciciones elemento) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public boolean delete(Tablero elemento) {
+    public boolean delete(Desciciones elemento) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public Tablero pop() {
+    public Desciciones pop() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Iterator<Tablero> iterator() {
+    public Iterator<Desciciones> iterator() {
         // TODO Auto-generated method stub
         return null;
     }
