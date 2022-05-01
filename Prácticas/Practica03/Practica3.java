@@ -116,13 +116,13 @@ public class Practica3 {
                     cont++;
                 }
             }
-            cadenita += "\n";
             finales.add(cadenita);
             restoEnojado(primos2, S, N, finales);
             Lista<String> finales2 = limpiar(finales);
             for (String s : finales2) {
                 System.out.println(s);
             }
+            System.out.println("\n");
         } else {
             System.out.println("No hay solución");
         }
@@ -168,7 +168,6 @@ public class Practica3 {
                         cont++;
                     }
                 }
-                cadenita += "\n";
                 finales.add(cadenita);
                 restoEnojado(primos2, S, N, finales);
             }
@@ -185,29 +184,23 @@ public class Practica3 {
      */
     private static Lista<Integer> PrimosMayores(int menor, int mayor) {
         Lista<Integer> primos = new Lista<Integer>();
-        for (int i = menor + 1; i <= mayor; i++) {
-            if (esPrimo(i))
-                primos.add(i);
+        boolean primitos[] = new boolean[mayor + 1];
+        for (int i = 0; i <= mayor; i++) {
+            primitos[i] = true;
+        }
+        for (int k = 2; k * k <= mayor; k++) {
+            if (primitos[k] == true) {
+                for (int j = k * k; j <= mayor; j += k) {
+                    primitos[j] = false;
+                }
+            }
+        }
+        for (int l = menor + 1; l <= mayor; l++) {
+            if (primitos[l] == true) {
+                primos.add(l);
+            }
         }
         return primos;
-    }
-
-    /**
-     * Verifica que un número sea primo.
-     * 
-     * @param numero el número a verificar.
-     * @return <tt>true</tt> si el número es primo,
-     *         <tt>false</tt> en otro caso.
-     */
-    private static boolean esPrimo(int numero) {
-        if (numero < 1)
-            return false;
-        if (numero == 1)
-            return true;
-        for (int i = 2; i < numero; i++)
-            if (numero % i == 0)
-                return false;
-        return true;
     }
 
     /**
