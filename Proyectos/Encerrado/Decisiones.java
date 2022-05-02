@@ -2,7 +2,7 @@ package Encerrado;
 
 /**
  * Clase para representar decisiones.
- * Una descisión tiene un tablero, una opción, un jugador y una puntuacion.
+ * Una decisión tiene un tablero, una opción, un jugador y una puntuacion.
  */
 public class Decisiones {
 
