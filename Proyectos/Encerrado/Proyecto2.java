@@ -13,15 +13,15 @@ public class Proyecto2 {
     public static void main(String[] args) {
 
         /**
-        Lista<Jugador> jugadores = new Lista<Jugador>();
-        jugadores.add(new Jugador(1));
-        jugadores.add(new JugadorCPU(2, 0));
-        Partida partida = new Partida(new Tablero(1), jugadores);
-        partida.iniciar();
-        */
+         * Lista<Jugador> jugadores = new Lista<Jugador>();
+         * jugadores.add(new Jugador(1));
+         * jugadores.add(new JugadorCPU(2, 0));
+         * Partida partida = new Partida(new Tablero(1), jugadores);
+         * partida.iniciar();
+         */
 
         Tablero tablero = new Tablero(1);
-        ArbolDecision arbol = new ArbolDecision(tablero, 2);
+        ArbolDecision arbol = new ArbolDecision(tablero, 2, 2);
         System.out.println(arbol);
     }
 }

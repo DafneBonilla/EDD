@@ -51,7 +51,7 @@ public class JugadorCPU extends Jugador {
      * Pide un movimiento al jugador.
      *
      * @param opciones las opciones que puede tomar el jugador.
-     * @param tablero el tablero del juego.
+     * @param tablero  el tablero del juego.
      * @return el movimiento del jugador.
      */
     @Override
@@ -60,7 +60,7 @@ public class JugadorCPU extends Jugador {
             int random = ThreadLocalRandom.current().nextInt(0, opciones.size());
             return opciones.buscarIndice(random);
         } else {
-            this.arbol = new ArbolDecision(tablero, this.getNombre());
+            this.arbol = new ArbolDecision(tablero, this.getNombre(), this.getNombre());
             return opciones.buscarIndice(0);
         }
     }

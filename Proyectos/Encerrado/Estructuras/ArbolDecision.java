@@ -42,34 +42,38 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
+    private int dueño;
+
     /**
      * Constructor de la clase ArbolDecision.
+     * 
      * @param tablero el tablero del arbol.
      */
-    public ArbolDecision(Tablero tablero, int jugador) {
+    public ArbolDecision(Tablero tablero, int jugador, int dueño) {
+        this.dueño = dueño;
         this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, -2));
-        construir(raiz, 9, jugador);
+        construir(raiz, 3, jugador, tablero);
     }
-    
-    private void construir(Vertice raiz, int i, int jugador) {
+
+    private void construir(Vertice raiz, int i, int jugador, Tablero tablero) {
         if (i == 0) {
             return;
         }
-        Tablero tablero = raiz.get().getTablero();
         Lista<Opcion> opciones = tablero.getOpciones(jugador);
-        for (Opcion op : opciones) {
+        int opci = opciones.size();
+        for (int j = 0; j < opci; j++) {
             Tablero tablerito = tablero.copia();
-            tablerito.moverEspecial(op);
-            Vertice hijo = new Vertice(new Decisiones(tablerito, op, jugador, -2));
-            int jugador2 = actualizarTurno(jugador);
-            if (raiz.izquierdo == null) {
+            Opcion opcioncita = opciones.buscarIndice(j);
+            tablerito.moverEspecial(opcioncita);
+            Vertice hijo = new Vertice(new Decisiones(tablerito, opcioncita, jugador, dueño));
+            int nuevo = actualizarTurno(jugador);
+            construir(hijo, i - 1, nuevo, tablerito);
+            if (!raiz.hayIzquierdo()) {
                 raiz.izquierdo = hijo;
                 hijo.padre = raiz;
-                construir(hijo, (i-1), jugador2);
-            } else if (raiz.derecho == null) {
+            } else {
                 raiz.derecho = hijo;
                 hijo.padre = raiz;
-                construir(hijo, (i-1), jugador2);
             }
         }
     }

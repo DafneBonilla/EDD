@@ -80,6 +80,6 @@ public class Decisiones {
      */
     @Override
     public String toString() {
-        return "Decisiones [" + opcion.getPosicionInicial() + " -> " + opcion.getPosicionFinal() + ", " + jugador+ "]";
+        return "Decisiones [" + opcion.getPosicionInicial() + " -> " + opcion.getPosicionFinal() + ", " + jugador + "]";
     }
 }
