@@ -66,7 +66,8 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             Opcion opcioncita = opciones.buscarIndice(j);
             tablerito.moverEspecial(opcioncita);
             Vertice hijo = new Vertice(new Decisiones(tablerito, opcioncita, jugador, dueño));
-            int nuevo = actualizarTurno(jugador);
+            int nuevo = jugador;
+            nuevo = actualizarTurno(nuevo);
             construir(hijo, i - 1, nuevo, tablerito);
             if (!raiz.hayIzquierdo()) {
                 raiz.izquierdo = hijo;
@@ -79,12 +80,11 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
     }
 
     public int actualizarTurno(int jugador) {
-        int jugador2 = jugador;
-        jugador2++;
-        if (jugador2 == 3) {
-            jugador2 = 1;
+        jugador++;
+        if (jugador == 3) {
+            jugador = 1;
         }
-        return jugador2;
+        return jugador;
     }
 
     @Override
