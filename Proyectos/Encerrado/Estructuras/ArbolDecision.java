@@ -51,31 +51,40 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
      */
     public ArbolDecision(Tablero tablero, int jugador, int dueño) {
         this.dueño = dueño;
-        this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, -2));
-        construir(raiz, 3, jugador, tablero);
+        this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, 0));
+        construir(raiz, 9, jugador);
     }
 
-    private void construir(Vertice raiz, int i, int jugador, Tablero tablero) {
+    private void construir(Vertice raiz, int i, int jugador) {
         if (i == 0) {
             return;
         }
+        int posicion = 0;
+        Tablero tablero = raiz.elemento.getTablero();
         Lista<Opcion> opciones = tablero.getOpciones(jugador);
-        int opci = opciones.size();
-        for (int j = 0; j < opci; j++) {
-            Tablero tablerito = tablero.copia();
-            Opcion opcioncita = opciones.buscarIndice(j);
-            tablerito.moverEspecial(opcioncita);
-            Vertice hijo = new Vertice(new Decisiones(tablerito, opcioncita, jugador, dueño));
-            int nuevo = jugador;
-            nuevo = actualizarTurno(nuevo);
-            construir(hijo, i - 1, nuevo, tablerito);
-            if (!raiz.hayIzquierdo()) {
+        if (opciones.size() == 0) {
+            if (jugador == dueño) {
+                raiz.elemento.setPuntuacion(-1);
+            } else {
+                raiz.elemento.setPuntuacion(1);
+            }
+        }
+        for (Opcion opci : opciones) {
+            Opcion inversa = opci.inversa();
+            tablero.moverEspecial(opci);
+            Decisiones dec = new Decisiones(tablero.copia(), opci, jugador, 0);
+            Vertice hijo = new Vertice(dec);
+            int nuevo = actualizarTurno(jugador);
+            construir(hijo, i - 1, nuevo);
+            if (posicion == 0) {
                 raiz.izquierdo = hijo;
                 hijo.padre = raiz;
+                posicion++;
             } else {
                 raiz.derecho = hijo;
                 hijo.padre = raiz;
             }
+            tablero.moverEspecial(inversa);
         }
     }
 
@@ -154,5 +163,26 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             a[i] = 0;
         }
         return toString(this.raiz, 0, a);
+    }
+
+    public void evaluar() {
+        evaluar(this.raiz);
+    }
+
+    private void evaluar(Vertice raiz) {
+
+    }
+
+    public int mejorMovimiento() {
+        if (!raiz.hayDerecho()) {
+            return 0;
+        }
+        int izqi = raiz.izquierdo.elemento.getPuntuacion();
+        int deri = raiz.derecho.elemento.getPuntuacion();
+        if (izqi >= deri) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }

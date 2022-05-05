@@ -21,7 +21,12 @@ public class Proyecto2 {
          */
 
         Tablero tablero = new Tablero(1);
+        System.out.println(tablero);
         ArbolDecision arbol = new ArbolDecision(tablero, 2, 2);
         System.out.println(arbol);
+        System.out.println(tablero);
+        System.out.println(arbol.mejorMovimiento());
+        // checar los -1 y 1 en puntacion que si sean verdad.
+
     }
 }

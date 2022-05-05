@@ -50,4 +50,8 @@ public class Opcion {
         return "Mover la ficha de la posicion " + posicionInicial + " a la posición " + posicionFinal;
     }
 
+    public Opcion inversa() {
+        return new Opcion(posicionFinal, posicionInicial);
+    }
+
 }
