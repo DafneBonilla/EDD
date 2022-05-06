@@ -52,11 +52,20 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
     public ArbolDecision(Tablero tablero, int jugador, int dueño) {
         this.dueño = dueño;
         this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, 0));
-        construir(raiz, 9, jugador);
+        construir(raiz, 10, jugador);
     }
 
     private void construir(Vertice raiz, int i, int jugador) {
         if (i == 0) {
+            Tablero tablero = raiz.elemento.getTablero();
+            Lista<Opcion> opciones = tablero.getOpciones(jugador);
+            if (opciones.size() == 0) {
+                if (jugador == dueño) {
+                    raiz.elemento.setPuntuacion(-1);
+                } else {
+                    raiz.elemento.setPuntuacion(1);
+                }
+            }
             return;
         }
         int posicion = 0;
@@ -169,10 +178,12 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         evaluar(this.raiz);
     }
 
+    // hacer esto xd
     private void evaluar(Vertice raiz) {
 
     }
 
+    // trabajar en esto
     public int mejorMovimiento() {
         if (!raiz.hayDerecho()) {
             return 0;
