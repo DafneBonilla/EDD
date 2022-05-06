@@ -53,6 +53,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         this.dueño = dueño;
         this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, 0));
         construir(raiz, 10, jugador);
+        evaluar();
     }
 
     private void construir(Vertice raiz, int i, int jugador) {
@@ -178,9 +179,33 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         evaluar(this.raiz);
     }
 
-    // hacer esto xd
+    // hacer esto xd (sale mal creo, lo de max y min)
     private void evaluar(Vertice raiz) {
-
+        if (raiz.izquierdo == null && raiz.derecho == null) {
+            return;
+        }
+        if (raiz.izquierdo != null && raiz.derecho != null) {
+            evaluar(raiz.izquierdo);
+            evaluar(raiz.derecho);
+            Decisiones dec = raiz.elemento;
+            if (dec.getJugador() == dueño) {
+                int max = Math.max(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
+                dec.setPuntuacion(max);
+            } else {
+                int min = Math.min(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
+                dec.setPuntuacion(min);
+            }
+        }
+        if (raiz.izquierdo != null) {
+            evaluar(raiz.izquierdo);
+            Decisiones dec = raiz.elemento;
+            dec.setPuntuacion(raiz.izquierdo.elemento.getPuntuacion());
+        }
+        if (raiz.derecho != null) {
+            evaluar(raiz.derecho);
+            Decisiones dec = raiz.elemento;
+            dec.setPuntuacion(raiz.derecho.elemento.getPuntuacion());
+        }
     }
 
     // trabajar en esto
