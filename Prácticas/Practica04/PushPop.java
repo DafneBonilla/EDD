@@ -17,8 +17,8 @@ public abstract class PushPop<T> {
 
     public abstract void push(T elemento);
 
-    // Eliminar al inicio. 
-    public T pop(){
+    // Eliminar al inicio.
+    public T pop() {
         if (longi == 0 || cabeza == null) {
             throw new NoSuchElementException("");
         }
@@ -30,17 +30,16 @@ public abstract class PushPop<T> {
         }
         T valor = cabeza.elemento;
         cabeza = cabeza.siguiente;
-        longi --;
+        longi--;
         return valor;
     }
 
-
-    public T peek(){
+    public T peek() {
         if (isEmpty()) {
             throw new NoSuchElementException("");
         }
         return cabeza.elemento;
-    } 
+    }
 
     /**
      * Regresa el número de elementos en la estructura.
@@ -75,16 +74,18 @@ public abstract class PushPop<T> {
      * 
      * @return un clon de la estructura.
      */
-    //public abstract PushPop<T> clone() ;
-    
-    public abstract String toString() ;
+    // public abstract PushPop<T> clone() ;
 
-    @Override public boolean equals(Object o) {
+    public abstract String toString();
+
+    @Override
+    public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             System.out.println("Ejemplares distintos");
             return false;
         }
-        @SuppressWarnings("unchecked") PushPop<T> pp = (PushPop<T>)o;
+        @SuppressWarnings("unchecked")
+        PushPop<T> pp = (PushPop<T>) o;
         if (this.longi != pp.longi) {
             System.out.println("Los tamaños no son iguales.");
             return false;
@@ -94,16 +95,14 @@ public abstract class PushPop<T> {
         }
         Nodo aux1 = this.cabeza;
         Nodo aux2 = pp.cabeza;
-        while (aux1!=null && aux2 != null) {
+        while (aux1 != null && aux2 != null) {
             if (!aux1.elemento.equals(aux2.elemento)) {
                 return false;
-            } 
+            }
             aux1 = aux1.siguiente;
             aux2 = aux2.siguiente;
-        }  
+        }
         return true;
     }
-
-
 
 }

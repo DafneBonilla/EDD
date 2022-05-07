@@ -18,15 +18,15 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
      * Clase interna protegida para vértices de árboles rojinegros. La única
      * diferencia con los vértices de árbol binario, es que tienen un campo para
      * el color del vértice.
-    */
+     */
     protected class VerticeRojinegro extends Vertice {
         public Color color;
-    
-        public VerticeRojinegro(T elemento){
+
+        public VerticeRojinegro(T elemento) {
             super(elemento);
             color = Color.NINGUNO;
         }
-        
+
         /**
          * Regresa una representación en cadena del vértice rojinegro.
          * 
@@ -39,7 +39,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
                 return "R{" + this.elemento.toString() + "}";
             return "N{" + this.elemento.toString() + "}";
         }
-        
+
         /**
          * Compara el vértice con otro objeto. La comparación es
          * <em>recursiva</em>.
@@ -119,14 +119,14 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
             super.add(elemento);
 
             // ToDo ... Conseguir el ultimoAgregado
-            //VerticeRojinegro v = convertirRojiNegro(ultimoAgregado);
-            //v.color = Color.ROJO;
-            //rebalancea(v);
+            // VerticeRojinegro v = convertirRojiNegro(ultimoAgregado);
+            // v.color = Color.ROJO;
+            // rebalancea(v);
         }
 
     }
 
-    private void rebalancea(VerticeRojinegro v){
+    private void rebalancea(VerticeRojinegro v) {
         // Caso 1
         // Caso 2
         // Caso 3
@@ -134,13 +134,12 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
         // Caso 5
     }
 
-    //Saber si un vertice tiene 2 hijos
-    private boolean tiene2hijos(VerticeRojinegro v){
+    // Saber si un vertice tiene 2 hijos
+    private boolean tiene2hijos(VerticeRojinegro v) {
         return false;
     }
 
-
-    private boolean hasAbuelo(VerticeRojinegro v){
+    private boolean hasAbuelo(VerticeRojinegro v) {
         return false;
     }
 
@@ -178,8 +177,8 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
         return null;
     }
 
-    //v.padre es izq y v es derecho.
-    private boolean cruzadosIzq(VerticeRojinegro v){
+    // v.padre es izq y v es derecho.
+    private boolean cruzadosIzq(VerticeRojinegro v) {
         return false;
     }
 
@@ -188,23 +187,23 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
         return false;
     }
 
-    private boolean isRojo(){
+    private boolean isRojo() {
         return false;
     }
 
-    private boolean isNegro(){
+    private boolean isNegro() {
         return false;
     }
-
-
 
     /**
      * Elimina un elemento del árbol. El método elimina el vértice que contiene
      * el elemento, y recolorea y gira el árbol como sea necesario para
      * rebalancearlo.
+     * 
      * @param elemento el elemento a eliminar del árbol.
      */
-    @Override public boolean delete(T elemento) {
+    @Override
+    public boolean delete(T elemento) {
         // Caso 1
         // Caso 2
         // Caso 3
@@ -219,7 +218,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
-    //@Override
+    // @Override
     public void giraIzquierda(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles rojinegros no " +
                 "pueden girar a la izquierda " +
@@ -234,17 +233,11 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
      * @param vertice el vértice sobre el que se quiere girar.
      * @throws UnsupportedOperationException siempre.
      */
-    //@Override
+    // @Override
     public void giraDerecha(VerticeArbolBinario<T> vertice) {
         throw new UnsupportedOperationException("Los árboles rojinegros no " +
                 "pueden girar a la derecha " +
                 "por el usuario.");
     }
 
-
-
-
-
-
-    
 }

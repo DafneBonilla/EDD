@@ -12,6 +12,7 @@ public interface IteradorLista<T> extends Iterator<T> {
      * Nos dice si hay un elemento anterior. El método debe regresar
      * <tt>true</tt>, excepto cuando la lista esté vacía, o el iterador esté
      * antes del primer elemento.
+     * 
      * @return <tt>true</tt> si el iterador tiene un elemento a su izquierda,
      *         <tt>false</tt> en otro caso.
      */
@@ -19,6 +20,7 @@ public interface IteradorLista<T> extends Iterator<T> {
 
     /**
      * Regresa el elemento anterior al iterador, y lo mueve a la izquierda.
+     * 
      * @return el elemento anterior al iterador.
      * @throws NoSuchElementException si el iterador no tiene elemento anterior.
      */

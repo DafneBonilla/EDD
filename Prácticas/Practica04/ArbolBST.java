@@ -608,7 +608,7 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
         for (T i : this) {
             respuesta += i + " ";
         }
-        return respuesta + "\n";
+        return respuesta;
     }
 
     /**

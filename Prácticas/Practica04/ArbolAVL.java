@@ -4,6 +4,7 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -22,15 +23,10 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
 
         /** La altura del vertice. */
         private int altura;
-        /** El padre del vértice. */
-        public VerticeAVL padre;
-        /** El izquierdo del vértice. */
-        public VerticeAVL izquierdo;
-        /** El derecho del vértice. */
-        public VerticeAVL derecho;
 
         /**
          * Constructor único que recibe un elemento.
+         * 
          * @param elemento el elemento del vértice.
          */
         public VerticeAVL(T elemento) {
@@ -47,6 +43,43 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return altura;
         }
 
+        private void setAltura(int altura) {
+            this.altura = altura;
+        }
+
+        /**
+         * Nos dice si el vértice tiene vértice padre.
+         * 
+         * @return <tt>true</tt> si el vértice tiene vértice padre, <tt>false</tt>
+         *         en otro caso.
+         */
+        @Override
+        public boolean hayPadre() {
+            return padre != null;
+        }
+
+        /**
+         * Nos dice si el vértice tiene vértice izquierdo.
+         * 
+         * @return <tt>true</tt> si el vértice tiene vértice izquierdo,
+         *         <tt>false</tt> en otro caso.
+         */
+        @Override
+        public boolean hayIzquierdo() {
+            return izquierdo != null;
+        }
+
+        /**
+         * Nos dice si el vértice tiene vértice derecho.
+         * 
+         * @return <tt>true</tt> si el vértice tiene vértice derecho, <tt>false</tt>
+         *         en otro caso.
+         */
+        @Override
+        public boolean hayDerecho() {
+            return derecho != null;
+        }
+
         /**
          * Compara el vértice con otro objeto. La comparación es
          * <em>recursiva</em>. Las clases que extiendan {@link Vertice} deben
@@ -59,7 +92,8 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
          *         iguales; <code>false</code> en otro caso.
          */
 
-         @Override public boolean equals(Object o){
+        @Override
+        public boolean equals(Object o) {
             if (o == null || getClass() != o.getClass())
                 return false;
             @SuppressWarnings("unchecked")
@@ -73,14 +107,14 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return equalsAuxDer(this, vertice) && equalsAuxIzq(this, vertice);
         }
 
-        private boolean equalsAuxDer(VerticeAVL a,VerticeAVL b){
-            if(a.hayDerecho() && b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura){
+        private boolean equalsAuxDer(VerticeAVL a, VerticeAVL b) {
+            if (a.hayDerecho() && b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
                 return a.derecho.equals(b.derecho);
             }
-            if(!a.hayDerecho() && !b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura){
+            if (!a.hayDerecho() && !b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
                 return true;
             }
-            if(a.hayDerecho() && !b.hayDerecho()){
+            if (a.hayDerecho() && !b.hayDerecho()) {
                 return false;
             }
             if (!a.hayDerecho() && b.hayDerecho()) {
@@ -125,6 +159,16 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             }
             return false;
         }
+
+        /**
+         * Regresa el elemento del vértice.
+         * 
+         * @return el elemento del vértice.
+         */
+        @Override
+        public T get() {
+            return elemento;
+        }
     }
 
     /** La raíz del árbol. */
@@ -162,84 +206,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     }
 
     /**
-     * Regresa una representación en cadena del árbol.
-     * 
-     * @return una representación en cadena del árbol.
-     */
-    @Override
-    public String toString() {
-        String respuesta = "";
-        for (T i : this) {
-            respuesta += i + " ";
-        }
-        return respuesta + "\n";
-    }
-
-    /**
-     * Método auxiliar de toString para dibujar espacios.
-     * 
-     * @return una represetación en cadena de espacios.
-     */
-    private String dibujaEspacios(int l, int[] a, int n) {
-        String s = "";
-        for (int i = 0; i < l; i++) {
-            if (a[i] == 1) {
-                s = s + "│  ";
-            } else {
-                s = s + "   ";
-            }
-        }
-        return s;
-    }
-
-    /**
-     * Metodo auxiliar de toString.
-     *
-     * @return una representación en cadena del árbol.
-     */
-    private String toStringBonito(Vertice v, int l, int[] m) {
-        String s = v.toString() + "\n";
-        m[l] = 1;
-
-        if (v.izquierdo != null && v.derecho != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "├─›";
-            s = s + toStringBonito(v.izquierdo, l + 1, m);
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─»";
-            m[l] = 0;
-            s = s + toStringBonito(v.derecho, l + 1, m);
-        } else if (v.izquierdo != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─›";
-            m[l] = 0;
-            s = s + toStringBonito(v.izquierdo, l + 1, m);
-        } else if (v.derecho != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─»";
-            m[l] = 0;
-            s = s + toStringBonito(v.derecho, l + 1, m);
-        }
-        return s;
-    }
-
-    /**
-     * Regresa una representación en cadena del árbol.
-     * 
-     * @return una representación en cadena del árbol.
-     */
-    public String toStringBonito() {
-        if (this.raiz == null) {
-            return "";
-        }
-        int[] a = new int[this.altura() + 1];
-        for (int i = 0; i < a.length; i++) {
-            a[i] = 0;
-        }
-        return toStringBonito(this.raiz, 0, a);
-    }
-
-     /**
      * Compara el árbol con un objeto.
      * 
      * @param o el objeto con el que queremos comparar el árbol.
@@ -261,9 +227,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
 
     /**
      * Regresa la altura del árbol.
+     * 
      * @return el número de la altura del árbol.
      */
     public int getAltura() {
+        if (raiz == null) {
+            return -1;
+        }
         return raiz.altura;
     }
 
@@ -278,7 +248,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return;
         }
         if (raiz == null) {
-            raiz = new VerticeAVL(elemento);
+            this.raiz = new VerticeAVL(elemento);
             elementos++;
             return;
         }
@@ -512,14 +482,16 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         if (nuevo.hayDerecho()) {
             alturaDer = nuevo.derecho.altura;
         }
-        if (Math.abs(alturaIzq -  alturaDer) == 2) {
+        if (Math.abs(alturaIzq - alturaDer) == 2) {
             rebalancear(nuevo);
             return;
         }
-        nuevo.altura = 1 + Math.max(alturaIzq, alturaDer);
-        if (nuevo.hayPadre()) {
-            actualizarAlturas(nuevo.padre);            
+        int nuevaAlt = 1 + Math.max(alturaIzq, alturaDer);
+        nuevo.setAltura(nuevaAlt);
+        if (!nuevo.hayPadre()) {
+            return;
         }
+        actualizarAlturas(nuevo.padre);
     }
 
     /**
@@ -533,48 +505,71 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         VerticeAVL hi = v.izquierdo;
         VerticeAVL hd = v.derecho;
-        if (hd.altura == hi.altura + 2) {
-            int k = hi.altura;
+        int hiAltura = -1;
+        int hdAltura = -1;
+        if (hi != null) {
+            hiAltura = hi.altura;
+        }
+        if (hd != null) {
+            hdAltura = hd.altura;
+        }
+        if (hdAltura == hiAltura + 2) {
+            int k = hiAltura;
             VerticeAVL wi = hd.izquierdo;
             VerticeAVL wd = hd.derecho;
-            if (wd.altura == k + 1) {
+            int wdAltura = -1;
+            if (wd != null) {
+                wdAltura = wd.altura;
+            }
+            if (wdAltura == k + 1) {
                 rotarIzq(v);
-                actualizarAlturas(hd);
+                // actualizarAlturas(hd);
+                actualizarAlturas(v);
                 return;
-            } else if (wd.altura == k) {
+            } else if (wdAltura == k) {
                 rotarDer(hd);
                 rotarIzq(v);
                 actualizarAlturas(wi);
                 return;
             }
-        } else if (hi.altura == hd.altura + 2) {
-            int k = hd.altura;
+        } else if (hiAltura == hdAltura + 2) {
+            int k = hdAltura;
             VerticeAVL wi = hi.izquierdo;
             VerticeAVL wd = hi.derecho;
-            if (wi.altura == k + 1) {
+            int wiAltura = -1;
+            if (wi != null) {
+                wiAltura = wi.altura;
+            }
+            if (wiAltura == k + 1) {
                 rotarDer(v);
-                actualizarAlturas(hi);
+                // actualizarAlturas(hi);
+                actualizarAlturas(v);
                 return;
-            } else if (wi.altura == k) {
+            } else if (wiAltura == k) {
                 rotarIzq(hi);
                 rotarDer(v);
                 actualizarAlturas(wd);
                 return;
             }
         }
-        
+
     }
 
     private void rotarIzq(VerticeAVL v) {
+        if (!v.hayDerecho()) {
+            return;
+        }
         VerticeAVL hijoDer = v.derecho;
         VerticeAVL padreZ = v.padre;
         VerticeAVL nietoIzq = hijoDer.izquierdo;
-        if (raiz == v) {
+        if (raiz.equals(v)) {
             v.padre = hijoDer;
             hijoDer.izquierdo = v;
             hijoDer.padre = null;
             v.derecho = nietoIzq;
-            nietoIzq.padre = v;
+            if (nietoIzq != null) {
+                nietoIzq.padre = v;
+            }
             raiz = hijoDer;
             return;
         }
@@ -587,19 +582,26 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             padreZ.derecho = hijoDer;
         }
         v.derecho = nietoIzq;
-        nietoIzq.padre = v;
+        if (nietoIzq != null) {
+            nietoIzq.padre = v;
+        }
     }
 
     private void rotarDer(VerticeAVL v) {
+        if (!v.hayIzquierdo()) {
+            return;
+        }
         VerticeAVL hijoIzq = v.izquierdo;
         VerticeAVL padreZ = v.padre;
         VerticeAVL nietoDer = hijoIzq.derecho;
-        if (raiz == v) {
+        if (raiz.equals(v)) {
             v.padre = hijoIzq;
             hijoIzq.derecho = v;
             hijoIzq.padre = null;
             v.izquierdo = nietoDer;
-            nietoDer.padre = v;
+            if (nietoDer != null) {
+                nietoDer.padre = v;
+            }
             raiz = hijoIzq;
             return;
         }
@@ -612,6 +614,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             padreZ.derecho = hijoIzq;
         }
         v.izquierdo = nietoDer;
-        nietoDer.padre = v;
+        if (nietoDer != null) {
+            nietoDer.padre = v;
+        }
     }
+
 }

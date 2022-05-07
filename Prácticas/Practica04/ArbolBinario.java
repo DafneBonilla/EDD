@@ -136,6 +136,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
 
         /**
          * Regresa la profundidad del vértice.
+         * 
          * @return la profundidad del vértice.
          */
         @Override

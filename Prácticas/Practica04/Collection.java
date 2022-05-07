@@ -8,7 +8,7 @@ public interface Collection<T> extends Iterable<T> {
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
      *                                  <code>null</code>.
-    */
+     */
     public void add(T elemento);
 
     /**
@@ -24,7 +24,7 @@ public interface Collection<T> extends Iterable<T> {
      * 
      * @return El elemento a sacar.
      */
-    //public T pop();
+    // public T pop();
 
     /**
      * Regresa el número de elementos en la colección.
@@ -56,7 +56,7 @@ public interface Collection<T> extends Iterable<T> {
      *         otro caso.
      */
     public boolean isEmpty();
-    
+
     /**
      * Nos dice si la coleccion es igual a otra coleccion recibida.
      * 
@@ -72,7 +72,5 @@ public interface Collection<T> extends Iterable<T> {
      * @return una representación en cadena de la coleccion.
      */
     public String toString();
-    
-
 
 }

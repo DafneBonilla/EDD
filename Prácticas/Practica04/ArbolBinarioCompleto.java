@@ -13,29 +13,30 @@ import java.util.Iterator;
  */
 public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     /* Clase privada para iteradores de árboles binarios completos. */
-    private class Iterador implements Iterator<T>{
+    private class Iterador implements Iterator<T> {
         /* Cola para recorrer los vértices en BFS. */
         private Cola<Vertice> cola;
 
-        public Iterador(){
+        public Iterador() {
             cola = new Cola<Vertice>();
-            if(isEmpty())
+            if (isEmpty())
                 return;
             cola.push(raiz);
         }
-        
+
         /* Nos dice si hay un elemento siguiente. */
-        public boolean hasNext(){
+        public boolean hasNext() {
             return !cola.isEmpty();
         }
 
-        @Override public T next(){
-            if(!hasNext())
+        @Override
+        public T next() {
+            if (!hasNext())
                 throw new NoSuchElementException();
             Vertice v = cola.pop();
-            if(v.izquierdo != null)
+            if (v.izquierdo != null)
                 cola.push(v.izquierdo);
-            if(v.derecho != null)
+            if (v.derecho != null)
                 cola.push(v.derecho);
             return v.elemento;
         }
@@ -69,31 +70,31 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
      * @throws IllegalArgumentException si <code>elemento</code> es
      *                                  <code>null</code>.
      */
-    @Override public void add(T elemento){
-        if(elemento == null){
+    @Override
+    public void add(T elemento) {
+        if (elemento == null) {
             throw new IllegalArgumentException();
         }
         Vertice a = nuevoVertice(elemento);
         elementos++;
         if (isEmpty()) {
             raiz = a;
-        }
-        else{
+        } else {
             Vertice b = BFS();
             if (!b.hayIzquierdo()) {
                 b.izquierdo = a;
                 a.padre = b;
                 return;
             }
-            if(!b.hayDerecho()){
+            if (!b.hayDerecho()) {
                 b.derecho = a;
                 a.padre = b;
             }
         }
     }
 
-    private Vertice BFS(){
-        if(this.isEmpty()){
+    private Vertice BFS() {
+        if (this.isEmpty()) {
             return null;
         }
         Cola<Vertice> a = new Cola<Vertice>();
@@ -106,14 +107,14 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
             if (b.hayDerecho()) {
                 a.push(b.derecho);
             }
-            if(!b.hayIzquierdo() || !b.hayDerecho()){
+            if (!b.hayIzquierdo() || !b.hayDerecho()) {
                 return b;
             }
         }
         return null;
 
     }
-    
+
     /**
      * Regresa la altura del árbol. La altura de un árbol binario completo
      * siempre es ⌊log<sub>2</sub><em>n</em>⌋.
@@ -124,12 +125,11 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     public int altura() {
         return (int) Math.floor(Math.log(elementos) / Math.log(2));
     }
-    
-    public boolean delete(T elemento){
+
+    public boolean delete(T elemento) {
         return false;
     }
-    
-   
+
     /**
      * Regresa un iterador para iterar el árbol. El árbol se itera en orden BFS.
      * 
@@ -139,9 +139,5 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     public Iterator<T> iterator() {
         return new Iterador();
     }
-
-  
-
-
 
 }
