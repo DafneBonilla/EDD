@@ -39,45 +39,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
          * 
          * @return el número de la altura.
          */
-        public int getAltura() {
+        @Override
+        public int altura() {
             return altura;
         }
 
         private void setAltura(int altura) {
             this.altura = altura;
-        }
-
-        /**
-         * Nos dice si el vértice tiene vértice padre.
-         * 
-         * @return <tt>true</tt> si el vértice tiene vértice padre, <tt>false</tt>
-         *         en otro caso.
-         */
-        @Override
-        public boolean hayPadre() {
-            return padre != null;
-        }
-
-        /**
-         * Nos dice si el vértice tiene vértice izquierdo.
-         * 
-         * @return <tt>true</tt> si el vértice tiene vértice izquierdo,
-         *         <tt>false</tt> en otro caso.
-         */
-        @Override
-        public boolean hayIzquierdo() {
-            return izquierdo != null;
-        }
-
-        /**
-         * Nos dice si el vértice tiene vértice derecho.
-         * 
-         * @return <tt>true</tt> si el vértice tiene vértice derecho, <tt>false</tt>
-         *         en otro caso.
-         */
-        @Override
-        public boolean hayDerecho() {
-            return derecho != null;
         }
 
         /**
@@ -153,26 +121,15 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             if (!hayPadre()) {
                 return false;
             }
-            VerticeAVL hijoIzq = this.padre.izquierdo;
+            Vertice hijoIzq = this.padre.izquierdo;
             if (hijoIzq.equals(this)) {
                 return true;
             }
             return false;
         }
-
-        /**
-         * Regresa el elemento del vértice.
-         * 
-         * @return el elemento del vértice.
-         */
-        @Override
-        public T get() {
-            return elemento;
-        }
     }
 
-    /** La raíz del árbol. */
-    protected VerticeAVL raiz;
+    // revisar todo abajo unu
 
     /**
      * Construye un árbol AVL vacío.
