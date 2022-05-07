@@ -129,7 +129,15 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
     }
 
-    // revisar todo abajo unu
+    /**
+     * Regresa un vértice AVL a partir de un vértice de árbol binario.
+     * 
+     * @param vertice el vertice del árbol binario
+     * @return el vertice AVL.
+     */
+    protected VerticeAVL convertirVerticeAVL(VerticeArbolBinario<T> vertice) {
+        return (VerticeAVL) vertice;
+    }
 
     /**
      * Construye un árbol AVL vacío.
@@ -153,36 +161,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     }
 
     /**
-     * Regresa un vértice AVL a partir de un vértice de árbol binario.
-     * 
-     * @param vertice el vertice del árbol binario
-     * @return el vertice AVL.
-     */
-    protected VerticeAVL convertirVerticeAVL(VerticeArbolBinario<T> vertice) {
-        return (VerticeAVL) vertice;
-    }
-
-    /**
-     * Compara el árbol con un objeto.
-     * 
-     * @param o el objeto con el que queremos comparar el árbol.
-     * @return <code>true</code> si el objeto recibido es un árbol binario y los
-     *         árboles son iguales; <code>false</code> en otro caso.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        @SuppressWarnings("unchecked")
-        ArbolBinario<T> arbol = (ArbolBinario<T>) o;
-        if (isEmpty()) {
-            return arbol.isEmpty();
-        }
-        return this.raiz.equals(arbol.raiz);
-    }
-
-    /**
      * Regresa la altura del árbol.
      * 
      * @return el número de la altura del árbol.
@@ -191,8 +169,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         if (raiz == null) {
             return -1;
         }
-        return raiz.altura;
+        VerticeAVL raizAVL = convertirVerticeAVL(raiz);
+        return raizAVL.altura;
     }
+
+    // revisar apartir de aqui unu
 
     /**
      * Agrega un elemento al árbol.
