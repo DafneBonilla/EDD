@@ -44,67 +44,24 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return altura;
         }
 
-        private void setAltura(int altura) {
-            this.altura = altura;
-        }
-
         /**
          * Compara el vértice con otro objeto. La comparación es
-         * <em>recursiva</em>. Las clases que extiendan {@link Vertice} deben
-         * sobrecargar el método {@link Vertice#equals}.
+         * <em>recursiva</em>.
          * 
          * @param o el objeto con el cual se comparará el vértice.
          * @return <code>true</code> si el objeto es instancia de la clase
-         *         {@link Vertice}, su elemento es igual al elemento de éste
-         *         vértice, y los descendientes de ambos son recursivamente
-         *         iguales; <code>false</code> en otro caso.
+         *         {@link VerticeRojinegro}, su elemento es igual al elemento de
+         *         éste vértice, los descendientes de ambos son recursivamente
+         *         iguales, y los colores son iguales; <code>false</code> en
+         *         otro caso.
          */
-
         @Override
         public boolean equals(Object o) {
             if (o == null || getClass() != o.getClass())
                 return false;
             @SuppressWarnings("unchecked")
             VerticeAVL vertice = (VerticeAVL) o;
-            if (!this.elemento.equals(vertice.elemento)) {
-                return false;
-            }
-            if (this.altura != vertice.altura) {
-                return false;
-            }
-            return equalsAuxDer(this, vertice) && equalsAuxIzq(this, vertice);
-        }
-
-        private boolean equalsAuxDer(VerticeAVL a, VerticeAVL b) {
-            if (a.hayDerecho() && b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
-                return a.derecho.equals(b.derecho);
-            }
-            if (!a.hayDerecho() && !b.hayDerecho() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
-                return true;
-            }
-            if (a.hayDerecho() && !b.hayDerecho()) {
-                return false;
-            }
-            if (!a.hayDerecho() && b.hayDerecho()) {
-                return false;
-            }
-            return false;
-        }
-
-        private boolean equalsAuxIzq(VerticeAVL a, VerticeAVL b) {
-            if (a.hayIzquierdo() && b.hayIzquierdo() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
-                return a.izquierdo.equals(b.izquierdo);
-            }
-            if (!a.hayIzquierdo() && !b.hayIzquierdo() && b.elemento.equals(a.elemento) && a.altura == b.altura) {
-                return true;
-            }
-            if (a.hayIzquierdo() && !b.hayIzquierdo()) {
-                return false;
-            }
-            if (!a.hayIzquierdo() && b.hayIzquierdo()) {
-                return false;
-            }
-            return false;
+            return altura == vertice.altura && super.equals(o);
         }
 
         /**
@@ -117,6 +74,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return elemento.toString() + " ," + altura;
         }
 
+        //////////////////// revisar esto ////////////////////
         public boolean esHijoIzq() {
             if (!hayPadre()) {
                 return false;
@@ -173,8 +131,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         return raizAVL.altura;
     }
 
-    // revisar apartir de aqui unu
-
     /**
      * Agrega un elemento al árbol.
      * 
@@ -199,7 +155,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
      * @param raiz     la raiz del árbol donde insertaremos.
      * @param elemento el elemento a insertar.
      */
-    private void insert(VerticeAVL raiz, T u) {
+    private void insert(Vertice raiz, T u) {
         if (u.compareTo(raiz.elemento) < 0) {
             if (raiz.izquierdo == null) {
                 VerticeAVL nuevo = new VerticeAVL(u);
@@ -223,6 +179,8 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             }
         }
     }
+
+    //////////////////// revisar apartir de aqui unu ////////////////////
 
     /**
      * Elimina un elemento del árbol.
