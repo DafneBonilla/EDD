@@ -569,12 +569,25 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
     }
 
     /**
+     * Regresa el maximo de un árbol.
+     * 
+     * @param raiz la raiz del árbol.
+     * @return el vertice con el maximo del árbol.
+     */
+    protected Vertice buscaMaximo(Vertice raiz) {
+        if (raiz.hayDerecho()) {
+            return buscaMinimo(raiz.derecho);
+        }
+        return raiz;
+    }
+
+    /**
      * Regresa el minimo de un árbol.
      * 
      * @param raiz la raiz del árbol.
      * @return el vertice con el minimo del árbol.
      */
-    private Vertice buscaMinimo(Vertice raiz) {
+    protected Vertice buscaMinimo(Vertice raiz) {
         if (raiz.hayIzquierdo()) {
             return buscaMinimo(raiz.izquierdo);
         }

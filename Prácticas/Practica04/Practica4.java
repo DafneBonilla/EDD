@@ -8,13 +8,16 @@ public class Practica4 {
 
     public static void main(String[] args) {
 
-        // Aqui va tu codigo
+        // Aquí va tu código
         ArbolAVL<Integer> arbol = new ArbolAVL<Integer>();
         arbol.add(10);
+        arbol.add(20);
+        arbol.add(30);
         arbol.add(5);
-        arbol.add(1);
-        System.out.println(arbol.search(arbol.getRaiz(), 5));
-        arbol.delete(5);
+        arbol.add(7);
+        //arbol.add(15);
+        //arbol.add(40);
+        //System.out.println(arbol.toStringBonito());
+        System.out.println(arbol);
     }
-
 }

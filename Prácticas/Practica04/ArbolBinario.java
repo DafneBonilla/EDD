@@ -213,6 +213,45 @@ public abstract class ArbolBinario<T> implements Collection<T> {
             return elemento.toString();
         }
 
+        /**
+         * Nos dice si el vertice es hijo izquierdo.
+         * 
+         * @return <code>true</code> si es hijo izquierdo;
+         *         <code>false</code> en otro caso.
+         */
+        public boolean esHijoIzq() {
+            if (!hayPadre()) {
+                return false;
+            }
+            Vertice hijoIzq = this.padre.izquierdo;
+            if (hijoIzq == null) {
+                return false;
+            }
+            if (hijoIzq.elemento.equals(this.elemento)) {
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Nos dice si el vertice es hijo derecho.
+         * 
+         * @return <code>true</code> si es hijo derecho;
+         *         <code>false</code> en otro caso.
+         */
+        public boolean esHijoDer() {
+            if (!hayPadre()) {
+                return false;
+            }
+            Vertice hijoDer = this.padre.derecho;
+            if (hijoDer == null) {
+                return false;
+            }
+            if (hijoDer.elemento.equals(this.elemento)) {
+                return true;
+            }
+            return false;
+        }
     }
 
     /** La raíz del árbol. */
@@ -225,7 +264,6 @@ public abstract class ArbolBinario<T> implements Collection<T> {
      * 
      */
     public ArbolBinario() {
-
     }
 
     // Revisar forEach

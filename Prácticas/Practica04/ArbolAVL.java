@@ -4,9 +4,6 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 /**
  * ArbolAVL
  * Implementación de un árbol binario AVL.
@@ -72,18 +69,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         @Override
         public String toString() {
             return elemento.toString() + " ," + altura;
-        }
-
-        //////////////////// revisar esto ////////////////////
-        public boolean esHijoIzq() {
-            if (!hayPadre()) {
-                return false;
-            }
-            Vertice hijoIzq = this.padre.izquierdo;
-            if (hijoIzq.equals(this)) {
-                return true;
-            }
-            return false;
         }
     }
 
@@ -180,8 +165,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
     }
 
-    //////////////////// revisar apartir de aqui unu ////////////////////
-
     /**
      * Elimina un elemento del árbol.
      * 
@@ -194,13 +177,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         if (raiz == null) {
             return false;
         }
-        VerticeAVL buscado = buscaVertice(raiz, elemento);
+        Vertice buscado = buscaVertice(raiz, elemento);
         if (buscado == null) {
             return false;
         }
         if (!buscado.hayIzquierdo() && !buscado.hayDerecho()) {
             if (buscado.hayPadre()) {
-                VerticeAVL ancestro = buscado.padre;
+                Vertice ancestro = buscado.padre;
                 if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
                     if (ancestro.izquierdo.equals(buscado)) {
                         ancestro.izquierdo = null;
@@ -231,7 +214,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             }
         }
         if (buscado.hayIzquierdo() && !buscado.hayDerecho()) {
-            VerticeAVL ancestro = buscado.padre;
+            Vertice ancestro = buscado.padre;
             ancestro.izquierdo = buscado.izquierdo;
             buscado.izquierdo.padre = ancestro;
             elementos--;
@@ -239,7 +222,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return true;
         }
         if (!buscado.hayIzquierdo() && buscado.hayDerecho()) {
-            VerticeAVL ancestro = buscado.padre;
+            Vertice ancestro = buscado.padre;
             ancestro.derecho = buscado.derecho;
             buscado.derecho.padre = ancestro;
             elementos--;
@@ -247,7 +230,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return true;
         }
         if (buscado.hayIzquierdo() && buscado.hayDerecho()) {
-            VerticeAVL hijito = buscaMinimo(buscado.derecho);
+            Vertice hijito = buscaMaximo(buscado.izquierdo);
             T aux = buscado.elemento;
             buscado.elemento = hijito.elemento;
             hijito.elemento = aux;
@@ -263,7 +246,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
      * @return <code>true</code> si el vertice se eliminó
      *         <code>false</code> en otro caso.
      */
-    public boolean delete2(VerticeAVL elemento) {
+    public boolean delete2(Vertice elemento) {
         if (raiz == null) {
             return false;
         }
@@ -272,7 +255,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         if (!elemento.hayIzquierdo() && !elemento.hayDerecho()) {
             if (elemento.hayPadre()) {
-                VerticeAVL ancestro = elemento.padre;
+                Vertice ancestro = elemento.padre;
                 if (ancestro.hayIzquierdo() && ancestro.hayDerecho()) {
                     if (ancestro.izquierdo.equals(elemento)) {
                         ancestro.izquierdo = null;
@@ -303,7 +286,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             }
         }
         if (elemento.hayIzquierdo() && !elemento.hayDerecho()) {
-            VerticeAVL ancestro = elemento.padre;
+            Vertice ancestro = elemento.padre;
             ancestro.izquierdo = elemento.izquierdo;
             elemento.izquierdo.padre = ancestro;
             elementos--;
@@ -311,7 +294,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return true;
         }
         if (!elemento.hayIzquierdo() && elemento.hayDerecho()) {
-            VerticeAVL ancestro = elemento.padre;
+            Vertice ancestro = elemento.padre;
             ancestro.derecho = elemento.derecho;
             elemento.derecho.padre = ancestro;
             elementos--;
@@ -319,7 +302,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
             return true;
         }
         if (elemento.hayIzquierdo() && elemento.hayDerecho()) {
-            VerticeAVL hijito = buscaMinimo(elemento.derecho);
+            Vertice hijito = buscaMaximo(elemento.izquierdo);
             T aux = elemento.elemento;
             elemento.elemento = hijito.elemento;
             hijito.elemento = aux;
@@ -329,190 +312,144 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     }
 
     /**
-     * Ve si el árbol contiene un elemento y regresa el vértice que lo contiene.
-     * 
-     * @param elemento el elemento a buscar.
-     * @param raiz     la raíz del árbol donde buscaremos.
-     * @return el vértice que contiene el elemento.
-     */
-    public VerticeAVL buscaVertice(VerticeAVL raiz, T elemento) {
-        if (raiz == null) {
-            return null;
-        }
-        if (raiz.elemento.equals(elemento)) {
-            return raiz;
-        }
-        if (elemento.compareTo(raiz.elemento) < 0) {
-            return buscaVertice(raiz.izquierdo, elemento);
-        }
-        if (elemento.compareTo(raiz.elemento) > 0) {
-            return buscaVertice(raiz.derecho, elemento);
-        }
-        return null;
-    }
-
-    /**
-     * Regresa el mínimo de un árbol.
-     * 
-     * @param raiz la raiz del árbol.
-     * @return el vertice con el minimo del árbol.
-     */
-    private VerticeAVL buscaMinimo(VerticeAVL raiz) {
-        if (raiz.hayIzquierdo()) {
-            return buscaMinimo(raiz.izquierdo);
-        }
-        return raiz;
-    }
-
-    /**
      * Actualiza la altura de los vertices.
      * 
      * @param nuevo el vértice AVL que se va a actualizar.
      */
-    private void actualizarAlturas(VerticeAVL nuevo) {
+    private void actualizarAlturas(Vertice v) {
         int alturaIzq = -1;
         int alturaDer = -1;
-        if (nuevo.hayIzquierdo()) {
-            alturaIzq = nuevo.izquierdo.altura;
+        if (v.hayIzquierdo()) {
+            alturaIzq = convertirVerticeAVL(v.izquierdo).altura;
         }
-        if (nuevo.hayDerecho()) {
-            alturaDer = nuevo.derecho.altura;
+        if (v.hayDerecho()) {
+            alturaDer = convertirVerticeAVL(v.derecho).altura;
         }
         if (Math.abs(alturaIzq - alturaDer) == 2) {
-            rebalancear(nuevo);
+            rebalancear(v);
             return;
         }
         int nuevaAlt = 1 + Math.max(alturaIzq, alturaDer);
-        nuevo.setAltura(nuevaAlt);
-        if (!nuevo.hayPadre()) {
+        convertirVerticeAVL(v).altura = nuevaAlt;
+        if (!v.hayPadre()) {
             return;
         }
-        actualizarAlturas(nuevo.padre);
+        actualizarAlturas(v.padre);
     }
 
     /**
      * Rebalancea un árbol AVL.
      * 
-     * @param v el vertice a rebalancear.
+     * @param ancestro el vertice a rebalancear.
      */
-    private void rebalancear(VerticeAVL v) {
-        if (v == null) {
+    private void rebalancear(Vertice ancestro) {
+        if (ancestro == null) {
             return;
         }
-        VerticeAVL hi = v.izquierdo;
-        VerticeAVL hd = v.derecho;
+        Vertice hi = ancestro.izquierdo;
+        Vertice hd = ancestro.derecho;
         int hiAltura = -1;
         int hdAltura = -1;
         if (hi != null) {
-            hiAltura = hi.altura;
+            hiAltura = convertirVerticeAVL(hi).altura;
         }
         if (hd != null) {
-            hdAltura = hd.altura;
+            hdAltura = convertirVerticeAVL(hd).altura;
         }
         if (hdAltura == hiAltura + 2) {
             int k = hiAltura;
-            VerticeAVL wi = hd.izquierdo;
-            VerticeAVL wd = hd.derecho;
+            Vertice wi = hd.izquierdo;
+            Vertice wd = hd.derecho;
             int wdAltura = -1;
             if (wd != null) {
-                wdAltura = wd.altura;
+                wdAltura = convertirVerticeAVL(wd).altura;
             }
             if (wdAltura == k + 1) {
-                rotarIzq(v);
+                rotarIzq(ancestro);
                 // actualizarAlturas(hd);
-                actualizarAlturas(v);
+                actualizarAlturas(ancestro);
                 return;
             } else if (wdAltura == k) {
                 rotarDer(hd);
-                rotarIzq(v);
+                rotarIzq(ancestro);
                 actualizarAlturas(wi);
                 return;
             }
         } else if (hiAltura == hdAltura + 2) {
             int k = hdAltura;
-            VerticeAVL wi = hi.izquierdo;
-            VerticeAVL wd = hi.derecho;
+            Vertice wi = hi.izquierdo;
+            Vertice wd = hi.derecho;
             int wiAltura = -1;
             if (wi != null) {
-                wiAltura = wi.altura;
+                wiAltura = convertirVerticeAVL(wi).altura;
             }
             if (wiAltura == k + 1) {
-                rotarDer(v);
+                rotarDer(ancestro);
                 // actualizarAlturas(hi);
-                actualizarAlturas(v);
+                actualizarAlturas(ancestro);
                 return;
             } else if (wiAltura == k) {
-                rotarIzq(hi);
-                rotarDer(v);
-                actualizarAlturas(wd);
+                //rotarIzq(hi);
+                rotarDer(ancestro);
+                // actualizarAlturas(wd);
                 return;
             }
         }
-
     }
 
-    private void rotarIzq(VerticeAVL v) {
+    private void rotarIzq(Vertice v) {
         if (!v.hayDerecho()) {
             return;
         }
-        VerticeAVL hijoDer = v.derecho;
-        VerticeAVL padreZ = v.padre;
-        VerticeAVL nietoIzq = hijoDer.izquierdo;
-        if (raiz.equals(v)) {
-            v.padre = hijoDer;
-            hijoDer.izquierdo = v;
-            hijoDer.padre = null;
-            v.derecho = nietoIzq;
-            if (nietoIzq != null) {
-                nietoIzq.padre = v;
-            }
-            raiz = hijoDer;
-            return;
-        }
+        Vertice hijoDer = v.derecho;
+        Vertice padreZ = v.padre;
+        Vertice nietoIzq = hijoDer.izquierdo;
         v.padre = hijoDer;
         hijoDer.izquierdo = v;
         hijoDer.padre = padreZ;
         if (v.esHijoIzq()) {
-            padreZ.izquierdo = hijoDer;
-        } else {
-            padreZ.derecho = hijoDer;
+            if (padreZ != null) {
+                padreZ.izquierdo = hijoDer;
+            }
+        } else if (v.esHijoDer()) {
+            if (padreZ != null) {
+                padreZ.derecho = hijoDer;
+            }
         }
         v.derecho = nietoIzq;
         if (nietoIzq != null) {
             nietoIzq.padre = v;
         }
+        if (padreZ == null) {
+            raiz = hijoDer;
+        }
     }
 
-    private void rotarDer(VerticeAVL v) {
+    private void rotarDer(Vertice v) {
         if (!v.hayIzquierdo()) {
             return;
         }
-        VerticeAVL hijoIzq = v.izquierdo;
-        VerticeAVL padreZ = v.padre;
-        VerticeAVL nietoDer = hijoIzq.derecho;
-        if (raiz.equals(v)) {
-            v.padre = hijoIzq;
-            hijoIzq.derecho = v;
-            hijoIzq.padre = null;
-            v.izquierdo = nietoDer;
-            if (nietoDer != null) {
-                nietoDer.padre = v;
-            }
-            raiz = hijoIzq;
-            return;
-        }
-        v.padre = hijoIzq;
+        Vertice hijoIzq = v.izquierdo;
+        Vertice padreZ = v.padre;
+        Vertice nietoDer = hijoIzq.derecho;
+        v.padre = hijoIzq; 
         hijoIzq.derecho = v;
         hijoIzq.padre = padreZ;
         if (v.esHijoIzq()) {
-            padreZ.izquierdo = hijoIzq;
-        } else {
-            padreZ.derecho = hijoIzq;
+            if (padreZ != null) {
+                padreZ.izquierdo = hijoIzq;
+            }
+        } else if (v.esHijoDer()) {
+            if (padreZ != null) {
+                padreZ.derecho = hijoIzq;
+            }
         }
         v.izquierdo = nietoDer;
         if (nietoDer != null) {
             nietoDer.padre = v;
         }
+        if (padreZ == null) {
+            raiz = hijoIzq;
+        }
     }
-
 }
