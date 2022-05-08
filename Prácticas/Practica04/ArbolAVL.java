@@ -402,7 +402,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         v.padre = hijoDer;
         hijoDer.izquierdo = v;
         hijoDer.padre = padreZ;
-        if (v.esHijoIzq()) {
+        if (v.esHijoIzq()) { // el error puede estar aqui?
             if (padreZ != null) {
                 padreZ.izquierdo = hijoDer;
             }
@@ -434,7 +434,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         v.padre = hijoIzq;
         hijoIzq.derecho = v;
         hijoIzq.padre = padreZ;
-        if (v.esHijoIzq()) {
+        if (v.esHijoIzq()) { // el error puede estar aqui?
             if (padreZ != null) {
                 padreZ.izquierdo = hijoIzq;
             }
