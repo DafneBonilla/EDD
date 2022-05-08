@@ -350,11 +350,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         if (alturaWi == k + 1) {
             rotarDer(v);
-            actualizarAlturaSimple(hi);
-        } else {
+            actualizarAlturas(hi);
+            return;
+        } else if (alturaWi == k) {
             rotarIzq(hi);
             rotarDer(v);
-            actualizarAlturaSimple(wd);
+            actualizarAlturas(wd);
+            return;
         }
     }
 
@@ -367,11 +369,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         if (alturaWd == k + 1) {
             rotarIzq(v);
-            actualizarAlturaSimple(hd);
-        } else {
+            actualizarAlturas(hd);
+            return;
+        } else if (alturaWd == k) {
             rotarDer(hd);
             rotarIzq(v);
-            actualizarAlturaSimple(wi);
+            actualizarAlturas(wi);
+            return;
         }
     }
 
@@ -382,14 +386,16 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         Vertice hijoDer = v.derecho;
         Vertice padreZ = v.padre;
         Vertice nietoIzq = hijoDer.izquierdo;
+        boolean esHijoIzq = v.esHijoIzq();
+        boolean esHijoDer = v.esHijoDer();
         v.padre = hijoDer;
         hijoDer.izquierdo = v;
         hijoDer.padre = padreZ;
-        if (v.esHijoIzq()) { // el error puede estar aqui?
+        if (esHijoIzq) {
             if (padreZ != null) {
                 padreZ.izquierdo = hijoDer;
             }
-        } else if (v.esHijoDer()) {
+        } else if (esHijoDer) {
             if (padreZ != null) {
                 padreZ.derecho = hijoDer;
             }
@@ -400,7 +406,6 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         if (padreZ == null) {
             raiz = hijoDer;
-            return;
         }
         actualizarAlturaSimple(v);
         actualizarAlturaSimple(hijoDer);
@@ -413,14 +418,16 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         Vertice hijoIzq = v.izquierdo;
         Vertice padreZ = v.padre;
         Vertice nietoDer = hijoIzq.derecho;
+        boolean esHijoIzq = v.esHijoIzq();
+        boolean esHijoDer = v.esHijoDer();
         v.padre = hijoIzq;
         hijoIzq.derecho = v;
         hijoIzq.padre = padreZ;
-        if (v.esHijoIzq()) { // el error puede estar aqui?
+        if (esHijoIzq) {
             if (padreZ != null) {
                 padreZ.izquierdo = hijoIzq;
             }
-        } else if (v.esHijoDer()) {
+        } else if (esHijoDer) {
             if (padreZ != null) {
                 padreZ.derecho = hijoIzq;
             }
@@ -437,6 +444,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     }
 
     private void actualizarAlturaSimple(Vertice v) {
+        ;
         if (v == null) {
             return;
         }
