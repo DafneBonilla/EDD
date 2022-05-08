@@ -68,7 +68,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
          */
         @Override
         public String toString() {
-            return elemento.toString() + " ," + altura;
+            return elemento.toString() + ", " + altura;
         }
     }
 
@@ -340,14 +340,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     /**
      * Rebalancea un árbol AVL.
      * 
-     * @param ancestro el vertice a rebalancear.
+     * @param v el vertice a rebalancear.
      */
-    private void rebalancear(Vertice ancestro) {
-        if (ancestro == null) {
-            return;
-        }
-        Vertice hi = ancestro.izquierdo;
-        Vertice hd = ancestro.derecho;
+    private void rebalancear(Vertice v) {
+        Vertice hi = v.izquierdo;
+        Vertice hd = v.derecho;
         int hiAltura = -1;
         int hdAltura = -1;
         if (hi != null) {
@@ -365,13 +362,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
                 wdAltura = convertirVerticeAVL(wd).altura;
             }
             if (wdAltura == k + 1) {
-                rotarIzq(ancestro);
-                // actualizarAlturas(hd);
-                actualizarAlturas(ancestro);
+                rotarIzq(v);
+                actualizarAlturas(hd);
                 return;
             } else if (wdAltura == k) {
                 rotarDer(hd);
-                rotarIzq(ancestro);
+                rotarIzq(v);
                 actualizarAlturas(wi);
                 return;
             }
@@ -384,14 +380,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
                 wiAltura = convertirVerticeAVL(wi).altura;
             }
             if (wiAltura == k + 1) {
-                rotarDer(ancestro);
-                // actualizarAlturas(hi);
-                actualizarAlturas(ancestro);
+                rotarDer(v);
+                actualizarAlturas(hi);
                 return;
             } else if (wiAltura == k) {
-                //rotarIzq(hi);
-                rotarDer(ancestro);
-                // actualizarAlturas(wd);
+                rotarIzq(hi);
+                rotarDer(v);
+                actualizarAlturas(wd);
                 return;
             }
         }
@@ -422,7 +417,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         if (padreZ == null) {
             raiz = hijoDer;
+            return;
         }
+        actualizarAlturaSimple(v);
+        actualizarAlturaSimple(hijoDer);
+        actualizarAlturaSimple(nietoIzq);
     }
 
     private void rotarDer(Vertice v) {
@@ -432,7 +431,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         Vertice hijoIzq = v.izquierdo;
         Vertice padreZ = v.padre;
         Vertice nietoDer = hijoIzq.derecho;
-        v.padre = hijoIzq; 
+        v.padre = hijoIzq;
         hijoIzq.derecho = v;
         hijoIzq.padre = padreZ;
         if (v.esHijoIzq()) {
@@ -451,5 +450,25 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         if (padreZ == null) {
             raiz = hijoIzq;
         }
+        actualizarAlturaSimple(v);
+        actualizarAlturaSimple(hijoIzq);
+        actualizarAlturaSimple(nietoDer);
     }
+
+    private void actualizarAlturaSimple(Vertice v) {
+        if (v == null) {
+            return;
+        }
+        int alturaIzq = -1;
+        int alturaDer = -1;
+        if (v.hayIzquierdo()) {
+            alturaIzq = convertirVerticeAVL(v.izquierdo).altura;
+        }
+        if (v.hayDerecho()) {
+            alturaDer = convertirVerticeAVL(v.derecho).altura;
+        }
+        int nuevaAlt = 1 + Math.max(alturaIzq, alturaDer);
+        convertirVerticeAVL(v).altura = nuevaAlt;
+    }
+
 }

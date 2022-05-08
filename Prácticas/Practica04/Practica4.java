@@ -15,9 +15,9 @@ public class Practica4 {
         arbol.add(30);
         arbol.add(5);
         arbol.add(7);
-        //arbol.add(15);
-        //arbol.add(40);
-        //System.out.println(arbol.toStringBonito());
+        // arbol.add(15);
+        // arbol.add(40);
+        System.out.println(arbol.toStringBonito());
         System.out.println(arbol);
     }
 }
