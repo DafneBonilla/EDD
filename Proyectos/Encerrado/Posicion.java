@@ -59,18 +59,35 @@ public class Posicion {
         String datitos = "";
         switch (dueño) {
             case 0:
-                datitos += String.format(" \u001B[92m%d\u001B[0m ", lugar);
+                datitos += String.format(" \u001B[92m%s\u001B[0m ", volverCirculo(lugar));
                 break;
             case 1:
-                datitos += String.format(" \u001B[91m%d\u001B[0m ", lugar);
+                datitos += String.format(" \u001B[91m%s\u001B[0m ", volverCirculo(lugar));
                 break;
             case 2:
-                datitos += String.format(" \u001B[94m%d\u001B[0m ", lugar);
+                datitos += String.format(" \u001B[94m%s\u001B[0m ", volverCirculo(lugar));
                 break;
             default:
                 break;
         }
         return datitos;
+    }
+
+    private String volverCirculo(int lugar) {
+        switch (lugar) {
+            case 1:
+                return " \uf071 ";
+            case 2:
+                return " \u2462 ";
+            case 3:
+                return " \u2463 ";
+            case 4:
+                return " \u2464 ";
+            case 5:
+                return " \u2465 ";
+            default:
+                return "";
+        }
     }
 
     /**
