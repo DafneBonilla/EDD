@@ -53,6 +53,7 @@ public class Practica4 {
         arbol2.add(28);
         System.out.println(arbol2.toStringBonito());
         System.out.println(arbol2);
+        System.out.println(arbol2.size());
         System.out.println();
 
         ArbolAVL<String> arbol3 = new ArbolAVL<String>();
@@ -87,7 +88,7 @@ public class Practica4 {
         arbol3.delete("vaca");
         System.out.println(arbol3.toStringBonito());
         System.out.println(arbol3);
+        System.out.println(arbol3.size());
         System.out.println();
-
     }
 }
