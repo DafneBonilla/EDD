@@ -76,7 +76,7 @@ public class Posicion {
     private String volverCirculo(int lugar) {
         switch (lugar) {
             case 1:
-                return " \uf071 ";
+                return " \u2461 ";
             case 2:
                 return " \u2462 ";
             case 3:

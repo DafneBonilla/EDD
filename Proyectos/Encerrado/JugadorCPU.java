@@ -61,7 +61,8 @@ public class JugadorCPU extends Jugador {
             return opciones.buscarIndice(random);
         } else {
             this.arbol = new ArbolDecision(tablero, this.getNombre(), this.getNombre());
-            return opciones.buscarIndice(0);
+            int respuesta = arbol.mejorMovimiento();
+            return opciones.buscarIndice(respuesta);
         }
     }
 }

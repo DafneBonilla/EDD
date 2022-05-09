@@ -189,22 +189,36 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             evaluar(raiz.derecho);
             Decisiones dec = raiz.elemento;
             if (dec.getJugador() == dueño) {
-                int max = Math.max(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
+                int max = max(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
                 dec.setPuntuacion(max);
             } else {
-                int min = Math.min(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
+                int min = min(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
                 dec.setPuntuacion(min);
             }
-        }
-        if (raiz.izquierdo != null) {
+        } else if (raiz.izquierdo != null) {
             evaluar(raiz.izquierdo);
             Decisiones dec = raiz.elemento;
             dec.setPuntuacion(raiz.izquierdo.elemento.getPuntuacion());
-        }
-        if (raiz.derecho != null) {
+        } else if (raiz.derecho != null) {
             evaluar(raiz.derecho);
             Decisiones dec = raiz.elemento;
             dec.setPuntuacion(raiz.derecho.elemento.getPuntuacion());
+        }
+    }
+
+    private int max(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    private int min(int a, int b) {
+        if (a < b) {
+            return a;
+        } else {
+            return b;
         }
     }
 
@@ -215,10 +229,13 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
         int izqi = raiz.izquierdo.elemento.getPuntuacion();
         int deri = raiz.derecho.elemento.getPuntuacion();
-        if (izqi >= deri) {
+        if (izqi > deri) {
             return 0;
-        } else {
+        } else if (izqi == deri) {
+            return 1;
+        } else if (izqi < deri) {
             return 1;
         }
+        return -1;
     }
 }
