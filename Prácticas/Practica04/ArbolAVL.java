@@ -9,7 +9,7 @@ José Camilo García Ponce
  * Implementación de un árbol binario AVL.
  * 
  * @author Dafne Bonilla Reyes, José Camilo García Ponce
- * @version 06-05-2022
+ * @version 09-05-2022
  */
 public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
 
@@ -341,6 +341,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         actualizarAlturas(v.padre);
     }
 
+    /**
+     * Corrige un desbalance en el árbol en la dirección izquierda.
+     *
+     * @param v el vertice que se va a corregir.
+     * @param hi el hijo izquierdo del vertice.
+     * @param k la altura del hijo derecho.
+     */
     private void desbalanceIzq(Vertice v, Vertice hi, int k) {
         Vertice wi = hi.izquierdo;
         Vertice wd = hi.derecho;
@@ -360,6 +367,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
     }
 
+    /**
+     * Corrige un desbalance en el árbol en la dirección derecha.
+     *
+     * @param v el vertice que se va a corregir.
+     * @param hd el hijo derecho del vertice.
+     * @param k la altura del hijo izquierdo.
+     */
     private void desbalanceDer(Vertice v, Vertice hd, int k) {
         Vertice wi = hd.izquierdo;
         Vertice wd = hd.derecho;
@@ -379,6 +393,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
     }
 
+    /***
+     * Rota el árbol a la izquierda.
+     *
+     * @param v el vertice que se va a rotar.
+     */
     private void rotarIzq(Vertice v) {
         if (!v.hayDerecho()) {
             return;
@@ -410,7 +429,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         actualizarAlturaSimple(v);
         actualizarAlturaSimple(hijoDer);
     }
-
+    
+    /***
+     * Rota el árbol a la derecha.
+     *
+     * @param v el vertice que se va a rotar.
+     */
     private void rotarDer(Vertice v) {
         if (!v.hayIzquierdo()) {
             return;
@@ -443,6 +467,11 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         actualizarAlturaSimple(hijoIzq);
     }
 
+    /**
+     * Actualiza la altura de un vertice, sin recursion.
+     *
+     * @param v el vertice que se va a actualizar.
+     */
     private void actualizarAlturaSimple(Vertice v) {
         ;
         if (v == null) {
@@ -459,5 +488,4 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         int nuevaAlt = 1 + Math.max(alturaIzq, alturaDer);
         convertirVerticeAVL(v).altura = nuevaAlt;
     }
-
 }
