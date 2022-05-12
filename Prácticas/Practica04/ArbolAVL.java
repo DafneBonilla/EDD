@@ -91,12 +91,26 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
 
     /**
      * Construye un árbol AVL a partir de un arból. El árbol
+     * AVL tiene los mismos elementos que el arból recibida.
+     * 
+     * @param coleccion la colección a partir de la cual creamos el árbol
+     *                  AVL.
+     */
+    public ArbolAVL(ArbolBinario<T> arbol) {
+        super();
+        for (T elem : arbol) {
+            this.add(elem);
+        }
+    }
+
+    /**
+     * Construye un árbol AVL a partir de una coleccion. El árbol
      * AVL tiene los mismos elementos que la colección recibida.
      * 
      * @param coleccion la colección a partir de la cual creamos el árbol
      *                  AVL.
      */
-    public ArbolAVL(ArbolBinario<T> coleccion) {
+    public ArbolAVL(Collection<T> coleccion) {
         super();
         for (T elem : coleccion) {
             this.add(elem);
@@ -133,7 +147,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         }
         insert(raiz, elemento);
     }
-    
+
     /**
      * Inserta un elemento en el árbol.
      * 
@@ -344,9 +358,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     /**
      * Corrige un desbalance en el árbol en la dirección izquierda.
      *
-     * @param v el vertice que se va a corregir.
+     * @param v  el vertice que se va a corregir.
      * @param hi el hijo izquierdo del vertice.
-     * @param k la altura del hijo derecho.
+     * @param k  la altura del hijo derecho.
      */
     private void desbalanceIzq(Vertice v, Vertice hi, int k) {
         Vertice wi = hi.izquierdo;
@@ -370,9 +384,9 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
     /**
      * Corrige un desbalance en el árbol en la dirección derecha.
      *
-     * @param v el vertice que se va a corregir.
+     * @param v  el vertice que se va a corregir.
      * @param hd el hijo derecho del vertice.
-     * @param k la altura del hijo izquierdo.
+     * @param k  la altura del hijo izquierdo.
      */
     private void desbalanceDer(Vertice v, Vertice hd, int k) {
         Vertice wi = hd.izquierdo;
@@ -429,7 +443,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBST<T> {
         actualizarAlturaSimple(v);
         actualizarAlturaSimple(hijoDer);
     }
-    
+
     /***
      * Rota el árbol a la derecha.
      *
