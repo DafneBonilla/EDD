@@ -26,24 +26,24 @@ public class Tablero {
      * 
      * @param n la version de posicion iniciales.
      */
-    public Tablero(int n) {
+    public Tablero(int n, int version) {
         tablerito = new Lista<Posicion>();
         if (n == 1) {
-            tablerito.agregaFinal(new Posicion(1, 1));
-            tablerito.agregaFinal(new Posicion(2, 2));
-            tablerito.agregaFinal(new Posicion(3, 0));
-            tablerito.agregaFinal(new Posicion(4, 2));
-            tablerito.agregaFinal(new Posicion(5, 1));
+            tablerito.agregaFinal(new Posicion(1, 1, version));
+            tablerito.agregaFinal(new Posicion(2, 2, version));
+            tablerito.agregaFinal(new Posicion(3, 0, version));
+            tablerito.agregaFinal(new Posicion(4, 2, version));
+            tablerito.agregaFinal(new Posicion(5, 1, version));
         } else if (n == 2) {
-            tablerito.agregaFinal(new Posicion(1, 2));
-            tablerito.agregaFinal(new Posicion(2, 1));
-            tablerito.agregaFinal(new Posicion(3, 0));
-            tablerito.agregaFinal(new Posicion(4, 1));
-            tablerito.agregaFinal(new Posicion(5, 2));
+            tablerito.agregaFinal(new Posicion(1, 2, version));
+            tablerito.agregaFinal(new Posicion(2, 1, version));
+            tablerito.agregaFinal(new Posicion(3, 0, version));
+            tablerito.agregaFinal(new Posicion(4, 1, version));
+            tablerito.agregaFinal(new Posicion(5, 2, version));
         }
     }
 
-    public Tablero(Lista<Lista<Integer>> config) {
+    public Tablero(Lista<Lista<Integer>> config, int version) {
         tablerito = new Lista<Posicion>();
         Lista<Integer> rojos = config.buscarIndice(0);
         Lista<Integer> azules = config.buscarIndice(1);
@@ -54,7 +54,7 @@ public class Tablero {
             } else if (azules.contains(i)) {
                 dueño = 2;
             }
-            Posicion p = new Posicion(i, dueño);
+            Posicion p = new Posicion(i, dueño, version);
             tablerito.agregaFinal(p);
         }
     }

@@ -10,16 +10,20 @@ public class Posicion {
     private int lugar;
     /* Dueño de la posicion. */
     private int dueño;
+    /* Manera de mostrar. */
+    private int version;
 
     /**
      * Define el estado inicial de una posicion.
      * 
      * @param lugar el lugar de la posicion.
      * @param dueño el dueño de la posicion.
+     * @param version la manera de mostrar.
      */
-    public Posicion(int lugar, int dueño) {
+    public Posicion(int lugar, int dueño, int version) {
         this.lugar = lugar;
         this.dueño = dueño;
+        this.version = version;
     }
 
     /**
@@ -56,6 +60,23 @@ public class Posicion {
      */
     @Override
     public String toString() {
+        if (version == 2) {
+            String datitos = "";
+            switch (dueño) {
+                case 0:
+                    datitos += String.format(" \u001B[92m%d\u001B[0m ", lugar);
+                    break;
+                case 1:
+                    datitos += String.format(" \u001B[91m%d\u001B[0m ", lugar);
+                    break;
+                case 2:
+                    datitos += String.format(" \u001B[94m%d\u001B[0m ", lugar);
+                    break;
+                default:
+                    break;
+            }
+            return datitos; 
+        }
         String datitos = "";
         switch (dueño) {
             case 0:

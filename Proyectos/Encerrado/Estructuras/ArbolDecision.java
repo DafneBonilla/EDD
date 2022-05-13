@@ -125,56 +125,6 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         return new Iterador();
     }
 
-    private String dibujaEspacios(int l, int[] a, int n) {
-        String s = "";
-        for (int i = 0; i < l; i++) {
-            if (a[i] == 1) {
-                s = s + "│  ";
-            } else {
-                s = s + "   ";
-            }
-        }
-        return s;
-    }
-
-    private String toString(Vertice v, int l, int[] m) {
-        String s = v.toString() + "\n";
-        m[l] = 1;
-
-        if (v.izquierdo != null && v.derecho != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "├─›";
-            s = s + toString(v.izquierdo, l + 1, m);
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─»";
-            m[l] = 0;
-            s = s + toString(v.derecho, l + 1, m);
-        } else if (v.izquierdo != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─›";
-            m[l] = 0;
-            s = s + toString(v.izquierdo, l + 1, m);
-        } else if (v.derecho != null) {
-            s = s + dibujaEspacios(l, m, m.length);
-            s = s + "└─»";
-            m[l] = 0;
-            s = s + toString(v.derecho, l + 1, m);
-        }
-        return s;
-    }
-
-    @Override
-    public String toString() {
-        if (this.raiz == null) {
-            return "";
-        }
-        int[] a = new int[this.altura() + 1];
-        for (int i = 0; i < a.length; i++) {
-            a[i] = 0;
-        }
-        return toString(this.raiz, 0, a);
-    }
-
     public void evaluar() {
         evaluar(this.raiz);
     }
