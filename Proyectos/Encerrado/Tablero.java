@@ -26,7 +26,7 @@ public class Tablero {
      * 
      * @param n la version de posicion iniciales.
      */
-    public Tablero(int n, int version) {
+    public Tablero(int n, int version, Lista<Lista<Integer>> config) {
         tablerito = new Lista<Posicion>();
         if (n == 1) {
             tablerito.agregaFinal(new Posicion(1, 1, version));
@@ -40,22 +40,19 @@ public class Tablero {
             tablerito.agregaFinal(new Posicion(3, 0, version));
             tablerito.agregaFinal(new Posicion(4, 1, version));
             tablerito.agregaFinal(new Posicion(5, 2, version));
-        }
-    }
-
-    public Tablero(Lista<Lista<Integer>> config, int version) {
-        tablerito = new Lista<Posicion>();
-        Lista<Integer> rojos = config.buscarIndice(0);
-        Lista<Integer> azules = config.buscarIndice(1);
-        for (int i = 1; i < 6; i++) {
-            int dueño = 0;
-            if (rojos.contains(i)) {
-                dueño = 1;
-            } else if (azules.contains(i)) {
-                dueño = 2;
+        } else if (n == 3) {
+            Lista<Integer> rojos = config.buscarIndice(0);
+            Lista<Integer> azules = config.buscarIndice(1);
+            for (int i = 1; i < 6; i++) {
+                int dueño = 0;
+                if (rojos.contains(i)) {
+                    dueño = 1;
+                } else if (azules.contains(i)) {
+                    dueño = 2;
+                }
+                Posicion p = new Posicion(i, dueño, version);
+                tablerito.agregaFinal(p);
             }
-            Posicion p = new Posicion(i, dueño, version);
-            tablerito.agregaFinal(p);
         }
     }
 

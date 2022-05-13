@@ -11,32 +11,12 @@ public class Proyecto2 {
         System.exit(0);
     }
 
-    private static void inicializar(int primero, int configuracion, int inteligencia, int color1, int color2,
-            Lista<Lista<Integer>> config) {
-        System.out.println("Configuración del juego: ");
-        String pregunta = "¿Quién jugará primero?\n[1] Jugador humano\n[2] Jugador CPU";
-        primero = pedirDato(pregunta, 1, 2);
-        pregunta = "¿Cuál será la configuración?\n[1] Ficha roja en la esquina superior izquierda\n[2] Ficha azul en la esquina superior izquierda\n[3] Persoalizada\n";
-        configuracion = pedirDato(pregunta, 1, 3);
-        if (configuracion == 3) {
-            pedirPersonalizado(config);
-        }
-        pregunta = "¿Cuál será la inteligencia de la CPU?\n[0] Random\n[1] Minimax";
-        inteligencia = pedirDato(pregunta, 0, 1);
-        pregunta = "¿Que color tendra el Jugador humano?\n[1] Rojo\n[2] Azul";
-        color1 = pedirDato(pregunta, 1, 2);
-        if (color1 == 1) {
-            color2 = 2;
-        } else {
-            color2 = 1;
-        }
-    }
-
-    private static void pedirPersonalizado(Lista<Lista<Integer>> config) {
-        Lista<Integer> rojos = config.buscarIndice(0);
-        Lista<Integer> azules = config.buscarIndice(1);
+    private static Lista<Lista<Integer>> pedirPersonalizado() {
+        Lista<Lista<Integer>> config = new Lista<Lista<Integer>>();
+        Lista<Integer> rojos = new Lista<Integer>();
+        Lista<Integer> azules = new Lista<Integer>();
         Lista<Integer> opciones = new Lista<>();
-        for(int i = 1; i < 6; i++) {
+        for (int i = 1; i < 6; i++) {
             opciones.agregaFinal(i);
         }
         boolean valido = false;
@@ -74,6 +54,9 @@ public class Proyecto2 {
         }
         azules.add(posicion);
         opciones.delete(posicion);
+        config.agregaFinal(rojos);
+        config.agregaFinal(azules);
+        return config;
     }
 
     private static void validar(int posicion, Lista<Integer> opciones, boolean valido) {
@@ -84,7 +67,7 @@ public class Proyecto2 {
         }
     }
 
-    private static int pedirDato (String pregunta, int rango1, int rango2) {
+    private static int pedirDato(String pregunta, int rango1, int rango2) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(pregunta);
         String datos = scanner.nextLine();
@@ -112,30 +95,43 @@ public class Proyecto2 {
         } catch (NumberFormatException nfe) {
             uso();
         }
-        int primero = -2;
-        int configuracion = -2;
-        int inteligencia = -2;
-        int color1 = -2;
-        int color2 = -2;
-        Lista<Integer> rojos = new Lista<Integer>();
-        Lista<Integer> azules = new Lista<Integer>();
-        Lista<Lista<Integer>> config = new Lista<Lista<Integer>>();
-        config.add(rojos);
-        config.add(azules);
-        inicializar(primero, configuracion, inteligencia, color1, color2, config);
-        Lista<Jugador> jugadores = new Lista<Jugador>();
-        if (primero == 1) {
-            jugadores.add(new Jugador(color1));
-            jugadores.add(new JugadorCPU(color2, inteligencia));
-        } else {
-            jugadores.add(new JugadorCPU(color2, inteligencia));
-            jugadores.add(new Jugador(color1));
-        }
-        if (configuracion != 3) {
-            Partida partida = new Partida(new Tablero(configuracion, version), jugadores);
+        System.out.println("Configuración del juego: ");
+        String pregunta = "¿Quién jugará primero?\n[1] Jugador humano\n[2] Jugador CPU";
+        int primero = pedirDato(pregunta, 1, 2);
+        pregunta = "¿Cuál será la configuración?\n[1] Ficha roja en la esquina superior izquierda\n[2] Ficha azul en la esquina superior izquierda\n[3] Personalizado";
+        int configuracion = pedirDato(pregunta, 1, 3);
+        if (configuracion != 1 && configuracion != 2) {
+            Lista<Lista<Integer>> config = pedirPersonalizado();
+            pregunta = "¿Cuál será la inteligencia de la CPU?\n[0] Random\n[1] Minimax";
+            int inteligencia = pedirDato(pregunta, 0, 1);
+            pregunta = "¿Que color tendra el Jugador humano?\n[1] Rojo\n[2] Azul";
+            int color1 = pedirDato(pregunta, 1, 2);
+            int color2 = color1 == 1 ? 2 : 1;
+            Lista<Jugador> jugadores = new Lista<Jugador>();
+            if (primero == 1) {
+                jugadores.add(new Jugador(color1));
+                jugadores.add(new JugadorCPU(color2, inteligencia));
+            } else {
+                jugadores.add(new JugadorCPU(color2, inteligencia));
+                jugadores.add(new Jugador(color1));
+            }
+            Partida partida = new Partida(new Tablero(configuracion, version, config), jugadores);
             partida.iniciar();
         } else {
-            Partida partida = new Partida(new Tablero(config,  version), jugadores);
+            pregunta = "¿Cuál será la inteligencia de la CPU?\n[0] Random\n[1] Minimax";
+            int inteligencia = pedirDato(pregunta, 0, 1);
+            pregunta = "¿Que color tendra el Jugador humano?\n[1] Rojo\n[2] Azul";
+            int color1 = pedirDato(pregunta, 1, 2);
+            int color2 = color1 == 1 ? 2 : 1;
+            Lista<Jugador> jugadores = new Lista<Jugador>();
+            if (primero == 1) {
+                jugadores.add(new Jugador(color1));
+                jugadores.add(new JugadorCPU(color2, inteligencia));
+            } else {
+                jugadores.add(new JugadorCPU(color2, inteligencia));
+                jugadores.add(new Jugador(color1));
+            }
+            Partida partida = new Partida(new Tablero(configuracion, version, null), jugadores);
             partida.iniciar();
         }
     }
