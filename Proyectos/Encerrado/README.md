@@ -20,7 +20,7 @@ javac -d . *.java Estructuras/*.java
 Ejecutar desde `Encerrado/`
 
 ```
-java Encerrado/Proyecto2
+java Encerrado/Proyecto2 #version
 ```
 
 ## Explicación
