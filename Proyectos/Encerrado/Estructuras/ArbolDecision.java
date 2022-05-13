@@ -82,9 +82,9 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         for (Opcion opci : opciones) {
             Opcion inversa = opci.inversa();
             tablero.moverEspecial(opci);
-            Decisiones dec = new Decisiones(tablero.copia(), opci, jugador, 0);
-            Vertice hijo = new Vertice(dec);
             int nuevo = actualizarTurno(jugador);
+            Decisiones dec = new Decisiones(tablero.copia(), opci, nuevo, 0);
+            Vertice hijo = new Vertice(dec);
             construir(hijo, i - 1, nuevo);
             if (posicion == 0) {
                 raiz.izquierdo = hijo;
@@ -232,7 +232,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         if (izqi > deri) {
             return 0;
         } else if (izqi == deri) {
-            return 1;
+            return 0;
         } else if (izqi < deri) {
             return 1;
         }

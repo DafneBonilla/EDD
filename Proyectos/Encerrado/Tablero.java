@@ -19,17 +19,6 @@ public class Tablero {
 
     /**
      * Define el estado inical de un tablero, usando
-     * una lista de posiciones. Usado para generar una copia
-     * de un tablero.
-     * 
-     * @param tablerito la lista de posiciones.
-     */
-    public Tablero(Lista<Posicion> tablerito) {
-        this.tablerito = tablerito;
-    }
-
-    /**
-     * Define el estado inical de un tablero, usando
      * un entero para saber el estado inicial del tablero.
      * Si n = 1 entonces la ficha de la esquina superior izquierda
      * sera de color rojo, si n = 2 entonces la ficha de la esquina superior
@@ -54,6 +43,22 @@ public class Tablero {
         }
     }
 
+    public Tablero(Lista<Lista<Integer>> config) {
+        tablerito = new Lista<Posicion>();
+        Lista<Integer> rojos = config.buscarIndice(0);
+        Lista<Integer> azules = config.buscarIndice(1);
+        for (int i = 1; i < 6; i++) {
+            int dueño = 0;
+            if (rojos.contains(i)) {
+                dueño = 1;
+            } else if (azules.contains(i)) {
+                dueño = 2;
+            }
+            Posicion p = new Posicion(i, dueño);
+            tablerito.agregaFinal(p);
+        }
+    }
+
     /**
      * Regresa una copia de la lista de posiciones.
      * 
@@ -61,7 +66,9 @@ public class Tablero {
      */
     public Tablero copia() {
         Lista<Posicion> copia = this.tablerito.clone();
-        return new Tablero(copia);
+        Tablero nuevo = new Tablero();
+        nuevo.tablerito = copia;
+        return nuevo;
     }
 
     /**

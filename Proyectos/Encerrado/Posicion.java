@@ -76,15 +76,15 @@ public class Posicion {
     private String volverCirculo(int lugar) {
         switch (lugar) {
             case 1:
-                return " \u2461 ";
+                return "\u2460";
             case 2:
-                return " \u2462 ";
+                return "\u2461";
             case 3:
-                return " \u2463 ";
+                return "\u2462";
             case 4:
-                return " \u2464 ";
+                return "\u2463";
             case 5:
-                return " \u2465 ";
+                return "\u2464";
             default:
                 return "";
         }
