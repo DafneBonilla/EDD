@@ -29,6 +29,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             return !cola.isEmpty();
         }
 
+        /* Dice cual es el elemento siguiente. */
         @Override
         public Decisiones next() {
             if (!hasNext())
@@ -56,6 +57,13 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         evaluar();
     }
 
+    /**
+     * Construye un árbol de decisiones a partir de un tablero y sus opciones.
+     * 
+     * @param v       el vertice raiz del árbol.
+     * @param i       la profundidad.
+     * @param jugador el turno del jugador.
+     */
     private void construir(Vertice raiz, int i, int jugador) {
         if (i == 0) {
             Tablero tablero = raiz.elemento.getTablero();
@@ -98,6 +106,12 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
+    /**
+     * Actualiza el turno del jugador.
+     * 
+     * @param jugador el turno actual.
+     * @return el nuevo turno.
+     */
     public int actualizarTurno(int jugador) {
         jugador++;
         if (jugador == 3) {
@@ -106,30 +120,45 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         return jugador;
     }
 
+    /* no hace nada xd */
     @Override
     public void add(Decisiones elemento) {
     }
 
+    /* no hace nada xd */
     @Override
     public boolean delete(Decisiones elemento) {
         return false;
     }
 
+    /* no hace nada xd */
     @Override
     public Decisiones pop() {
         return null;
     }
 
+    /**
+     * Regresa un iterador para recorrer el árbol.
+     * 
+     * @return un iterador para recorrer el árbol.
+     */
     @Override
     public Iterator<Decisiones> iterator() {
         return new Iterador();
     }
 
+    /**
+     * Evualua el arbol de decisiones.
+     */
     public void evaluar() {
         evaluar(this.raiz);
     }
 
-    // hacer esto xd (sale mal creo, lo de max y min)
+    /**
+     * Evalua el arbol de decisiones.
+     * 
+     * @param raiz el vertice raiz del arbol.
+     */
     private void evaluar(Vertice raiz) {
         if (raiz.izquierdo == null && raiz.derecho == null) {
             return;
@@ -156,6 +185,13 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
+    /**
+     * Método para obtener el valor máximo de dos enteros.
+     * 
+     * @param a el primer entero.
+     * @param b el segundo entero.
+     * @return el valor máximo de los dos enteros.
+     */
     private int max(int a, int b) {
         if (a > b) {
             return a;
@@ -164,6 +200,13 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
+    /**
+     * Método para obtener el máximo entre dos enteros.
+     * 
+     * @param a el primer entero.
+     * @param b el segundo entero.
+     * @return el valor máximo de los enteros.
+     */
     private int min(int a, int b) {
         if (a < b) {
             return a;
@@ -172,7 +215,11 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
-    // trabajar en esto
+    /**
+     * Devuelve el mejor movimiento del árbol.
+     * 
+     * @return el mejor movimiento del árbol.
+     */
     public int mejorMovimiento() {
         if (!raiz.hayDerecho()) {
             return 0;

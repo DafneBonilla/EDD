@@ -31,6 +31,9 @@ public class Partida {
         this.ganador = false;
     }
 
+    /**
+     * Inicia la partida.
+     */
     public void iniciar() {
         System.out.println("El juego comienza!");
         System.out.println("El tablero es:");
@@ -58,6 +61,9 @@ public class Partida {
         System.out.println("Gracias por jugar!");
     }
 
+    /**
+     * Actualiza el turno actual.
+     */
     public void actualizarTurno() {
         turnoActual++;
         if (turnoActual == jugadores.size()) {

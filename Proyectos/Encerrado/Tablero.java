@@ -22,9 +22,10 @@ public class Tablero {
      * un entero para saber el estado inicial del tablero.
      * Si n = 1 entonces la ficha de la esquina superior izquierda
      * sera de color rojo, si n = 2 entonces la ficha de la esquina superior
-     * izquierda sera de color azul.
+     * izquierda sera de color azul y si n = 3 es personalizado el tablero.
      * 
-     * @param n la version de posicion iniciales.
+     * @param n      la version de posicion iniciales.
+     * @param config la lista personalizada
      */
     public Tablero(int n, int version, Lista<Lista<Integer>> config) {
         tablerito = new Lista<Posicion>();
@@ -115,10 +116,21 @@ public class Tablero {
         System.out.println("Se movio la ficha de " + origen + " a " + destino);
     }
 
+    /**
+     * Mueve una ficha basado en una opción, pero sin decirlo.
+     * 
+     * @param opcion la opcion que se desea mover.
+     */
     public void moverEspecial(Opcion opcion) {
         moverEspecial(opcion.getPosicionInicial(), opcion.getPosicionFinal());
     }
 
+    /**
+     * Mueve una ficha de una posicion a otra, pero sin decirlo.
+     * 
+     * @param origen  la posicion de origen.
+     * @param destino la posicion de destino.
+     */
     private void moverEspecial(int origen, int destino) {
         int aux = tablerito.buscarIndice(destino - 1).getDueño();
         tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());

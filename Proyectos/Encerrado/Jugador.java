@@ -40,7 +40,7 @@ public class Jugador {
      * Pide un movimiento al jugador.
      *
      * @param opciones las opciones que puede tomar el jugador.
-     * @param tablero el tablero del juego.
+     * @param tablero  el tablero del juego.
      * @return el movimiento del jugador.
      */
     public Opcion pedirMovimiento(Lista<Opcion> opciones, Tablero tablero) {
@@ -63,10 +63,10 @@ public class Jugador {
     }
 
     /**
-     *  Regresa si el jugador es humano.
+     * Regresa si el jugador es humano.
      *
-     *  @return code<true> si el jugador es humano, 
-     *          code<false> en caso contrario.
+     * @return code<true> si el jugador es humano,
+     *         code<false> en caso contrario.
      */
     public boolean isHumano() {
         return humano;
@@ -90,12 +90,17 @@ public class Jugador {
         return;
     }
 
-	public void cambioInteligencia(Jugador jugador2) {
+    /**
+     * Pregunta si se cambiara la inteligencia del otro jugador.
+     * 
+     * @param jugador2 el otro jugador.
+     */
+    public void cambioInteligencia(Jugador jugador2) {
         System.out.println("¿Quieres cambiar la inteligencia de la CPU? s/n");
         String texto = scanner.nextLine();
         switch (texto) {
             case "s":
-                cambio(jugador2);       
+                cambio(jugador2);
                 break;
             case "n":
                 break;
@@ -104,8 +109,13 @@ public class Jugador {
                 cambioInteligencia(jugador2);
                 break;
         }
-	}
+    }
 
+    /**
+     * Cambia la inteligencia del otro jugador.
+     * 
+     * @param jugador2 el otro jugador.
+     */
     private void cambio(Jugador jugador2) {
         System.out.println("Opciones:");
         System.out.println("[0] Para random");

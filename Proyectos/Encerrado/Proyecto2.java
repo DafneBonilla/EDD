@@ -11,6 +11,7 @@ public class Proyecto2 {
         System.exit(0);
     }
 
+    /* Pide la configuracion personalizada del tablero */
     private static Lista<Lista<Integer>> pedirPersonalizado() {
         Lista<Lista<Integer>> config = new Lista<Lista<Integer>>();
         Lista<Integer> rojos = new Lista<Integer>();
@@ -59,6 +60,7 @@ public class Proyecto2 {
         return config;
     }
 
+    /* Valida si un número es valido */
     private static boolean validar(int posicion, Lista<Integer> opciones) {
         if (opciones.contains(posicion)) {
             return true;
@@ -68,6 +70,7 @@ public class Proyecto2 {
         }
     }
 
+    /* Pide un dato al usuario */
     private static int pedirDato(String pregunta, int rango1, int rango2) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(pregunta);
@@ -86,7 +89,6 @@ public class Proyecto2 {
     }
 
     public static void main(String[] args) {
-
         if (args.length != 1) {
             uso();
         }

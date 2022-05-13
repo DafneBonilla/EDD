@@ -16,8 +16,8 @@ public class Posicion {
     /**
      * Define el estado inicial de una posicion.
      * 
-     * @param lugar el lugar de la posicion.
-     * @param dueño el dueño de la posicion.
+     * @param lugar   el lugar de la posicion.
+     * @param dueño   el dueño de la posicion.
      * @param version la manera de mostrar.
      */
     public Posicion(int lugar, int dueño, int version) {
@@ -75,7 +75,7 @@ public class Posicion {
                 default:
                     break;
             }
-            return datitos; 
+            return datitos;
         }
         String datitos = "";
         switch (dueño) {
@@ -94,6 +94,11 @@ public class Posicion {
         return datitos;
     }
 
+    /**
+     * Vuelve la posicion a un circulo.
+     * 
+     * @param lugar la posicion a vuelve a un circulo.
+     */
     private String volverCirculo(int lugar) {
         switch (lugar) {
             case 1:
