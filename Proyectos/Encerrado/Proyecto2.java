@@ -24,7 +24,7 @@ public class Proyecto2 {
         int posicion = -1;
         while (!valido) {
             posicion = pedirDato(pregunta, 1, 5);
-            validar(posicion, opciones, valido);
+            valido = validar(posicion, opciones);
         }
         rojos.add(posicion);
         opciones.delete(posicion);
@@ -32,7 +32,7 @@ public class Proyecto2 {
         pregunta = "Da la segunda posición de la ficha roja";
         while (!valido) {
             posicion = pedirDato(pregunta, 1, 5);
-            validar(posicion, opciones, valido);
+            valido = validar(posicion, opciones);
         }
         rojos.add(posicion);
         opciones.delete(posicion);
@@ -41,7 +41,7 @@ public class Proyecto2 {
         posicion = -1;
         while (!valido) {
             posicion = pedirDato(pregunta, 1, 5);
-            validar(posicion, opciones, valido);
+            valido = validar(posicion, opciones);
         }
         azules.add(posicion);
         opciones.delete(posicion);
@@ -50,7 +50,7 @@ public class Proyecto2 {
         posicion = -1;
         while (!valido) {
             posicion = pedirDato(pregunta, 1, 5);
-            validar(posicion, opciones, valido);
+            valido = validar(posicion, opciones);
         }
         azules.add(posicion);
         opciones.delete(posicion);
@@ -59,11 +59,12 @@ public class Proyecto2 {
         return config;
     }
 
-    private static void validar(int posicion, Lista<Integer> opciones, boolean valido) {
+    private static boolean validar(int posicion, Lista<Integer> opciones) {
         if (opciones.contains(posicion)) {
-            valido = true;
+            return true;
         } else {
             System.out.println("La posición no es válida");
+            return false;
         }
     }
 
