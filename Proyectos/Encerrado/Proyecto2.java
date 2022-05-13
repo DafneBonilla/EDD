@@ -14,7 +14,7 @@ public class Proyecto2 {
     private static void inicializar(int primero, int configuracion, int inteligencia, int color1, int color2,
             Lista<Lista<Integer>> config) {
         System.out.println("Configuración del juego: ");
-        String pregunta = "¿Quién jugará primero?\n[1] Jugador humano\n[2]Jugador CPU";
+        String pregunta = "¿Quién jugará primero?\n[1] Jugador humano\n[2] Jugador CPU";
         primero = pedirDato(pregunta, 1, 2);
         pregunta = "¿Cuál será la configuración?\n[1] Ficha roja en la esquina superior izquierda\n[2] Ficha azul en la esquina superior izquierda\n[3] Persoalizada\n";
         configuracion = pedirDato(pregunta, 1, 3);
@@ -85,20 +85,19 @@ public class Proyecto2 {
     }
 
     private static int pedirDato (String pregunta, int rango1, int rango2) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println(pregunta);
-            String datos = scanner.nextLine();
-            try {
-                int respuesta = Integer.parseInt(datos);
-                if (respuesta < rango1 || respuesta > rango2) {
-                    System.out.println("Número inválido");
-                    return pedirDato(pregunta, rango1, rango2);
-                }
-                return respuesta;
-            } catch (NumberFormatException nfe) {
-                System.out.println("Respuesta inválida");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(pregunta);
+        String datos = scanner.nextLine();
+        try {
+            int respuesta = Integer.parseInt(datos);
+            if (respuesta < rango1 || respuesta > rango2) {
+                System.out.println("Número inválido");
                 return pedirDato(pregunta, rango1, rango2);
             }
+            return respuesta;
+        } catch (NumberFormatException nfe) {
+            System.out.println("Respuesta inválida");
+            return pedirDato(pregunta, rango1, rango2);
         }
     }
 
