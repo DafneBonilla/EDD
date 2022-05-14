@@ -36,11 +36,11 @@ Para iniciar, se compila el código y se ejecuta. En los argumentos se debe indi
 
 - Versión 1:
 
-Las posiciones del tablero tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Unix.
+  Las posiciones del tablero tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Unix.
 
 - Versión 2:
 
-Las posiciones del tablero no tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Windows.
+  Las posiciones del tablero no tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Windows.
 
 A continuación, se le preguntará al usuario la configuración del juego:
 
