@@ -2,20 +2,20 @@ package Encerrado;
 
 /**
  * Clase para representar Opciones.
- * Una opcion tiene posicion inicial y posicion final.
+ * Una opción tiene posición inicial y posición final.
  */
 public class Opcion {
 
-    /* Posicion inicial de la opcion. */
+    /* Posición inicial de la opción. */
     private int posicionInicial;
-    /* Posicion final de la opcion. */
+    /* Posición final de la opción. */
     private int posicionFinal;
 
     /**
-     * Define el estado inicial de una opcion.
+     * Define el estado inicial de una opción.
      * 
-     * @param posicionInicial la posicion inicial de la opcion.
-     * @param posicionFinal   la posicion final de la opcion.
+     * @param posicionInicial la posición inicial de la opción.
+     * @param posicionFinal   la posición final de la opción.
      */
     public Opcion(int posicionInicial, int posicionFinal) {
         this.posicionInicial = posicionInicial;
@@ -23,27 +23,27 @@ public class Opcion {
     }
 
     /**
-     * Regresa la posicion inicial de la opcion.
+     * Regresa la posición inicial de la opción.
      * 
-     * @return la posicion inicial de la opcion.
+     * @return la posición inicial de la opción.
      */
     public int getPosicionInicial() {
         return posicionInicial;
     }
 
     /**
-     * Regresa la posicion final de la opcion.
+     * Regresa la posición final de la opción.
      * 
-     * @return la posicion final de la opcion.
+     * @return la posición final de la opción.
      */
     public int getPosicionFinal() {
         return posicionFinal;
     }
 
     /**
-     * Regresa una representacion en cadena de la posicion.
+     * Regresa una representación en cadena de la posición.
      * 
-     * @return una representacion en cadena de la posicion.
+     * @return una representación en cadena de la posición.
      */
     @Override
     public String toString() {
@@ -51,12 +51,11 @@ public class Opcion {
     }
 
     /**
-     * Regresa la opcion inversa de la opcion.
+     * Regresa la opción inversa de la opción.
      * 
-     * @return la opcion inversa de la opcion.
+     * @return la opción inversa de la opción.
      */
     public Opcion inversa() {
         return new Opcion(posicionFinal, posicionInicial);
     }
-
 }

@@ -21,11 +21,12 @@ public class Tablero {
      * Define el estado inical de un tablero, usando
      * un entero para saber el estado inicial del tablero.
      * Si n = 1 entonces la ficha de la esquina superior izquierda
-     * sera de color rojo, si n = 2 entonces la ficha de la esquina superior
-     * izquierda sera de color azul y si n = 3 es personalizado el tablero.
+     * será de color rojo, si n = 2 entonces la ficha de la esquina superior
+     * izquierda será de color azul y si n = 3 es personalizado el tablero.
      * 
-     * @param n      la version de posicion iniciales.
-     * @param config la lista personalizada
+     * @param n       la versión de posición iniciales.
+     * @param version si tendrá circulitos o no.
+     * @param config  la lista personalizada.
      */
     public Tablero(int n, int version, Lista<Lista<Integer>> config) {
         tablerito = new Lista<Posicion>();
@@ -79,9 +80,9 @@ public class Tablero {
     }
 
     /**
-     * Regresa una representacion en cadena de la posicion.
+     * Regresa una representación en cadena de la posición.
      * 
-     * @return una representacion en cadena de la posicion.
+     * @return una representación en cadena de la posición.
      */
     @Override
     public String toString() {
@@ -97,39 +98,39 @@ public class Tablero {
     /**
      * Mueve una ficha basado en una opción.
      * 
-     * @param opcion la opcion que se desea mover.
+     * @param opcion la opción que se desea mover.
      */
     public void mover(Opcion opcion) {
         mover(opcion.getPosicionInicial(), opcion.getPosicionFinal());
     }
 
     /**
-     * Mueve una ficha de una posicion a otra.
+     * Mueve una ficha de una posición a otra.
      * 
-     * @param origen  la posicion de origen.
-     * @param destino la posicion de destino.
+     * @param origen  la posición de origen.
+     * @param destino la posición de destino.
      */
     private void mover(int origen, int destino) {
         int aux = tablerito.buscarIndice(destino - 1).getDueño();
         tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
         tablerito.buscarIndice(origen - 1).setDueño(aux);
-        System.out.println("Se movio la ficha de " + origen + " a " + destino);
+        System.out.println("Se movió la ficha de " + origen + " a " + destino);
     }
 
     /**
      * Mueve una ficha basado en una opción, pero sin decirlo.
      * 
-     * @param opcion la opcion que se desea mover.
+     * @param opcion la opción que se desea mover.
      */
     public void moverEspecial(Opcion opcion) {
         moverEspecial(opcion.getPosicionInicial(), opcion.getPosicionFinal());
     }
 
     /**
-     * Mueve una ficha de una posicion a otra, pero sin decirlo.
+     * Mueve una ficha de una posición a otra, pero sin decirlo.
      * 
-     * @param origen  la posicion de origen.
-     * @param destino la posicion de destino.
+     * @param origen  la posición de origen.
+     * @param destino la posición de destino.
      */
     private void moverEspecial(int origen, int destino) {
         int aux = tablerito.buscarIndice(destino - 1).getDueño();
@@ -141,6 +142,7 @@ public class Tablero {
      * Regresa una lista con los posibles movimientos de un jugador.
      * 
      * @param jugador el jugador.
+     * @return una lista con los posibles movimientos de un jugador.
      */
     public Lista<Opcion> getOpciones(int jugador) {
         Lista<Opcion> movimientos = new Lista<Opcion>();
@@ -186,5 +188,4 @@ public class Tablero {
         }
         return movimientos;
     }
-
 }

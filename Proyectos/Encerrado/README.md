@@ -26,7 +26,7 @@ java Encerrado/Proyecto2 #version
 ## Explicación
 
 <div align="justify">
-Algo. 
+
 </div>
 
 ## Como jugar

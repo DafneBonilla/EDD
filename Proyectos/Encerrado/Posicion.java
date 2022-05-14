@@ -2,22 +2,22 @@ package Encerrado;
 
 /**
  * Clase para representar Posiciones en el tablero.
- * Una posicion tiene lugar y dueño.
+ * Una posición tiene lugar y dueño.
  */
 public class Posicion {
 
-    /* Lugar de la posicion. */
+    /* Lugar de la posición. */
     private int lugar;
-    /* Dueño de la posicion. */
+    /* Dueño de la posición. */
     private int dueño;
     /* Manera de mostrar. */
     private int version;
 
     /**
-     * Define el estado inicial de una posicion.
+     * Define el estado inicial de una posición.
      * 
-     * @param lugar   el lugar de la posicion.
-     * @param dueño   el dueño de la posicion.
+     * @param lugar   el lugar de la posición.
+     * @param dueño   el dueño de la posición.
      * @param version la manera de mostrar.
      */
     public Posicion(int lugar, int dueño, int version) {
@@ -27,36 +27,36 @@ public class Posicion {
     }
 
     /**
-     * Regresa el lugar de la posicion.
+     * Regresa el lugar de la posición.
      * 
-     * @return el lugar de la posicion.
+     * @return el lugar de la posición.
      */
     public int getLugar() {
         return lugar;
     }
 
     /**
-     * Regresa el dueño de la posicion.
+     * Regresa el dueño de la posición.
      * 
-     * @return el dueño de la posicion.
+     * @return el dueño de la posición.
      */
     public int getDueño() {
         return dueño;
     }
 
     /**
-     * Define el dueño de la posicion.
+     * Define el dueño de la posición.
      * 
-     * @param dueño el nuevo dueño de la posicion.
+     * @param dueño el nuevo dueño de la posición.
      */
     public void setDueño(int dueño) {
         this.dueño = dueño;
     }
 
     /**
-     * Regresa una representacion en cadena de la posicion.
+     * Regresa una representacion en cadena de la posición.
      * 
-     * @return una representacion en cadena de la posicion.
+     * @return una representacion en cadena de la posición.
      */
     @Override
     public String toString() {
@@ -95,9 +95,9 @@ public class Posicion {
     }
 
     /**
-     * Vuelve la posicion a un circulo.
+     * Vuelve la posición a un círculo.
      * 
-     * @param lugar la posicion a vuelve a un circulo.
+     * @param lugar la posición a vuelve a un círculo.
      */
     private String volverCirculo(int lugar) {
         switch (lugar) {
@@ -117,11 +117,11 @@ public class Posicion {
     }
 
     /**
-     * Nos dice si el objeto recibido es una posicion igual al que manda llamar
+     * Nos dice si el objeto recibido es una posición igual al que manda llamar
      * el método.
      * 
-     * @param objeto el objeto con el que la posicion se comparará.
-     * @return <code>true</code> si el objeto recibido es una posicion con las
+     * @param objeto el objeto con el que la posición se comparará.
+     * @return <code>true</code> si el objeto recibido es una posición con las
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
@@ -137,5 +137,4 @@ public class Posicion {
         }
         return true;
     }
-
 }
