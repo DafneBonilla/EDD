@@ -36,11 +36,11 @@ Para iniciar, se compila el código y se ejecuta. En los argumentos se debe indi
 
 - Versión 1:
 
-  Las posiciones del tablero tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Unix.
+  Las posiciones del tablero tendrán numeritos en círculos de colores. Es recomendable usar esta versión solo en sistemas operativos Unix.
 
 - Versión 2:
 
-  Las posiciones del tablero no tendrán numeritos en circulos de colores. Es recomendable usar esta versión solo en sistemas operativos Windows.
+  Las posiciones del tablero no tendrán numeritos en círculos de colores. Es recomendable usar esta versión solo en sistemas operativos Windows.
 
 A continuación, se le preguntará al usuario la configuración del juego:
 
@@ -56,7 +56,8 @@ Los jugadores por turnos se irán alternando para mover una de sus fichas cumpli
 1. Una ficha no puede moverse a espacios ocupados por otras fichas.
 2. Una ficha solo puede moverse a un espacio si hay una arista que lo conecte con el espacio en el que se encuentra actualmente dicha ficha.
 
-El juego terminará cuando un jugador no pueda moverse a ninguna ficha.
+Eligiendo una opción de las dadas por el programa.
+El juego terminará cuando un jugador no pueda moverse a ninguna posición.
 
 </div>
 
@@ -65,7 +66,7 @@ El juego terminará cuando un jugador no pueda moverse a ninguna ficha.
 <div align="justify">
 
 - El juego no tiene ninguna limitación de tiempo, es decir, si se usa minimax y eres muy bueno, es posible que nunca acabe el juego.
-- Existe una posibilidad de que el juego no compile en algunos sistemas que no reconozcan el caracter `ñ`, por lo tanto se sugiere precaución al momento de compilar.
-- Algunos sistemas operativos no muestran los números en circulitos, por lo tanto use la versión adecuada para su sistema.
+- Existe una posibilidad de que el juego no compile en algunos sistemas que no reconozcan el carácter `ñ`, por lo tanto, se sugiere precaución al momento de compilar.
+- Algunos sistemas operativos no muestran los números en circulitos, por lo tanto, use la versión adecuada para su sistema.
 
 </div>
