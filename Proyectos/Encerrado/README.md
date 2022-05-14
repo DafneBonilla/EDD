@@ -66,7 +66,6 @@ El juego terminará cuando un jugador no pueda moverse a ninguna posición.
 <div align="justify">
 
 - El juego no tiene ninguna limitación de tiempo, es decir, si se usa minimax y eres muy bueno, es posible que nunca acabe el juego.
-- Existe una posibilidad de que el juego no compile en algunos sistemas que no reconozcan el carácter `ñ`, por lo tanto, se sugiere precaución al momento de compilar.
 - Algunos sistemas operativos no muestran los números en circulitos, por lo tanto, use la versión adecuada para su sistema.
 
 </div>

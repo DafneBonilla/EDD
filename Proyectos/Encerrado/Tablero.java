@@ -46,13 +46,13 @@ public class Tablero {
             Lista<Integer> rojos = config.buscarIndice(0);
             Lista<Integer> azules = config.buscarIndice(1);
             for (int i = 1; i < 6; i++) {
-                int dueño = 0;
+                int dueno = 0;
                 if (rojos.contains(i)) {
-                    dueño = 1;
+                    dueno = 1;
                 } else if (azules.contains(i)) {
-                    dueño = 2;
+                    dueno = 2;
                 }
-                Posicion p = new Posicion(i, dueño, version);
+                Posicion p = new Posicion(i, dueno, version);
                 tablerito.agregaFinal(p);
             }
         }
@@ -111,9 +111,9 @@ public class Tablero {
      * @param destino la posición de destino.
      */
     private void mover(int origen, int destino) {
-        int aux = tablerito.buscarIndice(destino - 1).getDueño();
-        tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
-        tablerito.buscarIndice(origen - 1).setDueño(aux);
+        int aux = tablerito.buscarIndice(destino - 1).getDueno();
+        tablerito.buscarIndice(destino - 1).setDueno(tablerito.buscarIndice(origen - 1).getDueno());
+        tablerito.buscarIndice(origen - 1).setDueno(aux);
         System.out.println("Se movió la ficha de " + origen + " a " + destino);
     }
 
@@ -133,9 +133,9 @@ public class Tablero {
      * @param destino la posición de destino.
      */
     private void moverEspecial(int origen, int destino) {
-        int aux = tablerito.buscarIndice(destino - 1).getDueño();
-        tablerito.buscarIndice(destino - 1).setDueño(tablerito.buscarIndice(origen - 1).getDueño());
-        tablerito.buscarIndice(origen - 1).setDueño(aux);
+        int aux = tablerito.buscarIndice(destino - 1).getDueno();
+        tablerito.buscarIndice(destino - 1).setDueno(tablerito.buscarIndice(origen - 1).getDueno());
+        tablerito.buscarIndice(origen - 1).setDueno(aux);
     }
 
     /**
@@ -147,10 +147,10 @@ public class Tablero {
     public Lista<Opcion> getOpciones(int jugador) {
         Lista<Opcion> movimientos = new Lista<Opcion>();
         for (Posicion pos : tablerito) {
-            if (pos.getDueño() == jugador) {
+            if (pos.getDueno() == jugador) {
                 int lugarcito = pos.getLugar();
                 for (Posicion pos2 : tablerito) {
-                    if (pos2.getDueño() == 0) {
+                    if (pos2.getDueno() == 0) {
                         int lugarcito2 = pos2.getLugar();
                         switch (lugarcito) {
                             case 1:

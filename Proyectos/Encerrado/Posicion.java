@@ -9,7 +9,7 @@ public class Posicion {
     /* Lugar de la posición. */
     private int lugar;
     /* Dueño de la posición. */
-    private int dueño;
+    private int dueno;
     /* Manera de mostrar. */
     private int version;
 
@@ -17,12 +17,12 @@ public class Posicion {
      * Define el estado inicial de una posición.
      * 
      * @param lugar   el lugar de la posición.
-     * @param dueño   el dueño de la posición.
+     * @param dueno   el dueño de la posición.
      * @param version la manera de mostrar.
      */
-    public Posicion(int lugar, int dueño, int version) {
+    public Posicion(int lugar, int dueno, int version) {
         this.lugar = lugar;
-        this.dueño = dueño;
+        this.dueno = dueno;
         this.version = version;
     }
 
@@ -40,17 +40,17 @@ public class Posicion {
      * 
      * @return el dueño de la posición.
      */
-    public int getDueño() {
-        return dueño;
+    public int getDueno() {
+        return dueno;
     }
 
     /**
      * Define el dueño de la posición.
      * 
-     * @param dueño el nuevo dueño de la posición.
+     * @param dueno el nuevo dueño de la posición.
      */
-    public void setDueño(int dueño) {
-        this.dueño = dueño;
+    public void setDueno(int dueno) {
+        this.dueno = dueno;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Posicion {
     public String toString() {
         if (version == 2) {
             String datitos = "";
-            switch (dueño) {
+            switch (dueno) {
                 case 0:
                     datitos += String.format(" \u001B[92m%d\u001B[0m ", lugar);
                     break;
@@ -78,7 +78,7 @@ public class Posicion {
             return datitos;
         }
         String datitos = "";
-        switch (dueño) {
+        switch (dueno) {
             case 0:
                 datitos += String.format(" \u001B[92m%s\u001B[0m ", volverCirculo(lugar));
                 break;
@@ -132,7 +132,7 @@ public class Posicion {
         Posicion posicioncita = (Posicion) objeto;
         if ((this.lugar == posicioncita.lugar) == false) {
             return false;
-        } else if ((this.dueño == posicioncita.dueño) == false) {
+        } else if ((this.dueno == posicioncita.dueno) == false) {
             return false;
         }
         return true;
