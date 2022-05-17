@@ -242,7 +242,7 @@ public class ArbolBST<T extends Comparable<T>> extends ArbolBinario<T> {
      * @param raiz     la raiz del árbol donde buscaremos.
      * @return el vertice que contiene el elemento.s
      */
-    public Vertice buscaVertice(Vertice raiz, T elemento) {
+    protected Vertice buscaVertice(Vertice raiz, T elemento) {
         if (raiz == null) {
             return null;
         }
