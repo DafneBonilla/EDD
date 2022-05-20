@@ -1,5 +1,7 @@
 package Apuestas;
 
+import Apuestas.Estructuras.Lista;
+
 /**
  * Clase para representar Cuentas.
  * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado,
@@ -206,4 +208,37 @@ public class Cuenta {
     public void setHistorial(String historial) {
         this.historial = historial;
     }
+
+    /**
+     * Pide al usuario que de por quien apostara.
+     * 
+     * @param opciones las opciones disponibles.
+     */
+    public void pedirApuesta1(Lista<Concursante> opciones) {
+    }
+
+    /**
+     * Pide al usuario cuanto va a apostar.
+     */
+    public void pedirApuesta2() {
+    }
+
+    /**
+     * Pedir al usuario un entero entre unos limites.
+     * 
+     * @param opciones las opciones disponibles.
+     * @param limite1  el limite inferior.
+     * @param limite2  el limite superior.
+     */
+    private int daNumero1(Lista<Concursante> opciones, int limite1, int limite2) {
+        return 0;
+    }
+
+    /**
+     * Pedir al usuario un racional entre 0.1 y su saldo.
+     */
+    private double daNumero2() {
+        return 0.0;
+    }
+
 }

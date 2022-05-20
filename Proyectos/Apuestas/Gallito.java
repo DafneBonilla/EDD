@@ -4,7 +4,7 @@ package Apuestas;
  * Clase para representar Gallitos.
  * Un gallito tiene nombre, habilidad y probabilidad de ganar.
  */
-public class Gallito {
+public class Gallito implements Concursante {
 
     /* El nombre del gallito. */
     private String nombre;
@@ -77,6 +77,7 @@ public class Gallito {
      * 
      * @return la serializacion del gallito en una línea de texto.
      */
+    @Override
     public String serializa() {
         String linea = String.format("%s\t%d\t%s\t%s\t%s\t%s\n",
                 nombre, habilidad, piel, ojos, pico, cresta);
@@ -119,15 +120,35 @@ public class Gallito {
         this.probabilidad = probabilidad;
     }
 
+    /**
+     * Regresa una representación en cadena del galllito.
+     * 
+     * @return una representación en cadena del gallito.
+     */
     @Override
     public String toString() {
         return String.format("El gallito %s con habilidad (%d)", nombre, habilidad);
     }
 
+    /**
+     * Regresa una rempresentacion bonita del gallito.
+     * 
+     * @return una rempresentacion bonita del gallito.
+     */
+    @Override
     public String toStringBonito() {
         return dibujarGallito(piel, ojos, pico, cresta);
     }
 
+    /**
+     * Dibuja un gallito.
+     * 
+     * @param piel   el color de piel del gallito.
+     * @param ojos   el color de ojos del gallito.
+     * @param pico   el color de pico del gallito.
+     * @param cresta el color de cresta del gallito.
+     * @return el dibujo del gallito.
+     */
     public String dibujarGallito(String piel, String ojos, String pico, String cresta) {
         String cuadroNegro = "\u001B[30m■\u001B[0m ";
         String gallito = "";

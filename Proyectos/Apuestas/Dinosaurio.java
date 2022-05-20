@@ -6,7 +6,7 @@ import Apuestas.Estructuras.Lista;
  * Clase para representar Dinoasurios.
  * Un dinosaurio tiene nombre, historial y probabilidad de ganar.
  */
-public class Dinosaurio {
+public class Dinosaurio implements Concursante {
 
     /* El nombre del dinosaurio. */
     private String nombre;
@@ -85,6 +85,7 @@ public class Dinosaurio {
      * 
      * @return la serializacion del dinosaurio en una línea de texto.
      */
+    @Override
     public String serializa() {
         String linea = String.format("%s\t%s\t%s\t%s\t%s\n",
                 nombre, historial.toStringEspecial(), piel, ojos, manchitas);
@@ -114,6 +115,7 @@ public class Dinosaurio {
      * 
      * @return la probabilidad de ganar del dinosaurio.
      */
+    @Override
     public double getProbabilidad() {
         return probabilidad;
     }
@@ -127,15 +129,34 @@ public class Dinosaurio {
         this.probabilidad = probabilidad;
     }
 
+    /**
+     * Regresa una representación en cadena del dinosaurio.
+     * 
+     * @return una representación en cadena del dinosaurio.
+     */
     @Override
     public String toString() {
         return String.format("Un dinosaurio %s con historial (%s)", nombre, historial.toStringEspecial());
     }
 
+    /**
+     * Regresa una rempresentacion bonita del dinosaurio.
+     * 
+     * @return una rempresentacion bonita del dinosaurio.
+     */
+    @Override
     public String toStringBonito() {
         return dibujarDinosaurio(piel, ojos, manchitas);
     }
 
+    /**
+     * Dibuja un dinosaurio.
+     * 
+     * @param piel    el color de piel del dinosaurio.
+     * @param ojos    el color de ojos del dinosaurio.
+     * @param manchas el color de las manchitas del dinosaurio.
+     * @return el dibujo del dinosaurio.
+     */
     public String dibujarDinosaurio(String piel, String ojos, String manchitas) {
         String cuadroNegro = "\u001B[30m■\u001B[0m ";
         String dino = "";
