@@ -1,6 +1,7 @@
 package Apuestas;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import Apuestas.Estructuras.Lista;
 
 /**
@@ -89,6 +90,23 @@ public class Torneo {
             array[randomValue] = array[i];
             array[i] = randomElement;
         }
+    }
+
+    /**
+     * Retorna el indice del ganador del torneo.
+     * 
+     * @return el indice del ganador del torneo.
+     */
+    public int ganador() {
+        int random = ThreadLocalRandom.current().nextInt(0, 100);
+        return random;
+    }
+
+    /**
+     * Inicia el torneo.
+     */
+    public void iniciar() {
+
     }
 
 }
