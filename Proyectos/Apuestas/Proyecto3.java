@@ -8,7 +8,7 @@ public class Proyecto3 {
         System.out.println(pedro.toStringBonito());
 
         Dinosaurio rogelio = new Dinosaurio("rogelio", "\u001B[95m■\u001B[0m ", "\u001B[30m■\u001B[0m ",
-                "\u001B[91m■\u001B[0m ");
+                "\u001B[91m■\u001B[0m ", 2, 6, 7, 1, 12);
         System.out.println(rogelio.toStringBonito());
     }
 }

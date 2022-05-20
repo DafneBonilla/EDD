@@ -29,14 +29,15 @@ public class Dinosaurio {
      * @param ojos   el color de ojos del dinosaurio.
      * @param manchi el color de manchitas del dinosaurio.
      */
-    public Dinosaurio(String nombre, String piel, String ojos, String manchitas) {
+    public Dinosaurio(String nombre, String piel, String ojos, String manchitas, int carrera1, int carrera2,
+            int carrera3, int carrera4, int carrera5) {
         this.nombre = nombre;
         this.historial = new Lista<Integer>();
-        this.historial.add(0);
-        this.historial.add(0);
-        this.historial.add(0);
-        this.historial.add(0);
-        this.historial.add(0);
+        this.historial.add(carrera1);
+        this.historial.add(carrera2);
+        this.historial.add(carrera3);
+        this.historial.add(carrera4);
+        this.historial.add(carrera5);
         this.probabilidad = 0;
         this.piel = piel;
         this.ojos = ojos;
