@@ -11,7 +11,7 @@ public class Proyecto2 {
         System.exit(0);
     }
 
-    /* Pide la configuracion personalizada del tablero */
+    /* Pide la configuración personalizada del tablero */
     private static Lista<Lista<Integer>> pedirPersonalizado() {
         Lista<Lista<Integer>> config = new Lista<Lista<Integer>>();
         Lista<Integer> rojos = new Lista<Integer>();
