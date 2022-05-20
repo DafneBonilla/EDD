@@ -2,7 +2,8 @@ package Apuestas;
 
 /**
  * Clase para representar Cuentas.
- * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado, ganadas consecutivas y historial de acciones.
+ * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado,
+ * ganadas consecutivas y historial de acciones.
  */
 public class Cuenta {
 
@@ -20,11 +21,11 @@ public class Cuenta {
     private int ganadasConsecutivas;
     /* Historial de acciones de la cuenta. */
     private String historial;
-    
+
     /**
      * Crea una cuenta nueva.
      * 
-     * @param nombre el nombre de la cuenta.
+     * @param nombre     el nombre de la cuenta.
      * @param contrasena la constrasena de la cuenta.
      */
     public Cuenta(String nombre, String contrasena) {
@@ -38,42 +39,44 @@ public class Cuenta {
     }
 
     /**
-     * Recupera una cuenta guardada en una linea de texto genereada por el metodo {@link Cuenta#serializa}.
+     * Recupera una cuenta guardada en una linea de texto genereada por el metodo
+     * {@link Cuenta#serializa}.
      * 
      * @param linea la linea a deserializar.
      * @throws IllegalArgumentException si la linea recibida es nula, vacia o no
-     *         es una serializacion valida de una cuenta.
+     *                                  es una serializacion valida de una cuenta.
      */
     public Cuenta(String linea) {
-        linea = linea.strip();
+        // linea = linea.strip();
+        linea = linea.trim();
         if (linea == null || linea.equals("")) {
             throw new IllegalArgumentException("Línea Inválida");
         }
         String[] datitos = linea.split("\t");
         if (datitos.length != 7)
-          throw new IllegalArgumentException("Línea Inválida");
+            throw new IllegalArgumentException("Línea Inválida");
         this.nombre = datitos[0];
         this.contrasena = datitos[1];
         this.historial = datitos[6];
-        try {  
+        try {
             this.saldo = Double.parseDouble(datitos[2]);
             this.apuestaActual = Double.parseDouble(datitos[3]);
             this.numeroApostado = Integer.parseInt(datitos[4]);
             this.ganadasConsecutivas = Integer.parseInt(datitos[5]);
-        } catch (NumberFormatException nfe) {  
+        } catch (NumberFormatException nfe) {
             throw new IllegalArgumentException("Línea Inválida");
         }
     }
 
-    
     /**
      * Regresa la cuenta serializada en una linea de texto. La linea de
      * texto que este metodo regresa debe ser aceptada por el constructor.
+     * 
      * @return la serializacion de la cuenta en una linea de texto.
      */
     public String serializa() {
         String linea = String.format("%s\t%s\t%.2f\t%.2f\t%d\t%d\t%s\n",
-                                     nombre, contrasena, saldo, apuestaActual, numeroApostado, ganadasConsecutivas, historial);
+                nombre, contrasena, saldo, apuestaActual, numeroApostado, ganadasConsecutivas, historial);
         return linea;
     }
 
@@ -85,7 +88,7 @@ public class Cuenta {
     public String getNombre() {
         return nombre;
     }
-    
+
     /**
      * Define el nombre de la cuenta.
      * 
@@ -112,7 +115,7 @@ public class Cuenta {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-    
+
     /**
      * Regresa el saldo de la cuenta.
      * 
@@ -157,7 +160,7 @@ public class Cuenta {
     public int getNumeroApostado() {
         return numeroApostado;
     }
-    
+
     /**
      * Define el numero apostado de la cuenta.
      * 
@@ -179,12 +182,13 @@ public class Cuenta {
     /**
      * Define el numero de veces que la cuenta ha ganado consecutivamente.
      * 
-     * @param ganadasConsecutivas el nuevo numero de veces que la cuenta ha ganado consecutivamente.
+     * @param ganadasConsecutivas el nuevo numero de veces que la cuenta ha ganado
+     *                            consecutivamente.
      */
     public void setGanadasConsecutivas(int ganadasConsecutivas) {
         this.ganadasConsecutivas = ganadasConsecutivas;
     }
-    
+
     /**
      * Regresa el historial de la cuenta.
      * 

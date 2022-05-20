@@ -29,5 +29,4 @@ public class Torneo {
         this.ronda = 0;
     }
 
-    
 }

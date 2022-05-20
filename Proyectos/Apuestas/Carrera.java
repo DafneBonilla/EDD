@@ -22,5 +22,5 @@ public class Carrera {
         this.participantes = participantes;
         this.ganador = null;
     }
-    
+
 }
