@@ -43,15 +43,17 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         }
     }
 
-    private int dueño;
+    private int dueno;
 
     /**
      * Constructor de la clase ArbolDecision.
      * 
-     * @param tablero el tablero del arbol.
+     * @param tablero el tablero del árbol.
+     * @param jugador el jugador del árbol.
+     * @param dueno   el dueño del árbol.
      */
-    public ArbolDecision(Tablero tablero, int jugador, int dueño) {
-        this.dueño = dueño;
+    public ArbolDecision(Tablero tablero, int jugador, int dueno) {
+        this.dueno = dueno;
         this.raiz = new Vertice(new Decisiones(tablero, new Opcion(-1, -1), jugador, 0));
         construir(raiz, 10, jugador);
         evaluar();
@@ -69,7 +71,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             Tablero tablero = raiz.elemento.getTablero();
             Lista<Opcion> opciones = tablero.getOpciones(jugador);
             if (opciones.size() == 0) {
-                if (jugador == dueño) {
+                if (jugador == dueno) {
                     raiz.elemento.setPuntuacion(-1);
                 } else {
                     raiz.elemento.setPuntuacion(1);
@@ -81,7 +83,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
         Tablero tablero = raiz.elemento.getTablero();
         Lista<Opcion> opciones = tablero.getOpciones(jugador);
         if (opciones.size() == 0) {
-            if (jugador == dueño) {
+            if (jugador == dueno) {
                 raiz.elemento.setPuntuacion(-1);
             } else {
                 raiz.elemento.setPuntuacion(1);
@@ -167,7 +169,7 @@ public class ArbolDecision extends ArbolBinario<Decisiones> {
             evaluar(raiz.izquierdo);
             evaluar(raiz.derecho);
             Decisiones dec = raiz.elemento;
-            if (dec.getJugador() == dueño) {
+            if (dec.getJugador() == dueno) {
                 int max = max(raiz.izquierdo.elemento.getPuntuacion(), raiz.derecho.elemento.getPuntuacion());
                 dec.setPuntuacion(max);
             } else {

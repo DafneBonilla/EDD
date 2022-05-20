@@ -2,67 +2,67 @@ package Encerrado;
 
 /**
  * Clase para representar Posiciones en el tablero.
- * Una posicion tiene lugar y dueño.
+ * Una posición tiene lugar y dueño.
  */
 public class Posicion {
 
-    /* Lugar de la posicion. */
+    /* Lugar de la posición. */
     private int lugar;
-    /* Dueño de la posicion. */
-    private int dueño;
+    /* Dueño de la posición. */
+    private int dueno;
     /* Manera de mostrar. */
     private int version;
 
     /**
-     * Define el estado inicial de una posicion.
+     * Define el estado inicial de una posición.
      * 
-     * @param lugar   el lugar de la posicion.
-     * @param dueño   el dueño de la posicion.
+     * @param lugar   el lugar de la posición.
+     * @param dueno   el dueño de la posición.
      * @param version la manera de mostrar.
      */
-    public Posicion(int lugar, int dueño, int version) {
+    public Posicion(int lugar, int dueno, int version) {
         this.lugar = lugar;
-        this.dueño = dueño;
+        this.dueno = dueno;
         this.version = version;
     }
 
     /**
-     * Regresa el lugar de la posicion.
+     * Regresa el lugar de la posición.
      * 
-     * @return el lugar de la posicion.
+     * @return el lugar de la posición.
      */
     public int getLugar() {
         return lugar;
     }
 
     /**
-     * Regresa el dueño de la posicion.
+     * Regresa el dueño de la posición.
      * 
-     * @return el dueño de la posicion.
+     * @return el dueño de la posición.
      */
-    public int getDueño() {
-        return dueño;
+    public int getDueno() {
+        return dueno;
     }
 
     /**
-     * Define el dueño de la posicion.
+     * Define el dueño de la posición.
      * 
-     * @param dueño el nuevo dueño de la posicion.
+     * @param dueno el nuevo dueño de la posición.
      */
-    public void setDueño(int dueño) {
-        this.dueño = dueño;
+    public void setDueno(int dueno) {
+        this.dueno = dueno;
     }
 
     /**
-     * Regresa una representacion en cadena de la posicion.
+     * Regresa una representacion en cadena de la posición.
      * 
-     * @return una representacion en cadena de la posicion.
+     * @return una representacion en cadena de la posición.
      */
     @Override
     public String toString() {
         if (version == 2) {
             String datitos = "";
-            switch (dueño) {
+            switch (dueno) {
                 case 0:
                     datitos += String.format(" \u001B[92m%d\u001B[0m ", lugar);
                     break;
@@ -78,7 +78,7 @@ public class Posicion {
             return datitos;
         }
         String datitos = "";
-        switch (dueño) {
+        switch (dueno) {
             case 0:
                 datitos += String.format(" \u001B[92m%s\u001B[0m ", volverCirculo(lugar));
                 break;
@@ -95,9 +95,9 @@ public class Posicion {
     }
 
     /**
-     * Vuelve la posicion a un circulo.
+     * Vuelve la posición a un círculo.
      * 
-     * @param lugar la posicion a vuelve a un circulo.
+     * @param lugar la posición a vuelve a un círculo.
      */
     private String volverCirculo(int lugar) {
         switch (lugar) {
@@ -117,11 +117,11 @@ public class Posicion {
     }
 
     /**
-     * Nos dice si el objeto recibido es una posicion igual al que manda llamar
+     * Nos dice si el objeto recibido es una posición igual al que manda llamar
      * el método.
      * 
-     * @param objeto el objeto con el que la posicion se comparará.
-     * @return <code>true</code> si el objeto recibido es una posicion con las
+     * @param objeto el objeto con el que la posición se comparará.
+     * @return <code>true</code> si el objeto recibido es una posición con las
      *         mismas propiedades que el objeto que manda llamar al método,
      *         <code>false</code> en otro caso.
      */
@@ -132,10 +132,9 @@ public class Posicion {
         Posicion posicioncita = (Posicion) objeto;
         if ((this.lugar == posicioncita.lugar) == false) {
             return false;
-        } else if ((this.dueño == posicioncita.dueño) == false) {
+        } else if ((this.dueno == posicioncita.dueno) == false) {
             return false;
         }
         return true;
     }
-
 }

@@ -11,7 +11,11 @@ public class Proyecto2 {
         System.exit(0);
     }
 
-    /* Pide la configuración personalizada del tablero */
+    /**
+     * Pide una configuración personalizada de partida.
+     * 
+     * @return regresa la lista con la configuración elegida.
+     */
     private static Lista<Lista<Integer>> pedirPersonalizado() {
         Lista<Lista<Integer>> config = new Lista<Lista<Integer>>();
         Lista<Integer> rojos = new Lista<Integer>();
@@ -60,7 +64,12 @@ public class Proyecto2 {
         return config;
     }
 
-    /* Valida si un número es valido */
+    /**
+     * Valida si un número es válido.
+     * 
+     * @return <code>true</code> si es válido
+     *         <code>false</code> en otro caso.
+     */
     private static boolean validar(int posicion, Lista<Integer> opciones) {
         if (opciones.contains(posicion)) {
             return true;
@@ -70,7 +79,14 @@ public class Proyecto2 {
         }
     }
 
-    /* Pide un dato al usuario */
+    /**
+     * Pide un dato al usuario.
+     * 
+     * @param pregunta la pregunta a mostrar al usuario.
+     * @param min      el valor mínimo.
+     * @param max      el valor máximo.
+     * @return el dato ingresado.
+     */
     private static int pedirDato(String pregunta, int rango1, int rango2) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(pregunta);
@@ -107,7 +123,7 @@ public class Proyecto2 {
             Lista<Lista<Integer>> config = pedirPersonalizado();
             pregunta = "¿Cuál será la inteligencia de la CPU?\n[0] Random\n[1] Minimax";
             int inteligencia = pedirDato(pregunta, 0, 1);
-            pregunta = "¿Que color tendra el Jugador humano?\n[1] Rojo\n[2] Azul";
+            pregunta = "¿Qué color tendrá el jugador humano?\n[1] Rojo\n[2] Azul";
             int color1 = pedirDato(pregunta, 1, 2);
             int color2 = color1 == 1 ? 2 : 1;
             Lista<Jugador> jugadores = new Lista<Jugador>();
@@ -123,7 +139,7 @@ public class Proyecto2 {
         } else {
             pregunta = "¿Cuál será la inteligencia de la CPU?\n[0] Random\n[1] Minimax";
             int inteligencia = pedirDato(pregunta, 0, 1);
-            pregunta = "¿Que color tendra el Jugador humano?\n[1] Rojo\n[2] Azul";
+            pregunta = "¿Qué color tendrá el jugador humano?\n[1] Rojo\n[2] Azul";
             int color1 = pedirDato(pregunta, 1, 2);
             int color2 = color1 == 1 ? 2 : 1;
             Lista<Jugador> jugadores = new Lista<Jugador>();
@@ -139,15 +155,3 @@ public class Proyecto2 {
         }
     }
 }
-
-// notas
-// primero:
-// 1: jugador humano, 2: jugador CPU
-// configuraciones:
-// 1: rojo esquiza sup izq, 2: azul esquiza sup izq, 3: personalizado
-// inteligencias:
-// 0: random, 1: minimax
-// colores: (color1 es el del jugador humano)
-// 1: es el rojo, 2: es el azul
-// versiones:
-// 1: con circulitos, 2: sin circulitos

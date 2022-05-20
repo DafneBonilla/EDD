@@ -12,7 +12,7 @@ public class JugadorCPU extends Jugador {
 
     /* Inteligencia del jugador. */
     private int inteligencia;
-    /* Árbol de decisión del jugador. */
+    /* Arbol de decisión del jugador. */
     private ArbolDecision arbol;
 
     /**

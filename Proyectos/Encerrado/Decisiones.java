@@ -2,7 +2,7 @@ package Encerrado;
 
 /**
  * Clase para representar decisiones.
- * Una decisión tiene un tablero, una opción, un jugador y una puntuacion.
+ * Una decisión tiene un tablero, una opción, un jugador y una puntuación.
  */
 public class Decisiones {
 
@@ -16,10 +16,10 @@ public class Decisiones {
     private int puntuacion;
 
     /**
-     * Define el estado inicial de una descicion.
+     * Define el estado inicial de una decisión.
      * 
-     * @param tablero el tablero de la descicion.
-     * @param opcion  la opcion de la descicion.
+     * @param tablero el tablero de la decisión.
+     * @param opcion  la opcion de la decisión.
      */
     public Decisiones(Tablero tablero, Opcion opcion, int jugador, int puntuacion) {
         this.tablero = tablero;

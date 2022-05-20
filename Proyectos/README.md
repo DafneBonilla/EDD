@@ -7,3 +7,4 @@
 Proyectos realizados durante el curso de EDD.
 
 - Proyecto 01 terminado
+- Proyecto 02 terminado

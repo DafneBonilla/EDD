@@ -20,9 +20,8 @@ public class Partida {
     /**
      * Define el estado inicial de una partida.
      * 
-     * @param tablero     el tablero de la partida.
-     * @param jugadores   la lista de jugadores de la partida.
-     * @param turnoActual el turno actual de la partida.
+     * @param tablero   el tablero de la partida.
+     * @param jugadores la lista de jugadores de la partida.
      */
     public Partida(Tablero tablero, Lista<Jugador> jugadores) {
         this.tablero = tablero;
@@ -70,5 +69,4 @@ public class Partida {
             turnoActual = 0;
         }
     }
-
 }
