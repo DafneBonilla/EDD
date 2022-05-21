@@ -45,19 +45,19 @@ public class Gallito implements Concursante {
      * Recupera un gallito guardado en una linea de texto genereada por el metodo
      * {@link Gallito#serializa}.
      * 
-     * @param linea la línea a deserializar.
-     * @throws IllegalArgumentException si la línea recibida es nula, vacía o no
-     *                                  es una serialización válida de un gallito.
+     * @param linea la linea a deserializar.
+     * @throws IllegalArgumentException si la linea recibida es nula, vacia o no
+     *                                  es una serializacion valida de un gallito.
      */
     public Gallito(String linea) {
         // linea = linea.strip();
         linea = linea.trim();
         if (linea == null || linea.equals("")) {
-            throw new IllegalArgumentException("Línea Inválida");
+            throw new IllegalArgumentException();
         }
         String[] datitos = linea.split("\t");
         if (datitos.length != 6)
-            throw new IllegalArgumentException("Línea Inválida");
+            throw new IllegalArgumentException();
         this.nombre = datitos[0];
         this.probabilidad = 0;
         this.piel = datitos[2];
@@ -67,7 +67,7 @@ public class Gallito implements Concursante {
         try {
             this.habilidad = Integer.parseInt(datitos[1]);
         } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Línea Inválida");
+            throw new IllegalArgumentException();
         }
     }
 
@@ -75,7 +75,7 @@ public class Gallito implements Concursante {
      * Regresa el gallito serializado en una linea de texto. La linea de
      * texto que este metodo regresa debe ser aceptada por el constructor.
      * 
-     * @return la serializacion del gallito en una línea de texto.
+     * @return la serializacion del gallito en una linea de texto.
      */
     @Override
     public String serializa() {
@@ -121,9 +121,9 @@ public class Gallito implements Concursante {
     }
 
     /**
-     * Regresa una representación en cadena del galllito.
+     * Regresa una representacion en cadena del galllito.
      * 
-     * @return una representación en cadena del gallito.
+     * @return una representacion en cadena del gallito.
      */
     @Override
     public String toString() {
@@ -152,7 +152,7 @@ public class Gallito implements Concursante {
     public String dibujarGallito(String piel, String ojos, String pico, String cresta) {
         String cuadroNegro = "\u001B[30m■\u001B[0m ";
         String gallito = "";
-        gallito = nombre + "\n" +
+        gallito = nombre + "\n" + "\n" +
                 cuadroNegro + cuadroNegro + cuadroNegro + cresta + cuadroNegro + cuadroNegro + cuadroNegro + "\n" +
                 cuadroNegro + cuadroNegro + cresta + cresta + cresta + cuadroNegro + cuadroNegro + "\n" +
                 cuadroNegro + cuadroNegro + piel + cresta + piel + cuadroNegro + cuadroNegro + "\n" +

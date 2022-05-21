@@ -27,7 +27,7 @@ public class Dinosaurio implements Concursante {
      * @param nombre el nombre del dinosaurio.
      * @param piel   el color de piel del dinosaurio.
      * @param ojos   el color de ojos del dinosaurio.
-     * @param manchi el color de manchitas del dinosaurio.
+     * @param manchitas el color de manchitas del dinosaurio.
      */
     public Dinosaurio(String nombre, String piel, String ojos, String manchitas, int carrera1, int carrera2,
             int carrera3, int carrera4, int carrera5) {
@@ -110,6 +110,11 @@ public class Dinosaurio implements Concursante {
         return historial;
     }
 
+    public void actualizarHistorial(int posicion) {
+        historial.delete2(0);
+        historial.add(posicion);
+    }
+
     /**
      * Regresa la probabilidad de ganar del dinosaurio.
      * 
@@ -121,12 +126,20 @@ public class Dinosaurio implements Concursante {
     }
 
     /**
-     * Define la probabilidad de ganar del dinosaurio.
-     * 
-     * @param probabilidad la nueva probabilidad de ganar del dinosaurio.
+     * Actualizar la probabilidad de ganar del dinosaurio.
+     * p_C= [s * (n + 1) - Sumatoria(desde i = 1 hasta s) h_i] / s * [n * (n + 1) / 2]
      */
-    public void setProbabilidad(double probabilidad) {
-        this.probabilidad = probabilidad;
+    public void actualizarProba() {
+        int posiciones = 0;
+        for (Integer i : historial) {
+            posiciones += i;
+        }
+        double parte1 = 5 * (16 + 1) - posiciones;
+        double parte3 = 16 * (16 + 1);
+        double parte4 = parte3 / 2;
+        double parte5 = 5 * parte4;
+        double total = parte1 / parte5;
+        this.probabilidad = total;
     }
 
     /**
@@ -136,13 +149,18 @@ public class Dinosaurio implements Concursante {
      */
     @Override
     public String toString() {
-        return String.format("Un dinosaurio %s con historial (%s)", nombre, historial.toStringEspecial());
+        String algo = "";
+        for (Integer i : historial) {
+            algo += i + " ";
+        }
+        algo = algo.trim();
+        return String.format("Un dinosaurio %s con historial (%s)", nombre, algo);
     }
 
     /**
-     * Regresa una rempresentacion bonita del dinosaurio.
+     * Regresa una representacion bonita del dinosaurio.
      * 
-     * @return una rempresentacion bonita del dinosaurio.
+     * @return una representacion bonita del dinosaurio.
      */
     @Override
     public String toStringBonito() {
@@ -160,7 +178,7 @@ public class Dinosaurio implements Concursante {
     public String dibujarDinosaurio(String piel, String ojos, String manchitas) {
         String cuadroNegro = "\u001B[30m■\u001B[0m ";
         String dino = "";
-        dino = nombre + "\n" +
+        dino = nombre + "\n" + "\n" +
                 cuadroNegro + piel + piel + piel + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro
                 + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro + "\n" +
                 piel + piel + ojos + piel + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro

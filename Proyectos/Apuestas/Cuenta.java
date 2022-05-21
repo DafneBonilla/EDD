@@ -37,7 +37,7 @@ public class Cuenta {
         this.apuestaActual = 0.0;
         this.numeroApostado = -99;
         this.ganadasConsecutivas = 0;
-        this.historial = "";
+        this.historial = "La cuenta se creo.";
     }
 
     /**
@@ -124,16 +124,19 @@ public class Cuenta {
      * @return el saldo de la cuenta.
      */
     public double getSaldo() {
-        return saldo;
+        String respuesta = String.format("%.2f", saldo);
+        return Double.parseDouble(respuesta);
     }
-
+    
     /**
-     * Define el saldo de la cuenta.
+     * Método que incrementa el saldo de una cuenta. 
      * 
-     * @param saldo el nuevo saldo de la cuenta.
+     * @param cantidad la cantidad a sumar al saldo.
      */
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public void aumentarSaldo(double cantidad) {
+        double actual = saldo;
+        actual += cantidad;
+        this.saldo = actual;
     }
 
     /**
@@ -201,44 +204,13 @@ public class Cuenta {
     }
 
     /**
-     * Define el historial de la cuenta.
+     * Actualiza el historial de la cuenta.
      * 
-     * @param historial el nuevo historial de la cuenta.
+     * @param cadena lo nuevo del historial.
      */
-    public void setHistorial(String historial) {
-        this.historial = historial;
+    public void actualizarHistorial(String cadena) {
+        String actual = historial;
+        actual += " " + cadena;
+        this.historial = actual;
     }
-
-    /**
-     * Pide al usuario que de por quien apostara.
-     * 
-     * @param opciones las opciones disponibles.
-     */
-    public void pedirApuesta1(Lista<Concursante> opciones) {
-    }
-
-    /**
-     * Pide al usuario cuanto va a apostar.
-     */
-    public void pedirApuesta2() {
-    }
-
-    /**
-     * Pedir al usuario un entero entre unos limites.
-     * 
-     * @param opciones las opciones disponibles.
-     * @param limite1  el limite inferior.
-     * @param limite2  el limite superior.
-     */
-    private int daNumero1(Lista<Concursante> opciones, int limite1, int limite2) {
-        return 0;
-    }
-
-    /**
-     * Pedir al usuario un racional entre 0.1 y su saldo.
-     */
-    private double daNumero2() {
-        return 0.0;
-    }
-
 }
