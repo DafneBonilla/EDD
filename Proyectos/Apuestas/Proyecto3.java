@@ -24,16 +24,21 @@ public class Proyecto3 {
         lista.add(new Dinosaurio("pedro14", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 14, 3, 8, 7, 13));
         lista.add(new Dinosaurio("pedro15", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 15, 2, 7, 6, 12));
         lista.add(new Dinosaurio("pedro16", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 16, 1, 6, 5, 11));
-        Carrera torneo = new Carrera(lista, cliente);
-        torneo.iniciar();
-        System.out.println(cliente.getSaldo());
-        System.out.println(cliente.getHistorial());
-        cliente = torneo.getCliente();
-        lista = torneo.getPartisipantes();
-        Carrera carrera = new Carrera(lista, cliente);
-        carrera.iniciar();
-        System.out.println(cliente.getSaldo());
-        System.out.println(cliente.getHistorial());
+        try {
+            Carrera carrera = new Carrera(lista, cliente);
+            carrera.iniciar();
+            cliente = carrera.getCliente();
+            lista = carrera.getPartisipantes();
+            System.out.println(cliente.getHistorial());
+            Carrera carrera2 = new Carrera(lista, cliente);
+            carrera2.iniciar();
+            cliente = carrera2.getCliente();
+            lista = carrera2.getPartisipantes();
+            System.out.println(cliente.getHistorial());
+        } catch (Exception e) {
+            System.out.println("Error al escuchar");
+            System.exit(0);
+        }
     }
 }
 /*

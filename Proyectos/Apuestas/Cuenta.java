@@ -1,6 +1,8 @@
 package Apuestas;
 
-import Apuestas.Estructuras.Lista;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Clase para representar Cuentas.
@@ -23,8 +25,6 @@ public class Cuenta {
     private int ganadasConsecutivas;
     /* Historial de acciones de la cuenta. */
     private String historial;
-    
-    private ScannerTiempo scannerTiempo;
 
     /**
      * Crea una cuenta nueva.
@@ -84,10 +84,6 @@ public class Cuenta {
         return linea;
     }
 
-    public ScannerTiempo getScannerTiempo() {
-        return new ScannerTiempo();
-    }
-
     /**
      * Regresa el nombre de la cuenta.
      * 
@@ -143,6 +139,7 @@ public class Cuenta {
         double actual = saldo;
         actual += cantidad;
         this.saldo = actual;
+        actualizarHistorial("Saldo aumentado en " + cantidad + ", tu saldo es " + saldo + ".");
     }
 
     /**
@@ -218,5 +215,27 @@ public class Cuenta {
         String actual = historial;
         actual += " " + cadena;
         this.historial = actual;
+    }
+
+    /**
+     * Regresa una cadena de lo que escribió el cliente.
+     * 
+     * @return una cadena de lo que escribió el cliente.
+     * @throws IOException si hay un error de entrada/salida.
+     * @throws InterruptedException si el hilo es interrumpido.
+     */
+    public String escuchar() throws InterruptedException, IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        boolean entrada = false;
+        //System.out.print("Time left to bet:  ");
+        for (int i = 10; i > 0 && !entrada; i--) {
+            //System.out.print(i + "...");
+            Thread.sleep(1000);
+            entrada = reader.ready();
+        }
+        if (!entrada) {
+            return null;
+        }
+        return reader.readLine();
     }
 }
