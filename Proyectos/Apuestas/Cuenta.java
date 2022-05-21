@@ -23,6 +23,8 @@ public class Cuenta {
     private int ganadasConsecutivas;
     /* Historial de acciones de la cuenta. */
     private String historial;
+    
+    private ScannerTiempo scannerTiempo;
 
     /**
      * Crea una cuenta nueva.
@@ -80,6 +82,10 @@ public class Cuenta {
         String linea = String.format("%s\t%s\t%.2f\t%.2f\t%d\t%d\t%s\n",
                 nombre, contrasena, saldo, apuestaActual, numeroApostado, ganadasConsecutivas, historial);
         return linea;
+    }
+
+    public ScannerTiempo getScannerTiempo() {
+        return new ScannerTiempo();
     }
 
     /**

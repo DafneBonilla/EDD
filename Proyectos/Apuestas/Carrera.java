@@ -182,7 +182,7 @@ public class Carrera {
             i++;
         }
         System.out.println("\n" + "Ingresa el numero del dinosaurio por el que quieres apostar y separado por un espacio la cantidad a apostar (entre 0.1 y tu saldo actual " + cliente.getSaldo() + ").");
-        ScannerTiempo scanner = new ScannerTiempo();
+        ScannerTiempo scanner = cliente.getScannerTiempo();
         String respuesta = scanner.nextLine(20000);
         Double[] respuestas = new Double[2];
         if (respuesta == null) {
@@ -191,6 +191,10 @@ public class Carrera {
         }
         try {
             String[] respuestaSeparada = respuesta.split(" ");
+            if (respuestaSeparada.length != 2) {
+                System.out.println("No ingresaste la cantidad correcta de datos.");
+                return null;
+            }
             int numero = Integer.parseInt(respuestaSeparada[0]);
             if (numero >= 0 && numero < participantes.size()) {
                 respuestas[0] = (double) numero;
