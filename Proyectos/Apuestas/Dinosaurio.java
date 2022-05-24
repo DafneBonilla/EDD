@@ -45,53 +45,6 @@ public class Dinosaurio implements java.io.Serializable {
     }
 
     /**
-     * Recupera un dinosaurio guardado en una linea de texto genereada por el metodo
-     * {@link Dinosaurio#serializa}.
-     * 
-     * @param linea la línea a deserializar.
-     * @throws IllegalArgumentException si la línea recibida es nula, vacía o no
-     *                                  es una serialización válida de un
-     *                                  dinosaurio.
-     */
-    public Dinosaurio(String linea) {
-        // linea = linea.strip();
-        linea = linea.trim();
-        if (linea == null || linea.equals("")) {
-            throw new IllegalArgumentException("Línea Inválida");
-        }
-        String[] datitos = linea.split("\t");
-        if (datitos.length != 9)
-            throw new IllegalArgumentException("Línea Inválida");
-        this.nombre = datitos[0];
-        this.probabilidad = 0;
-        this.piel = datitos[6];
-        this.ojos = datitos[7];
-        this.manchitas = datitos[8];
-        try {
-            Lista<Integer> historial = new Lista<Integer>();
-            historial.add(Integer.parseInt(datitos[1]));
-            historial.add(Integer.parseInt(datitos[2]));
-            historial.add(Integer.parseInt(datitos[3]));
-            historial.add(Integer.parseInt(datitos[4]));
-            historial.add(Integer.parseInt(datitos[5]));
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Línea Inválida");
-        }
-    }
-
-    /**
-     * Regresa al dinosaurio serializado en una linea de texto. La linea de
-     * texto que este metodo regresa debe ser aceptada por el constructor.
-     * 
-     * @return la serializacion del dinosaurio en una línea de texto.
-     */
-    public String serializa() {
-        String linea = String.format("%s\t%s\t%s\t%s\t%s\n",
-                nombre, historial.toStringEspecial(), piel, ojos, manchitas);
-        return linea;
-    }
-
-    /**
      * Regresa el nombre del dinosaurio.
      * 
      * @return el nombre del dinosaurio.

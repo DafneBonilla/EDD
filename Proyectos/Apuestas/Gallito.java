@@ -42,48 +42,6 @@ public class Gallito implements java.io.Serializable {
     }
 
     /**
-     * Recupera un gallito guardado en una linea de texto genereada por el metodo
-     * {@link Gallito#serializa}.
-     * 
-     * @param linea la linea a deserializar.
-     * @throws IllegalArgumentException si la linea recibida es nula, vacia o no
-     *                                  es una serializacion valida de un gallito.
-     */
-    public Gallito(String linea) {
-        // linea = linea.strip();
-        linea = linea.trim();
-        if (linea == null || linea.equals("")) {
-            throw new IllegalArgumentException();
-        }
-        String[] datitos = linea.split("\t");
-        if (datitos.length != 6)
-            throw new IllegalArgumentException();
-        this.nombre = datitos[0];
-        this.probabilidad = 0;
-        this.piel = datitos[2];
-        this.ojos = datitos[3];
-        this.pico = datitos[4];
-        this.cresta = datitos[5];
-        try {
-            this.habilidad = Integer.parseInt(datitos[1]);
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /**
-     * Regresa el gallito serializado en una linea de texto. La linea de
-     * texto que este metodo regresa debe ser aceptada por el constructor.
-     * 
-     * @return la serializacion del gallito en una linea de texto.
-     */
-    public String serializa() {
-        String linea = String.format("%s\t%d\t%s\t%s\t%s\t%s\n",
-                nombre, habilidad, piel, ojos, pico, cresta);
-        return linea;
-    }
-
-    /**
      * Regresa el nombre del gallito.
      * 
      * @return el nombre del gallito.

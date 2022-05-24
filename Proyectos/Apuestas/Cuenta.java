@@ -43,48 +43,6 @@ public class Cuenta implements java.io.Serializable {
     }
 
     /**
-     * Recupera una cuenta guardada en una linea de texto genereada por el metodo
-     * {@link Cuenta#serializa}.
-     * 
-     * @param linea la linea a deserializar.
-     * @throws IllegalArgumentException si la linea recibida es nula, vacia o no
-     *                                  es una serializacion valida de una cuenta.
-     */
-    public Cuenta(String linea) {
-        // linea = linea.strip();
-        linea = linea.trim();
-        if (linea == null || linea.equals("")) {
-            throw new IllegalArgumentException("Línea Inválida");
-        }
-        String[] datitos = linea.split("\t");
-        if (datitos.length != 7)
-            throw new IllegalArgumentException("Línea Inválida");
-        this.nombre = datitos[0];
-        this.contrasena = datitos[1];
-        this.historial = datitos[6];
-        try {
-            this.saldo = Double.parseDouble(datitos[2]);
-            this.apuestaActual = Double.parseDouble(datitos[3]);
-            this.numeroApostado = Integer.parseInt(datitos[4]);
-            this.ganadasConsecutivas = Integer.parseInt(datitos[5]);
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Línea Inválida");
-        }
-    }
-
-    /**
-     * Regresa la cuenta serializada en una linea de texto. La linea de
-     * texto que este metodo regresa debe ser aceptada por el constructor.
-     * 
-     * @return la serializacion de la cuenta en una linea de texto.
-     */
-    public String serializa() {
-        String linea = String.format("%s\t%s\t%.2f\t%.2f\t%d\t%d\t%s\n",
-                nombre, contrasena, saldo, apuestaActual, numeroApostado, ganadasConsecutivas, historial);
-        return linea;
-    }
-
-    /**
      * Regresa el nombre de la cuenta.
      * 
      * @return el nombre de la cuenta.
