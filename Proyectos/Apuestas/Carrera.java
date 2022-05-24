@@ -102,6 +102,7 @@ public class Carrera {
 
     /**
      * Inicia la carrera.
+     * 
      * @throws IOException
      * @throws InterruptedException
      */
@@ -126,7 +127,7 @@ public class Carrera {
         if (numGanador == cliente.getNumeroApostado()) {
             System.out.println("Tu apuesta fue existosa");
             double apostado = cliente.getApuestaActual();
-            double cuota = 1 / ganador.getProbabilidad(); 
+            double cuota = 1 / ganador.getProbabilidad();
             double ganancia = apostado * cuota;
             cliente.aumentarSaldo(ganancia);
             cliente.setApuestaActual(0);
@@ -161,13 +162,13 @@ public class Carrera {
      * Pide las apuestas de los participantes.
      * 
      * @param cliente el cliente que realiza las apuestas.
-     * @throws IOException si hay un error de entrada/salida.
+     * @throws IOException          si hay un error de entrada/salida.
      * @throws InterruptedException si se interrumpe la ejecución.
      */
     private void pedirApuesta(Cuenta cliente) throws InterruptedException, IOException {
         System.out.println("Las opciones son:");
         int i = 0;
-        for (Dinosaurio dino: participantes) {
+        for (Dinosaurio dino : participantes) {
             System.out.println("[" + i + "] " + dino);
             i++;
         }
@@ -183,7 +184,8 @@ public class Carrera {
         try {
             int numero = Integer.parseInt(respuesta);
             if (numero >= 0 && numero < participantes.size()) {
-                System.out.print("Ingresa la cantidad de dinero que quieres apostar (entre 0.1 y tu saldo actual " + cliente.getSaldo() + "): ");
+                System.out.print("Ingresa la cantidad de dinero que quieres apostar (entre 0.1 y tu saldo actual "
+                        + cliente.getSaldo() + "): ");
                 String respuesta2 = cliente.escuchar();
                 if (respuesta2 == null) {
                     System.out.println("No es un numero valido");
@@ -197,7 +199,8 @@ public class Carrera {
                     cliente.setApuestaActual(apuesta);
                     cliente.setNumeroApostado(numero);
                     cliente.aumentarSaldo(-apuesta);
-                    cliente.actualizarHistorial("Se aposto " + apuesta + " al concursante " + participantes.buscarIndice(numero).getNombre() + ".");
+                    cliente.actualizarHistorial("Se aposto " + apuesta + " al concursante "
+                            + participantes.buscarIndice(numero).getNombre() + ".");
                     System.out.println("\n" + "Las apuestas se cerraron" + "\n");
                     return;
                 } else {
@@ -223,7 +226,7 @@ public class Carrera {
         }
     }
 
-    /** 
+    /**
      * Método para apostar por un dinosaurio.
      * 
      * @return un arreglo con el número de dinosaurio y la cantidad apostada.
@@ -231,11 +234,13 @@ public class Carrera {
     private Double[] pedirDinosaurio() {
         System.out.println("Las opciones son:");
         int i = 0;
-        for (Dinosaurio dino: participantes) {
+        for (Dinosaurio dino : participantes) {
             System.out.println("[" + i + "] " + dino);
             i++;
         }
-        System.out.println("\n" + "Ingresa el numero del dinosaurio por el que quieres apostar y separado por un espacio la cantidad a apostar (entre 0.1 y tu saldo actual " + cliente.getSaldo() + ").");
+        System.out.println("\n"
+                + "Ingresa el numero del dinosaurio por el que quieres apostar y separado por un espacio la cantidad a apostar (entre 0.1 y tu saldo actual "
+                + cliente.getSaldo() + ").");
         String respuesta = null;
         Double[] respuestas = new Double[2];
         if (respuesta == null) {
@@ -271,7 +276,7 @@ public class Carrera {
     public Lista<Dinosaurio> getPartisipantes() {
         return participantes;
     }
-    
+
     public Cuenta getCliente() {
         return cliente;
     }

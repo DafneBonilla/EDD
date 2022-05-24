@@ -9,7 +9,7 @@ import Apuestas.Estructuras.Lista;
  * Un torneo tiene participantes, perdedores, ganador, número de ronda y un
  * cliente.
  */
-public class Torneo {
+public class Torneo implements java.io.Serializable {
 
     /* Participantes del torneo. */
     private Lista<Gallito> participantes;

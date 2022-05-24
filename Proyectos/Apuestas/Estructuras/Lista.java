@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
  * 
  * @param <T> El tipo de los elementos de la lista.
  */
-public class Lista<T> implements Collection<T> {
+public class Lista<T> implements Collection<T>, java.io.Serializable {
 
     /* Clase privada interna para nodos. */
     private class Nodo {

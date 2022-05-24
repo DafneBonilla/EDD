@@ -6,7 +6,7 @@ import Apuestas.Estructuras.Lista;
  * Clase para representar Dinoasurios.
  * Un dinosaurio tiene nombre, historial y probabilidad de ganar.
  */
-public class Dinosaurio implements Concursante {
+public class Dinosaurio implements java.io.Serializable {
 
     /* El nombre del dinosaurio. */
     private String nombre;
@@ -24,9 +24,9 @@ public class Dinosaurio implements Concursante {
     /**
      * Crea un dinosaurio nuevo.
      * 
-     * @param nombre el nombre del dinosaurio.
-     * @param piel   el color de piel del dinosaurio.
-     * @param ojos   el color de ojos del dinosaurio.
+     * @param nombre    el nombre del dinosaurio.
+     * @param piel      el color de piel del dinosaurio.
+     * @param ojos      el color de ojos del dinosaurio.
      * @param manchitas el color de manchitas del dinosaurio.
      */
     public Dinosaurio(String nombre, String piel, String ojos, String manchitas, int carrera1, int carrera2,
@@ -85,7 +85,6 @@ public class Dinosaurio implements Concursante {
      * 
      * @return la serializacion del dinosaurio en una línea de texto.
      */
-    @Override
     public String serializa() {
         String linea = String.format("%s\t%s\t%s\t%s\t%s\n",
                 nombre, historial.toStringEspecial(), piel, ojos, manchitas);
@@ -120,22 +119,22 @@ public class Dinosaurio implements Concursante {
      * 
      * @return la probabilidad de ganar del dinosaurio.
      */
-    @Override
     public double getProbabilidad() {
         return probabilidad;
     }
 
     /**
      * Actualizar la probabilidad de ganar del dinosaurio.
-     * p_C= [s * (n + 1) - Sumatoria(desde i = 1 hasta s) h_i] / s * [n * (n + 1) / 2]
+     * p_C= [s * (n + 1) - Sumatoria(desde i = 1 hasta s) h_i] / s * [n * (n + 1) /
+     * 2]
      */
     public void actualizarProba() {
         int posiciones = 0;
         for (Integer i : historial) {
             posiciones += i;
         }
-        double parte1 = 5 * (16 + 1) - posiciones;
-        double parte3 = 16 * (16 + 1);
+        double parte1 = 5 * (6 + 1) - posiciones;
+        double parte3 = 6 * (6 + 1);
         double parte4 = parte3 / 2;
         double parte5 = 5 * parte4;
         double total = parte1 / parte5;
@@ -162,7 +161,6 @@ public class Dinosaurio implements Concursante {
      * 
      * @return una representacion bonita del dinosaurio.
      */
-    @Override
     public String toStringBonito() {
         return dibujarDinosaurio(piel, ojos, manchitas);
     }

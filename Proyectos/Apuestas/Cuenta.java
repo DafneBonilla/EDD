@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
  * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado,
  * ganadas consecutivas y historial de acciones.
  */
-public class Cuenta {
+public class Cuenta implements java.io.Serializable {
 
     /* Nombre de la cuenta. */
     private String nombre;
@@ -129,9 +129,9 @@ public class Cuenta {
         String respuesta = String.format("%.2f", saldo);
         return Double.parseDouble(respuesta);
     }
-    
+
     /**
-     * Método que incrementa el saldo de una cuenta. 
+     * Método que incrementa el saldo de una cuenta.
      * 
      * @param cantidad la cantidad a sumar al saldo.
      */
@@ -221,15 +221,15 @@ public class Cuenta {
      * Regresa una cadena de lo que escribió el cliente.
      * 
      * @return una cadena de lo que escribió el cliente.
-     * @throws IOException si hay un error de entrada/salida.
+     * @throws IOException          si hay un error de entrada/salida.
      * @throws InterruptedException si el hilo es interrumpido.
      */
     public String escuchar() throws InterruptedException, IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean entrada = false;
-        //System.out.print("Time left to bet:  ");
+        // System.out.print("Time left to bet: ");
         for (int i = 10; i > 0 && !entrada; i--) {
-            //System.out.print(i + "...");
+            // System.out.print(i + "...");
             Thread.sleep(1000);
             entrada = reader.ready();
         }

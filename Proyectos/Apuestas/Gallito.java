@@ -4,7 +4,7 @@ package Apuestas;
  * Clase para representar Gallitos.
  * Un gallito tiene nombre, habilidad y probabilidad de ganar.
  */
-public class Gallito implements Concursante {
+public class Gallito implements java.io.Serializable {
 
     /* El nombre del gallito. */
     private String nombre;
@@ -77,7 +77,6 @@ public class Gallito implements Concursante {
      * 
      * @return la serializacion del gallito en una linea de texto.
      */
-    @Override
     public String serializa() {
         String linea = String.format("%s\t%d\t%s\t%s\t%s\t%s\n",
                 nombre, habilidad, piel, ojos, pico, cresta);
@@ -135,7 +134,6 @@ public class Gallito implements Concursante {
      * 
      * @return una rempresentacion bonita del gallito.
      */
-    @Override
     public String toStringBonito() {
         return dibujarGallito(piel, ojos, pico, cresta);
     }
