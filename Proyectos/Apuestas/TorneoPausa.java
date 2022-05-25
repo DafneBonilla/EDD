@@ -1,17 +1,20 @@
 package Apuestas;
 
+/**
+ * Clase para representar una excepcion del torneo.
+ */
 public class TorneoPausa extends Exception {
 
     /**
-     * Constructor vacío.
+     * Constructor vacio.
      */
     public TorneoPausa() {
     }
 
     /**
-     * Constructor que recibe un mensaje para el usuario.
+     * Constructor que recibe un mensaje.
      * 
-     * @param mensaje un mensaje que verá el usuario cuando ocurra la excepción.
+     * @param mensaje un mensaje.
      */
     public TorneoPausa(String mensaje) {
         super(mensaje);

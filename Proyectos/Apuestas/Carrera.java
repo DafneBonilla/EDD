@@ -68,6 +68,8 @@ public class Carrera {
 
     /**
      * Revuelve a un arreglo.
+     * 
+     * @param array el arreglo a revuelver.
      */
     private void shuffleAux(Integer[] array) {
         int n = array.length;
@@ -128,7 +130,9 @@ public class Carrera {
             cliente.aumentarSaldo(ganancia);
             cliente.setApuestaActual(0);
             cliente.setNumeroApostado(-99);
-            cliente.actualizarHistorial("Ganaste " + ganancia + " y tu nuevo saldo es " + cliente.getSaldoBonito() + ".");
+            String nuevo = "$" + String.format("%.2f", ganancia);
+            cliente.actualizarHistorial(
+                    "Ganaste " + nuevo + " y tu nuevo saldo es " + cliente.getSaldoBonito() + ".");
         } else {
             if (cliente.getNumeroApostado() > -1) {
                 System.out.println("Tu apuesta fue fallida");
@@ -193,8 +197,10 @@ public class Carrera {
                     cliente.setApuestaActual(apuesta);
                     cliente.setNumeroApostado(numero);
                     cliente.aumentarSaldo(-apuesta);
-                    cliente.actualizarHistorial("Se aposto " + apuesta + " al concursante "
-                            + participantes.buscarIndice(numero).getNombre() + ".");
+                    String nuevo = "$" + String.format("%.2f", apuesta);
+                    cliente.actualizarHistorial(
+                            "Se aposto " + nuevo + " al concursante " + participantes.buscarIndice(numero).getNombre()
+                                    + ", tu saldo es " + cliente.getSaldoBonito() + ".");
                     System.out.println("\n" + "Las apuestas se cerraron" + "\n");
                     return;
                 } else {
@@ -220,10 +226,20 @@ public class Carrera {
         }
     }
 
+    /**
+     * Regresa la lista de participantes.
+     * 
+     * @return la lista de participantes.
+     */
     public Lista<Dinosaurio> getPartisipantes() {
         return participantes;
     }
 
+    /**
+     * Regresa el cliente.
+     * 
+     * @return el cliente.
+     */
     public Cuenta getCliente() {
         return cliente;
     }

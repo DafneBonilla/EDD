@@ -27,7 +27,7 @@ public class Torneo implements java.io.Serializable {
      * Crea un torneo nueva.
      * 
      * @param participantes la lista de los participantes del torneo.
-     * @param cliente el cliente del torneo.
+     * @param cliente       el cliente del torneo.
      */
     public Torneo(Lista<Gallito> participantes, Cuenta cliente) {
         this.participantes = participantes;
@@ -98,6 +98,8 @@ public class Torneo implements java.io.Serializable {
 
     /**
      * Inicia el torneo.
+     * 
+     * @throws TorneoPausa cuando se va a pausar el torneo.
      */
     public void iniciar() throws TorneoPausa {
         try {
@@ -121,10 +123,20 @@ public class Torneo implements java.io.Serializable {
         }
     }
 
+    /**
+     * Regresa la lista de participantes.
+     * 
+     * @return la lista de participantes.
+     */
     public Lista<Gallito> getPartisipantes() {
         return participantes;
     }
 
+    /**
+     * Regresa el cliente.
+     * 
+     * @return el cliente.
+     */
     public Cuenta getCliente() {
         return cliente;
     }

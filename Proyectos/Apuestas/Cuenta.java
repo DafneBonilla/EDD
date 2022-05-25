@@ -1,13 +1,12 @@
 package Apuestas;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
  * Clase para representar Cuentas.
- * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado,
- * ganadas consecutivas y historial de acciones.
+ * Una cuenta tiene nombre, contrasena, saldo, apuesta actual, numero apostado y
+ * historial de acciones.
  */
 public class Cuenta implements java.io.Serializable {
 
@@ -21,8 +20,6 @@ public class Cuenta implements java.io.Serializable {
     private double apuestaActual;
     /* Numero apostado de la cuenta. */
     private int numeroApostado;
-    /* Apuestas ganadas consecutivamente de la cuenta. */
-    private int ganadasConsecutivas;
     /* Historial de acciones de la cuenta. */
     private String historial;
 
@@ -38,7 +35,6 @@ public class Cuenta implements java.io.Serializable {
         this.saldo = 0.0;
         this.apuestaActual = 0.0;
         this.numeroApostado = -99;
-        this.ganadasConsecutivas = 0;
         this.historial = "La cuenta se creo.";
     }
 
@@ -87,6 +83,11 @@ public class Cuenta implements java.io.Serializable {
         return saldo;
     }
 
+    /**
+     * Regresa una representacion en cadena del saldo de la cuenta.
+     * 
+     * @return una representacion en cadena del saldo de la cuenta.
+     */
     public String getSaldoBonito() {
         return "$" + String.format("%.2f", saldo);
     }
@@ -138,25 +139,6 @@ public class Cuenta implements java.io.Serializable {
      */
     public void setNumeroApostado(int numeroApostado) {
         this.numeroApostado = numeroApostado;
-    }
-
-    /**
-     * Regresa el numero de veces que la cuenta ha ganado consecutivamente.
-     * 
-     * @return el numero de veces que la cuenta ha ganado consecutivamente.
-     */
-    public int getGanadasConsecutivas() {
-        return ganadasConsecutivas;
-    }
-
-    /**
-     * Define el numero de veces que la cuenta ha ganado consecutivamente.
-     * 
-     * @param ganadasConsecutivas el nuevo numero de veces que la cuenta ha ganado
-     *                            consecutivamente.
-     */
-    public void setGanadasConsecutivas(int ganadasConsecutivas) {
-        this.ganadasConsecutivas = ganadasConsecutivas;
     }
 
     /**

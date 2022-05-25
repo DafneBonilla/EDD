@@ -5,7 +5,8 @@ import Apuestas.Estructuras.Lista;
 
 /**
  * Clase para representar Batallas.
- * Una batalla tiene participantes, perdedores, número de batalla, cliente y luchadores.
+ * Una batalla tiene participantes, perdedores, número de batalla, cliente y
+ * luchadores.
  */
 public class Batalla implements java.io.Serializable {
 
@@ -19,18 +20,20 @@ public class Batalla implements java.io.Serializable {
     private Cuenta cliente;
     /* Luchadores de la batalla. */
     private Lista<Gallito> luchadores;
-
+    /* El ganador de la batalla. */
     private Gallito ganador;
 
     /**
      * Crea una batalla nueva.
+     * 
      * @param participantes la lista de los participantes de la batalla.
-     * @param perdedores   la lista de los perdedores de la batalla.
-     * @param numBatalla  el numero de batalla de la batalla.
-     * @param cliente    el cliente de la batalla.
-     * @param luchadores la lista de los luchadores de la batalla.
+     * @param perdedores    la lista de los perdedores de la batalla.
+     * @param numBatalla    el numero de batalla de la batalla.
+     * @param cliente       el cliente de la batalla.
+     * @param luchadores    la lista de los luchadores de la batalla.
      */
-    public Batalla(Lista<Gallito> participantes, Lista<Gallito> perdedores, int numBatalla, Cuenta cliente, Lista<Gallito> luchadores) {
+    public Batalla(Lista<Gallito> participantes, Lista<Gallito> perdedores, int numBatalla, Cuenta cliente,
+            Lista<Gallito> luchadores) {
         this.participantes = participantes;
         this.perdedores = perdedores;
         this.numBatalla = numBatalla;
@@ -66,6 +69,11 @@ public class Batalla implements java.io.Serializable {
         return cliente;
     }
 
+    /**
+     * Inicia la batalla.
+     * 
+     * @throws TorneoPausa cuando se va a pausar el torneo.
+     */
     public void iniciar() throws TorneoPausa {
         Lista<Gallito> clone = luchadores.clone();
         System.out.println("Va iniciar la batalla " + numBatalla);
@@ -94,7 +102,9 @@ public class Batalla implements java.io.Serializable {
             cliente.aumentarSaldo(ganancia);
             cliente.setApuestaActual(0);
             cliente.setNumeroApostado(-99);
-            cliente.actualizarHistorial("Ganaste " + ganancia + " y tu nuevo saldo es " + cliente.getSaldoBonito() + ".");
+            String nuevo = "$" + String.format("%.2f", ganancia);
+            cliente.actualizarHistorial(
+                    "Ganaste " + nuevo + " y tu nuevo saldo es " + cliente.getSaldoBonito() + ".");
         } else {
             if (cliente.getNumeroApostado() > -1) {
                 System.out.println("Tu apuesta fue fallida");
@@ -112,7 +122,7 @@ public class Batalla implements java.io.Serializable {
      * Pide las apuestas de los luchadores.
      * 
      * @param cliente el cliente que realiza las apuestas.
-     * @throws TorneoPausa
+     * @throws TorneoPausa cuando se va a pausar el torneo.
      */
     private void pedirApuesta(Cuenta cliente) throws TorneoPausa {
         System.out.println("Las opciones son:");
@@ -121,7 +131,8 @@ public class Batalla implements java.io.Serializable {
             System.out.println("[" + i + "] " + gallito);
             i++;
         }
-        System.out.print("\n" + "Ingresa el numero del gallito por el que quieres apostar o escribe \"salir\" para regresar al menu:");
+        System.out.print("\n"
+                + "Ingresa el numero del gallito por el que quieres apostar o escribe \"salir\" para regresar al menu: ");
         String respuesta = cliente.escuchar();
         if (respuesta == null) {
             System.out.println("No es un numero valido");
@@ -155,7 +166,8 @@ public class Batalla implements java.io.Serializable {
                     cliente.aumentarSaldo(-apuesta);
                     String nuevo = "$" + String.format("%.2f", apuesta);
                     cliente.actualizarHistorial("Se aposto " + nuevo + " al concursante "
-                            + luchadores.buscarIndice(numero).getNombre() + ", ");
+                            + luchadores.buscarIndice(numero).getNombre() + ", tu saldo es " + cliente.getSaldoBonito()
+                            + ".");
                     System.out.println("\n" + "Las apuestas se cerraron" + "\n");
                     return;
                 } else {
@@ -172,7 +184,7 @@ public class Batalla implements java.io.Serializable {
                 cliente.setApuestaActual(0);
                 return;
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             System.out.println("No es un numero valido");
             System.out.println("\n" + "Las apuestas se cerraron" + "\n");
             cliente.setNumeroApostado(-99);

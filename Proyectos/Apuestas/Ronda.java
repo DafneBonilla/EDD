@@ -68,9 +68,11 @@ public class Ronda implements java.io.Serializable {
     public Cuenta getCliente() {
         return cliente;
     }
-    
+
     /**
      * Inicia la ronda.
+     * 
+     * @throws TorneoPausa cuando se va a pausar el torneo.
      */
     public void iniciar() throws TorneoPausa {
         try {
@@ -92,6 +94,6 @@ public class Ronda implements java.io.Serializable {
             this.cliente = batalla.getCliente();
             throw new TorneoPausa();
         }
-        
+
     }
 }

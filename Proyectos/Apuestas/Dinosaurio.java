@@ -62,6 +62,11 @@ public class Dinosaurio implements java.io.Serializable {
         return historial;
     }
 
+    /**
+     * Actualiza el historial del dinosaurio.
+     * 
+     * @param posicion la nueva posicion del historial.
+     */
     public void actualizarHistorial(int posicion) {
         historial.delete2(0);
         historial.add(posicion);

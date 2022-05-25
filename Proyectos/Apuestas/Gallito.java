@@ -111,8 +111,10 @@ public class Gallito implements java.io.Serializable {
         String cuadroNegro = "\u001B[30m■\u001B[0m ";
         String gallito = "";
         gallito = nombre + "\n" + "\n" +
-                cuadroNegro + cuadroNegro + cresta + cresta + cresta + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro + "\n" +
-                cuadroNegro + cuadroNegro + cresta + cresta + cresta + cuadroNegro + cuadroNegro + cuadroNegro + cuadroNegro + "\n" +
+                cuadroNegro + cuadroNegro + cresta + cresta + cresta + cuadroNegro + cuadroNegro + cuadroNegro
+                + cuadroNegro + "\n" +
+                cuadroNegro + cuadroNegro + cresta + cresta + cresta + cuadroNegro + cuadroNegro + cuadroNegro
+                + cuadroNegro + "\n" +
                 cuadroNegro + piel + piel + piel + piel + piel + cuadroNegro + cuadroNegro + cuadroNegro + "\n" +
                 piel + piel + piel + piel + piel + piel + piel + cuadroNegro + cuadroNegro + "\n" +
                 piel + ojos + piel + piel + ojos + piel + piel + cuadroNegro + cuadroNegro + "\n" +
@@ -121,7 +123,8 @@ public class Gallito implements java.io.Serializable {
                 piel + piel + cresta + piel + piel + piel + piel + piel + piel + "\n" +
                 piel + piel + cresta + piel + piel + piel + piel + piel + piel + "\n" +
                 cuadroNegro + piel + piel + piel + piel + piel + piel + piel + cuadroNegro + "\n" +
-                cuadroNegro + cuadroNegro + pico + cuadroNegro + cuadroNegro + pico + cuadroNegro + cuadroNegro + cuadroNegro + "\n" + "\n";
+                cuadroNegro + cuadroNegro + pico + cuadroNegro + cuadroNegro + pico + cuadroNegro + cuadroNegro
+                + cuadroNegro + "\n" + "\n";
         return gallito;
     }
 }
