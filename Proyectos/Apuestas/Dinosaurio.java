@@ -78,8 +78,7 @@ public class Dinosaurio implements java.io.Serializable {
 
     /**
      * Actualizar la probabilidad de ganar del dinosaurio.
-     * p_C= [s * (n + 1) - Sumatoria(desde i = 1 hasta s) h_i] / s * [n * (n + 1) /
-     * 2]
+     * p_C= [s * (n + 1) - Sumatoria(desde i = 1 hasta s) h_i] / s * [n * (n + 1)/2]
      */
     public void actualizarProba() {
         int posiciones = 0;

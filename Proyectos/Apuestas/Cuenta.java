@@ -84,8 +84,11 @@ public class Cuenta implements java.io.Serializable {
      * @return el saldo de la cuenta.
      */
     public double getSaldo() {
-        String respuesta = String.format("%.2f", saldo);
-        return Double.parseDouble(respuesta);
+        return saldo;
+    }
+
+    public String getSaldoBonito() {
+        return "$" + String.format("%.2f", saldo);
     }
 
     /**
@@ -97,7 +100,8 @@ public class Cuenta implements java.io.Serializable {
         double actual = saldo;
         actual += cantidad;
         this.saldo = actual;
-        actualizarHistorial("Saldo aumentado en " + cantidad + ", tu saldo es " + saldo + ".");
+        String nuevo = "$" + String.format("%.2f", cantidad);
+        actualizarHistorial("Saldo aumentado en " + nuevo + ", tu saldo es " + getSaldoBonito() + ".");
     }
 
     /**
@@ -179,21 +183,23 @@ public class Cuenta implements java.io.Serializable {
      * Regresa una cadena de lo que escribió el cliente.
      * 
      * @return una cadena de lo que escribió el cliente.
-     * @throws IOException          si hay un error de entrada/salida.
-     * @throws InterruptedException si el hilo es interrumpido.
      */
-    public String escuchar() throws InterruptedException, IOException {
+    public String escuchar() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean entrada = false;
-        // System.out.print("Time left to bet: ");
-        for (int i = 10; i > 0 && !entrada; i--) {
-            // System.out.print(i + "...");
-            Thread.sleep(1000);
-            entrada = reader.ready();
-        }
-        if (!entrada) {
+        try {
+            // System.out.print("Time left to bet: ");
+            for (int i = 10; i > 0 && !entrada; i--) {
+                // System.out.print(i + "...");
+                Thread.sleep(1000);
+                entrada = reader.ready();
+            }
+            if (!entrada) {
+                return null;
+            }
+            return reader.readLine();
+        } catch (Exception e) {
             return null;
         }
-        return reader.readLine();
     }
 }

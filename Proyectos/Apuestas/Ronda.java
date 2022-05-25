@@ -1,6 +1,5 @@
 package Apuestas;
 
-import java.util.concurrent.ThreadLocalRandom;
 import Apuestas.Estructuras.Lista;
 
 /**
@@ -15,9 +14,13 @@ public class Ronda implements java.io.Serializable {
     /* Perdedores del torneo. */
     private Lista<Gallito> perdedores;
     /* Numero de ronda del torneo. */
-    private int ronda;
-    /* Numero de pelea */
-    private int pelea;
+    private int numRonda;
+    /* Numero de pelea del torneo. */
+    private int numBatalla;
+    /* Batalla del torneo. */
+    private Batalla batalla;
+    /* Total de batallas del torneo. */
+    private int totalBatallas;
     /* Cliente del torneo. */
     private Cuenta cliente;
 
@@ -29,12 +32,14 @@ public class Ronda implements java.io.Serializable {
      * @param ronda         el numero de ronda del torneo.
      * @param cliente       el cliente del torneo.
      */
-    public Ronda(Lista<Gallito> participantes, Lista<Gallito> perdedores, int ronda, Cuenta cliente) {
+    public Ronda(Lista<Gallito> participantes, Lista<Gallito> perdedores, int numRonda, Cuenta cliente) {
         this.participantes = participantes;
         this.perdedores = perdedores;
-        this.ronda = ronda;
+        this.numRonda = numRonda;
+        this.numBatalla = 0;
+        this.batalla = null;
         this.cliente = cliente;
-        this.pelea = 0;
+        this.totalBatallas = participantes.size() / 2;
     }
 
     /**
@@ -56,21 +61,37 @@ public class Ronda implements java.io.Serializable {
     }
 
     /**
-     * Retorna el indice de una batalla.
+     * Regresa el cliente.
      * 
-     * @param g1 el indice del primer gallo.
-     * @param g2 el indice del segundo gallo.
-     * @return el indice del gallo que gana la batalla.
+     * @return el cliente.
      */
-    public int ganador(int g1, int g2) {
-        int random = ThreadLocalRandom.current().nextInt(0, 100);
-        return random;
+    public Cuenta getCliente() {
+        return cliente;
     }
-
+    
     /**
      * Inicia la ronda.
      */
-    public void iniciar() {
-
+    public void iniciar() throws TorneoPausa {
+        try {
+            System.out.println("Empieza/continua la ronda " + numRonda);
+            while (numBatalla != totalBatallas) {
+                numBatalla++;
+                Lista<Gallito> luchadores = new Lista<>();
+                luchadores.add(participantes.delete2(0));
+                luchadores.add(participantes.delete2(0));
+                this.batalla = new Batalla(participantes, perdedores, numBatalla, cliente, luchadores);
+                this.batalla.iniciar();
+                this.participantes = batalla.getParticipantes();
+                this.perdedores = batalla.getPerdedores();
+            }
+            System.out.println("Se termino la ronda");
+        } catch (TorneoPausa e) {
+            this.participantes = batalla.getParticipantes();
+            this.perdedores = batalla.getPerdedores();
+            this.cliente = batalla.getCliente();
+            throw new TorneoPausa();
+        }
+        
     }
 }

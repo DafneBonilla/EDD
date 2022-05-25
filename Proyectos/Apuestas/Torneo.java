@@ -1,7 +1,6 @@
 package Apuestas;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import Apuestas.Estructuras.Lista;
 
 /**
@@ -17,8 +16,10 @@ public class Torneo implements java.io.Serializable {
     private Lista<Gallito> perdedores;
     /* Ganador del torneo. */
     private Gallito ganador;
+    /* Ronda del torneo. */
+    private Ronda ronda;
     /* Numero de ronda del torneo. */
-    private int ronda;
+    private int numRonda;
     /* Cliente del torneo. */
     private Cuenta cliente;
 
@@ -26,13 +27,16 @@ public class Torneo implements java.io.Serializable {
      * Crea un torneo nueva.
      * 
      * @param participantes la lista de los participantes del torneo.
+     * @param cliente el cliente del torneo.
      */
     public Torneo(Lista<Gallito> participantes, Cuenta cliente) {
         this.participantes = participantes;
         this.perdedores = new Lista<Gallito>();
         this.ganador = null;
-        this.ronda = 0;
+        this.numRonda = 0;
+        this.ronda = null;
         this.cliente = cliente;
+        shuffle();
     }
 
     /**
@@ -93,20 +97,35 @@ public class Torneo implements java.io.Serializable {
     }
 
     /**
-     * Retorna el indice del ganador del torneo.
-     * 
-     * @return el indice del ganador del torneo.
-     */
-    public int ganador() {
-        int random = ThreadLocalRandom.current().nextInt(0, 100);
-        return random;
-    }
-
-    /**
      * Inicia el torneo.
      */
-    public void iniciar() {
-
+    public void iniciar() throws TorneoPausa {
+        try {
+            System.out.println("El torneo va a empezar/continuar...");
+            while (numRonda != 4) {
+                this.numRonda++;
+                this.ronda = new Ronda(participantes, perdedores, numRonda, cliente);
+                this.ronda.iniciar();
+                this.participantes = ronda.getParticipantes();
+                this.perdedores = ronda.getPerdedores();
+                this.cliente = ronda.getCliente();
+            }
+            this.ganador = participantes.buscarIndice(0);
+            System.out.println("El ganador del torneo es...");
+            System.out.println(ganador.toStringBonito());
+        } catch (TorneoPausa tp) {
+            this.participantes = ronda.getParticipantes();
+            this.perdedores = ronda.getPerdedores();
+            this.cliente = ronda.getCliente();
+            throw new TorneoPausa();
+        }
     }
 
+    public Lista<Gallito> getPartisipantes() {
+        return participantes;
+    }
+
+    public Cuenta getCliente() {
+        return cliente;
+    }
 }

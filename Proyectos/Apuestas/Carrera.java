@@ -1,6 +1,5 @@
 package Apuestas;
 
-import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import Apuestas.Estructuras.Lista;
@@ -102,11 +101,8 @@ public class Carrera {
 
     /**
      * Inicia la carrera.
-     * 
-     * @throws IOException
-     * @throws InterruptedException
      */
-    public void iniciar() throws InterruptedException, IOException {
+    public void iniciar() {
         shuffle();
         for (Dinosaurio dino : participantes) {
             dino.actualizarProba();
@@ -132,7 +128,7 @@ public class Carrera {
             cliente.aumentarSaldo(ganancia);
             cliente.setApuestaActual(0);
             cliente.setNumeroApostado(-99);
-            cliente.actualizarHistorial("Ganaste " + ganancia + " y tu nuevo saldo es " + cliente.getSaldo() + ".");
+            cliente.actualizarHistorial("Ganaste " + ganancia + " y tu nuevo saldo es " + cliente.getSaldoBonito() + ".");
         } else {
             if (cliente.getNumeroApostado() > -1) {
                 System.out.println("Tu apuesta fue fallida");
@@ -162,10 +158,8 @@ public class Carrera {
      * Pide las apuestas de los participantes.
      * 
      * @param cliente el cliente que realiza las apuestas.
-     * @throws IOException          si hay un error de entrada/salida.
-     * @throws InterruptedException si se interrumpe la ejecución.
      */
-    private void pedirApuesta(Cuenta cliente) throws InterruptedException, IOException {
+    private void pedirApuesta(Cuenta cliente) {
         System.out.println("Las opciones son:");
         int i = 0;
         for (Dinosaurio dino : participantes) {
@@ -185,7 +179,7 @@ public class Carrera {
             int numero = Integer.parseInt(respuesta);
             if (numero >= 0 && numero < participantes.size()) {
                 System.out.print("Ingresa la cantidad de dinero que quieres apostar (entre 0.1 y tu saldo actual "
-                        + cliente.getSaldo() + "): ");
+                        + cliente.getSaldoBonito() + "): ");
                 String respuesta2 = cliente.escuchar();
                 if (respuesta2 == null) {
                     System.out.println("No es un numero valido");
@@ -223,53 +217,6 @@ public class Carrera {
             cliente.setNumeroApostado(-99);
             cliente.setApuestaActual(0);
             return;
-        }
-    }
-
-    /**
-     * Método para apostar por un dinosaurio.
-     * 
-     * @return un arreglo con el número de dinosaurio y la cantidad apostada.
-     */
-    private Double[] pedirDinosaurio() {
-        System.out.println("Las opciones son:");
-        int i = 0;
-        for (Dinosaurio dino : participantes) {
-            System.out.println("[" + i + "] " + dino);
-            i++;
-        }
-        System.out.println("\n"
-                + "Ingresa el numero del dinosaurio por el que quieres apostar y separado por un espacio la cantidad a apostar (entre 0.1 y tu saldo actual "
-                + cliente.getSaldo() + ").");
-        String respuesta = null;
-        Double[] respuestas = new Double[2];
-        if (respuesta == null) {
-            System.out.println("Las apuestas se terminaron");
-            return null;
-        }
-        try {
-            String[] respuestaSeparada = respuesta.split(" ");
-            if (respuestaSeparada.length != 2) {
-                System.out.println("No ingresaste la cantidad correcta de datos.");
-                return null;
-            }
-            int numero = Integer.parseInt(respuestaSeparada[0]);
-            if (numero >= 0 && numero < participantes.size()) {
-                respuestas[0] = (double) numero;
-                respuestas[1] = Double.parseDouble(respuestaSeparada[1]);
-                if (respuestas[1] >= 0.1 && respuestas[1] <= cliente.getSaldo()) {
-                    return respuestas;
-                } else {
-                    System.out.println("La cantidad a apostar debe ser mayor a 0.1 y menor o igual a tu saldo actual.");
-                    return null;
-                }
-            } else {
-                System.out.println("El numero debe estar entre 0 y " + (participantes.size() - 1));
-                return null;
-            }
-        } catch (NumberFormatException nfe) {
-            System.out.println("Debes ingresar un numero");
-            return null;
         }
     }
 
