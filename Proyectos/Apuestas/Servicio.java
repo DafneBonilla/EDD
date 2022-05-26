@@ -19,3 +19,7 @@ public class Servicio {
     private boolean funcionando;
 
 }
+
+/**
+ * si el torneo ya termino crear uno nuevo e iniciarlo, si no solo iniciarlo.
+ */

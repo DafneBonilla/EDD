@@ -5,7 +5,8 @@ import Apuestas.Estructuras.Lista;
 
 /**
  * Clase para representar Torneos.
- * Un torneo tiene participantes, perdedores, ganador, número de ronda y un
+ * Un torneo tiene participantes, perdedores, ganador, número de ronda, si ya
+ * termino y un
  * cliente.
  */
 public class Torneo implements java.io.Serializable {
@@ -22,6 +23,8 @@ public class Torneo implements java.io.Serializable {
     private int numRonda;
     /* Cliente del torneo. */
     private Cuenta cliente;
+    /* Si el torneo esta finalizado. */
+    private boolean finalizado;
 
     /**
      * Crea un torneo nueva.
@@ -36,6 +39,7 @@ public class Torneo implements java.io.Serializable {
         this.numRonda = 0;
         this.ronda = null;
         this.cliente = cliente;
+        this.finalizado = false;
         shuffle();
     }
 
@@ -106,15 +110,23 @@ public class Torneo implements java.io.Serializable {
             System.out.println("El torneo va a empezar/continuar...");
             while (numRonda != 4) {
                 this.numRonda++;
-                this.ronda = new Ronda(participantes, perdedores, numRonda, cliente);
+                if (ronda == null) {
+                    this.ronda = new Ronda(participantes, perdedores, numRonda, cliente);
+                }
                 this.ronda.iniciar();
                 this.participantes = ronda.getParticipantes();
                 this.perdedores = ronda.getPerdedores();
                 this.cliente = ronda.getCliente();
+                this.ronda = null;
             }
             this.ganador = participantes.buscarIndice(0);
             System.out.println("El ganador del torneo es...");
             System.out.println(ganador.toStringBonito());
+            this.finalizado = true;
+            for (Gallito gallito : perdedores) {
+                participantes.add(gallito);
+            }
+            perdedores.empty();
         } catch (TorneoPausa tp) {
             this.participantes = ronda.getParticipantes();
             this.perdedores = ronda.getPerdedores();
@@ -139,5 +151,14 @@ public class Torneo implements java.io.Serializable {
      */
     public Cuenta getCliente() {
         return cliente;
+    }
+
+    /**
+     * Dice si ya termino el torneo.
+     * 
+     * @return si ya termino el torneo.
+     */
+    public boolean isFinalizado() {
+        return finalizado;
     }
 }
