@@ -231,7 +231,7 @@ public class Carrera {
      * 
      * @return la lista de participantes.
      */
-    public Lista<Dinosaurio> getPartisipantes() {
+    public Lista<Dinosaurio> getParticipantes() {
         return participantes;
     }
 

@@ -44,7 +44,7 @@ public class Proyecto3 {
                         Torneo carrera = new Torneo(lista, cliente);
                         carrera.iniciar();
                         cliente = carrera.getCliente();
-                        lista = carrera.getPartisipantes();
+                        lista = carrera.getParticipantes();
                         System.out.println(cliente.getHistorial());
                 } catch (TorneoPausa e) {
                         System.out.println("Se pauso el torneo");

@@ -140,7 +140,7 @@ public class Torneo implements java.io.Serializable {
      * 
      * @return la lista de participantes.
      */
-    public Lista<Gallito> getPartisipantes() {
+    public Lista<Gallito> getParticipantes() {
         return participantes;
     }
 

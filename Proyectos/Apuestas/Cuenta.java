@@ -35,7 +35,7 @@ public class Cuenta implements java.io.Serializable {
         this.saldo = 0.0;
         this.apuestaActual = 0.0;
         this.numeroApostado = -99;
-        this.historial = "La cuenta se creo.";
+        this.historial = "La cuenta se creo.\n";
     }
 
     /**
@@ -157,7 +157,7 @@ public class Cuenta implements java.io.Serializable {
      */
     public void actualizarHistorial(String cadena) {
         String actual = historial;
-        actual += " " + cadena;
+        actual += cadena + "\n";
         this.historial = actual;
     }
 
