@@ -2,6 +2,6 @@
 Dafne Bonilla Reyes - 319089660  
 José Camilo García Ponce - 319210536
 
-Desde Practica04
+Desde Practica5
 compilar -> javac -d . *.java
-Ejecutar -> java Practica4
+Ejecutar -> java Practica5
