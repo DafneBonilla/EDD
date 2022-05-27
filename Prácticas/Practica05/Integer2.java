@@ -16,8 +16,19 @@ public class Integer2 implements ComparableIndexable<Integer2> {
     public Integer2(Integer num) {
         this.numero = num;
     }
-    
-    /** 
+
+    /**
+     * Construye una Integer2.
+     *
+     * @param num el numero de la Integer2.
+     * @param ind el indice de la Integer2.
+     */
+    public Integer2(Integer num, int ind) {
+        this.numero = num;
+        this.indice = ind;
+    }
+
+    /**
      * Regresar el indice de la Integer2.
      *
      * @return el indice de la Integer2.

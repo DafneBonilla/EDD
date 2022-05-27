@@ -78,22 +78,24 @@ public class Practica5 {
         arreglo3[4] = new Integer2(3);
         arreglo3[5] = new Integer2(12);
         System.out.println(m.esMontMin(arreglo3));
-        Integer2[] arreglo4 = new Integer2[6];
-        arreglo4[0] = new Integer2(101);
-        arreglo4[1] = new Integer2(15);
-        arreglo4[2] = new Integer2(13);
-        arreglo4[3] = new Integer2(11);
-        arreglo4[4] = new Integer2(9);
-        arreglo4[5] = new Integer2(7);
+        Integer2[] arreglo4 = new Integer2[7];
+        arreglo4[0] = new Integer2(101, 0);
+        arreglo4[1] = new Integer2(15, 1);
+        arreglo4[2] = new Integer2(13, 2);
+        arreglo4[3] = new Integer2(11, 3);
+        arreglo4[4] = new Integer2(9, 4);
+        arreglo4[5] = new Integer2(7, 5);
+        arreglo4[6] = new Integer2(3, 6);
         System.out.println("Arreglo maximo: ");
         for (int i = 0; i < arreglo4.length; i++) {
             System.out.print(arreglo4[i] + " ");
         }
-        m.montMaxMontMin(arreglo3);
+        m.montMaxMontMin(arreglo4);
         System.out.println();
         System.out.println("Arreglo minimo: ");
         for (int i = 0; i < arreglo4.length; i++) {
             System.out.print(arreglo4[i] + " ");
         }
+        System.out.println();
     }
 }

@@ -1,10 +1,9 @@
-public class Pokemon implements ComparableIndexable<Pokemon>{
+public class Pokemon implements ComparableIndexable<Pokemon> {
     String nombre;
     String tipo;
     int nivel;
     int indice;
     int hp;
-    
 
     public Pokemon(String nombre, String tipo, int nivel, int hp) {
         this.nombre = nombre;
@@ -12,7 +11,8 @@ public class Pokemon implements ComparableIndexable<Pokemon>{
         this.nivel = nivel;
         this.hp = hp;
     }
-    public Pokemon(){
+
+    public Pokemon() {
         this.nombre = "Pikachu";
         this.tipo = "Electrico";
         this.nivel = 1;
@@ -20,14 +20,14 @@ public class Pokemon implements ComparableIndexable<Pokemon>{
     }
 
     public String toString() {
-        return "nombre=" + nombre ;
+        return "nombre=" + nombre;
     }
-    
+
     @Override
     public int compareTo(Pokemon otro) {
         return this.nombre.compareTo(otro.nombre);
     }
-    
+
     @Override
     public int getIndice() {
         return this.indice;
@@ -37,6 +37,5 @@ public class Pokemon implements ComparableIndexable<Pokemon>{
     public void setIndice(int indice) {
         this.indice = indice;
     }
-
 
 }
