@@ -1,4 +1,3 @@
-package edd.src.Estructuras;
 
 /**
  * Clase para árboles rojinegros. Un árbol rojinegro cumple las siguientes
@@ -15,7 +14,7 @@ package edd.src.Estructuras;
  *
  * Los árboles rojinegros se autobalancean.
  */
-public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
+public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBST<T> {
     /**
      * Clase interna protegida para vértices de árboles rojinegros. La única
      * diferencia con los vértices de árbol binario, es que tienen un campo para
@@ -75,7 +74,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
      * @param coleccion la colección a partir de la cual creamos el árbol
      *                  rojinegro.
      */
-    public ArbolRojinegro(Collection<T> coleccion) {
+    public ArbolRojinegro(ArbolBinario<T> coleccion) {
         super(coleccion);
     }
 
@@ -121,7 +120,7 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
             super.add(elemento);
 
             // ToDo ... Conseguir el ultimoAgregado
-            VerticeRojinegro v = convertirRojiNegro(ultimoAgregado);
+            VerticeRojinegro v = convertirRojiNegro(null);
             v.color = Color.ROJO;
             rebalancea(v);
         }
@@ -138,67 +137,66 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
 
     //Saber si un vertice tiene 2 hijos
     private boolean tiene2hijos(VerticeRojinegro v){
-
-    
+        return false;
     }
 
 
     private boolean hasAbuelo(VerticeRojinegro v){
-
+        return false;
     }
 
     private VerticeRojinegro getAbuelo(VerticeRojinegro v) {
-
+        return null;
     }
 
     private VerticeRojinegro getPadre(VerticeRojinegro v) {
-        
+        return null;
     }
 
     private boolean hasTio(VerticeRojinegro v) {
-        return ;
+        return false;
     }
 
     private VerticeRojinegro getTio(VerticeRojinegro v) {
-        return;
+        return null;
     }
 
     private boolean isLeft(VerticeRojinegro v) {
-        return;
+        return false;
     }
 
     private boolean isDerecho(VerticeRojinegro v) {
-        return;
+        return false;
     }   
 
     
 
     private boolean hasHermano(VerticeRojinegro v) {
-        return;
+        return false;
     }
 
     // Si es derecho -> devuelve el izq
     // Si es Izq -> devuelve el der
     private VerticeRojinegro getHermano(VerticeRojinegro v) {
-        return;
+        return null;
     }
 
     //v.padre es izq y v es derecho.
     private boolean cruzadosIzq(VerticeRojinegro v){
-        return;
+        return false;
     }
 
     // v.padre es der y v es izq.
     private boolean cruzadosDer(VerticeRojinegro v) {
-        return;
+        return false;
     }
 
     private boolean isRojo(){
-        return;
+        return false;
     }
 
     private boolean isNegro(){
-        return;
+        return false;
     }
 
 
@@ -245,11 +243,4 @@ public class ArbolRojinegro<T extends Comparable<T>> extends ArbolBinarioBusqued
                 "pueden girar a la derecha " +
                 "por el usuario.");
     }
-
-
-
-
-
-
-    
 }

@@ -1,6 +1,3 @@
-package edd.src.Estructuras;
-
-
 
 public interface ComparableIndexable<T> extends Comparable<T> {
     /** 

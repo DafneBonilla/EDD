@@ -1,8 +1,3 @@
-package edd.src.Estructuras;
-
-import java.util.Arrays;
-import java.util.Comparator;
-
 public class pruebamonti{
 
     public static void main(String[] args) {

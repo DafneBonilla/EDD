@@ -4,91 +4,96 @@ Dafne Bonilla Reyes
 José Camilo García Ponce  
 */
 
-public class Practica4 {
+public class Practica5 {
 
     public static void main(String[] args) {
 
         // Aquí va tu código
-        ArbolAVL<Integer> arbol = new ArbolAVL<Integer>();
-        arbol.add(10);
-        arbol.add(20);
-        arbol.add(30);
-        arbol.add(5);
-        arbol.add(7);
-        arbol.add(15);
-        arbol.add(40);
-        arbol.delete(7);
-        arbol.delete(30);
-        arbol.delete(40);
-        System.out.println(arbol.toStringBonito());
-        System.out.println(arbol);
+        Lista<Integer2> primera = new Lista<>();
+        primera.add(new Integer2(59));
+        primera.add(new Integer2(12));
+        primera.add(new Integer2(1));
+        primera.add(new Integer2(3));
+        primera.add(new Integer2(42));
+        primera.add(new Integer2(7));
+        primera.add(new Integer2(9));
+        primera.add(new Integer2(11));
+        primera.add(new Integer2(13));
+        primera.add(new Integer2(101));
+        primera.add(new Integer2(15));
+        primera.add(new Integer2(17));
+        primera.add(new Integer2(19));
+        primera.add(new Integer2(21));
+        primera.add(new Integer2(23));
+        primera.add(new Integer2(25));
+        primera.add(new Integer2(27));
+        primera.add(new Integer2(29));
+        primera.add(new Integer2(31));
+        primera.add(new Integer2(33));
+        primera.add(new Integer2(0));
+        MonticuloMinimo<Integer2> m = new MonticuloMinimo<>();
+        MonticuloMinimo<Integer2> m2 = new MonticuloMinimo<>(primera);
+        System.out.println("Lista original: " + primera);
+        Lista<Integer2> segunda = m.heapSort(primera);
+        System.out.println("Lista ordenada: " + segunda);
+        System.out.println("Morty: " + m2);
+        m2.empty();
+        m2.add(new Integer2(59));
+        m2.add(new Integer2(12));
+        m2.add(new Integer2(1));
+        m2.add(new Integer2(3));
+        m2.add(new Integer2(42));
+        m2.add(new Integer2(7));
+        m2.add(new Integer2(9));
+        m2.add(new Integer2(11));
+        m2.add(new Integer2(13));
+        m2.add(new Integer2(101));
+        m2.add(new Integer2(15));
+        m2.add(new Integer2(17));
+        m2.add(new Integer2(19));
+        m2.add(new Integer2(21));
+        m2.add(new Integer2(23));
+        m2.add(new Integer2(25));
+        m2.add(new Integer2(27));
+        m2.add(new Integer2(29));
+        m2.add(new Integer2(31));
+        m2.add(new Integer2(33));
+        m2.add(new Integer2(0));
+        System.out.println("Morty2: " + m2);
+        Integer2[] arreglo = new Integer2[primera.size()];
+        for (int i = 0; i < primera.size(); i++) {
+            arreglo[i] = primera.buscarIndice(i);
+        }
+        Integer2[] arreglo2 = new Integer2[segunda.size()];
+        for (int i = 0; i < segunda.size(); i++) {
+            arreglo2[i] = segunda.buscarIndice(i);
+        }
+        System.out.println(m.esMontMin(arreglo));
+        System.out.println(m.esMontMin(arreglo2));
+        Integer2[] arreglo3 = new Integer2[6];
+        arreglo3[0] = new Integer2(0);
+        arreglo3[1] = new Integer2(1);
+        arreglo3[2] = new Integer2(7);
+        arreglo3[3] = new Integer2(11);
+        arreglo3[4] = new Integer2(3);
+        arreglo3[5] = new Integer2(12);
+        System.out.println(m.esMontMin(arreglo3));
+        Integer2[] arreglo4 = new Integer2[6];
+        arreglo4[0] = new Integer2(101);
+        arreglo4[1] = new Integer2(15);
+        arreglo4[2] = new Integer2(13);
+        arreglo4[3] = new Integer2(11);
+        arreglo4[4] = new Integer2(9);
+        arreglo4[5] = new Integer2(7);
+        System.out.println("Arreglo maximo: ");
+        for (int i = 0; i < arreglo4.length; i++) {
+            System.out.print(arreglo4[i] + " ");
+        }
+        m.montMaxMontMin(arreglo3);
         System.out.println();
-        ArbolAVL<Integer> arbol2 = new ArbolAVL<Integer>();
-        arbol2.add(37);
-        arbol2.add(8);
-        arbol2.add(23);
-        arbol2.add(27);
-        arbol2.add(24);
-        arbol2.add(58);
-        arbol2.add(26);
-        arbol2.add(46);
-        arbol2.add(30);
-        arbol2.add(49);
-        arbol2.add(60);
-        arbol2.add(25);
-        arbol2.add(22);
-        arbol2.add(34);
-        arbol2.delete(24);
-        arbol2.add(50);
-        arbol2.add(47);
-        arbol2.delete(49);
-        arbol2.add(59);
-        arbol2.add(31);
-        arbol2.add(52);
-        arbol2.delete(34);
-        arbol2.delete(26);
-        arbol2.delete(46);
-        arbol2.delete(59);
-        arbol2.delete(23);
-        arbol2.add(28);
-        System.out.println(arbol2.toStringBonito());
-        System.out.println(arbol2);
-        System.out.println(arbol2.size());
-        System.out.println();
-
-        ArbolAVL<String> arbol3 = new ArbolAVL<String>();
-        arbol3.add("pato");
-        arbol3.add("perro");
-        arbol3.add("gato");
-        arbol3.add("caballo");
-        arbol3.add("cocodrilo");
-        arbol3.delete("caballo");
-        arbol3.add("pingüino");
-        arbol3.add("camello");
-        arbol3.add("oveja");
-        arbol3.add("vaca");
-        arbol3.add("gallina");
-        arbol3.add("cerdo");
-        arbol3.add("cabra");
-        arbol3.add("camaleón");
-        arbol3.add("jirafa");
-        arbol3.add("elefante");
-        arbol3.add("hipopótamo");
-        arbol3.add("mono");
-        arbol3.delete("pato");
-        arbol3.delete("gato");
-        arbol3.delete("camello");
-        arbol3.delete("oveja");
-        arbol3.add("aguila");
-        arbol3.add("araña");
-        arbol3.add("ballena");
-        arbol3.add("anguila");
-        arbol3.add("alce");
-        arbol3.add("abeja");
-        arbol3.delete("vaca");
-        System.out.println(arbol3.toStringBonito());
-        System.out.println(arbol3);
-        System.out.println(arbol3.size());
-        System.out.println();
+        System.out.println("Arreglo minimo: ");
+        for (int i = 0; i < arreglo4.length; i++) {
+            System.out.print(arreglo4[i] + " ");
+        }
     }
 }

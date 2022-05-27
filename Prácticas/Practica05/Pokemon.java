@@ -1,5 +1,3 @@
-package edd.src.Estructuras;
-
 public class Pokemon implements ComparableIndexable<Pokemon>{
     String nombre;
     String tipo;
