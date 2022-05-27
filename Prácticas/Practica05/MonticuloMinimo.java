@@ -472,14 +472,14 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
         int minimo = i;
         if (izq < arreglo.length) {
             if (arreglo[izq] != null) {
-                if (arreglo[izq].compareTo(arreglo[i]) > 0) {
+                if (arreglo[izq].compareTo(arreglo[i]) < 0) {
                     minimo = izq;
                 }
             }
         }
         if (der < arreglo.length) {
             if (arreglo[der] != null) {
-                if (arreglo[der].compareTo(arreglo[minimo]) > 0) {
+                if (arreglo[der].compareTo(arreglo[minimo]) < 0) {
                     minimo = der;
                 }
             }
