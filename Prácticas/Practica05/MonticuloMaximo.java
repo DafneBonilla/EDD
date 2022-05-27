@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  * Clase para monticulos maximos (Maxheaps).
  */
 public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collection<T> {
-    
+
     /* Clase Iterador privada para poder iterar. */
     private class Iterador implements Iterator<T> {
 
@@ -91,7 +91,7 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     /* Nuestro arbol representado como arreglo */
     private T[] arbol;
 
-    /** 
+    /**
      * Con esto podemos crear arreglos genericos sin que el compilador marque error
      * de tipos.
      * 
@@ -494,8 +494,8 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     /**
      * Recorre el arreglo hacia abajo y lo pone en su lugar.
      *
-     * @param i indice del elemento.
-     * @param elem el numero de elementos.
+     * @param i       indice del elemento.
+     * @param elem    el numero de elementos.
      * @param arreglo el arreglo que representa un montículo.
      */
     private void recorreAbajo(T[] arreglo, int i, int elem) {

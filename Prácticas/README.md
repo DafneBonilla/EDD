@@ -10,3 +10,4 @@ Prácticas realizadas durante el curso de EDD.
 - Práctica 02 terminada
 - Práctica 03 terminada
 - Práctica 04 terminada
+- Práctica 05 terminada
