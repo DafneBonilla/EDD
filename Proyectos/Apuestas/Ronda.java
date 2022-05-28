@@ -90,6 +90,7 @@ public class Ronda implements java.io.Serializable {
             System.out.println("Se termino la ronda");
         } catch (TorneoPausa e) {
             this.cliente = batalla.getCliente();
+            numBatalla--;
             throw new TorneoPausa();
         }
 

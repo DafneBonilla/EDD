@@ -1,7 +1,6 @@
 package Apuestas;
 
 import java.util.Scanner;
-
 import Apuestas.Estructuras.Lista;
 
 /**
@@ -35,7 +34,6 @@ public class Servicio {
         this.dinosaurios = dinosaurios;
         this.funcionando = true;
         this.torneo = torneo;
-
     }
 
     /**
@@ -43,7 +41,7 @@ public class Servicio {
      */
     public void iniciar() {
         while (funcionando) {
-            System.out.println("Bienvenido al servicio de apuestas (NOMBRE xd).");
+            System.out.println("Bienvenido al servicio de apuestas " + cliente.getNombre() + ".");
             System.out.println("Cliente: " + cliente.getNombre());
             System.out.println("Saldo: " + cliente.getSaldo());
             System.out.println("1. Ver/Apostar en un torneo.");
@@ -59,9 +57,9 @@ public class Servicio {
                     case 1:
                         System.out.println("Al torneo de gallitos.");
                         if (torneo.isFinalizado()) {
-                            this.torneo = new Torneo(gallitos, cliente);
+                            this.torneo = new Torneo(gallitos);
                         }
-                        torneo.iniciar();
+                        torneo.iniciar(cliente);
                         this.gallitos = torneo.getParticipantes();
                         this.cliente = torneo.getCliente();
                         break;
@@ -85,7 +83,7 @@ public class Servicio {
                     default:
                         System.out.println("Opcion incorrecta.");
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException nfe) {
                 System.out.println("Opcion incorrecta.");
                 continue;
             } catch (TorneoPausa tp) {
@@ -130,5 +128,4 @@ public class Servicio {
     public Torneo getTorneo() {
         return torneo;
     }
-
 }

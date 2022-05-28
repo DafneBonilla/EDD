@@ -5,6 +5,7 @@ import Apuestas.Estructuras.Lista;
 public class Proyecto3 {
 
         public static void main(String[] args) {
+
                 Cuenta cliente = new Cuenta("patito", "patito");
                 cliente.aumentarSaldo(30);
                 Lista<Gallito> lista = new Lista<>();
@@ -40,15 +41,16 @@ public class Proyecto3 {
                                 "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
                 lista.add(new Gallito("pedro16", 29, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
                                 "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                try {
-                        Torneo carrera = new Torneo(lista, cliente);
-                        carrera.iniciar();
-                        cliente = carrera.getCliente();
-                        lista = carrera.getParticipantes();
-                        System.out.println(cliente.getHistorial());
-                } catch (TorneoPausa e) {
-                        System.out.println("Se pauso el torneo");
-                }
+                Torneo torneo = new Torneo(lista);
+                Lista<Dinosaurio> lista2 = new Lista<>();
+                lista2.add(new Dinosaurio("pedro1", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 1, 6, 5, 4, 3));
+                lista2.add(new Dinosaurio("pedro2", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 2, 5, 4, 3, 4));
+                lista2.add(new Dinosaurio("pedro3", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 3, 4, 3, 2, 2));
+                lista2.add(new Dinosaurio("pedro4", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 4, 3, 2, 1, 1));
+                lista2.add(new Dinosaurio("pedro5", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 5, 2, 1, 6, 6));
+                lista2.add(new Dinosaurio("pedro6", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 6, 1, 6, 5, 5));  
+                Servicio ser = new Servicio(cliente, lista2, torneo);
+                ser.iniciar();
         }
 }
 /*

@@ -90,7 +90,7 @@ public class Dinosaurio implements java.io.Serializable {
         for (Integer i : historial) {
             posiciones += i;
         }
-        double parte1 = 5 * (6 + 1) - posiciones;
+        double parte1 = (5 * (6 + 1)) - posiciones;
         double parte3 = 6 * (6 + 1);
         double parte4 = parte3 / 2;
         double parte5 = 5 * parte4;

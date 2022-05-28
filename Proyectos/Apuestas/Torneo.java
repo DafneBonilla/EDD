@@ -32,13 +32,13 @@ public class Torneo implements java.io.Serializable {
      * @param participantes la lista de los participantes del torneo.
      * @param cliente       el cliente del torneo.
      */
-    public Torneo(Lista<Gallito> participantes, Cuenta cliente) {
+    public Torneo(Lista<Gallito> participantes) {
         this.participantes = participantes;
         this.perdedores = new Lista<Gallito>();
         this.ganador = null;
         this.numRonda = 0;
         this.ronda = null;
-        this.cliente = cliente;
+        this.cliente = null;
         this.finalizado = false;
         shuffle();
     }
@@ -105,7 +105,8 @@ public class Torneo implements java.io.Serializable {
      * 
      * @throws TorneoPausa cuando se va a pausar el torneo.
      */
-    public void iniciar() throws TorneoPausa {
+    public void iniciar(Cuenta cliente) throws TorneoPausa {
+        this.cliente = cliente;
         try {
             System.out.println("El torneo va a empezar/continuar...");
             while (numRonda != 4) {
@@ -131,6 +132,7 @@ public class Torneo implements java.io.Serializable {
             this.participantes = ronda.getParticipantes();
             this.perdedores = ronda.getPerdedores();
             this.cliente = ronda.getCliente();
+            numRonda--;
             throw new TorneoPausa();
         }
     }

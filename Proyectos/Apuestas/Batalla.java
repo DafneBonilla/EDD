@@ -76,7 +76,7 @@ public class Batalla implements java.io.Serializable {
      */
     public void iniciar() throws TorneoPausa {
         Lista<Gallito> clone = luchadores.clone();
-        System.out.println("Va iniciar la batalla " + numBatalla);
+        System.out.println("Va a iniciar la batalla " + numBatalla);
         pedirApuesta(cliente);
         Gallito gallo1 = luchadores.delete2(0);
         Gallito gallo2 = luchadores.delete2(0);
@@ -135,7 +135,6 @@ public class Batalla implements java.io.Serializable {
                 + "Ingresa el numero del gallito por el que quieres apostar o escribe \"salir\" para regresar al menu: ");
         String respuesta = cliente.escuchar();
         if (respuesta == null) {
-            System.out.println("No es un numero valido");
             System.out.println("\n" + "Las apuestas se cerraron" + "\n");
             cliente.setNumeroApostado(-99);
             cliente.setApuestaActual(0);
@@ -144,6 +143,10 @@ public class Batalla implements java.io.Serializable {
         if (respuesta.equals("salir")) {
             cliente.setNumeroApostado(-99);
             cliente.setApuestaActual(0);
+            Gallito gallito1 = luchadores.delete2(0);
+            Gallito gallito2 = luchadores.delete2(0);
+            participantes.agregaInicio(gallito2);
+            participantes.agregaInicio(gallito1);
             throw new TorneoPausa();
         }
         try {
@@ -153,7 +156,6 @@ public class Batalla implements java.io.Serializable {
                         + cliente.getSaldoBonito() + "): ");
                 String respuesta2 = cliente.escuchar();
                 if (respuesta2 == null) {
-                    System.out.println("No es un numero valido");
                     System.out.println("\n" + "Las apuestas se cerraron" + "\n");
                     cliente.setNumeroApostado(-99);
                     cliente.setApuestaActual(0);

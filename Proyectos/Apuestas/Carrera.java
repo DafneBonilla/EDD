@@ -146,7 +146,7 @@ public class Carrera {
         Dinosaurio ganar = participantes.delete2(numGanador);
         ganar.actualizarHistorial(1);
         Integer[] resto = new Integer[participantes.size()];
-        for (int i = 2; i < 17; i++) {
+        for (int i = 2; i < 7; i++) {
             resto[i - 2] = i;
         }
         shuffleAux(resto);
