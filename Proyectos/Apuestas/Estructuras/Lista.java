@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 public class Lista<T> implements Collection<T>, java.io.Serializable {
 
     /* Clase privada interna para nodos. */
-    private class Nodo {
+    private class Nodo implements java.io.Serializable {
         /* Elemento del nodo. */
         public T elemento;
         /* Nodo anterior. */

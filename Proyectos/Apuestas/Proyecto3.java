@@ -1,56 +1,52 @@
 package Apuestas;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import Apuestas.Estructuras.Lista;
 
 public class Proyecto3 {
 
         public static void main(String[] args) {
-
-                Cuenta cliente = new Cuenta("patito", "patito");
-                cliente.aumentarSaldo(30);
-                Lista<Gallito> lista = new Lista<>();
-                lista.add(new Gallito("pedro1", 50, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro2", 400, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro3", 90, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro4", 356, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro5", 99, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro6", 240, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro7", 345, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro8", 51, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro9", 98, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro10", 320, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro11", 65, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro12", 399, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro13", 250, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro14", 132, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro15", 34, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                lista.add(new Gallito("pedro16", 29, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
-                                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
-                Torneo torneo = new Torneo(lista);
-                Lista<Dinosaurio> lista2 = new Lista<>();
-                lista2.add(new Dinosaurio("pedro1", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 1, 6, 5, 4, 3));
-                lista2.add(new Dinosaurio("pedro2", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 2, 5, 4, 3, 4));
-                lista2.add(new Dinosaurio("pedro3", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 3, 4, 3, 2, 2));
-                lista2.add(new Dinosaurio("pedro4", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 4, 3, 2, 1, 1));
-                lista2.add(new Dinosaurio("pedro5", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 5, 2, 1, 6, 6));
-                lista2.add(new Dinosaurio("pedro6", "\u001B[92m■\u001B[0m ","\u001B[92m■\u001B[0m ", "\u001B[92m■\u001B[0m ", 6, 1, 6, 5, 5));  
-                Servicio ser = new Servicio(cliente, lista2, torneo);
-                ser.iniciar();
+                try {
+                        FileInputStream fis = new FileInputStream("cliente.txt");
+                        ObjectInputStream ois = new ObjectInputStream(fis);
+                        Cuenta cliente2 = (Cuenta) ois.readObject();
+                        FileInputStream fis2 = new FileInputStream("torneo.txt");
+                        ObjectInputStream ois2 = new ObjectInputStream(fis2);
+                        Torneo torneo2 = (Torneo) ois2.readObject();
+                        FileInputStream fis3 = new FileInputStream("dino.txt");
+                        ObjectInputStream ois3 = new ObjectInputStream(fis3);
+                        Lista<Dinosaurio> lista3 = (Lista<Dinosaurio>) ois3.readObject();
+                        Servicio ser2 = new Servicio(cliente2, lista3, torneo2);
+                        ser2.iniciar();
+                        cliente2 = ser2.getCliente();
+                        torneo2 = ser2.getTorneo();
+                        lista3 = ser2.getDinosaurios();
+                        FileOutputStream fos = new FileOutputStream("cliente.txt");
+                        ObjectOutputStream oos = new ObjectOutputStream(fos);
+                        oos.writeObject(cliente2);
+                        oos.flush();
+                        FileOutputStream fos2 = new FileOutputStream("torneo.txt");
+                        ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
+                        oos2.writeObject(torneo2);
+                        oos2.flush();
+                        FileOutputStream fos3 = new FileOutputStream("dino.txt");
+                        ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
+                        oos3.writeObject(lista3);
+                        oos3.flush();
+                        System.out.println("Guardado");
+                } catch (IOException e) {
+                        System.out.println("No se pudo leer el archivo");
+                } catch (ClassNotFoundException e) {
+                        System.out.println("Error");
+                }
         }
 }
 /*

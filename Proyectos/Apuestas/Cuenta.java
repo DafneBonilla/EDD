@@ -184,4 +184,10 @@ public class Cuenta implements java.io.Serializable {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Cuenta [nombre=" + nombre + ", contrasena=" + contrasena + ", saldo=" + saldo + ", apuestaActual="
+                + apuestaActual + ", numeroApostado=" + numeroApostado + ", historial=" + historial + "]";
+    }
 }
