@@ -170,7 +170,7 @@ public class Cuenta implements java.io.Serializable {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean entrada = false;
         try {
-            // System.out.print("Time left to bet: ");
+            // System.out.print("Tiempo restante para apostar: ");
             for (int i = 10; i > 0 && !entrada; i--) {
                 // System.out.print(i + "...");
                 Thread.sleep(1000);

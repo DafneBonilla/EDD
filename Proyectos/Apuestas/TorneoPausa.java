@@ -11,12 +11,4 @@ public class TorneoPausa extends Exception {
     public TorneoPausa() {
     }
 
-    /**
-     * Constructor que recibe un mensaje.
-     * 
-     * @param mensaje un mensaje.
-     */
-    public TorneoPausa(String mensaje) {
-        super(mensaje);
-    }
 }
