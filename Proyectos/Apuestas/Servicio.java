@@ -47,7 +47,8 @@ public class Servicio {
             System.out.println("1. Ver/Apostar en un torneo.");
             System.out.println("2. Ver/Apostar en una carrera.");
             System.out.println("3. Ver el historial de la cuenta.");
-            System.out.println("4. Salir.");
+            System.out.println("4. Depositar dinero.");
+            System.out.println("5. Salir.");
             System.out.print("Seleccione una opcion: ");
             Scanner sc = new Scanner(System.in);
             String opcion = sc.nextLine();
@@ -77,6 +78,23 @@ public class Servicio {
                         sc.nextLine();
                         break;
                     case 4:
+                        System.out.print("Cantidad a depositar: ");
+                        String cantidad = sc.nextLine();
+                        try {
+                            double cant = Double.parseDouble(cantidad);
+                            if (cant <= 0) {
+                                System.out.println("Cantidad invalida.");
+                                break;
+                            } else {
+                                cliente.aumentarSaldo(cant);
+                                System.out.println("Saldo actual: " + cliente.getSaldoBonito());
+                            }
+                        } catch (NumberFormatException nfe) {
+                            System.out.println("Cantidad invalida.");
+                            break;
+                        }
+                        break;
+                    case 5:
                         System.out.println("Hasta la proxima :)");
                         funcionando = false;
                         break;
@@ -89,8 +107,8 @@ public class Servicio {
             } catch (TorneoPausa tp) {
                 continue;
             }
-            System.out.println("Guardando datos...");
         }
+        System.out.println("Guardando datos...");
     }
 
     /**

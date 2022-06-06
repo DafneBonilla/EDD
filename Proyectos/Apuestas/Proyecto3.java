@@ -117,25 +117,6 @@ public class Proyecto3 {
 
     public static void main(String[] args) {
 
-        Lista<Cuenta> listaClientes = new Lista<>();
-        listaClientes.add(new Cuenta("Pedro", "1234"));
-        listaClientes.add(new Cuenta("Juan", "5678"));
-        listaClientes.add(new Cuenta("Maria", "9012"));
-        listaClientes.add(new Cuenta("Susana", "3456"));
-        listaClientes.add(new Cuenta("Camilo", "7890"));
-        listaClientes.add(new Cuenta("Jose", "4567"));
-        listaClientes.add(new Cuenta("Dafne", "7890"));
-        listaClientes.add(new Cuenta("Laura", "3871"));
-        try {
-            FileOutputStream fos = new FileOutputStream("clientes.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(listaClientes);
-            oos.flush();
-        } catch (IOException ioe) {
-            System.out.println("No se pudo leer el archivo");
-        }
-        System.exit(0);
-
         try {
             FileInputStream fis = new FileInputStream("clientes.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
