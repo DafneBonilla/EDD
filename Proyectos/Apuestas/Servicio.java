@@ -41,7 +41,7 @@ public class Servicio {
      */
     public void iniciar() {
         while (funcionando) {
-            System.out.println("Bienvenido al servicio de apuestas " + cliente.getNombre() + ".");
+            System.out.println("Bienvenido a Apuestas \"Doña Susi\".");
             System.out.println("Cliente: " + cliente.getNombre());
             System.out.println("Saldo: " + cliente.getSaldoBonito());
             System.out.println("1. Ver/Apostar en un torneo.");
