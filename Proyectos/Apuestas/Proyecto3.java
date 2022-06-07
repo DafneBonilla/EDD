@@ -172,8 +172,9 @@ public class Proyecto3 {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1 || args.length != 0) {
-            //uso();
+        System.out.println(args.length);
+        if (args.length > 1) {
+            uso();
         }
         if (args.length == 1) {
             if (args[0].equals("archivos")) {
