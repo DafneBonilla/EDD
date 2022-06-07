@@ -1,6 +1,6 @@
 # Proyecto 3
 
-## 💰🦖🐥🐓 Apuestas
+## 💰🦖🐓 Apuestas
 
 Equipo:
 
