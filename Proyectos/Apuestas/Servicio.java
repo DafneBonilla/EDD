@@ -78,7 +78,7 @@ public class Servicio {
                         sc.nextLine();
                         break;
                     case 4:
-                        System.out.print("Cantidad a depositar: ");
+                        System.out.print("Cantidad a depositar ($): ");
                         String cantidad = sc.nextLine();
                         try {
                             double cant = Double.parseDouble(cantidad);

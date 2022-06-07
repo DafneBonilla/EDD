@@ -1,6 +1,7 @@
 package Apuestas;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -115,8 +116,90 @@ public class Proyecto3 {
         return buscada;
     }
 
-    public static void main(String[] args) {
+    public static Lista<Cuenta> crearCuenta() {
+        Lista<Cuenta> listaClientes = new Lista<>();
+        listaClientes.add(new Cuenta("Pedro", "1234"));
+        listaClientes.add(new Cuenta("Juan", "5678"));
+        listaClientes.add(new Cuenta("Maria", "9012"));
+        listaClientes.add(new Cuenta("Susana", "3456"));
+        listaClientes.add(new Cuenta("Camilo", "7890"));
+        listaClientes.add(new Cuenta("Jose", "4567"));
+        listaClientes.add(new Cuenta("Dafne", "7890"));
+        listaClientes.add(new Cuenta("Laura", "3871"));
+        return listaClientes;
+    }
 
+    public static Lista<Dinosaurio> crearDino() {
+        Lista<Dinosaurio> lista = new Lista<>();
+        lista.add(new Dinosaurio("Pedrito Pascal", "\u001B[92m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[91m■\u001B[0m ", 1, 6, 2, 5, 2));
+        lista.add(new Dinosaurio("Rogelio Jordan", "\u001B[96m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[95m■\u001B[0m ", 2, 5, 3, 4, 4));
+        lista.add(new Dinosaurio("Canek Pelaez", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ", 3, 4, 4, 3, 6));
+        lista.add(new Dinosaurio("Juan Carlos", "\u001B[95m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[97m■\u001B[0m ", 4, 3, 5, 2, 5));
+        lista.add(new Dinosaurio("Marie Curie", "\u001B[97m■\u001B[0m ", "\u001B[93m■\u001B[0m ", "\u001B[94m■\u001B[0m ", 5, 2, 6, 1, 3));
+        lista.add(new Dinosaurio("Alan Turing", "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ", 6, 1, 1, 6, 1));
+        return lista;
+    }
+
+    
+    public static Torneo crearTorneo() {
+        Lista<Gallito> lista = new Lista<>();
+        lista.add(new Gallito("Tigger", 350,  "\u001B[93m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Superman", 240,  "\u001B[96m■\u001B[0m ", "\u001B[90m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Shrek", 388,  "\u001B[92m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[92m■\u001B[0m "));
+        lista.add(new Gallito("Pepe el Pollo", 299,  "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Mumble", 330,  "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Iron Man", 250,  "\u001B[91m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Leibniz", 120,  "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ",  "\u001B[92m■\u001B[0m "));
+        lista.add(new Gallito("Rogelio", 380,  "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[96m■\u001B[0m ",  "\u001B[96m■\u001B[0m "));
+        lista.add(new Gallito("Patito Juan", 270,  "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[94m■\u001B[0m "));
+        lista.add(new Gallito("Spiderman", 275,  "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ",  "\u001B[94m■\u001B[0m "));
+        lista.add(new Gallito("Flash", 82,  "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Cesar Hernandez", 301,  "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("JB", 100,  "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Cody Maverick", 174,  "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Cantor", 147,  "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ",  "\u001B[95m■\u001B[0m "));
+        lista.add(new Gallito("Pedro Fisher", 121,  "\u001B[94m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[96m■\u001B[0m ",  "\u001B[95m■\u001B[0m "));
+        return new Torneo(lista);
+    }
+    
+    
+    public static void uso() {
+        System.out.println("Para generar archivos:");
+        System.out.println("java Apuestas/Proyecto3 archivos");
+        System.out.println("Para usar el programa:");
+        System.out.println("java Apuestas/Proyecto3");
+        System.exit(0);
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 1 || args.length != 0) {
+            //uso();
+        }
+        if (args.length == 1) {
+            if (args[0].equals("archivos")) {
+                try {
+                    FileOutputStream fos = new FileOutputStream("clientes.txt");
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(crearCuenta());
+                    oos.flush();
+                    FileOutputStream fos2 = new FileOutputStream("torneo.txt");
+                    ObjectOutputStream oos2 = new ObjectOutputStream(fos2);
+                    oos2.writeObject(crearTorneo());
+                    oos2.flush();
+                    FileOutputStream fos3 = new FileOutputStream("dino.txt");
+                    ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
+                    oos3.writeObject(crearDino());
+                    oos3.flush(); 
+                    System.out.println("Archivos listos");
+                    System.exit(0);
+                } catch (Exception e) {
+                    System.out.println("Error al intentar guardar");
+                    System.exit(0);
+                }
+            } else {
+                uso();
+            }
+        }
         try {
             FileInputStream fis = new FileInputStream("clientes.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
@@ -148,14 +231,16 @@ public class Proyecto3 {
             ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
             oos3.writeObject(lista3);
             oos3.flush();
+            System.out.println("Guardado listo");
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("No existen los archivos a leer.");
+            System.out.println("Para generar archivos: java Apuestas/Proyecto3 archivos");
         } catch (IOException ioe) {
             System.out.println("No se pudo leer/guardar el archivo");
         } catch (ClassNotFoundException cnfe) {
             System.out.println("Error");
         }
-
     }
-
 }
 
 /*

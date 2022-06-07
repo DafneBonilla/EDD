@@ -20,6 +20,9 @@ javac -d . *.java Estructuras/*.java
 Ejecutar desde `Apuestas/`
 
 ```
+java Apuestas/Proyecto3 archivos
+```
+```
 java Apuestas/Proyecto3
 ```
 
