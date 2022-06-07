@@ -38,7 +38,7 @@ El centro de apuestas "Doña Susi" tiene carreras de dinosaurios y torneos de ga
 ## Como usar
 
 <div align="justify">
-Para iniciar, se compila el código. Se generan los archivos de datos (**dino.txt**, clientes.txt y torneo.txt), en caso de no tenerlos. Se ejecuta el programa.
+Para iniciar, se compila el código. Se generan los archivos de datos (dino.txt, clientes.txt y torneo.txt) en caso de no tenerlos. Se ejecuta el programa.
 Una vez ejecutado el programa, se puede iniciar sesión o registrarse. Cuando se tenga una cuenta, se podrá acceder a las siguientes opciones:
 
 - Ver/Apostar en un torneo.
