@@ -56,8 +56,8 @@ Durante cada batalla del torneo, el usuario podrá volver al menú principal.
 
 <div align="justify">
 
-
 - Algunos sistemas operativos no muestran las representaciones bonitas de los ganadores (dinosaurio o gallito), por lo tanto, se recomienda usar una distribución de Unix para poder apreciar en toda su gloria a los dinosaurios/gallitos.
 - Al momento de apostar, al introducir datos (por alguna razón desconocida) no se puede ver lo que se está apostando en la consola, por lo tanto, no se asuste cuando vea que no se escribió nada, en realidad si se está leyendo lo que se está escribiendo.
 - En caso de borrar/perder los archivos dino.txt, clientes.txt o torneo.txt es necessario volver a generarlos, para poder iniciar el programa.
+
 </div>
