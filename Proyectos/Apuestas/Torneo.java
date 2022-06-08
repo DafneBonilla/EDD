@@ -114,7 +114,7 @@ public class Torneo implements java.io.Serializable {
                 if (ronda == null) {
                     this.ronda = new Ronda(participantes, perdedores, numRonda, cliente);
                 }
-                this.ronda.iniciar();
+                this.ronda.iniciar(cliente);
                 this.participantes = ronda.getParticipantes();
                 this.perdedores = ronda.getPerdedores();
                 this.cliente = ronda.getCliente();

@@ -74,7 +74,8 @@ public class Ronda implements java.io.Serializable {
      * 
      * @throws TorneoPausa cuando se va a pausar el torneo.
      */
-    public void iniciar() throws TorneoPausa {
+    public void iniciar(Cuenta cliente) throws TorneoPausa {
+        this.cliente = cliente;
         try {
             System.out.println("Empieza/continua la ronda " + numRonda);
             while (numBatalla != totalBatallas) {
