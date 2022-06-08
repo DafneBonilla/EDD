@@ -38,7 +38,7 @@ public class Proyecto3 {
                 default:
                     System.out.println("Opcion invalida.");
                     return inicio(lista);
-            }   
+            }
         } catch (NumberFormatException nfe) {
             System.out.println("Opcion invalida.");
             return inicio(lista);
@@ -56,7 +56,7 @@ public class Proyecto3 {
         System.out.print("Ingrese su nombre de usuario o presione 2 para salir: ");
         String nombreUsuario = sc.nextLine();
         if (nombreUsuario.equals("2")) {
-            return inicio(lista);            
+            return inicio(lista);
         }
         for (Cuenta c : lista) {
             if (c.getNombre().equals(nombreUsuario)) {
@@ -67,7 +67,7 @@ public class Proyecto3 {
         System.out.print("Ingrese su contraseña o presione 2 para salir: ");
         String contrasena = sc.nextLine();
         if (contrasena.equals("2")) {
-            return inicio(lista);            
+            return inicio(lista);
         }
         Cuenta nueva = new Cuenta(nombreUsuario, contrasena);
         return nueva;
@@ -85,7 +85,7 @@ public class Proyecto3 {
         System.out.print("Ingrese su nombre de usuario o presione 2 para salir: ");
         String nombreUsuario = sc.nextLine();
         if (nombreUsuario.equals("2")) {
-            return inicio(lista);            
+            return inicio(lista);
         }
         Boolean existe = false;
         Cuenta buscada = null;
@@ -106,7 +106,7 @@ public class Proyecto3 {
             String contrasena = sc.nextLine();
             if (contrasena.equals("2")) {
                 lista.add(buscada);
-                return inicio(lista);            
+                return inicio(lista);
             }
             if (buscada.getContrasena().equals(contrasena)) {
                 break;
@@ -131,38 +131,58 @@ public class Proyecto3 {
 
     public static Lista<Dinosaurio> crearDino() {
         Lista<Dinosaurio> lista = new Lista<>();
-        lista.add(new Dinosaurio("Pedrito Pascal", "\u001B[92m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[91m■\u001B[0m ", 1, 6, 2, 5, 2));
-        lista.add(new Dinosaurio("Rogelio Jordan", "\u001B[96m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[95m■\u001B[0m ", 2, 5, 3, 4, 4));
-        lista.add(new Dinosaurio("Canek Pelaez", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ", 3, 4, 4, 3, 6));
-        lista.add(new Dinosaurio("Juan Carlos", "\u001B[95m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[97m■\u001B[0m ", 4, 3, 5, 2, 5));
-        lista.add(new Dinosaurio("Marie Curie", "\u001B[97m■\u001B[0m ", "\u001B[93m■\u001B[0m ", "\u001B[94m■\u001B[0m ", 5, 2, 6, 1, 3));
-        lista.add(new Dinosaurio("Alan Turing", "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ", 6, 1, 1, 6, 1));
+        lista.add(new Dinosaurio("Pedrito Pascal", "\u001B[92m■\u001B[0m ", "\u001B[94m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m ", 1, 6, 2, 5, 2));
+        lista.add(new Dinosaurio("Rogelio Jordan", "\u001B[96m■\u001B[0m ", "\u001B[94m■\u001B[0m ",
+                "\u001B[95m■\u001B[0m ", 2, 5, 3, 4, 4));
+        lista.add(new Dinosaurio("Canek Pelaez", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ",
+                "\u001B[94m■\u001B[0m ", 3, 4, 4, 3, 6));
+        lista.add(new Dinosaurio("Juan Carlos", "\u001B[95m■\u001B[0m ", "\u001B[92m■\u001B[0m ",
+                "\u001B[97m■\u001B[0m ", 4, 3, 5, 2, 5));
+        lista.add(new Dinosaurio("Marie Curie", "\u001B[97m■\u001B[0m ", "\u001B[93m■\u001B[0m ",
+                "\u001B[94m■\u001B[0m ", 5, 2, 6, 1, 3));
+        lista.add(new Dinosaurio("Alan Turing", "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m ", 6, 1, 1, 6, 1));
         return lista;
     }
 
-    
     public static Torneo crearTorneo() {
         Lista<Gallito> lista = new Lista<>();
-        lista.add(new Gallito("Tigger", 350,  "\u001B[93m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
-        lista.add(new Gallito("Superman", 240,  "\u001B[96m■\u001B[0m ", "\u001B[90m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
-        lista.add(new Gallito("Shrek", 388,  "\u001B[92m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[92m■\u001B[0m "));
-        lista.add(new Gallito("Pepe el Pollo", 299,  "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
-        lista.add(new Gallito("Mumble", 330,  "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
-        lista.add(new Gallito("Iron Man", 250,  "\u001B[91m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
-        lista.add(new Gallito("Leibniz", 120,  "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ",  "\u001B[92m■\u001B[0m "));
-        lista.add(new Gallito("Rogelio", 380,  "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[96m■\u001B[0m ",  "\u001B[96m■\u001B[0m "));
-        lista.add(new Gallito("Patito Juan", 270,  "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[94m■\u001B[0m "));
-        lista.add(new Gallito("Spiderman", 275,  "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ",  "\u001B[94m■\u001B[0m "));
-        lista.add(new Gallito("Flash", 82,  "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
-        lista.add(new Gallito("Cesar Hernandez", 301,  "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
-        lista.add(new Gallito("JB", 100,  "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[91m■\u001B[0m ",  "\u001B[91m■\u001B[0m "));
-        lista.add(new Gallito("Cody Maverick", 174,  "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ",  "\u001B[93m■\u001B[0m "));
-        lista.add(new Gallito("Cantor", 147,  "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ",  "\u001B[95m■\u001B[0m "));
-        lista.add(new Gallito("Pedro Fisher", 121,  "\u001B[94m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[96m■\u001B[0m ",  "\u001B[95m■\u001B[0m "));
+        lista.add(new Gallito("Tigger", 350, "\u001B[93m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
+                "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Superman", 240, "\u001B[96m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Shrek", 388, "\u001B[92m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
+                "\u001B[92m■\u001B[0m "));
+        lista.add(new Gallito("Pepe el Pollo", 299, "\u001B[93m■\u001B[0m ", "\u001B[96m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Mumble", 330, "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[93m■\u001B[0m ",
+                "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Iron Man", 250, "\u001B[91m■\u001B[0m ", "\u001B[94m■\u001B[0m ",
+                "\u001B[93m■\u001B[0m ", "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Leibniz", 120, "\u001B[94m■\u001B[0m ", "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ",
+                "\u001B[92m■\u001B[0m "));
+        lista.add(new Gallito("Rogelio", 380, "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[96m■\u001B[0m ",
+                "\u001B[96m■\u001B[0m "));
+        lista.add(new Gallito("Patito Juan", 270, "\u001B[93m■\u001B[0m ", "\u001B[90m■\u001B[0m ",
+                "\u001B[93m■\u001B[0m ", "\u001B[94m■\u001B[0m "));
+        lista.add(new Gallito("Spiderman", 275, "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ",
+                "\u001B[94m■\u001B[0m ", "\u001B[94m■\u001B[0m "));
+        lista.add(new Gallito("Flash", 82, "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ", "\u001B[91m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Cesar Hernandez", 301, "\u001B[95m■\u001B[0m ", "\u001B[97m■\u001B[0m ",
+                "\u001B[90m■\u001B[0m ", "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("JB", 100, "\u001B[93m■\u001B[0m ", "\u001B[92m■\u001B[0m ", "\u001B[91m■\u001B[0m ",
+                "\u001B[91m■\u001B[0m "));
+        lista.add(new Gallito("Cody Maverick", 174, "\u001B[97m■\u001B[0m ", "\u001B[94m■\u001B[0m ",
+                "\u001B[93m■\u001B[0m ", "\u001B[93m■\u001B[0m "));
+        lista.add(new Gallito("Cantor", 147, "\u001B[96m■\u001B[0m ", "\u001B[91m■\u001B[0m ", "\u001B[97m■\u001B[0m ",
+                "\u001B[95m■\u001B[0m "));
+        lista.add(new Gallito("Pedro Fisher", 121, "\u001B[94m■\u001B[0m ", "\u001B[97m■\u001B[0m ",
+                "\u001B[96m■\u001B[0m ", "\u001B[95m■\u001B[0m "));
         return new Torneo(lista);
     }
-    
-    
+
     public static void uso() {
         System.out.println("Para generar archivos:");
         System.out.println("java Apuestas/Proyecto3 archivos");
@@ -172,7 +192,6 @@ public class Proyecto3 {
     }
 
     public static void main(String[] args) {
-        System.out.println(args.length);
         if (args.length > 1) {
             uso();
         }
@@ -190,7 +209,7 @@ public class Proyecto3 {
                     FileOutputStream fos3 = new FileOutputStream("dino.txt");
                     ObjectOutputStream oos3 = new ObjectOutputStream(fos3);
                     oos3.writeObject(crearDino());
-                    oos3.flush(); 
+                    oos3.flush();
                     System.out.println("Archivos listos");
                     System.exit(0);
                 } catch (Exception e) {
